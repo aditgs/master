@@ -128,6 +128,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
         }
     } 
     function getpmbkelas($id){
+        ///ini ambil kelas dari siakad_kelas
          $this->db->select('*')->from('siakad_kelas')->where('id_siakad_kelas',$id);
         $result=$this->db->get();
         if($result->num_rows()==1){

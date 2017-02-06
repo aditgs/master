@@ -161,14 +161,7 @@
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Pilihan Kelas
                 </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    : <?php 
-                    $kelas=$this->pmbdb->getpmbkelas($data['id_siakad_kelas']);
-
-                    // echo $data['id_siakad_kelas'] 
-                    echo "(".$kelas['inisial_kelas'].") ".$kelas['nm_kelas'];
-                    ?>
-                </div>
+                
             </div>
 
             <div class="row row-m-t-1">
