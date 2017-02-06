@@ -162,7 +162,12 @@
                     Pilihan Kelas
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    : <?php echo $data['id_siakad_kelas'] ?>
+                    : <?php 
+                    $kelas=$this->pmbdb->getpmbkelas($data['id_siakad_kelas']);
+
+                    // echo $data['id_siakad_kelas'] 
+                    echo "(".$kelas['inisial_kelas'].") ".$kelas['nm_kelas'];
+                    ?>
                 </div>
             </div>
 
@@ -286,7 +291,7 @@
                     Tanggal Lulus
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    : <?php echo $data['tgl_ijazah_pend'] ?>
+                    : <?php echo tanggalindo($data['tgl_ijazah_pend']) ?>
                 </div>
             </div>
 
@@ -304,7 +309,7 @@
                     <p>Panitia PMB</p>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <p>Jombang, <?php echo thedate($data['tgl_reg_pmb'])?><br>
+                    <p>Jombang, <?php echo tanggalindo($data['tgl_reg_pmb'],true)?><br>
                     Calon Mahasiswa</p>
                 </div>
             </div>
