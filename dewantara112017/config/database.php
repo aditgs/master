@@ -100,11 +100,11 @@ $query_builder = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 
-$db['default']['username'] = '';
+$db['default']['username'] = 'root';
 
-$db['default']['password'] = '';
+$db['default']['password'] = 'latansa876';
 
-$db['default']['database'] = '';
+$db['default']['database'] = 'u9504986_stied_siakad2018';
 
 $db['default']['dbdriver'] = 'mysqli';
 

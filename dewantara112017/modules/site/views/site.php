@@ -34,7 +34,7 @@
                                         <a class="btn btn-success" href=" <?php echo domain() ?>sika/tarif/">Set Tarif</a>
                                         <a class="btn btn-info" href=" <?php echo domain() ?>sika/tagihanmhs/">Cetak Tagihan</a>
                                         <a class="btn btn-warning" href=" <?php echo domain() ?>sika/tagihanmhs/validasi/">Validasi</a>
-                                     
+
                                     </div>
                                 </div>
                             </div>
@@ -84,12 +84,12 @@
                                     	<a class="btn btn-success" href=" <?php echo domain() ?>pos/purchase_order/">Pendaftaran</a>
                         				<a class="btn btn-info" href=" <?php echo domain() ?>pos/purchase_transaction/">Jadwal Test</a>
 										<a class="btn btn-primary" href=" <?php echo domain() ?>pos/purchase_transaction/laporan">Hasil test</a>
-                        
+
                                     </div>
                                 </div>
                             </div>
                             </div>
-                    </div>  
+                    </div>
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                             <div class="widget style1 yellow-bg">
                         <a class="ahover" style="" href="<?php echo base_url('acc') ?>" data-load="<?php echo base_url('acc') ?>" data-table="<?php echo base_url('acc') ?>" data-remote-target="#ajax-remote">
@@ -102,13 +102,13 @@
                                         <h3 class="font-bold">PENJAMINAN MUTU</h3>
                                     </div>
                                 </div>
-                        </a> 
+                        </a>
                         <div class="row" style="margin-top:20px">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="btn-group">
                                     	 <a class="btn btn-success" href=" <?php echo domain() ?>fin/kas_masuk">Formulir</a>
-                        <a class="btn btn-success" href=" <?php echo domain() ?>fin/kas_keluar">Kas Keluar</a>
-                         <a class="btn btn-success" href=" <?php echo domain() ?>fin/banks">No.Acc Kas</a>
+                        <a class="btn btn-success" href=" <?php echo domain() ?>fin/kas_keluar">Formulir</a>
+                         <a class="btn btn-success" href=" <?php echo domain() ?>fin/banks">Hasil formulir</a>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                                         <h3 class="font-bold">SDM</h3>
                                     </div>
                                 </div>
-                        </a> 
+                        </a>
                         <div class="row" style="margin-top:20px">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="btn-group">
@@ -150,7 +150,7 @@
                                         <h3 class="font-bold">ASSET MANAJEMEN</h3>
                                     </div>
                                 </div>
-                        </a> 
+                        </a>
                         <div class="row" style="margin-top:20px">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="btn-group">
@@ -161,10 +161,10 @@
                                 </div>
                             </div>
                             </div>
-                    </div> 
-                    
+                    </div>
+
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    	
+
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="widget style1 red-bg">
@@ -172,14 +172,14 @@
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
                                         <i class="fa fa-cubes fa-5x"></i>
-                                        
+
                                     </div>
                                     <div class="col-xs-12 text-center">
                                         <h3 class="font-bold">&nbsp;</h3>
                                         <h3 class="font-bold">MASTER</h3>
                                     </div>
                                 </div>
-                        </a> 
+                        </a>
                         <div class="row" style="margin-top:20px">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="btn-group">
@@ -196,9 +196,9 @@
                             </div>
                     </div>
                   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    	
+
                     </div>
-                   
+
                 </div>
             </div>
         </div>
