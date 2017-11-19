@@ -104,13 +104,13 @@ $query_builder = TRUE;
 */
 $db['default']['hostname'] = 'localhost';
 
-$db['default']['username'] = 'u9504986_siakad';
+$db['default']['username'] = '';
 
-$db['default']['password'] = '@siakad2018';
+$db['default']['password'] = '';
 
 // $db['default']['database'] = 'murialive2017april';
 
-$db['default']['database'] = 'u9504986_stied_siakad2018';
+$db['default']['database'] = '';
 
 // $db['default']['database'] = 'simkaaja';
 
