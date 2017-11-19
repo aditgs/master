@@ -77,3 +77,4 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/macos,windows,codeigniter
 dewantara112017/config/database.php
 dewantara112017/config/config.php
+dewantara112017/config/assets.php
