@@ -1,0 +1,5 @@
+/* 
+* tbs must be added on your autoload libraries array
+*/
+
+$autoload['libraries'] = array('tbs');

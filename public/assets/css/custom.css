@@ -1,0 +1,124 @@
+.pager li > a, .pager li > span{
+	background: normal	;
+	border-radius: 4px;
+}
+.next > .pager li > a:focus, .pager li > a:hover{
+	background-color: #ff9900;
+}.next > .pager li > a:focus, .pager li > a{
+	border-color: #cccccc;
+	background-color: #339900;
+}
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.glyphicon
+{
+    font-size: 12px;
+}
+.po_form.min-gutter [class*="col"] {
+	padding-left:10;
+    padding-right:10;
+}
+.tambah.row input {
+	color:#000;
+}
+.row.entry select#Kode.form-control,.row.entry select#Satuan.form-control{
+	color:#000;
+}
+.row.entry > .kdbarang,.row.entry > .satuan,.kdbarang,.satuan{
+	color:#000;
+}
+.form-inline.bayar{
+	color:#000;
+}
+.add_panel > .form-groups > .controls input {
+	color:#000;
+}
+#nilai_debet, #nilai_kredit{
+	color:#000;
+
+}
+#faktur_lawan,#no_perkiraan,#deskripsi,#nilai{
+	color:#000;
+}
+.panel-heading.panel-body .form-control {color:#000;}
+
+
+.modal-fullscreen{
+  position:absolute;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+
+}
+.widget{
+	min-height: 175px;
+}
+/*.modal {overflow:auto; }*/
+
+.nav > li.disabled{
+	color: rgba(0, 0, 0, 0.7);
+} 
+.nav > li.disabled a:hover{
+	color: rgba(255, 255, 255, 0.5);
+} 
+.row.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+.row.gutter10 > [class*='col-'] {
+    padding-right:10px;
+    padding-left:10px;
+}
+.row.gutter5 > [class*='col-'] {
+    padding-right:5px;
+    padding-left:5px;
+}
+
+#tabeldata thead th{
+	color: #333333;
+}
+.table-po tbody.table-bordered tr{
+	cursor: pointer;
+}
+section#imgoverlay {
+    width: 100%;
+    height: 100%;
+    right:auto;
+    left:auto;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 9999;
+    position:  fixed;
+    /*background-color: rgba(255,255,255,0.8);*/
+    background-color: rgba(0,0,0,0.8);
+}
+#overlay {
+    width: 100%;
+    height: 100%;
+    display:table;
+    background:transparent;
+}
+#overlay i {
+   display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+    color:#ff9900;
+}
+.spin-big {
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+ 
+}
+
+#laporan_po .checkbox label,#laporan_po .radio label{
+    padding-left: 0px;
+}
+
+.table-kecil>thead>tr>th, .table-kecil>tbody>tr>th, .table-kecil>tfoot>tr>th, .table-kecil>thead>tr>td, .table-kecil>tbody>tr>td, .table-kecil>tfoot>tr>td{
+    padding: 5px;
+}
