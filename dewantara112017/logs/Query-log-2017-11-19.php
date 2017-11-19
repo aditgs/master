@@ -551,3 +551,21 @@ JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
 WHERE `users_groups`.`user_id` =  '34' 
  Execution Time:0.00191879272461
 
+SELECT `users_groups`.`group_id` as id, `groups`.`name`, `groups`.`description`
+FROM (`users_groups`)
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` =  '34' 
+ Execution Time:0.000708818435669
+
+SELECT `users_groups`.`group_id` as id, `groups`.`name`, `groups`.`description`
+FROM (`users_groups`)
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` =  '34' 
+ Execution Time:0.00212788581848
+
+SELECT `users_groups`.`group_id` as id, `groups`.`name`, `groups`.`description`
+FROM (`users_groups`)
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` =  '34' 
+ Execution Time:0.00118494033813
+
