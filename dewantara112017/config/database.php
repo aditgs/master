@@ -132,43 +132,6 @@ $db['default']['date_default_timezone_set'] = 'Asia/Jakarta';
 
 
 
-$db['db2']['hostname'] = 'localhost';
-
-$db['db2']['username'] = 'root';
-
-$db['db2']['password'] = '';
-
-
-$db['db2']['database'] = 'muria';
-
-
-$db['db2']['dbdriver'] = 'mysqli';
-
-$db['db2']['dbprefix'] = '';
-
-$db['db2']['pconnect'] = TRUE;
-
-$db['db2']['db_debug'] = TRUE;
-
-$db['db2']['cache_on'] = FALSE;
-
-$db['db2']['cachedir'] = '';
-
-$db['db2']['char_set'] = 'utf8';
-
-$db['db2']['dbcollat'] = 'utf8_general_ci';
-
-$db['db2']['swap_pre'] = '';
-
-$db['db2']['autoinit'] = TRUE;
-
-$db['db2']['stricton'] = FALSE;
-
-$db['db2']['date_default_timezone_set'] = 'Asia/Jakarta';
-
-
-
-
 
 /* End of file database.php */
 
