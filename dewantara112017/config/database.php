@@ -138,11 +138,9 @@ $db['db2']['username'] = 'root';
 
 $db['db2']['password'] = '';
 
-// $db['db2']['database'] = 'murialive2017april';
 
 $db['db2']['database'] = 'muria';
 
-// $db['db2']['database'] = 'murialive_2017_02';
 
 $db['db2']['dbdriver'] = 'mysqli';
 
