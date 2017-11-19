@@ -98,23 +98,13 @@ $active_record = TRUE;
 
 $query_builder = TRUE;
 
-	/*'username' => 'u9504986_siakad',
-	'password' => '@siakad2018',
-	'database' => 'u9504986_stied_siakad2018',
-*/
 $db['default']['hostname'] = 'localhost';
 
 $db['default']['username'] = '';
 
 $db['default']['password'] = '';
 
-// $db['default']['database'] = 'murialive2017april';
-
 $db['default']['database'] = '';
-
-// $db['default']['database'] = 'simkaaja';
-
-// $db['default']['database'] = 'murialive_2017_02';
 
 $db['default']['dbdriver'] = 'mysqli';
 

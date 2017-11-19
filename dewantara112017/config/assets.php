@@ -4,11 +4,9 @@
 
 // if($_SERVER['HTTP_HOST']=='localhost'):
 
-$config['assets_url'] = "http://".$_SERVER['HTTP_HOST']."/devdemo/public/assets/";
+$config['assets_url'] = "http://".$_SERVER['HTTP_HOST']."/dewa-project/public/assets/";
 
 // else:
-
-// $config['assets_url'] = "http://sim.muriaps.com/assets/";
 
 // endif;
 
