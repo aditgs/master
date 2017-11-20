@@ -100,7 +100,7 @@ $query_builder = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 
-$db['default']['username'] = 'test';
+$db['default']['username'] = 'root';
 
 $db['default']['password'] = 'latansa876';
 
