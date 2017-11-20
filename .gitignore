@@ -75,10 +75,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/macos,windows,codeigniter
-dewantara112017/config/database.php
-dewantara112017/config/config.php
-dewantara112017/config/assets.php
-dewantara112017/config/database.php
-dewantara112017/config/database.php
-dewantara112017/logs/Query-log-2017-11-19.php
-dewantara112017/config/database.php
+*dewantara112017/config/config.php
+*dewantara112017/config/assets.php
+*dewantara112017/config/database.php
+*dewantara112017/logs/*.php
