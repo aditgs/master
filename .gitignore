@@ -3,6 +3,11 @@
 
 ### CodeIgniter ###
 */config/development
+dewantara112017/config/config.php
+dewantara112017/config/assets.php
+dewantara112017/config/database.php
+dewantara112017/logs/*
+
 */logs/log-*.php
 !*/logs/index.html
 */cache/*
@@ -19,8 +24,6 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 /vendor/
-/config/
-/logs/
 
 #codeigniter hmvc custom
 */config/*
@@ -77,7 +80,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/macos,windows,codeigniter
-*/logs/Query-log-*.php
-*/config/database.php
-*/config/config.php
-*/config/assets.php

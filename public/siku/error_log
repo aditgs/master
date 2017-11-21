@@ -1,0 +1,12 @@
+[17-Nov-2017 22:13:09 Asia/Jakarta] PHP Fatal error:  Cannot redeclare tarif::getdatatables() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/tarif/controllers/tarif.php on line 315
+[17-Nov-2017 22:27:25 Asia/Jakarta] PHP Fatal error:  Cannot redeclare tarif::getdatatables() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/tarif/controllers/tarif.php on line 315
+[17-Nov-2017 22:27:40 Asia/Jakarta] PHP Fatal error:  Cannot redeclare tarif::getdatatables() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/tarif/controllers/tarif.php on line 315
+[17-Nov-2017 22:27:49 Asia/Jakarta] PHP Fatal error:  Cannot redeclare prodi::getdatatables() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/prodi/controllers/prodi.php on line 315
+[17-Nov-2017 22:27:53 Asia/Jakarta] PHP Fatal error:  Cannot redeclare prodi::getdatatables() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/prodi/controllers/prodi.php on line 315
+[17-Nov-2017 22:32:26 Asia/Jakarta] PHP Fatal error:  Cannot redeclare tarif::getdatatables() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/tarif/controllers/tarif.php on line 315
+[17-Nov-2017 22:32:34 Asia/Jakarta] PHP Fatal error:  Cannot redeclare prodi::getdatatables() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/prodi/controllers/prodi.php on line 315
+[17-Nov-2017 22:32:53 Asia/Jakarta] PHP Fatal error:  Cannot redeclare tarif::getdatatables() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/tarif/controllers/tarif.php on line 315
+[17-Nov-2017 22:33:12 Asia/Jakarta] PHP Fatal error:  Cannot redeclare tarif::getdatatables() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/tarif/controllers/tarif.php on line 315
+[17-Nov-2017 22:35:51 Asia/Jakarta] PHP Fatal error:  Cannot redeclare tarif::getdatatables() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/tarif/controllers/tarif.php on line 315
+[18-Nov-2017 09:43:15 Asia/Jakarta] PHP Fatal error:  Call to undefined function bacatarif() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/tarif/controllers/tarif.php on line 201
+[18-Nov-2017 09:43:19 Asia/Jakarta] PHP Fatal error:  Call to undefined function bacatarif() in /home/u9504986/public_html/devdemo/dewantara112017/modules/akademik/tarif/controllers/tarif.php on line 201
