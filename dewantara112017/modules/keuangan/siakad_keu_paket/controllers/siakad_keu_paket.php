@@ -41,34 +41,34 @@ class siakad_keu_paket extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Siakad_keu_paket');
+        $this->template->set_title('Kelola Paket Tagihan');
         $this->template->add_js('var baseurl="'.base_url().'siakad_keu_paket/";','embed');  
         $this->template->load_view('siakad_keu_paket_view',array(
-            'view'=>'',
-            'title'=>'Kelola Data Siakad_keu_paket',
-            'subtitle'=>'Pengelolaan Siakad_keu_paket',
+            'view'=>'datapaket',
+            'title'=>'Kelola Data Paket Tagihan',
+            'subtitle'=>'Pengelolaan Paket Tagihan',
             'breadcrumb'=>array(
             'Siakad_keu_paket'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Siakad_keu_paket');
+        $this->template->set_title('Kelola Paket Tagihan');
         $this->template->add_js('var baseurl="'.base_url().'siakad_keu_paket/";','embed');  
         $this->template->load_view('siakad_keu_paket_view',array(
             'view'=>'Siakad_keu_paket_data',
-            'title'=>'Kelola Data Siakad_keu_paket',
-            'subtitle'=>'Pengelolaan Siakad_keu_paket',
+            'title'=>'Kelola Data Paket Tagihan',
+            'subtitle'=>'Pengelolaan Paket Tagihan',
             'breadcrumb'=>array(
             'Siakad_keu_paket'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Siakad_keu_paket');
+        $this->template->set_title('Kelola Paket Tagihan');
         $this->template->add_js('var baseurl="'.base_url().'siakad_keu_paket/";','embed');  
         $this->template->load_view('siakad_keu_paket_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Siakad_keu_paket',
-            'subtitle'=>'Pengelolaan Siakad_keu_paket',
+            'title'=>'Kelola Data Paket Tagihan',
+            'subtitle'=>'Pengelolaan Paket Tagihan',
             'breadcrumb'=>array(
             'Siakad_keu_paket'),
         ));
@@ -125,7 +125,7 @@ class siakad_keu_paket extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
+        // if($this->isadmin()==1):
             $this->datatables->select('id_siakad_keu_paket,kode_akademik,nm_paket,')
                             ->from('siakad_keu_paket');
             $this->datatables->add_column('edit',"<div class='btn-group'>
@@ -136,13 +136,13 @@ class siakad_keu_paket extends MX_Controller {
                 </div>" , 'id_siakad_keu_paket');
             $this->datatables->unset_column('id_siakad_keu_paket');
 
-        else:
+        /*else:
             $this->datatables->select('id_siakad_keu_paket,kode_akademik,nm_paket,')
                             ->from('siakad_keu_paket');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_keu_paket/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id_siakad_keu_paket');
             $this->datatables->unset_column('id_siakad_keu_paket');
-        endif;
+        endif;*/
         echo $this->datatables->generate();
     }
     function enkrip(){

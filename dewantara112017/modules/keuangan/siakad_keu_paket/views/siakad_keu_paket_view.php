@@ -3,7 +3,7 @@
                 <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Form Siakad_keu_paket</h5>
+                        <h5>Form Paket Tagihan</h5>
                         
                     </div>
                     <div class="ibox-content">
@@ -29,7 +29,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Detail siakad_keu_paket</h4>
+                    <h4 class="modal-title">Detail Paket Tagihan</h4>
                 </div>
                 <div class="modal-body">
                     
