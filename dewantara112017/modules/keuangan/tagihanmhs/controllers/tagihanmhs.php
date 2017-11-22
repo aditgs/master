@@ -90,10 +90,11 @@ class tagihanmhs extends MX_Controller {
                  theme: "bootstrap input-md"
             });
             ','embed');   
-        $this->template->add_js('modules/form.js');
+        // $this->template->add_js('modules/form.js');
         $this->template->load_view('tagihanmhs_view',array(
             'view'=>'formtagihan',
             'title'=>'Kelola Data Tagihanmhs',
+            'default'=>array('kode'=>$this->tagihdb->genfaktur()),
             'subtitle'=>'Pengelolaan Tagihanmhs',
             'opt_mhs'=>$this->tagihdb->get_drop_array('mhsmaster','nim','nama'),
 
@@ -121,6 +122,7 @@ class tagihanmhs extends MX_Controller {
             $kode=$this->tagihdb->genfaktur();
             $data['kode']=$kode; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
+            $data['islocked']=1;
             $data['datetime']=date('Y-m-d H:m:s');
             
             $id=$this->__submitnomor($data);

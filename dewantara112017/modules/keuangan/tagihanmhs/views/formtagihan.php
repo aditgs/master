@@ -7,7 +7,7 @@
             <div class="controls input-group">
                 <?php echo form_input('kode',set_value('kode', isset($default['kode']) ? $default['kode'] : ''),'id="kode" class="form-control" readonly placeholder="#Kode Tagihan"'); ?>
                 <span class="input-group-btn">
-                                                <a class="genfaktur btn btn-primary" data-toggle="" href='#'><i class="fa fa-cogs"></i></a>
+                                                <a class="genfaktur btn btn-primary disabled" data-toggle="" href='#'><i class="fa fa-cogs"></i></a>
                                             </span>
             </div>
         </div>
