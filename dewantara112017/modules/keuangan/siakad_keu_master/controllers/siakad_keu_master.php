@@ -41,36 +41,36 @@ class siakad_keu_master extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Siakad_keu_master');
+        $this->template->set_title('Kelola Master Keuangan');
         $this->template->add_js('var baseurl="'.base_url().'siakad_keu_master/";','embed');  
         $this->template->load_view('siakad_keu_master_view',array(
-            'view'=>'',
-            'title'=>'Kelola Data Siakad_keu_master',
-            'subtitle'=>'Pengelolaan Siakad_keu_master',
+            'view'=>'datakeuangan',
+            'title'=>'Kelola Data Master Keuangan',
+            'subtitle'=>'Pengelolaan Master Keuangan',
             'breadcrumb'=>array(
-            'Siakad_keu_master'),
+            'Master Keuangan'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Siakad_keu_master');
+        $this->template->set_title('Kelola Master Keuangan');
         $this->template->add_js('var baseurl="'.base_url().'siakad_keu_master/";','embed');  
         $this->template->load_view('siakad_keu_master_view',array(
-            'view'=>'Siakad_keu_master_data',
-            'title'=>'Kelola Data Siakad_keu_master',
-            'subtitle'=>'Pengelolaan Siakad_keu_master',
+            'view'=>'Master Keuangan_data',
+            'title'=>'Kelola Data Master Keuangan',
+            'subtitle'=>'Pengelolaan Master Keuangan',
             'breadcrumb'=>array(
-            'Siakad_keu_master'),
+            'Master Keuangan'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Siakad_keu_master');
+        $this->template->set_title('Kelola Master Keuangan');
         $this->template->add_js('var baseurl="'.base_url().'siakad_keu_master/";','embed');  
         $this->template->load_view('siakad_keu_master_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Siakad_keu_master',
-            'subtitle'=>'Pengelolaan Siakad_keu_master',
+            'title'=>'Kelola Data Master Keuangan',
+            'subtitle'=>'Pengelolaan Master Keuangan',
             'breadcrumb'=>array(
-            'Siakad_keu_master'),
+            'Master Keuangan'),
         ));
         
     }
@@ -125,9 +125,10 @@ class siakad_keu_master extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
+        
             $this->datatables->select('id_siakad_keu_master,kode_akademik,nm_tagihan,nominal_biaya,')
                             ->from('siakad_keu_master');
+            $this->datatables->edit_column('nominal_biaya','<div class="text-right">$1</div>','rp(nominal_biaya)');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_keu_master/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
@@ -136,13 +137,7 @@ class siakad_keu_master extends MX_Controller {
                 </div>" , 'id_siakad_keu_master');
             $this->datatables->unset_column('id_siakad_keu_master');
 
-        else:
-            $this->datatables->select('id_siakad_keu_master,kode_akademik,nm_tagihan,nominal_biaya,')
-                            ->from('siakad_keu_master');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_keu_master/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id_siakad_keu_master');
-            $this->datatables->unset_column('id_siakad_keu_master');
-        endif;
+        
         echo $this->datatables->generate();
     }
     function enkrip(){
