@@ -41,34 +41,34 @@ class siakad_keu_paket_komp extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Siakad_keu_paket_komp');
+        $this->template->set_title('Kelola Paket Tagihan Biaya');
         $this->template->add_js('var baseurl="'.base_url().'siakad_keu_paket_komp/";','embed');  
         $this->template->load_view('siakad_keu_paket_komp_view',array(
-            'view'=>'',
-            'title'=>'Kelola Data Siakad_keu_paket_komp',
-            'subtitle'=>'Pengelolaan Siakad_keu_paket_komp',
+            'view'=>'datapakettagihan',
+            'title'=>'Kelola Data Paket Tagihan Biaya',
+            'subtitle'=>'Pengelolaan Paket Tagihan Biaya',
             'breadcrumb'=>array(
             'Siakad_keu_paket_komp'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Siakad_keu_paket_komp');
+        $this->template->set_title('Kelola Paket Tagihan Biaya');
         $this->template->add_js('var baseurl="'.base_url().'siakad_keu_paket_komp/";','embed');  
         $this->template->load_view('siakad_keu_paket_komp_view',array(
             'view'=>'Siakad_keu_paket_komp_data',
-            'title'=>'Kelola Data Siakad_keu_paket_komp',
-            'subtitle'=>'Pengelolaan Siakad_keu_paket_komp',
+            'title'=>'Kelola Data Paket Tagihan Biaya',
+            'subtitle'=>'Pengelolaan Paket Tagihan Biaya',
             'breadcrumb'=>array(
             'Siakad_keu_paket_komp'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Siakad_keu_paket_komp');
+        $this->template->set_title('Kelola Paket Tagihan Biaya');
         $this->template->add_js('var baseurl="'.base_url().'siakad_keu_paket_komp/";','embed');  
         $this->template->load_view('siakad_keu_paket_komp_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Siakad_keu_paket_komp',
-            'subtitle'=>'Pengelolaan Siakad_keu_paket_komp',
+            'title'=>'Kelola Data Paket Tagihan Biaya',
+            'subtitle'=>'Pengelolaan Paket Tagihan Biaya',
             'breadcrumb'=>array(
             'Siakad_keu_paket_komp'),
         ));
@@ -125,24 +125,27 @@ class siakad_keu_paket_komp extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
-            $this->datatables->select('id_siakad_keu_paket_komp,id_siakad_keu_paket,id_siakad_keu_master,')
-                            ->from('siakad_keu_paket_komp');
+        // if($this->isadmin()==1):
+            $this->datatables->select('a.id_siakad_keu_paket_komp,b.nm_paket,c.nm_tagihan,c.nominal_biaya')
+                            ->from('siakad_keu_paket_komp as a')
+                            ->join('siakad_keu_paket as b','a.id_siakad_keu_paket=b.id_siakad_keu_paket','left')
+                            ->join('siakad_keu_master as c','a.id_siakad_keu_master=c.id_siakad_keu_master','left');
+             $this->datatables->edit_column('nominal_biaya','<div class="text-right">$1</div>','rp(nominal_biaya)');                
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_keu_paket_komp/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
                 <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id_siakad_keu_paket_komp');
-            $this->datatables->unset_column('id_siakad_keu_paket_komp');
+            // $this->datatables->unset_column('id_siakad_keu_paket_komp');
 
-        else:
+       /* else:
             $this->datatables->select('id_siakad_keu_paket_komp,id_siakad_keu_paket,id_siakad_keu_master,')
                             ->from('siakad_keu_paket_komp');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_keu_paket_komp/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id_siakad_keu_paket_komp');
             $this->datatables->unset_column('id_siakad_keu_paket_komp');
-        endif;
+        endif;*/
         echo $this->datatables->generate();
     }
     function enkrip(){

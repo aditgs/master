@@ -2,19 +2,23 @@
 
                     <div id="form_input" class="">
                     <?php echo form_open(base_url().'siakad_keu_paket_komp/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
-                                                   
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                              
+                        </div>  
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <input type="hidden" value='' id="id_siakad_keu_paket_komp" name="id_siakad_keu_paket_komp">
                             
                             <div class="form-group">
-                                <?php echo form_label('id_siakad_keu_paket : ','id_siakad_keu_paket',array('class'=>'control-label')); ?>
+                                <?php echo form_label('ID Paket : ','id_siakad_keu_paket',array('class'=>'control-label')); ?>
                                 <div class="controls">
                                 <?php echo form_input('id_siakad_keu_paket',set_value('id_siakad_keu_paket', isset($default['id_siakad_keu_paket']) ? $default['id_siakad_keu_paket'] : ''),'id="id_siakad_keu_paket" class="form-control" placeholder="Masukkan id_siakad_keu_paket"'); ?>
                                 </div>
                             </div>
-                        
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            
                             <div class="form-group">
-                                <?php echo form_label('id_siakad_keu_master : ','id_siakad_keu_master',array('class'=>'control-label')); ?>
+                                <?php echo form_label('ID Tagihan Biaya : ','id_siakad_keu_master',array('class'=>'control-label')); ?>
                                 <div class="controls">
                                 <?php echo form_input('id_siakad_keu_master',set_value('id_siakad_keu_master', isset($default['id_siakad_keu_master']) ? $default['id_siakad_keu_master'] : ''),'id="id_siakad_keu_master" class="form-control" placeholder="Masukkan id_siakad_keu_master"'); ?>
                                 </div>
