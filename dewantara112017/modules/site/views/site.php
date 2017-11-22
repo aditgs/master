@@ -17,7 +17,7 @@
                     <h2>SISTEM INFORMASI AKADEMIK STIE DEWANTARA </h2>
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                         <div class="widget style1 navy-bg">
-                            <a class="ahover" style="" href="<?php echo base_url('sika') ?>" data-load="<?php echo base_url('sika') ?>" data-table="<?php echo base_url('sika') ?>" data-remote-target="#ajax-remote">
+                            <a class="ahover" style="" href="<?php echo base_url('siku') ?>" data-load="<?php echo base_url('siku') ?>" data-table="<?php echo base_url('siku') ?>" data-remote-target="#ajax-remote">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
                                         <i class="fa fa-money fa-5x"></i>
@@ -31,9 +31,9 @@
                             <div class="row" style="margin-top:20px">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="btn-group">
-                                        <a class="btn btn-success" href=" <?php echo domain() ?>sika/tarif/">Set Tarif</a>
-                                        <a class="btn btn-info" href=" <?php echo domain() ?>sika/tagihanmhs/">Cetak Tagihan</a>
-                                        <a class="btn btn-warning" href=" <?php echo domain() ?>sika/tagihanmhs/validasi/">Validasi</a>
+                                        <a class="btn btn-success" href=" <?php echo domain() ?>siku/tarif/">Set Tarif</a>
+                                        <a class="btn btn-info" href=" <?php echo domain() ?>siku/tagihanmhs/">Cetak Tagihan</a>
+                                        <a class="btn btn-warning" href=" <?php echo domain() ?>siku/tagihanmhs/validasi/">Validasi</a>
 
                                     </div>
                                 </div>
