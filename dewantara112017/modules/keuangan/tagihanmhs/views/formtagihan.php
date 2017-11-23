@@ -1,3 +1,9 @@
+<style type="text/css">
+    .datepicker{
+        z-index: 1200 !important;
+    }
+
+</style>
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'tagihanmhs/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
