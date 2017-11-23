@@ -125,7 +125,7 @@ class siakad_mhs extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
+        // if($this->isadmin()==1):
             $this->datatables->select('nim_mhs,npm_mhs,noreg_pmb,kode_prodi,nm_mhs,thn_masuk,kode_akademik,bts_akademik,kelamin_mhs,tmp_mhs,tgl_mhs,agama_mhs,almt_mhs,kota_mhs,kodepos_mhs,email_mhs,hp_mhs,telp_mhs,status_mhs,nip_dosen,img_mhs,pass_mhs,tgl_lulus_mhs,no_transkrip,status_masuk,style_mhs,')
                             ->from('siakad_mhs');
             $this->datatables->add_column('edit',"<div class='btn-group'>
@@ -136,13 +136,13 @@ class siakad_mhs extends MX_Controller {
                 </div>" , 'nim_mhs');
             $this->datatables->unset_column('nim_mhs');
 
-        else:
+       /* else:
             $this->datatables->select('nim_mhs,npm_mhs,noreg_pmb,kode_prodi,nm_mhs,thn_masuk,kode_akademik,bts_akademik,kelamin_mhs,tmp_mhs,tgl_mhs,agama_mhs,almt_mhs,kota_mhs,kodepos_mhs,email_mhs,hp_mhs,telp_mhs,status_mhs,nip_dosen,img_mhs,pass_mhs,tgl_lulus_mhs,no_transkrip,status_masuk,style_mhs,')
                             ->from('siakad_mhs');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_mhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'nim_mhs');
             $this->datatables->unset_column('nim_mhs');
-        endif;
+        endif;*/
         echo $this->datatables->generate();
     }
     function enkrip(){

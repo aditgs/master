@@ -44,7 +44,7 @@ class Validasi extends MX_Controller {
 	public function index() {
         $this->template->set_title('Kelola Validasi');
         $this->template->add_js('var baseurl="'.base_url().'Validasi/";','embed');  
-        $this->template->load_view('Validasi_view',array(
+        $this->template->load_view('tagihanmhs_view',array(
             'view'=>'formvalidasi',
             'title'=>'Kelola Data Validasi',
             'subtitle'=>'Pengelolaan Validasi',

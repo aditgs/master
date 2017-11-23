@@ -1,13 +1,13 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-class tagihanmhs extends MX_Controller {
+class siakad_keu_pendaftaran extends MX_Controller {
 
     function __construct() {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('tagihanmhs_model','tagihdb',TRUE);
-        $this->session->set_userdata('lihat','tagihanmhs');
+        $this->load->model('siakad_keu_pendaftaran_model','siakad_keu_pendaftarandb',TRUE);
+        $this->session->set_userdata('lihat','siakad_keu_pendaftaran');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
         endif;
@@ -20,14 +20,14 @@ class tagihanmhs extends MX_Controller {
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
-        $this->template->add_js('accounting.min.js');
+        /*$this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
-        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
+        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');*/
         
         /*ONLINE CDN*/
         /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
@@ -41,65 +41,36 @@ class tagihanmhs extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";
-            $("#data").DataTable({
-            "ajax": {
-              
-                "url": baseurl + "gettagihan/",
-                "dataType": "json",
-                
-            },
-            "sServerMethod": "POST",
-            "bServerSide": true,
-            "bAutoWidth": true,
-            "lengthChange": true,
-            "SortClasses": true,
-            "bscrollCollapse": true,
-            "paging": false,
-            "deferRender": true,
-            "bFilter": false,
-            "ordering": false,
-            "responsive": true,
-        });
-            ','embed');  
-        $this->template->load_view('tagihanmhs_view',array(
-            'view'=>'tagihanmhs_data',
-            'title'=>'Kelola Data Tagihanmhs',
-            'subtitle'=>'Pengelolaan Tagihanmhs',
-            'opt_mhs'=>$this->tagihdb->get_drop_array('mhsmaster','nim','nama'),
+        $this->template->set_title('Kelola Siakad_keu_pendaftaran');
+        $this->template->add_js('var baseurl="'.base_url().'siakad_keu_pendaftaran/";','embed');  
+        $this->template->load_view('siakad_keu_pendaftaran_view',array(
+            'view'=>'',
+            'title'=>'Kelola Data Siakad_keu_pendaftaran',
+            'subtitle'=>'Pengelolaan Siakad_keu_pendaftaran',
             'breadcrumb'=>array(
-            'Tagihanmhs'),
+            'Siakad_keu_pendaftaran'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";','embed');  
-        $this->template->load_view('tagihanmhs_view',array(
-            'view'=>'Tagihanmhs_data',
-            'title'=>'Kelola Data Tagihanmhs',
-            'subtitle'=>'Pengelolaan Tagihanmhs',
+        $this->template->set_title('Kelola Siakad_keu_pendaftaran');
+        $this->template->add_js('var baseurl="'.base_url().'siakad_keu_pendaftaran/";','embed');  
+        $this->template->load_view('siakad_keu_pendaftaran_view',array(
+            'view'=>'Siakad_keu_pendaftaran_data',
+            'title'=>'Kelola Data Siakad_keu_pendaftaran',
+            'subtitle'=>'Pengelolaan Siakad_keu_pendaftaran',
             'breadcrumb'=>array(
-            'Tagihanmhs'),
+            'Siakad_keu_pendaftaran'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";
-            $("#mhs").select2({
-                 theme: "bootstrap input-md"
-            });
-            ','embed');   
-        // $this->template->add_js('modules/form.js');
-        $this->template->load_view('tagihanmhs_view',array(
-            'view'=>'formtagihan',
-            'title'=>'Kelola Data Tagihanmhs',
-            'default'=>array('kode'=>$this->tagihdb->genfaktur()),
-            'subtitle'=>'Pengelolaan Tagihanmhs',
-            'opt_mhs'=>$this->tagihdb->get_drop_array('mhsmaster','nim','nama'),
-
+        $this->template->set_title('Kelola Siakad_keu_pendaftaran');
+        $this->template->add_js('var baseurl="'.base_url().'siakad_keu_pendaftaran/";','embed');  
+        $this->template->load_view('siakad_keu_pendaftaran_view',array(
+            'view'=>'',
+            'title'=>'Kelola Data Siakad_keu_pendaftaran',
+            'subtitle'=>'Pengelolaan Siakad_keu_pendaftaran',
             'breadcrumb'=>array(
-            'Tagihanmhs'),
+            'Siakad_keu_pendaftaran'),
         ));
         
     }
@@ -111,44 +82,43 @@ class tagihanmhs extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->tagihdb->ceknomornull();
+        $null=$this->siakad_keu_pendaftarandb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
-            $kode=$null['kode']; //nama field perlu menyesuaikan tabel
+            $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
             $id=$null['id'];
-            $this->__updatestatproses($kode);
+            $this->__updatestatproses($faktur);
         }else{
 
-            $kode=$this->tagihdb->genfaktur();
-            $data['kode']=$kode; //nama field perlu menyesuaikan tabel
+            $faktur=$this->siakad_keu_pendaftarandb->genfaktur();
+            $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
-            $data['islocked']=1;
             $data['datetime']=date('Y-m-d H:m:s');
-            
+            $data['islocked']=1;
             $id=$this->__submitnomor($data);
         }
        
         $session=array('new'=>false,'edit'=>true);
-        $data=array('kode'=>$kode,'idx'=>$id);
-        $default['kode']=$kode;
+        $nopo=array('faktur'=>$faktur,'idx'=>$id);
+        $default['faktur']=$faktur;
     
-        return (json_encode($data));
-        // return base64_encode(json_encode($data));
-        // echo base64_encode(json_encode($data));
+        return (json_encode($nopo));
+        // return base64_encode(json_encode($nopo));
+        // echo base64_encode(json_encode($nopo));
     }
     function __submitnomor($data){
 
-       $this->db->insert('tagihanmhs',$data);
+       $this->db->insert('siakad_keu_pendaftaran',$data);
        return $this->db->insert_id();
     }
-     function __updatestatproses($kode){
+     function __updatestatproses($faktur){
         $data=array(
             
             // 'status'=>'Proses',
             'islocked'=>1,
             );
-        $this->db->where('kode',$kode); //nama field perlu menyesuaikan tabel
-        $this->db->update('tagihanmhs',$data);
+        $this->db->where('Faktur',$faktur); //nama field perlu menyesuaikan tabel
+        $this->db->update('siakad_keu_pendaftaran',$data);
     }
      
      //<!-- Start Primary Key -->
@@ -156,42 +126,28 @@ class tagihanmhs extends MX_Controller {
 
     public function getdatatables(){
         if($this->isadmin()==1):
-            $this->datatables->select('id,kode,tanggal,mhs,kodebank,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,isdeleted,datedeleted,userid,datetime,')
-                            ->from('tagihanmhs');
+            $this->datatables->select('id_siakad_keu_pendaftaran,thn_akademik,nm_pendaftaran,biaya_pendaftaran,')
+                            ->from('siakad_keu_pendaftaran');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_keu_pendaftaran/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
                 <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
-                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
-                </div>" , 'id');
-            $this->datatables->unset_column('id');
+                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                </div>" , 'id_siakad_keu_pendaftaran');
+            $this->datatables->unset_column('id_siakad_keu_pendaftaran');
 
         else:
-            $this->datatables->select('id,kode,tanggal,mhs,kodebank,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,isdeleted,datedeleted,userid,datetime,')
-                            ->from('tagihanmhs');
+            $this->datatables->select('id_siakad_keu_pendaftaran,thn_akademik,nm_pendaftaran,biaya_pendaftaran,')
+                            ->from('siakad_keu_pendaftaran');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
-            $this->datatables->unset_column('id');
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_keu_pendaftaran/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id_siakad_keu_pendaftaran');
+            $this->datatables->unset_column('id_siakad_keu_pendaftaran');
         endif;
-        echo $this->datatables->generate();
-    }
-    public function gettagihan(){
-            $this->datatables->select('id,KodeT,Tarif,')
-                            ->from('tarif');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
-
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
-                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
-                </div>" , 'id');
-            $this->datatables->unset_column('id');
-
-      
         echo $this->datatables->generate();
     }
     function enkrip(){
         return md5($this->session->userdata('lihat').":".$this->getuser()."+".date('H:m'));
-        // echo $this->session->userdata('tagihanmhs');
+        // echo $this->session->userdata('siakad_keu_pendaftaran');
     }
     function isadmin(){
        return $this->ion_auth->is_admin();
@@ -209,22 +165,22 @@ class tagihanmhs extends MX_Controller {
     }
     function forms(){   
 
-        $this->load->view('tagihanmhs_form_inside');
+        $this->load->view('siakad_keu_pendaftaran_form_inside');
            
     }
 
-    public function get($id=null){
-        if($id!==null){
-            echo json_encode($this->tagihdb->get_one($id));
+    public function get($id_siakad_keu_pendaftaran=null){
+        if($id_siakad_keu_pendaftaran!==null){
+            echo json_encode($this->siakad_keu_pendaftarandb->get_one($id_siakad_keu_pendaftaran));
         }
     }
     function tables(){
-        $this->load->view('tagihanmhs_data');
+        $this->load->view('siakad_keu_pendaftaran_data');
     }
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->tagihdb->get_one($id);
+            $data=$this->siakad_keu_pendaftarandb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -253,20 +209,20 @@ class tagihanmhs extends MX_Controller {
 
     public function submit(){
         if ($this->input->post('ajax')){
-          if ($this->input->post('id')){
-            $this->tagihdb->update($this->input->post('id'));
+          if ($this->input->post('id_siakad_keu_pendaftaran')){
+            $this->siakad_keu_pendaftarandb->update($this->input->post('id_siakad_keu_pendaftaran'));
           }else{
-            //$this->tagihdb->save();
-            $this->tagihdb->saveas();
+            //$this->siakad_keu_pendaftarandb->save();
+            $this->siakad_keu_pendaftarandb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
-              if ($this->input->post('id')){
-                $this->tagihdb->update($this->input->post('id'));
+              if ($this->input->post('id_siakad_keu_pendaftaran')){
+                $this->siakad_keu_pendaftarandb->update($this->input->post('id_siakad_keu_pendaftaran'));
               }else{
-                //$this->tagihdb->save();
-                $this->tagihdb->saveas();
+                //$this->siakad_keu_pendaftarandb->save();
+                $this->siakad_keu_pendaftarandb->saveas();
               }
           }
         }
@@ -277,7 +233,7 @@ class tagihanmhs extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->tagihdb->delete($this->input->post('id'));
+                $this->siakad_keu_pendaftarandb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -286,8 +242,8 @@ class tagihanmhs extends MX_Controller {
     }
     public function delete_detail(){
         if(isset($_POST['ajax'])){
-            if(!empty($_POST['id'])){
-                $this->tagihdb->upddel_detail($this->input->post('id'));
+            if(!empty($_POST['id_siakad_keu_pendaftaran'])){
+                $this->siakad_keu_pendaftarandb->upddel_detail($this->input->post('id_siakad_keu_pendaftaran'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -301,8 +257,8 @@ class tagihanmhs extends MX_Controller {
     } 
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
-            if(!empty($_POST['id'])){
-                $this->tagihdb->delete_detail($this->input->post('id'));
+            if(!empty($_POST['id_siakad_keu_pendaftaran'])){
+                $this->siakad_keu_pendaftarandb->delete_detail($this->input->post('id_siakad_keu_pendaftaran'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -310,7 +266,7 @@ class tagihanmhs extends MX_Controller {
         }
     } 
     private function gen_faktur(){
-        $last=$this->tagihdb->get_last_pt();
+        $last=$this->siakad_keu_pendaftarandb->get_last_pt();
         // print_r($last);
         if(!empty($last)):
             $first=substr($last['faktur_pt'],0,2);
@@ -358,5 +314,5 @@ class tagihanmhs extends MX_Controller {
 
 }
 
-/** Module tagihanmhs Controller **/
+/** Module siakad_keu_pendaftaran Controller **/
 /** Build & Development By Syahroni Wahyu - roniwahyu@gmail.com */

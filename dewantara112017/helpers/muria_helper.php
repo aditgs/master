@@ -374,16 +374,16 @@ if ( ! function_exists('genfaktur_jurnal'))
 }
 if ( ! function_exists('genfaktur'))
 {
-    function genfaktur($last=null,$kode){
+    function genfaktur($last=null,$kode,$num=2){
         // $last=$this->stokdb->get_last();
             // print_r($last);
             // $field=$last[$field];
             if(!empty($last)||count($last)>0):
-                $first=substr($last,0,2);
+                $first=substr($last,0,$num);
                 if($first==''||$first==null){
                     $first=$kode;
                 }
-                $left=substr($last,2,4);
+                $left=substr($last,$num,4);
                 $right=substr($last,-5);
                 $nopt=number_format($right); 
 
