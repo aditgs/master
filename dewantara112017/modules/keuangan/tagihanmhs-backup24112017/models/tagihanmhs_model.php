@@ -19,7 +19,7 @@ class Tagihanmhs_model extends CI_Model {
     
     //get data terakhir di generate
     function ceknomornull(){
-          // $this->db->select('*'); //Faktur
+        $this->db->select('kode'); //Faktur
         $this->db->where('datetime',NULL);
         $this->db->where('tanggal',NULL);
         $this->db->where('islocked',NULL);
@@ -36,7 +36,7 @@ class Tagihanmhs_model extends CI_Model {
     //untuk generate faktur baru
     function get_last(){
 
-        $this->db->select('*'); //faktur
+        $this->db->select('kode'); //faktur
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
@@ -88,9 +88,9 @@ class Tagihanmhs_model extends CI_Model {
         $last=$this->get_last();
         // print_r($last);
         if(!empty($last)):
-            $faktur=genfaktur($last['faktur'],"PL");//diganti sesuai faktur/kode transaksi
+            $faktur=genfaktur($last['kode'],"INV",3);//diganti sesuai faktur/kode transaksi
         else:
-            $faktur="PL".date('ym')."00001";//diganti sesuai faktur/kode transaksi
+            $faktur="INV".date('ym')."00001";//diganti sesuai faktur/kode transaksi
         endif;
         return ($faktur);
     }
@@ -126,19 +126,9 @@ class Tagihanmhs_model extends CI_Model {
            
             'tanggal' => $this->input->post('tanggal', TRUE),
            
-            'tgltempo' => $this->input->post('tgltempo', TRUE),
-           
             'mhs' => $this->input->post('mhs', TRUE),
            
             'kodebank' => $this->input->post('kodebank', TRUE),
-           
-            'idpaket' => $this->input->post('idpaket', TRUE),
-           
-            'status' => $this->input->post('status', TRUE),
-           
-            'dateopen' => $this->input->post('dateopen', TRUE),
-           
-            'dateclosed' => $this->input->post('dateclosed', TRUE),
            
             'refbank' => $this->input->post('refbank', TRUE),
            
@@ -151,8 +141,6 @@ class Tagihanmhs_model extends CI_Model {
             'tglvalidasi' => $this->input->post('tglvalidasi', TRUE),
            
             'isactive' => $this->input->post('isactive', TRUE),
-           
-            'islocked' => $this->input->post('islocked', TRUE),
            
             'isdeleted' => $this->input->post('isdeleted', TRUE),
            
@@ -178,19 +166,9 @@ class Tagihanmhs_model extends CI_Model {
            
             'tanggal' => $this->input->post('tanggal', TRUE),
            
-            'tgltempo' => $this->input->post('tgltempo', TRUE),
-           
             'mhs' => $this->input->post('mhs', TRUE),
            
             'kodebank' => $this->input->post('kodebank', TRUE),
-           
-            'idpaket' => $this->input->post('idpaket', TRUE),
-           
-            'status' => $this->input->post('status', TRUE),
-           
-            'dateopen' => $this->input->post('dateopen', TRUE),
-           
-            'dateclosed' => $this->input->post('dateclosed', TRUE),
            
             'refbank' => $this->input->post('refbank', TRUE),
            
@@ -203,8 +181,6 @@ class Tagihanmhs_model extends CI_Model {
             'tglvalidasi' => $this->input->post('tglvalidasi', TRUE),
            
             'isactive' => $this->input->post('isactive', TRUE),
-           
-            'islocked' => $this->input->post('islocked', TRUE),
            
             'isdeleted' => $this->input->post('isdeleted', TRUE),
            
@@ -257,19 +233,9 @@ class Tagihanmhs_model extends CI_Model {
        
        'tanggal' => $this->input->post('tanggal', TRUE),
        
-       'tgltempo' => $this->input->post('tgltempo', TRUE),
-       
        'mhs' => $this->input->post('mhs', TRUE),
        
        'kodebank' => $this->input->post('kodebank', TRUE),
-       
-       'idpaket' => $this->input->post('idpaket', TRUE),
-       
-       'status' => $this->input->post('status', TRUE),
-       
-       'dateopen' => $this->input->post('dateopen', TRUE),
-       
-       'dateclosed' => $this->input->post('dateclosed', TRUE),
        
        'refbank' => $this->input->post('refbank', TRUE),
        
@@ -282,8 +248,6 @@ class Tagihanmhs_model extends CI_Model {
        'tglvalidasi' => $this->input->post('tglvalidasi', TRUE),
        
        'isactive' => $this->input->post('isactive', TRUE),
-       
-       'islocked' => $this->input->post('islocked', TRUE),
        
        'isdeleted' => $this->input->post('isdeleted', TRUE),
        
@@ -323,6 +287,17 @@ class Tagihanmhs_model extends CI_Model {
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->$value;
+        }
+        return $result;
+    } //Update 07122013 SWI
+    //untuk Array Dropdown
+    function get_dropdown_mhs(){
+        $result = array();
+        $array_keys_values = $this->db->query('select id,nim,nama from mhsmaster order by id asc');
+        // $result[0]="-- Pilih Urutan id --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->nama." (".$row->nim.")" ;
         }
         return $result;
     }

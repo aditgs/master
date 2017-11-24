@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session','database','form_validation','template','Datatables','Ion_auth/Ion_auth','encrypt');
+$autoload['libraries'] = array('session','database','form_validation','template','Datatables','Ion_auth','encrypt');
 
 
 /*
@@ -80,7 +80,7 @@ $autoload['helper'] = array('url','form','muria');
 |
 */
 
-$autoload['config'] = array('assets','uploads','excel');
+$autoload['config'] = array('assets','uploads');
 
 
 /*
