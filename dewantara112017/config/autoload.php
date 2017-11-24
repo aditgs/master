@@ -80,7 +80,7 @@ $autoload['helper'] = array('url','form','muria');
 |
 */
 
-$autoload['config'] = array('assets','uploads','excel');
+$autoload['config'] = array('assets','uploads');
 
 
 /*
