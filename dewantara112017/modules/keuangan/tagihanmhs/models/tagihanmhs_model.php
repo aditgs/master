@@ -289,6 +289,17 @@ class Tagihanmhs_model extends CI_Model {
             $result[$row->id]= $row->$value;
         }
         return $result;
+    } //Update 07122013 SWI
+    //untuk Array Dropdown
+    function get_dropdown_mhs(){
+        $result = array();
+        $array_keys_values = $this->db->query('select id,nim,nama from mhsmaster order by id asc');
+        // $result[0]="-- Pilih Urutan id --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->nama." (".$row->nim.")" ;
+        }
+        return $result;
     }
 
     //Update 30122014 SWI

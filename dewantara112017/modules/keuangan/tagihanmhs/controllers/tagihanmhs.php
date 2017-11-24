@@ -43,6 +43,9 @@ class tagihanmhs extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Tagihanmhs');
         $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";
+            $("#mhs").select2({
+                 theme: "input-md"
+            });
             $("#data").DataTable({
             "ajax": {
               
@@ -68,6 +71,7 @@ class tagihanmhs extends MX_Controller {
             'title'=>'Kelola Data Tagihanmhs',
             'subtitle'=>'Pengelolaan Tagihanmhs',
             'opt_mhs'=>$this->tagihdb->get_drop_array('mhsmaster','nim','nama'),
+             'default'=>array('kode'=>$this->tagihdb->genfaktur()),
             'breadcrumb'=>array(
             'Tagihanmhs'),
         ));
@@ -87,8 +91,29 @@ class tagihanmhs extends MX_Controller {
         $this->template->set_title('Kelola Tagihanmhs');
         $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";
             $("#mhs").select2({
-                 theme: "bootstrap input-md"
+                theme: "bootstrap input-md",
+                tags: true,
+                tokenSeparators: [",", ""]
             });
+             $("#data").DataTable({
+            "ajax": {
+              
+                "url": baseurl + "gettagihan/",
+                "dataType": "json",
+                
+            },
+            "sServerMethod": "POST",
+            "bServerSide": true,
+            "bAutoWidth": true,
+            "lengthChange": true,
+            "SortClasses": true,
+            "bscrollCollapse": true,
+            "paging": false,
+            "deferRender": true,
+            "bFilter": false,
+            "ordering": false,
+            "responsive": true,
+        });
             ','embed');   
         // $this->template->add_js('modules/form.js');
         $this->template->load_view('tagihanmhs_view',array(
@@ -96,7 +121,7 @@ class tagihanmhs extends MX_Controller {
             'title'=>'Kelola Data Tagihanmhs',
             'default'=>array('kode'=>$this->tagihdb->genfaktur()),
             'subtitle'=>'Pengelolaan Tagihanmhs',
-            'opt_mhs'=>$this->tagihdb->get_drop_array('mhsmaster','nim','nama'),
+            'opt_mhs'=>$this->tagihdb->get_dropdown_mhs(),
 
             'breadcrumb'=>array(
             'Tagihanmhs'),

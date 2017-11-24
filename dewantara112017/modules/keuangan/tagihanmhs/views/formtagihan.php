@@ -1,6 +1,6 @@
 <style type="text/css">
     .datepicker{
-        z-index: 1200 !important;
+        z-index: 2200 !important;
     }
 
 </style>
@@ -43,6 +43,7 @@
                                                         <a class="cekvendor btn btn-primary" data-toggle="modal" href='#modal-bon'><i class="fa fa-refresh"></i></a>
                                                     </span> -->
             </div>
+            
         </div>
        
     </div>
