@@ -112,6 +112,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="btn-group">
                        	   <a class="btn btn-warning" href=" <?php echo domain() ?>sika/mhsmaster">Mahasiswa</a>
+                        <a class="btn btn-warning" href=" <?php echo domain() ?>sika/dosen">Dosen</a>
                         <a class="btn btn-warning" href=" <?php echo domain() ?>sika/matakuliah/">Mata Kuliah</a>
                         <a class="btn btn-warning" href=" <?php echo domain() ?>sika/tarif/">Tarif</a>
                         <a class="btn btn-warning" href=" <?php echo domain() ?>sika/kelompok">Kelompok</a>
