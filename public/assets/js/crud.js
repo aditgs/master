@@ -8,11 +8,19 @@
     Update: 
     29 Desember 2014 - Memperbaiki Form Reset 
     27 November 2015 - Dibuat untuk menyesuaikan dengan proyek MURIA PS
+    25 Novermber 2017 - Memperbaiki body click #save menjadi on submit guna menghindari duplikat post parameter
 */
 
 $(document).ready(function () {
+        $("form").submit(function() {
+            $(this).submit(function() {
+                return false;
+            });
+            return true;
+        });
 	
-        $("body").on("click","#save",function(e){
+        // $("body").on("click","#save",function(e){
+        $("body #addform").on("submit",function(e){
             e.preventDefault();
             save(0);
         });
@@ -188,21 +196,27 @@ $(document).ready(function () {
         });
         
         function save(id){
+            // $('body button#save').attr("disabled","disabled");
+            // $('body button#save').val("Submitting...");
             var data = $('body form#addform').serializeArray();
             data.push({name: 'ajax', value: 1});
+            // alert();
             // $.post(baseurl+"submit", data);
-            
+            // console.log(data);
             $(this).ready(function(){
                 $.ajax({
                     url:baseurl+"submit",
                     data:data,
+                    async: false,  
                     type:"POST",
+                    beforeSend:function(){
+
+                        $('button[type=submit], input[type=submit]').prop('disabled',true);
+                    },
                     success:function(){
                         $('button#save').fadeIn(200);
                         $('button#save_edit').hide(200);
                         // $('.kelola').fadeOut(200);
-
-                       
                         
                         $('#inside').addClass('active in');
                         $('li.daftar').addClass('active');

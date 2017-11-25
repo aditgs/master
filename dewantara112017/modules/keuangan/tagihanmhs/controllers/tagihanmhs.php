@@ -6,7 +6,7 @@ class tagihanmhs extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('tagihanmhs_model','tagihanmhsdb',TRUE);
+        $this->load->model('tagihanmhs_model','tagihdb',TRUE);
         $this->session->set_userdata('lihat','tagihanmhs');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -20,14 +20,14 @@ class tagihanmhs extends MX_Controller {
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
-        /*$this->template->add_js('accounting.min.js');
+        $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
-        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');*/
+        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
         
         /*ONLINE CDN*/
         /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
@@ -42,11 +42,37 @@ class tagihanmhs extends MX_Controller {
 
     public function index() {
         $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";','embed');  
+        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";
+             $("#mhs,#paket").select2({
+                theme: "bootstrap input-md",
+                dropdownParent: "#modal-form"
+                
+            });
+
+            $("#multipaket").select2({
+                theme: "bootstrap input-md",
+                tags: true,
+                tokenSeparators: [",", ""],
+                dropdownParent: "#modal-form"
+            });
+            $("body").on("click",".bukaform ",function(e){
+                e.preventDefault();
+                $.post(baseurl+"forms",function(data,status){
+                    if(status=="success"){
+                        $("body #modal-form modal-body").html(data);
+
+                    }
+                })
+            });
+            ','embed');  
         $this->template->load_view('tagihanmhs_view',array(
-            'view'=>'',
+            'default'=>array('kode'=>$this->tagihdb->genfaktur()),
+            'view'=>'datatagihan',
             'title'=>'Kelola Data Tagihanmhs',
             'subtitle'=>'Pengelolaan Tagihanmhs',
+            'opt_mhs'=>$this->tagihdb->get_dropdown_mhs(),
+            'opt_paket'=>$this->tagihdb->get_dropdown_paket(),
+            'opt_multipaket'=>$this->tagihdb->get_dropdown_paket(),
             'breadcrumb'=>array(
             'Tagihanmhs'),
         ));
@@ -64,11 +90,25 @@ class tagihanmhs extends MX_Controller {
     }
      public function baru() {
         $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";','embed');  
+        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";
+            $("#mhs,#paket").select2({
+                theme: "bootstrap input-md",
+                
+            });
+            $("#multipaket").select2({
+                theme: "bootstrap input-md",
+                tags: true,
+                tokenSeparators: [",", ""]
+            });
+            ','embed');  
         $this->template->load_view('tagihanmhs_view',array(
-            'view'=>'',
+            'default'=>array('kode'=>$this->tagihdb->genfaktur()),
+            'view'=>'formtagihan',
             'title'=>'Kelola Data Tagihanmhs',
             'subtitle'=>'Pengelolaan Tagihanmhs',
+            'opt_mhs'=>$this->tagihdb->get_dropdown_mhs(),
+            'opt_paket'=>$this->tagihdb->get_dropdown_paket(),
+            'opt_multipaket'=>$this->tagihdb->get_dropdown_paket(),
             'breadcrumb'=>array(
             'Tagihanmhs'),
         ));
@@ -82,7 +122,7 @@ class tagihanmhs extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->tagihanmhsdb->ceknomornull();
+        $null=$this->tagihdb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +130,7 @@ class tagihanmhs extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->tagihanmhsdb->genfaktur();
+            $faktur=$this->tagihdb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -125,24 +165,27 @@ class tagihanmhs extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
-            $this->datatables->select('id,kode,tanggal,tgltempo,mhs,kodebank,idpaket,status,dateopen,dateclosed,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
-                            ->from('tagihanmhs');
+        // if($this->isadmin()==1):
+            $this->datatables->select('a.id,kode,tanggal,tgltempo,a.mhs,b.nim as nimmhs,b.nama as nmmhs,status,isbayar')
+                            ->from('tagihanmhs as a');
+                            $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
+            $this->datatables->edit_column('tanggal','<label class="label label-primary">$1</label> - <label class="label label-info label-xs">$1</label>',"thedate(tanggal),thedate(tgltempo)");
+            $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
                 <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
-            $this->datatables->unset_column('id');
+            $this->datatables->unset_column('a.id,tgltempo,nimmhs,nmmhs');
 
-        else:
+        /*else:
             $this->datatables->select('id,kode,tanggal,tgltempo,mhs,kodebank,idpaket,status,dateopen,dateclosed,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
                             ->from('tagihanmhs');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
             $this->datatables->unset_column('id');
-        endif;
+        endif;*/
         echo $this->datatables->generate();
     }
     function enkrip(){
@@ -165,13 +208,16 @@ class tagihanmhs extends MX_Controller {
     }
     function forms(){   
 
-        $this->load->view('tagihanmhs_form_inside');
+        // $this->load->view('tagihanmhs_form_inside');
+        $html=$this->load->view('formtagihan',true);
+        $this->output->set_output($html);
+
            
     }
 
     public function get($id=null){
         if($id!==null){
-            echo json_encode($this->tagihanmhsdb->get_one($id));
+            echo json_encode($this->tagihdb->get_one($id));
         }
     }
     function tables(){
@@ -180,7 +226,7 @@ class tagihanmhs extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->tagihanmhsdb->get_one($id);
+            $data=$this->tagihdb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -208,21 +254,39 @@ class tagihanmhs extends MX_Controller {
     }
 
     public function submit(){
+        $data = array(
+        
+            'kode' => $this->input->post('kode', TRUE),
+            'tanggal' => $this->input->post('tanggal', TRUE),
+            'tgltempo' => $this->input->post('tgltempo', TRUE),
+            'total' => $this->input->post('total', TRUE),
+            'multipaket' => json_encode($this->input->post('multipaket', TRUE)),
+            'mhs' => $this->input->post('mhs', TRUE),
+            'idpaket' => $this->input->post('idpaket', TRUE),
+            'status' => 'open',
+            'isactive' =>1,
+            'islocked' =>1,
+            'isdeleted' =>0,
+            'userid' => userid(),
+            'datetime' => NOW(),
+        );
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
-            $this->tagihanmhsdb->update($this->input->post('id'));
+            $this->tagihdb->update($this->input->post('id'));
           }else{
-            //$this->tagihanmhsdb->save();
-            $this->tagihanmhsdb->saveas();
+            //$this->tagihdb->save();
+            // $this->tagihdb->saveas();
+            $this->tagihdb->savetagihanmhs($data);
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('id')){
-                $this->tagihanmhsdb->update($this->input->post('id'));
+                $this->tagihdb->update($this->input->post('id'));
               }else{
-                //$this->tagihanmhsdb->save();
-                $this->tagihanmhsdb->saveas();
+                //$this->tagihdb->save();
+                $this->tagihdb->savetagihanmhs($data);
+                // $this->tagihdb->saveas();
               }
           }
         }
@@ -233,7 +297,7 @@ class tagihanmhs extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->tagihanmhsdb->delete($this->input->post('id'));
+                $this->tagihdb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -243,7 +307,7 @@ class tagihanmhs extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->tagihanmhsdb->upddel_detail($this->input->post('id'));
+                $this->tagihdb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -258,7 +322,7 @@ class tagihanmhs extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->tagihanmhsdb->delete_detail($this->input->post('id'));
+                $this->tagihdb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -266,7 +330,7 @@ class tagihanmhs extends MX_Controller {
         }
     } 
     private function gen_faktur(){
-        $last=$this->tagihanmhsdb->get_last_pt();
+        $last=$this->tagihdb->get_last_pt();
         // print_r($last);
         if(!empty($last)):
             $first=substr($last['faktur_pt'],0,2);

@@ -11,7 +11,7 @@ if ( ! function_exists('domain'))
 {
     function domain($uri = '')
     {
-        return 'http://dev.jurnalstiedewantara.com/';
+        return 'http://sika.dewa.com/public/';
     }
 }
 if ( ! function_exists('assets_url'))
