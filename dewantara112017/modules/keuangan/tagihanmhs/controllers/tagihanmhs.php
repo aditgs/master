@@ -166,9 +166,9 @@ class tagihanmhs extends MX_Controller {
 
     public function getdatatables(){
         // if($this->isadmin()==1):
-            $this->datatables->select('a.id,kode,tanggal,tgltempo,a.mhs,b.nim as nimmhs,b.nama as nmmhs,status,isbayar')
-                            ->from('tagihanmhs as a');
-                            $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
+            $this->datatables->select("id,kode,tanggal,tgltempo,mhs,nimmhs,nmmhs,status,islunas")
+                            ->from('001-view-tagihanmhs');
+                            // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             $this->datatables->edit_column('tanggal','<label class="label label-primary">$1</label> - <label class="label label-info label-xs">$1</label>',"thedate(tanggal),thedate(tgltempo)");
             $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
             $this->datatables->add_column('edit',"<div class='btn-group'>
