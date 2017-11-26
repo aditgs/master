@@ -21,9 +21,11 @@
   }
 
 </script>
+
+<input id="19" type="checkbox" class="js-switch" checked />
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'tagihanmhs/submit',array('id'=>'addform','role'=>'form','class'=>'form','onsubmit="checkForm(this)"')); ?>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
         <input type="hidden" value='' id="id" name="id">
         <div class="form-group">
             <?php echo form_label('Kode : ','kode',array('class'=>'control-label')); ?>
@@ -34,6 +36,23 @@
                                             </span>
             </div>
         </div>
+        <div class="form-group">
+            <label class="control-label">
+                Nama Mahasiswa
+            </label>
+            <div class="controls input-group">
+                <?php $mhs = isset($default['mhs'])? $default['mhs'] : '0';  ?>
+                <?php echo form_dropdown('mhs',$opt_mhs,$mhs,'id="mhs" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Mahasiswa"'); ?>
+                
+                <!--  <span class="input-group-btn">
+                                                        <a class="cekvendor btn btn-primary" data-toggle="modal" href='#modal-bon'><i class="fa fa-refresh"></i></a>
+                                                    </span> -->
+            </div>
+            
+        </div>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            
         <div class="form-group tanggal">
             <?php echo form_label('Tanggal: ','tanggal',array('class'=>'control-label')); ?>
             <div class="input-daterange input-group controls" id="datepicker">
@@ -62,40 +81,14 @@
                                               </span>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label">
-                Nama Mahasiswa
-            </label>
-            <div class="controls input-group">
-                <?php $mhs = isset($default['mhs'])? $default['mhs'] : '0';  ?>
-                <?php echo form_dropdown('mhs',$opt_mhs,$mhs,'id="mhs" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Mahasiswa"'); ?>
-                
-                <!--  <span class="input-group-btn">
-                                                        <a class="cekvendor btn btn-primary" data-toggle="modal" href='#modal-bon'><i class="fa fa-refresh"></i></a>
-                                                    </span> -->
-            </div>
-            
-        </div>
+        
        
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        
         <div class="form-group">
             <label class="control-label">
-                Paket Tagihan
-            </label>
-            <div class="controls input-group">
-                <?php $paket = isset($default['paket'])? $default['paket'] : '0';  ?>
-                <?php echo form_dropdown('paket',$opt_paket,$paket,'id="paket" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Paket"'); ?>
-                
-                <!--  <span class="input-group-btn">
-                                                        <a class="cekvendor btn btn-primary" data-toggle="modal" href='#modal-bon'><i class="fa fa-refresh"></i></a>
-                                                    </span> -->
-            </div>
-            
-        </div>
-        <div class="form-group">
-            <label class="control-label">
-                 Tagihan Multi Paket
+                 Paket Tagihan
             </label>
             <div class="controls input-group">
                 <?php $multipaket = isset($default['multipaket'])? $default['multipaket'] : '0';  ?>
