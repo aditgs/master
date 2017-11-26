@@ -1,4 +1,35 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+if ( ! function_exists('getmultipaket')){
+ 
+function getmultipaket($id){
+ // function getmultipaket($id=null){
+        $ci = & get_instance(); 
+        $data=$ci->tagihdb->getmultipaket($id);
+        // if($data['multipaket']!=='false'||is_null($data['multipaket'])||!empty($data['multipaket'])){
+        if(!empty($data['multipaket'])){
+            if($data['multipaket']!=='false'){
+                $multi=json_decode($data['multipaket']);
+                // print_r($multi);
+                foreach ($multi as $value) {
+                    # code...
+                    $datapaket=$ci->tagihdb->getpaket($value);
+                    $paket[]="<li>".$datapaket['nama']. "(".$datapaket['kode'].")</li>";
+                }
+                $output=implode(" ",$paket);
+                // echo "<pre>";
+                // print_r($output);
+                // echo "</pre>";
+                return "<ul>".$output."</ul>";
+            }else{
+                return " ";
+            }
+                return " ";
+        }
+    // }
+
+    }
+}
+
 if ( ! function_exists('bacatarif')){
  
 function bacatarif($kode){

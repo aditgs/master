@@ -16,7 +16,26 @@ class Tagihanmhs_model extends CI_Model {
             return array();
         }
     }
-    
+    function getmultipaket($id){
+        $this->db->select('id,multipaket')->from('001-view-tagihanmhs')->where('id',$id);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }elseif($result->num_rows()>1){
+            return $result->result_array();
+        }else{
+            return array();
+        }
+    } 
+    function getpaket($id){
+        $this->db->select('kode_akademik as kode,nm_paket as nama,')->from('siakad_keu_paket')->where('id_siakad_keu_paket',$id);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }
+    }
     //get data terakhir di generate
     function ceknomornull(){
         $this->db->select('kode'); //Faktur
