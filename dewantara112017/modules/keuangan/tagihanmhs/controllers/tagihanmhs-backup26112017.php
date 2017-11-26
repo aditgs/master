@@ -22,19 +22,13 @@ class tagihanmhs extends MX_Controller {
         /*UNTUK KEPERLUAN FORM*/
         $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
+        $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
-        $this->template->add_js('plugins/switchery/switchery.min.js');
-        // $this->template->add_js('plugins/bootstrap-switch-master/bootstrap-switch.min.js');
-        $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_css('plugins/select2/select2.min.css');
         $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
-        // $this->template->add_css('plugins/bootstrap-switch-master/bootstrap-switch.min.css');
-        $this->template->add_css('plugins/switchery/switchery.min.css');
-         
-    
-
+        
         /*ONLINE CDN*/
         /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
         $this->template->add_js('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js','cdn');
@@ -54,8 +48,7 @@ class tagihanmhs extends MX_Controller {
                 dropdownParent: "#modal-form"
                 
             });
-           
-  
+
             $("#multipaket").select2({
                 theme: "bootstrap input-md",
                 tags: true,
@@ -72,30 +65,6 @@ class tagihanmhs extends MX_Controller {
                 })
             });
             ','embed');  
-        $this->template->add_js(" 
-
-            var stat = document.querySelector('.js-switch');
-            var switchery = new Switchery(stat, {size: 'small',color: '#1AB394' });
-             stat.onchange = function() {
-              if(stat.checked==false){
-
-                id=$(this).prop('id');
-                $.post(baseurl+'updstatus',{id:id,stat:'close'},function(data,status){
-                    if(status=='success'){
-                        alert('tutup sukses');
-                    }
-                })
-              }else{
-                id=$(this).prop('id');
-                $.post(baseurl+'updstatus',{id:id,stat:'open'},function(data,status){
-                    if(status=='success'){
-                        alert('buka sukses');
-                    }
-                })
-              }
-            };
-            ",'embed');
-
         $this->template->load_view('tagihanmhs_view',array(
             'default'=>array('kode'=>$this->tagihdb->genfaktur()),
             'view'=>'datatagihan',
@@ -119,7 +88,6 @@ class tagihanmhs extends MX_Controller {
             'Tagihanmhs'),
         ));
     }
-
      public function baru() {
         $this->template->set_title('Kelola Tagihanmhs');
         $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";
@@ -127,36 +95,13 @@ class tagihanmhs extends MX_Controller {
                 theme: "bootstrap input-md",
                 
             });
-             
             $("#multipaket").select2({
                 theme: "bootstrap input-md",
                 tags: true,
                 tokenSeparators: [",", ""]
             });
             ','embed');  
-        $this->template->add_js(" 
-            var stat = document.querySelector('.js-switch');
-            var switchery = new Switchery(stat, {size: 'small',color: '#1AB394' });
-             stat.onchange = function() {
-              if(stat.checked==false){
-
-                id=$(this).prop('id');
-                $.post(baseurl+'updstatus',{id:id,stat:'close'},function(data,status){
-                    if(status=='success'){
-                        alert('tutup sukses');
-                    }
-                })
-              }else{
-                id=$(this).prop('id');
-                $.post(baseurl+'updstatus',{id:id,stat:'open'},function(data,status){
-                    if(status=='success'){
-                        alert('buka sukses');
-                    }
-                })
-              }
-            };
-            ",'embed');
-        $this->template->load_view('tagihanview',array(
+        $this->template->load_view('tagihanmhs_view',array(
             'default'=>array('kode'=>$this->tagihdb->genfaktur()),
             'view'=>'formtagihan',
             'title'=>'Kelola Data Tagihanmhs',
@@ -169,11 +114,7 @@ class tagihanmhs extends MX_Controller {
         ));
         
     }
-    function updstatus(){
-        $status=$this->input->post('stat');
-        $id=$this->input->post('id');
-        $this->tagihdb->updatestatus($id,$status);
-    }
+
     function getnewfaktur(){
         // echo base64_encode($this->genfaktur());
         echo $this->__getnewfaktur();
@@ -225,21 +166,18 @@ class tagihanmhs extends MX_Controller {
 
     public function getdatatables(){
         // if($this->isadmin()==1):
-            $this->datatables->select("id,kode,tanggal,tgltempo,mhs,nimmhs,nmmhs,id as idmultipaket,multipaket,status,islunas")
+            $this->datatables->select("id,kode,tanggal,tgltempo,mhs,nimmhs,nmmhs,status,islunas")
                             ->from('001-view-tagihanmhs');
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
-            $this->datatables->edit_column('tanggal','<label class="label label-primary">$1</label><br><label class="label label-info label-xs">$1</label>',"thedate(tanggal),thedate(tgltempo)");
-            $this->datatables->edit_column('status','<input id="$1" type="checkbox" class="js-switch" checked />
-',"id");
+            $this->datatables->edit_column('tanggal','<label class="label label-primary">$1</label> - <label class="label label-info label-xs">$1</label>',"thedate(tanggal),thedate(tgltempo)");
             $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
-            $this->datatables->edit_column('idmultipaket','$1',"getmultipaket(id)");
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
                 <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
-            $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,multipaket');
+            $this->datatables->unset_column('a.id,tgltempo,nimmhs,nmmhs');
 
         /*else:
             $this->datatables->select('id,kode,tanggal,tgltempo,mhs,kodebank,idpaket,status,dateopen,dateclosed,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
@@ -276,26 +214,25 @@ class tagihanmhs extends MX_Controller {
 
            
     }
-    function getmultipaket($id=null){
-        echo getmultipaket($id);
-       /* $data=$this->tagihdb->getmultipaket($id);
-        // if($data['multipaket']!=='false'||is_null($data['multipaket'])||!empty($data['multipaket'])){
-        if(!empty($data['multipaket'])){
-            if($data['multipaket']!=='false'){
-                $multi=json_decode($data['multipaket']);
-                foreach ($multi as $value) {
-                    # code...
-                    $datapaket=$this->tagihdb->getpaket($value);
-                    $paket[]="<li>".$datapaket['nama']. "(".$datapaket['kode'].")</li>";
-                }
-                $output=implode("",$paket);
-                // echo "<pre>";
-                // print_r($output);
-                // echo "</pre>";
-                return"<ul>".$output."</ul>";
-            }
-        }*/
+    function multipaket($json){
+        $array=json_decode($json);
+        foreach ($array as $value) {
+            $paket=$this->tagihdb->getpaket($value);
+            $dt[]="<li>".$paket['nama']." (".$paket['kode'].")</li>";
+        }
+        $data=implode("",$dt);
+        echo ($data);
     }
+    
+    function multi($id=null){
+        $idx=$this->tagihdb->getmultipaket($id);
+        // print_r($id);
+        if((array_key_exists('multipaket',$idx)==TRUE)&& ($idx['multipaket']!==false||$idx['multipaket']!=NULL) ){
+
+            $this->multipaket($idx['multipaket']);
+        }
+    }
+    
 
     public function get($id=null){
         if($id!==null){
