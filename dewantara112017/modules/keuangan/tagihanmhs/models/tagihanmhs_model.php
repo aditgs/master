@@ -19,7 +19,7 @@ class Tagihanmhs_model extends CI_Model {
     
     //get data terakhir di generate
     function ceknomornull(){
-          // $this->db->select('*'); //Faktur
+        $this->db->select('kode'); //Faktur
         $this->db->where('datetime',NULL);
         $this->db->where('tanggal',NULL);
         $this->db->where('islocked',NULL);
@@ -36,7 +36,7 @@ class Tagihanmhs_model extends CI_Model {
     //untuk generate faktur baru
     function get_last(){
 
-        $this->db->select('*'); //faktur
+        $this->db->select('kode'); //faktur
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
@@ -88,11 +88,11 @@ class Tagihanmhs_model extends CI_Model {
         $last=$this->get_last();
         // print_r($last);
         if(!empty($last)):
-            $faktur=genfaktur($last['faktur'],"PL");//diganti sesuai faktur/kode transaksi
+            $kode=genfaktur($last['kode'],"INV",3);//diganti sesuai faktur/kode transaksi
         else:
-            $faktur="PL".date('ym')."00001";//diganti sesuai faktur/kode transaksi
+            $kode="INV".date('ym')."00001";//diganti sesuai faktur/kode transaksi
         endif;
-        return ($faktur);
+        return ($kode);
     }
     function get_one($id) {
         $this->db->where('id', $id);
@@ -123,45 +123,27 @@ class Tagihanmhs_model extends CI_Model {
        $data = array(
         
             'kode' => $this->input->post('kode', TRUE),
-           
             'tanggal' => $this->input->post('tanggal', TRUE),
-           
             'tgltempo' => $this->input->post('tgltempo', TRUE),
-           
+            'total' => $this->input->post('total', TRUE),
+            'multipaket' => $this->input->post('multipaket', TRUE),
             'mhs' => $this->input->post('mhs', TRUE),
-           
             'kodebank' => $this->input->post('kodebank', TRUE),
-           
             'idpaket' => $this->input->post('idpaket', TRUE),
-           
             'status' => $this->input->post('status', TRUE),
-           
             'dateopen' => $this->input->post('dateopen', TRUE),
-           
             'dateclosed' => $this->input->post('dateclosed', TRUE),
-           
             'refbank' => $this->input->post('refbank', TRUE),
-           
             'isbayar' => $this->input->post('isbayar', TRUE),
-           
             'tglbayar' => $this->input->post('tglbayar', TRUE),
-           
             'isvalidasi' => $this->input->post('isvalidasi', TRUE),
-           
             'tglvalidasi' => $this->input->post('tglvalidasi', TRUE),
-           
             'isactive' => $this->input->post('isactive', TRUE),
-           
             'islocked' => $this->input->post('islocked', TRUE),
-           
             'isdeleted' => $this->input->post('isdeleted', TRUE),
-           
             'datedeleted' => $this->input->post('datedeleted', TRUE),
-           
-            'userid' => $this->input->post('userid', TRUE),
-           
-            'datetime' => $this->input->post('datetime', TRUE),
-           
+            'userid' => userid(),
+            'datetime' => NOW(),
         );
         //'isdeleted' => null,
         //    'datedeleted' => null,
@@ -175,45 +157,27 @@ class Tagihanmhs_model extends CI_Model {
        $data = array(
         
             'kode' => $this->input->post('kode', TRUE),
-           
             'tanggal' => $this->input->post('tanggal', TRUE),
-           
             'tgltempo' => $this->input->post('tgltempo', TRUE),
-           
+            'total' => $this->input->post('total', TRUE),
+            'multipaket' => $this->input->post('multipaket', TRUE),
             'mhs' => $this->input->post('mhs', TRUE),
-           
             'kodebank' => $this->input->post('kodebank', TRUE),
-           
             'idpaket' => $this->input->post('idpaket', TRUE),
-           
             'status' => $this->input->post('status', TRUE),
-           
             'dateopen' => $this->input->post('dateopen', TRUE),
-           
             'dateclosed' => $this->input->post('dateclosed', TRUE),
-           
             'refbank' => $this->input->post('refbank', TRUE),
-           
             'isbayar' => $this->input->post('isbayar', TRUE),
-           
             'tglbayar' => $this->input->post('tglbayar', TRUE),
-           
             'isvalidasi' => $this->input->post('isvalidasi', TRUE),
-           
             'tglvalidasi' => $this->input->post('tglvalidasi', TRUE),
-           
             'isactive' => $this->input->post('isactive', TRUE),
-           
             'islocked' => $this->input->post('islocked', TRUE),
-           
             'isdeleted' => $this->input->post('isdeleted', TRUE),
-           
             'datedeleted' => $this->input->post('datedeleted', TRUE),
-           
-            'userid' => $this->input->post('userid', TRUE),
-           
-            'datetime' => $this->input->post('datetime', TRUE),
-           
+            'userid' => userid(),
+            'datetime' => NOW(),
         );
         //'isdeleted' => null,
         //    'datedeleted' => null,
@@ -238,7 +202,7 @@ class Tagihanmhs_model extends CI_Model {
              'islocked' => 1,
              'isactive' => 0,
              'userid' => userid(),
-             'timestamp' => NOW(),
+             'datetime' => NOW(),
 
             );
         
@@ -252,47 +216,30 @@ class Tagihanmhs_model extends CI_Model {
     }
     function update($id) {
         $data = array(
-        'id' => $this->input->post('id',TRUE),
-       'kode' => $this->input->post('kode', TRUE),
-       
-       'tanggal' => $this->input->post('tanggal', TRUE),
-       
-       'tgltempo' => $this->input->post('tgltempo', TRUE),
-       
-       'mhs' => $this->input->post('mhs', TRUE),
-       
-       'kodebank' => $this->input->post('kodebank', TRUE),
-       
-       'idpaket' => $this->input->post('idpaket', TRUE),
-       
-       'status' => $this->input->post('status', TRUE),
-       
-       'dateopen' => $this->input->post('dateopen', TRUE),
-       
-       'dateclosed' => $this->input->post('dateclosed', TRUE),
-       
-       'refbank' => $this->input->post('refbank', TRUE),
-       
-       'isbayar' => $this->input->post('isbayar', TRUE),
-       
-       'tglbayar' => $this->input->post('tglbayar', TRUE),
-       
-       'isvalidasi' => $this->input->post('isvalidasi', TRUE),
-       
-       'tglvalidasi' => $this->input->post('tglvalidasi', TRUE),
-       
-       'isactive' => $this->input->post('isactive', TRUE),
-       
-       'islocked' => $this->input->post('islocked', TRUE),
-       
-       'isdeleted' => $this->input->post('isdeleted', TRUE),
-       
-       'datedeleted' => $this->input->post('datedeleted', TRUE),
-       
-       'userid' => $this->input->post('userid', TRUE),
-       
-       'datetime' => $this->input->post('datetime', TRUE),
-       
+        
+           'kode' => $this->input->post('kode', TRUE),
+           'tanggal' => $this->input->post('tanggal', TRUE),
+           'tgltempo' => $this->input->post('tgltempo', TRUE),
+           'mhs' => $this->input->post('mhs', TRUE),
+            'total' => $this->input->post('total', TRUE),
+            'multipaket' => $this->input->post('multipaket', TRUE),
+           'kodebank' => $this->input->post('kodebank', TRUE),
+           'idpaket' => $this->input->post('idpaket', TRUE),
+           'status' => $this->input->post('status', TRUE),
+           'dateopen' => $this->input->post('dateopen', TRUE),
+           'dateclosed' => $this->input->post('dateclosed', TRUE),
+           'refbank' => $this->input->post('refbank', TRUE),
+           'isbayar' => $this->input->post('isbayar', TRUE),
+           'tglbayar' => $this->input->post('tglbayar', TRUE),
+           'isvalidasi' => $this->input->post('isvalidasi', TRUE),
+           'tglvalidasi' => $this->input->post('tglvalidasi', TRUE),
+           'isactive' => $this->input->post('isactive', TRUE),
+           'islocked' => $this->input->post('islocked', TRUE),
+           'isdeleted' => $this->input->post('isdeleted', TRUE),
+           'datedeleted' => $this->input->post('datedeleted', TRUE),
+           'userid' => userid(),
+           'datetime' => NOW(),
+
         );
         $this->db->where('id', $id);
         $this->db->update('tagihanmhs', $data);
@@ -312,6 +259,26 @@ class Tagihanmhs_model extends CI_Model {
     function deletebybukti($bukti=null) {
         $this->db->where('faktur', $bukti);
         $this->db->delete('tagihanmhs_detail');       
+    }
+    function get_dropdown_mhs(){
+        $result = array();
+        $array_keys_values = $this->db->query('select id,nim,nama from mhsmaster order by id asc');
+        // $result[0]="-- Pilih Urutan id --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->nama." (".$row->nim.")" ;
+        }
+        return $result;
+    }
+    function get_dropdown_paket(){
+        $result = array();
+        $array_keys_values = $this->db->query('select id_siakad_keu_paket as id,kode_akademik as kode,nm_paket as nama from siakad_keu_paket order by id asc');
+        // $result[0]="-- Pilih Urutan id --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->nama." (".$row->kode.")" ;
+        }
+        return $result;
     }
 
     //Update 07122013 SWI

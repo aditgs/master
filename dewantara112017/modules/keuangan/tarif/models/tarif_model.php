@@ -243,6 +243,17 @@ class Tarif_model extends CI_Model {
         }
         return $result;
     } 
+    function dropdown_angkatan(){
+        $result = array();
+            $array_keys_values = $this->db->query('select concat("20",left(nim,2)) as angkatan from mhsmaster group by(left(nim,2)) order by (left(nim,2)) asc');
+  
+        $result[0]="-- Pilih Angkatan--";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->angkatan]= $row->angkatan;
+        }
+        return $result;
+    } 
     function dropdown_prodi(){
         $result = array();
             $array_keys_values = $this->db->query('select id,KodeP,Prodi from prodi order by id asc');

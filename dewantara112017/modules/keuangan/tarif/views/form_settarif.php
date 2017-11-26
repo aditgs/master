@@ -3,10 +3,18 @@
     <?php echo form_open(base_url().'tarif/submit_settarif',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <input type="hidden" value='' id="id" name="id">
-        <div class="form-group">
-            <?php echo form_label('angkatan : ','angkatan',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('angkatan',set_value('angkatan', isset($default['angkatan']) ? $default['angkatan'] : ''),'id="angkatan" class="form-control" placeholder="Masukkan angkatan"'); ?>
+       
+        <div class="form-group sp-dropdown">
+            <?php echo form_label('Angkatan ','angkatan',array('class'=>'control-label')); ?>
+            <div class="input-group select2-bootstrap-prepend">
+                <span class="input-group-btn">
+                                                <a class="add_supplier btn btn-default" data-form="supplier" data-toggle="modal" href='#modal-form' data-load-remote="<?php echo base_url('supplier/simple_forms/') ?>" data-remote-target="#modal-form .modal-body"><i class="fa fa-plus"></i></a>
+                                            </span>
+                <div class="controls">
+                    <?php //print_r($opt_supplier) ?>
+                    <?php $angkatan = isset($default['angkatan'])? $default['angkatan'] : '0';  ?>
+                    <?php echo form_dropdown('angkatan',$opt_angkatan,$angkatan,'id="angkatan" class="form-control select2" placeholder="Angkatan"'); ?>
+                </div>
             </div>
         </div>
         <div class="form-group sp-dropdown">

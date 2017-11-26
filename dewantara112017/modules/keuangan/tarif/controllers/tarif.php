@@ -20,14 +20,14 @@ class tarif extends MX_Controller {
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
-        /*$this->template->add_js('accounting.min.js');
+        $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
-        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');*/
+        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
         
         /*ONLINE CDN*/
         /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
@@ -48,6 +48,7 @@ class tarif extends MX_Controller {
             'opt_jenis'=>$this->tarifdb->dropdown_jenis(),
             'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
+            'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
             'title'=>'Kelola Data Tarif',
             'subtitle'=>'Pengelolaan Tarif',
             'breadcrumb'=>array(
@@ -58,10 +59,10 @@ class tarif extends MX_Controller {
         $this->template->set_title('Kelola Tarif');
         $this->template->add_js('var baseurl="'.base_url().'tarif/";','embed');  
         $this->template->load_view('tarif_view',array(
-            'view'=>'Tarif_data',
+            'view'=>'tarif_data',
             'title'=>'Kelola Data Tarif',
             'subtitle'=>'Pengelolaan Tarif',
-             'opt_jenis'=>$this->tarifdb->dropdown_jenis(),
+            'opt_jenis'=>$this->tarifdb->dropdown_jenis(),
             'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             'breadcrumb'=>array(
