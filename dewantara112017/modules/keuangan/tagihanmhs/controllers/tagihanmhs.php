@@ -101,7 +101,7 @@ class tagihanmhs extends MX_Controller {
                 tokenSeparators: [",", ""]
             });
             ','embed');  
-        $this->template->load_view('tagihanmhs_view',array(
+        $this->template->load_view('tagihanview',array(
             'default'=>array('kode'=>$this->tagihdb->genfaktur()),
             'view'=>'formtagihan',
             'title'=>'Kelola Data Tagihanmhs',
