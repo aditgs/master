@@ -1,6 +1,26 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+if(!function_exists('getstatus')){
+    function getstatus($id){
+        $ci = & get_instance(); 
+        $stat=$ci->tagihdb->getstatus($id);
+        if(!empty($stat['status'])){
+            if($stat['status']=='open'){
+                $checked="checked='checked'";
+            }else{
+                $checked="";
+            }
+        }else{
+                $checked="";
+        }
+        return '<label class="switch small switchtoggle"><input id="'.$id.'" type="checkbox" '.$checked.' class="data-toggle"><span class="slider small round"></span></label>';
+        
+    }
+
+    
+}
+
 if ( ! function_exists('getmultipaket')){
- 
 function getmultipaket($id){
  // function getmultipaket($id=null){
         $ci = & get_instance(); 

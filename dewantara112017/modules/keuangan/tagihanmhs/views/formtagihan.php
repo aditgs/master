@@ -6,7 +6,7 @@
         z-index: 2200 !important;
 
     }
-
+ 
 </style>
 <script type="text/javascript">
 
@@ -21,7 +21,11 @@
   }
 
 </script>
-
+<!-- Rounded switch -->
+<label class="switch small switchtoggle">
+  <input id="19" type="checkbox" class="data-toggle">
+  <span class="slider small round"></span>
+</label>
 <input id="19" type="checkbox" class="js-switch" checked />
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'tagihanmhs/submit',array('id'=>'addform','role'=>'form','class'=>'form','onsubmit="checkForm(this)"')); ?>
