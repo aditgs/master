@@ -229,7 +229,7 @@ class tagihanmhs extends MX_Controller {
                             ->from('001-view-tagihanmhs');
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             $this->datatables->edit_column('tanggal','<label class="label label-primary">$1</label><br><label class="label label-info label-xs">$1</label>',"thedate(tanggal),thedate(tgltempo)");
-            $this->datatables->edit_column('status','<input id="$1" type="checkbox" class="js-switch" checked />
+            $this->datatables->edit_column('status','<input id="$1" type="checkbox" data-switchery="true" class="js-switch" checked />
 ',"id");
             $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
             $this->datatables->edit_column('idmultipaket','$1',"getmultipaket(id)");
@@ -305,8 +305,18 @@ class tagihanmhs extends MX_Controller {
     function tables(){
         $this->load->view('tagihanmhs_data');
     }
-
     function getone($id=null){
+        if($id!==null){
+            $data=$this->tagihdb->get_one($id);
+            // print_r($data);
+            $html=$this->load->view('detailtagihan',array('data'=>$data),TRUE);
+            return $this->output->set_output($html);
+        }else{
+            return "<h1>Data tidak ditemukan</h1>";
+        }
+        
+    }
+    function getonex($id=null){
         if($id!==null){
             $data=$this->tagihdb->get_one($id);
             $jml=count($data);
