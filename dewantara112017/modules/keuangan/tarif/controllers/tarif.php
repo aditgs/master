@@ -65,6 +65,7 @@ class tarif extends MX_Controller {
             'opt_jenis'=>$this->tarifdb->dropdown_jenis(),
             'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
+            'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
             'breadcrumb'=>array(
             'Tarif'),
         ));
