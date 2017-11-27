@@ -32,6 +32,7 @@ class tagihanmhs extends MX_Controller {
         $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
         // $this->template->add_css('plugins/bootstrap-switch-master/bootstrap-switch.min.css');
         $this->template->add_css('plugins/switchery/switchery.min.css');
+        $this->template->add_css('switchtoggle.css');
          
     
 
@@ -74,26 +75,24 @@ class tagihanmhs extends MX_Controller {
             ','embed');  
         $this->template->add_js(" 
 
-            var stat = document.querySelector('.js-switch');
-            var switchery = new Switchery(stat, {size: 'small',color: '#1AB394' });
-             stat.onchange = function() {
-              if(stat.checked==false){
-
+          $('input.data-toggle').on('change',function(){
                 id=$(this).prop('id');
-                $.post(baseurl+'updstatus',{id:id,stat:'close'},function(data,status){
-                    if(status=='success'){
-                        alert('tutup sukses');
-                    }
-                })
-              }else{
-                id=$(this).prop('id');
-                $.post(baseurl+'updstatus',{id:id,stat:'open'},function(data,status){
-                    if(status=='success'){
-                        alert('buka sukses');
-                    }
-                })
-              }
-            };
+                if($(this).is(':checked')==true){
+                    // alert('benar');
+                    $.post(baseurl+'updstatus',{id:id,stat:'open'},function(data,status){
+                        if(status=='success'){
+                            alert('buka sukses');
+                        }
+                    });
+                }else{
+                    $.post(baseurl+'updstatus',{id:id,stat:'close'},function(data,status){
+                        if(status=='success'){
+                            alert('tutup sukses');
+                        }
+                    });
+                }
+            });
+             
             ",'embed');
 
         $this->template->load_view('tagihanmhs_view',array(
@@ -135,26 +134,25 @@ class tagihanmhs extends MX_Controller {
             });
             ','embed');  
         $this->template->add_js(" 
-            var stat = document.querySelector('.js-switch');
-            var switchery = new Switchery(stat, {size: 'small',color: '#1AB394' });
-             stat.onchange = function() {
-              if(stat.checked==false){
-
+            $('input[type='checkbox']').on('change',function(){
                 id=$(this).prop('id');
-                $.post(baseurl+'updstatus',{id:id,stat:'close'},function(data,status){
-                    if(status=='success'){
-                        alert('tutup sukses');
-                    }
-                })
-              }else{
-                id=$(this).prop('id');
-                $.post(baseurl+'updstatus',{id:id,stat:'open'},function(data,status){
-                    if(status=='success'){
-                        alert('buka sukses');
-                    }
-                })
-              }
-            };
+                if($(this).is(':checked')==true){
+                    // alert('benar');
+                    $.post(baseurl+'updstatus',{id:id,stat:'open'},function(data,status){
+                        if(status=='success'){
+                            alert('buka sukses');
+                        }
+                    });
+                }else{
+                    $.post(baseurl+'updstatus',{id:id,stat:'close'},function(data,status){
+                        if(status=='success'){
+                            alert('tutup sukses');
+                        }
+                    });
+                }
+            });
+             
+            
             ",'embed');
         $this->template->load_view('tagihanview',array(
             'default'=>array('kode'=>$this->tagihdb->genfaktur()),
@@ -229,8 +227,7 @@ class tagihanmhs extends MX_Controller {
                             ->from('001-view-tagihanmhs');
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             $this->datatables->edit_column('tanggal','<label class="label label-primary">$1</label><br><label class="label label-info label-xs">$1</label>',"thedate(tanggal),thedate(tgltempo)");
-            $this->datatables->edit_column('status','<input id="$1" type="checkbox" data-switchery="true" class="js-switch" checked />
-',"id");
+            $this->datatables->edit_column('status','$1',"getstatus(id)");
             $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
             $this->datatables->edit_column('idmultipaket','$1',"getmultipaket(id)");
             $this->datatables->add_column('edit',"<div class='btn-group'>
