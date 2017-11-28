@@ -26,7 +26,7 @@ class tagihanmhs extends MX_Controller {
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_js('plugins/switchery/switchery.min.js');
-        $this->template->add_js('modules/data.js');
+        $this->template->add_js('switchtoggle.js');
         // $this->template->add_js('plugins/bootstrap-switch-master/bootstrap-switch.min.js');
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_css('plugins/select2/select2.min.css');
@@ -74,49 +74,7 @@ class tagihanmhs extends MX_Controller {
                 })
             });
             ','embed');  
-        $this->template->add_js(" 
-            $('label.switchtoggle').click(function(){
-                $(input.data-toggle).trigger('change');
-                console.log('clicked');
-                alert('halo');
-            });
-        function switchtoggle(id){
-            id=$(this).prop('id');
-                if($(this).is(':checked')==true){
-                    // alert('benar');
-                    $.post(baseurl+'updstatus',{id:id,stat:'open'},function(data,status){
-                        if(status=='success'){
-                            alert('buka sukses');
-                        }
-                    });
-                }else{
-                    $.post(baseurl+'updstatus',{id:id,stat:'close'},function(data,status){
-                        if(status=='success'){
-                            alert('tutup sukses');
-                        }
-                    });
-                }
-        }
-          $('body input.data-toggle').on('change',function(){
-                id=$(this).prop('id');
-                if($(this).is(':checked')==true){
-                    // alert('benar');
-                    $.post(baseurl+'updstatus',{id:id,stat:'open'},function(data,status){
-                        if(status=='success'){
-                            alert('buka sukses');
-                        }
-                    });
-                }else{
-                    $.post(baseurl+'updstatus',{id:id,stat:'close'},function(data,status){
-                        if(status=='success'){
-                            alert('tutup sukses');
-                        }
-                    });
-                }
-            });
-             
-            ",'embed');
-
+       
         $this->template->load_view('tagihanmhs_view',array(
             'default'=>array('kode'=>$this->tagihdb->genfaktur()),
             'view'=>'datatagihan',
@@ -156,7 +114,7 @@ class tagihanmhs extends MX_Controller {
             });
             ','embed');  
         $this->template->add_js(" 
-            $('input.data-toggle').change(function(){
+            $('input.input-toggle').change(function(){
                 id=$(this).prop('id');
                 if($(this).is(':checked')==true){
                     // alert('benar');
