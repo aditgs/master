@@ -223,13 +223,23 @@ class Tagihanmhs_model extends CI_Model {
         $this->db->insert('tagihanmhs_detail',$data);
     }
     function updatestatus($id,$status="open") {
-        $data = array(
-        
-           'status' => $status,
-           'userid' => userid(),
-           'datetime' => NOW(),
+        if($status=='close'){
 
-        );
+            $data = array(
+               'status' => $status,
+               'dateclosed'=>NOW(),
+               'userid' => userid(),
+               // 'datetime' => NOW(),
+            );
+        }else{
+            $data = array(
+               'status' => $status,
+               'dateopen'=>NOW(),
+               'userid' => userid(),
+               // 'datetime' => NOW(),
+            );
+
+        }
         $this->db->where('id', $id);
         $this->db->update('tagihanmhs', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/
