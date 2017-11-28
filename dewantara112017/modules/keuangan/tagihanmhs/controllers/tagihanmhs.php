@@ -321,7 +321,22 @@ class tagihanmhs extends MX_Controller {
         }
       
     }
+    function getkodeakad($id){
+        $data=$this->tagihdb->getmultipaket($id);
+        $multipaket=json_decode($data['multipaket']);
+        $kode=$this->__getkodeakad($multipaket);
+        // print_r($kode);
+        return $kode;
+    }
+    function __getkodeakad($array=array()){
+        foreach ($array as $key => $value) {
+            $dt=$this->tagihdb->getkodepaket($value);
+            $data[]=$dt['kode'];
 
+        }
+        // print_r($data);
+        return $data;
+    }
     public function submit(){
         $data = array(
         
