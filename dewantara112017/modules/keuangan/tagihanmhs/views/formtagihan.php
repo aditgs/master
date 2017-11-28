@@ -26,6 +26,11 @@
   <input id="19" type="checkbox" class="data-toggle">
   <span class="slider small round"></span>
 </label>
+<label class="switch small switchtoggle">
+  <input id="27" type="checkbox" class="data-toggle">
+  <span class="slider small round"></span>
+</label>
+<?php echo getstatus(48);?>
 <input id="19" type="checkbox" class="js-switch" checked />
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'tagihanmhs/submit',array('id'=>'addform','role'=>'form','class'=>'form','onsubmit="checkForm(this)"')); ?>

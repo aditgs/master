@@ -13,7 +13,7 @@ if(!function_exists('getstatus')){
         }else{
                 $checked="";
         }
-        return '<label class="switch small switchtoggle"><input id="'.$id.'" type="checkbox" '.$checked.' class="data-toggle"><span class="slider small round"></span></label>';
+        return '<label class="switch small switchtoggle"><input id="'.$id.'" type="checkbox" '.$checked.' class="data-toggle" onchange="switchtoggle('.$id.')"><span class="slider small round"></span></label>';
         
     }
 

@@ -1,8 +1,9 @@
-    $("body").on("click", ".genfaktur", function(e) {
-        e.preventDefault();
-        new_faktur();
-    });
-    function new_faktur() {
+$("body").on("click", ".genfaktur", function(e) {
+    e.preventDefault();
+    new_faktur();
+});
+
+function new_faktur() {
     $.post(baseurl + "getnewfaktur", function(data, status) {
         // data=base64(0,dt);
         dtx = JSON.parse(data);
@@ -14,6 +15,7 @@
             showform();
         }
     })
+
     function showform() {
         $(".btnsubmit").removeClass('hidden');
         $(".genfaktur").addClass('disabled');
