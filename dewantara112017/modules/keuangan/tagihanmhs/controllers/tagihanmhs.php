@@ -286,12 +286,42 @@ class tagihanmhs extends MX_Controller {
         if($id!==null){
             $data=$this->tagihdb->get_one($id);
             // print_r($data);
-            $html=$this->load->view('detailtagihan',array('data'=>$data),TRUE);
+            $html=$this->load->view('detailtagihan',array('data'=>$data,'total'=>$this->getotmultipaket($id)),TRUE);
             return $this->output->set_output($html);
         }else{
             return "<h1>Data tidak ditemukan</h1>";
         }
         
+    }
+    function getotpaket($id){
+        $data=$this->tagihdb->gettotalpaket($id);
+        if(!empty($data)){
+            return $data;
+        }else{
+            return array();
+        }
+    }
+    function getotmultipaket($id){
+        $data=$this->tagihdb->get_one($id);
+        if(!empty($data)){
+            if($data['multipaket']!=='false'){
+                $multipaket=json_decode($data['multipaket']);
+                $total=0;
+                foreach ($multipaket as $key => $value) {
+                    # code...
+                    $data=$this->getotpaket($value);
+                    $total=$total+$data['totalbiaya'];
+                }
+                $result=array(
+                    'id'=>$id,
+                    'total'=>$total,
+                );
+                // print_r($result);
+                return $result;
+            }
+        }else{
+            return array();
+        }
     }
     function getonex($id=null){
         if($id!==null){
@@ -303,11 +333,7 @@ class tagihanmhs extends MX_Controller {
             $div.="<table class='table table-condensed table-striped table-bordered'>";
             $i=0;
             foreach ($data as $key => $value) {
-                # code...
-                
-                
                     $div.="<tr>";
-                
                 $div.="<td>".$key."</td>";
                 $div.="<td>".$value."</td>";
                     $div.="</tr>";
@@ -413,51 +439,7 @@ class tagihanmhs extends MX_Controller {
             }
         }
     } 
-    private function gen_faktur(){
-        $last=$this->tagihdb->get_last_pt();
-        // print_r($last);
-        if(!empty($last)):
-            $first=substr($last['faktur_pt'],0,2);
-            if($first==''||$first==null){
-                $first=' ';
-            }
-            $left=substr($last['faktur_pt'],2,4);
-            $right=substr($last['faktur_pt'],-5);
-            $nopt=number_format($right); 
-            
-            
-            $newpo=strval($nopt+1);
-            $newpo2=substr(strval("00000$newpo"),-5);
-
-        $tahun=substr($left,0,2);
-        $bulan=substr($left,2,4);
-        
-            if($tahun<>date('y')):
-                $tahun=date('y');
-                if($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan."00001");
-                elseif($bulan<>date('m')):
-                    $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001");
-                endif;
-            elseif($tahun==date('y')):
-                if(intval($bulan)<>date('m')):
-                    $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001"); 
-                elseif($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan.$newpo2);
-                endif;
-            endif;
-        else:
-            // $gen="PT151100001";
-            $gen=" ".date('ym')."00001";
-        endif;
-        return $gen;
-    }
-     function get_new_faktur(){
-        echo $this->gen_faktur();
-    }
-
+    
     
 
 }

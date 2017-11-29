@@ -1,5 +1,6 @@
 <?php 
-if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); print_r($detail)?>
+
+if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($detail)?>
 <table class="table table-striped table-hover table-bordered">
 	<thead>
 		<tr>
@@ -22,8 +23,8 @@ if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); print_r($deta
 			<th colspan="2" >Total Tagihan</th>
 		</tr>
 		<tr>
-			<td colspan="2"><?php echo getmultipaket($data['id']); ?></td>
-			<td colspan="2" class="text-right"><?php echo getmultipaket($data['id']); ?></td>
+			<td colspan="2" class=""><?php echo getmultipaket($data['id'],TRUE); ?></td>
+			<td colspan="2" class="text-right"><h3><?php echo rp($total['total']) ?></h3></td>
 		</tr>
 	</tbody>
 </table>

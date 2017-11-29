@@ -26,6 +26,26 @@ class Tagihanmhs_model extends CI_Model {
         }else{
             return array();
         }
+    }
+    function getdetailmultipaket($id){
+        $this->db->select('*')->from('002-view-detailtagihan')->where('id_siakad_keu_paket',$id);
+        $result=$this->db->get();
+    
+        if($result->num_rows()>0){
+            return $result->result_array();
+        }else{
+            return array();
+        }
+    } 
+    function gettotalpaket($id){
+        $this->db->select('id_siakad_keu_paket as id,sum(nominal_biaya) as totalbiaya')->from('002-view-detailtagihan')->where('id_siakad_keu_paket',$id)->group_by('id_siakad_keu_paket');
+        $result=$this->db->get();
+    
+        if($result->num_rows()>0){
+            return $result->row_array();
+        }else{
+            return array();
+        }
     } 
     function getstatus($id){
         $this->db->select('id,status')->from('001-view-tagihanmhs')->where('id',$id);
@@ -55,7 +75,7 @@ class Tagihanmhs_model extends CI_Model {
         }
     } 
     function getpaket($id){
-        $this->db->select('kode_akademik as kode,nm_paket as nama,')->from('siakad_keu_paket')->where('id_siakad_keu_paket',$id);
+        $this->db->select('id_siakad_keu_paket as id, kode_akademik as kode,nm_paket as nama,')->from('siakad_keu_paket')->where('id_siakad_keu_paket',$id);
         $result=$this->db->get();
         if($result->num_rows()==1){
             return $result->row_array();
