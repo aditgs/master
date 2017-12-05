@@ -457,11 +457,11 @@ if ( ! function_exists('genfaktur'))
                     $first=$kode;
                 }
                 $left=substr($last,$num,4);
-                $right=substr($last,-5);
+                $right=substr($last,-4);
                 $nopt=number_format($right); 
 
                 $newpo=strval($nopt+1);
-                $newpo2=substr(strval("00000$newpo"),-5);
+                $newpo2=substr(strval("0000$newpo"),-4);
 
                 $tahun=substr($left,0,2);
                 $bulan=substr($left,2,4);
@@ -469,22 +469,22 @@ if ( ! function_exists('genfaktur'))
                 if($tahun<>date('y')):
                     $tahun=date('y');
                     if($bulan==date('m')):
-                        $gen=strval($first.$tahun.$bulan."00001");
+                        $gen=strval($first.$tahun.$bulan."0001");
                     elseif($bulan<>date('m')):
                         $bulan=date('m');
-                        $gen=strval($first.$tahun.$bulan."00001");
+                        $gen=strval($first.$tahun.$bulan."0001");
                     endif;
                 elseif($tahun==date('y')):
                     if(intval($bulan)<>date('m')):
                         $bulan=date('m');
-                        $gen=strval($first.$tahun.$bulan."00001"); 
+                        $gen=strval($first.$tahun.$bulan."0001"); 
                     elseif($bulan==date('m')):
                         $gen=strval($first.$tahun.$bulan.$newpo2);
                     endif;
                 endif;
             else:
                 // $gen="PT151100001";
-                $gen=$kode.date('ym')."00001";
+                $gen=$kode.date('ym')."0001";
             endif;
             
             return $gen;

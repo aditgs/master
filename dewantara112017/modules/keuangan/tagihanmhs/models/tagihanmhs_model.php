@@ -156,7 +156,7 @@ class Tagihanmhs_model extends CI_Model {
         if(!empty($last)):
             $kode=genfaktur($last['kode'],"INV",3);//diganti sesuai faktur/kode transaksi
         else:
-            $kode="INV".date('ym')."00001";//diganti sesuai faktur/kode transaksi
+            $kode="INV".date('ym')."0001";//diganti sesuai faktur/kode transaksi
         endif;
         return ($kode);
     }
