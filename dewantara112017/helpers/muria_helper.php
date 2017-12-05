@@ -21,7 +21,7 @@ if(!function_exists('getstatus')){
 }
 
 if ( ! function_exists('getmultipaket')){
-function getmultipaket($id){
+function getmultipaket($id,$isdetail=FALSE){
  // function getmultipaket($id=null){
         $ci = & get_instance(); 
         $data=$ci->tagihdb->getmultipaket($id);
@@ -30,16 +30,38 @@ function getmultipaket($id){
             if($data['multipaket']!=='false'){
                 $multi=json_decode($data['multipaket']);
                 // print_r($multi);
+                $total=0;
                 foreach ($multi as $value) {
                     # code...
                     $datapaket=$ci->tagihdb->getpaket($value);
-                    $paket[]="<li>".$datapaket['nama']. "(".$datapaket['kode'].")</li>";
+                    $paket[]="";
+                    $paket[].="<li>".$datapaket['nama']. "(".$datapaket['kode'].")";
+                    if($isdetail==TRUE){
+                        $detail=$ci->tagihdb->getdetailmultipaket($datapaket['id']);
+                        $paket[].="<ul>";
+                        $biaya=0;
+                        foreach ($detail as $k => $v) {
+                            $paket[].="<li>".$v['nm_tagihan']." (".rp($v['nominal_biaya']).")</li>";
+                            $biaya=$biaya+$v['nominal_biaya'];
+                        }
+
+                        $paket[].="</ul>";
+                        // $paket[].="<h4 class='text-right'>".rp($biaya)."</h4>";
+
+                        $total=$total+$biaya;
+                    }
+                    $paket[].="</li>";
+                    // $paket[].="<h3 class='text-right'>".rp($total)."</h3>";
                 }
                 $output=implode(" ",$paket);
+                if($isdetail==TRUE){
+                    return "<ul>".$output."</ul><h3 class='text-right'>".rp($total)."</h3>";
+                }else{
+                    return "<ul>".$output."</ul>";
+                }
                 // echo "<pre>";
                 // print_r($output);
                 // echo "</pre>";
-                return "<ul>".$output."</ul>";
             }else{
                 return " ";
             }
@@ -435,11 +457,11 @@ if ( ! function_exists('genfaktur'))
                     $first=$kode;
                 }
                 $left=substr($last,$num,4);
-                $right=substr($last,-5);
+                $right=substr($last,-4);
                 $nopt=number_format($right); 
 
                 $newpo=strval($nopt+1);
-                $newpo2=substr(strval("00000$newpo"),-5);
+                $newpo2=substr(strval("0000$newpo"),-4);
 
                 $tahun=substr($left,0,2);
                 $bulan=substr($left,2,4);
@@ -447,22 +469,22 @@ if ( ! function_exists('genfaktur'))
                 if($tahun<>date('y')):
                     $tahun=date('y');
                     if($bulan==date('m')):
-                        $gen=strval($first.$tahun.$bulan."00001");
+                        $gen=strval($first.$tahun.$bulan."0001");
                     elseif($bulan<>date('m')):
                         $bulan=date('m');
-                        $gen=strval($first.$tahun.$bulan."00001");
+                        $gen=strval($first.$tahun.$bulan."0001");
                     endif;
                 elseif($tahun==date('y')):
                     if(intval($bulan)<>date('m')):
                         $bulan=date('m');
-                        $gen=strval($first.$tahun.$bulan."00001"); 
+                        $gen=strval($first.$tahun.$bulan."0001"); 
                     elseif($bulan==date('m')):
                         $gen=strval($first.$tahun.$bulan.$newpo2);
                     endif;
                 endif;
             else:
                 // $gen="PT151100001";
-                $gen=$kode.date('ym')."00001";
+                $gen=$kode.date('ym')."0001";
             endif;
             
             return $gen;

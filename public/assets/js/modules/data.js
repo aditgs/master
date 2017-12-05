@@ -1,4 +1,4 @@
- $('.input.data-toggle').change(function() {
+ $('input.input-toggle').change(function() {
      id = $(this).prop('id');
      if ($(this).is(':checked') == true) {
          // alert('benar');
