@@ -48,7 +48,7 @@ if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($de
 			<th colspan="2" >Total Tagihan</th>
 		</tr>
 		<tr>
-			<td colspan="2" class=""><?php echo getmultipaket($data['id']); ?></td>
+			<td colspan="2" class=""><?php echo getmultipaket($data['id'],true); ?></td>
 			<td colspan="2" class="text-right"><h3><?php echo rp($total['total']) ?></h3></td>
 		</tr>
 	</tbody>

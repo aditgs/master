@@ -66,7 +66,6 @@ class tagihanmhs extends MX_Controller {
                 closeOnSelect: false,
                 dropdownParent: "#modal-form"
             });
-            $("body .dropdown-toggle").dropdown(); 
             $("body").on("click",".bukaform ",function(e){
                 e.preventDefault();
                 $.post(baseurl+"forms",function(data,status){
@@ -90,6 +89,7 @@ class tagihanmhs extends MX_Controller {
             'Tagihanmhs'),
         ));
     }
+
     public function data() {
         $this->template->set_title('Kelola Tagihanmhs');
         $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";','embed');  
@@ -113,7 +113,6 @@ class tagihanmhs extends MX_Controller {
             $("#multipaket").select2({
                 theme: "bootstrap input-md",
                 tags: true,
-                 closeOnSelect: false,
                 tokenSeparators: [",", ""]
             });
             ','embed');  
@@ -214,20 +213,12 @@ class tagihanmhs extends MX_Controller {
             $this->datatables->edit_column('status','$1',"getstatus(id)");
             $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
             $this->datatables->edit_column('idmultipaket','$1',"getmultipaket(id)");
-            $this->datatables->add_column('edit',"<div class='btn-group' style=''>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>"
-                .'
-  <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="fa fa-eye"></i> Aksi <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" style="position:relative;z-index:10000 !important">
-    <li><a href="#">Lihat</a></li>
-    <li><a href="'.base_url('tagihanmhs/cetakpdf/$2/$3').'"><i class="fa fa-file-pdf-o"></i> PDF</a></li>
-    <li><a href="'.base_url('tagihanmhs/cetakpdf/$2').'" target="_blank"><i class="fa fa-print"></i> Print</a></li>
-     <li role="separator" class="divider"></li>'
-     ."<li><a href='#' class='edit' title='Edit' id='$1'><i class='fa fa-edit'></i> Edit</a></li>
-               <li> <a data-toggle='tooltip' data-placement='top' title='Hapus' class='delete ' id='$1'><i class='fa fa-remove'></i> Hapus</a></li>".'</ul>
-</div>' , 'id,base64_encode(id),base64_encode("pdf")');
+            $this->datatables->add_column('edit',"<div class='btn-group'>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                <a href='".base_url('tagihanmhs/cetakpdf/$2/$3')."' class='btn btn-warning btn-xs'><i class='fa fa-download'></i> PDF</a>
+                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                </div>" , 'id,base64_encode(id),base64_encode("pdf")');
             $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,multipaket');
 
         /*else:
@@ -311,6 +302,11 @@ class tagihanmhs extends MX_Controller {
         return ("Angkatan 20".$angkatan.", ".$bcprodi['Prodi']." ");
 
     }
+    function testarray($num){
+        $data=$this->tagihdb->get_one($num  );
+        $paket=serialize($data['multipaket']);
+        print_r($paket);
+    }
     public function get($id=null){
         if($id!==null){
             echo json_encode($this->tagihdb->get_one($id));
@@ -319,17 +315,17 @@ class tagihanmhs extends MX_Controller {
     function tables(){
         $this->load->view('tagihanmhs_data');
     }
-    function cetakpdf($id,$pdf=true){
+    function cetakpdf($id,$pdf){
         // $enkrip=$this->enkrip();
         $id=base64_decode($id);
         $pdf=base64_decode($pdf);
-        // print_r($id);
-        // print_r($pdf);
+        print_r($id);
+        print_r($pdf);
         if($id!=null){
             $data=$this->tagihdb->get_one($id);
           
             $this->template->set_layout('cetak');
-            $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'total'=>$this->getotmultipaket($id)),TRUE);
+            $html=$this->load->view('detailtagihan',array('data'=>$data,'total'=>$this->getotmultipaket($id)),TRUE);
 
           /*  $html=$this->load->view('cetak_po_baru-pdf',array(
                 // 'supplier'=>$this->podb->get_onesp($supplier),
@@ -344,9 +340,8 @@ class tagihanmhs extends MX_Controller {
                     'html'=>$html1,
                     'title'=>$judul
                 ),TRUE);*/
-                $inv=$data['kode'];
                 // savepdf($html1, 'laporan-pembelian-'.date('d-m-Y-H-m-s'));
-                buildpdf($html, $inv."-".date('d-m-Y-Hms'),TRUE);
+                buildpdf($html, 'tagihan-'."-".date('d-m-Y-Hms'),TRUE);
                         // }
             }else{          
                 

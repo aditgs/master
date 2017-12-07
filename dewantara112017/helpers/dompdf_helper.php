@@ -62,7 +62,7 @@ function buildpdf($html, $filename='', $stream=TRUE)
                    $font, 6, array(0,0,0));*/
 
             // $font = $fontMetrics->getFont("Arial", "bold");
-            $canvas->page_text(10, 580, "MURIA PS", $font, 10, array(0, 0, 0));
+            $canvas->page_text(10, 580, "STIE DEWANTARA JOMBANG", $font, 10, array(0, 0, 0));
             $canvas->page_text(770, 580, "Hal. {PAGE_NUM} / {PAGE_COUNT}", $font, 10, array(0, 0, 0));
             $canvas->line(10, 575, 830, 575, array(0,0,0), 1);
 
