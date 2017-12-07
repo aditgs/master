@@ -11,7 +11,7 @@ if ( ! function_exists('domain'))
 {
     function domain($uri = '')
     {
-        return 'http://sika.dewa.com/public/';
+        return 'http://localhost:8888/dewa-project/public/';
     }
 }
 if ( ! function_exists('assets_url'))

@@ -6,6 +6,7 @@
 dewantara112017/config/config.php
 dewantara112017/config/assets.php
 dewantara112017/config/database.php
+dewantara112017/helpers/MY_url_helper.php
 dewantara112017/logs/*
 
 */logs/log-*.php
@@ -83,6 +84,8 @@ $RECYCLE.BIN/
 
 dewantara112017/config/
 
-public/assets/js/plugins/bootstrap-switch-master\.zip
+
+public/assets/js/plugins/bootstrap-switch-master/.zip
 
 *.zip
+
