@@ -80,3 +80,9 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/macos,windows,codeigniter
+
+dewantara112017/config/
+
+public/assets/js/plugins/bootstrap-switch-master\.zip
+
+*.zip

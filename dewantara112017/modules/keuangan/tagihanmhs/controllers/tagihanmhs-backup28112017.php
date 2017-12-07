@@ -7,7 +7,6 @@ class tagihanmhs extends MX_Controller {
           
         //Load IgnitedDatatables Library
         $this->load->model('tagihanmhs_model','tagihdb',TRUE);
-        $this->load->model('tarif/tarif_model','tarifdb',TRUE);
         $this->session->set_userdata('lihat','tagihanmhs');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -27,7 +26,7 @@ class tagihanmhs extends MX_Controller {
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_js('plugins/switchery/switchery.min.js');
-        $this->template->add_js('switchtoggle.js');
+        $this->template->add_js('modules/data.js');
         // $this->template->add_js('plugins/bootstrap-switch-master/bootstrap-switch.min.js');
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_css('plugins/select2/select2.min.css');
@@ -63,10 +62,8 @@ class tagihanmhs extends MX_Controller {
                 theme: "bootstrap input-md",
                 tags: true,
                 tokenSeparators: [",", ""],
-                closeOnSelect: false,
                 dropdownParent: "#modal-form"
             });
-            $("body .dropdown-toggle").dropdown(); 
             $("body").on("click",".bukaform ",function(e){
                 e.preventDefault();
                 $.post(baseurl+"forms",function(data,status){
@@ -77,7 +74,35 @@ class tagihanmhs extends MX_Controller {
                 })
             });
             ','embed');  
-       
+        $this->template->add_js(" 
+            $('label.switchtoggle').click(function(){
+                var dataid=$(this).data('id');
+                alert(dataid);
+                $(input.input-toggle).trigger('change');
+                id=$(this).prop('id');
+                switchtoggle(id);
+            });
+        function switchtoggle(id){
+            
+                if($('label.switchtoggle input.input-toggle').is(':checked')==true){
+                    // alert('benar');
+                    $.post(baseurl+'updstatus',{id:id,stat:'open'},function(data,status){
+                        if(status=='success'){
+                            alert('buka sukses');
+                        }
+                    });
+                }else{
+                    $.post(baseurl+'updstatus',{id:id,stat:'close'},function(data,status){
+                        if(status=='success'){
+                            alert('tutup sukses');
+                        }
+                    });
+                }
+        }
+      
+             
+            ",'embed');
+
         $this->template->load_view('tagihanmhs_view',array(
             'default'=>array('kode'=>$this->tagihdb->genfaktur()),
             'view'=>'datatagihan',
@@ -113,7 +138,6 @@ class tagihanmhs extends MX_Controller {
             $("#multipaket").select2({
                 theme: "bootstrap input-md",
                 tags: true,
-                 closeOnSelect: false,
                 tokenSeparators: [",", ""]
             });
             ','embed');  
@@ -214,20 +238,12 @@ class tagihanmhs extends MX_Controller {
             $this->datatables->edit_column('status','$1',"getstatus(id)");
             $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
             $this->datatables->edit_column('idmultipaket','$1',"getmultipaket(id)");
-            $this->datatables->add_column('edit',"<div class='btn-group' style=''>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>"
-                .'
-  <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="fa fa-eye"></i> Aksi <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" style="position:relative;z-index:10000 !important">
-    <li><a href="#">Lihat</a></li>
-    <li><a href="'.base_url('tagihanmhs/cetakpdf/$2/$3').'"><i class="fa fa-file-pdf-o"></i> PDF</a></li>
-    <li><a href="'.base_url('tagihanmhs/cetakpdf/$2').'" target="_blank"><i class="fa fa-print"></i> Print</a></li>
-     <li role="separator" class="divider"></li>'
-     ."<li><a href='#' class='edit' title='Edit' id='$1'><i class='fa fa-edit'></i> Edit</a></li>
-               <li> <a data-toggle='tooltip' data-placement='top' title='Hapus' class='delete ' id='$1'><i class='fa fa-remove'></i> Hapus</a></li>".'</ul>
-</div>' , 'id,base64_encode(id),base64_encode("pdf")');
+            $this->datatables->add_column('edit',"<div class='btn-group'>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+
+                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                </div>" , 'id');
             $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,multipaket');
 
         /*else:
@@ -285,32 +301,7 @@ class tagihanmhs extends MX_Controller {
             }
         }*/
     }
-    function bacatarif($kode){
-        
-        $angkatan=substr($kode,0,2);
-        // print_r($angkatan);
-        $prodi=substr($kode,2,2);
-        // print_r($prodi);
-        /*$jenis=substr($kode,4,2);
-        // print_r($jenis);
-        $kelompok=substr($kode,6,1);
-        // print_r($kelompok);
-        $tahun=substr($kode,7,4);
-        // print_r($tahun);
-        $semester=substr($kode,-1);
-        // print_r($semester);
 
-        $bcjenis=$this->tarifdb->bacajenis($jenis);
-        // print_r($jenis);
-        $bckelompokmhs=$this->tarifdb->bacakelompokmhs($kelompok);
-        */
-        $bcprodi=$this->tarifdb->bacaprodi($prodi);
-        // $angkat="2000".$ang
-        // print_r($bcjenis[]);
-        // return ($bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelompokmhs['Kelompok']);
-        return ("Angkatan 20".$angkatan.", ".$bcprodi['Prodi']." ");
-
-    }
     public function get($id=null){
         if($id!==null){
             echo json_encode($this->tagihdb->get_one($id));
@@ -319,82 +310,16 @@ class tagihanmhs extends MX_Controller {
     function tables(){
         $this->load->view('tagihanmhs_data');
     }
-    function cetakpdf($id,$pdf=true){
-        // $enkrip=$this->enkrip();
-        $id=base64_decode($id);
-        $pdf=base64_decode($pdf);
-        // print_r($id);
-        // print_r($pdf);
-        if($id!=null){
-            $data=$this->tagihdb->get_one($id);
-          
-            $this->template->set_layout('cetak');
-            $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'total'=>$this->getotmultipaket($id)),TRUE);
-
-          /*  $html=$this->load->view('cetak_po_baru-pdf',array(
-                // 'supplier'=>$this->podb->get_onesp($supplier),
-                'data'=>$data,
-                'detail'=>$detail,
-                ),TRUE);*/
-        
-            if(!empty($pdf)||$pdf!=null){
-                $this->load->helper(array('dompdf', 'file'));
-                // $html1=$datax;
-                /*$html2=$this->load->view('template_cetak',array(
-                    'html'=>$html1,
-                    'title'=>$judul
-                ),TRUE);*/
-                $inv=$data['kode'];
-                // savepdf($html1, 'laporan-pembelian-'.date('d-m-Y-H-m-s'));
-                buildpdf($html, $inv."-".date('d-m-Y-Hms'),TRUE);
-                        // }
-            }else{          
-                
-                echo ($html);
-                
-            }
-        }
-    }
     function getone($id=null){
         if($id!==null){
             $data=$this->tagihdb->get_one($id);
             // print_r($data);
-            $html=$this->load->view('detailtagihan',array('data'=>$data,'total'=>$this->getotmultipaket($id)),TRUE);
+            $html=$this->load->view('detailtagihan',array('data'=>$data),TRUE);
             return $this->output->set_output($html);
         }else{
             return "<h1>Data tidak ditemukan</h1>";
         }
         
-    }
-    function getotpaket($id){
-        $data=$this->tagihdb->gettotalpaket($id);
-        if(!empty($data)){
-            return $data;
-        }else{
-            return array();
-        }
-    }
-    function getotmultipaket($id){
-        $data=$this->tagihdb->get_one($id);
-        if(!empty($data)){
-            if($data['multipaket']!=='false'){
-                $multipaket=json_decode($data['multipaket']);
-                $total=0;
-                foreach ($multipaket as $key => $value) {
-                    # code...
-                    $data=$this->getotpaket($value);
-                    $total=$total+$data['totalbiaya'];
-                }
-                $result=array(
-                    'id'=>$id,
-                    'total'=>$total,
-                );
-                // print_r($result);
-                return $result;
-            }
-        }else{
-            return array();
-        }
     }
     function getonex($id=null){
         if($id!==null){
@@ -406,7 +331,11 @@ class tagihanmhs extends MX_Controller {
             $div.="<table class='table table-condensed table-striped table-bordered'>";
             $i=0;
             foreach ($data as $key => $value) {
+                # code...
+                
+                
                     $div.="<tr>";
+                
                 $div.="<td>".$key."</td>";
                 $div.="<td>".$value."</td>";
                     $div.="</tr>";
@@ -420,22 +349,7 @@ class tagihanmhs extends MX_Controller {
         }
       
     }
-    function getkodeakad($id){
-        $data=$this->tagihdb->getmultipaket($id);
-        $multipaket=json_decode($data['multipaket']);
-        $kode=$this->__getkodeakad($multipaket);
-        // print_r($kode);
-        return $kode;
-    }
-    function __getkodeakad($array=array()){
-        foreach ($array as $key => $value) {
-            $dt=$this->tagihdb->getkodepaket($value);
-            $data[]=$dt['kode'];
 
-        }
-        // print_r($data);
-        return $data;
-    }
     public function submit(){
         $data = array(
         
@@ -512,7 +426,51 @@ class tagihanmhs extends MX_Controller {
             }
         }
     } 
-    
+    private function gen_faktur(){
+        $last=$this->tagihdb->get_last_pt();
+        // print_r($last);
+        if(!empty($last)):
+            $first=substr($last['faktur_pt'],0,2);
+            if($first==''||$first==null){
+                $first=' ';
+            }
+            $left=substr($last['faktur_pt'],2,4);
+            $right=substr($last['faktur_pt'],-5);
+            $nopt=number_format($right); 
+            
+            
+            $newpo=strval($nopt+1);
+            $newpo2=substr(strval("00000$newpo"),-5);
+
+        $tahun=substr($left,0,2);
+        $bulan=substr($left,2,4);
+        
+            if($tahun<>date('y')):
+                $tahun=date('y');
+                if($bulan==date('m')):
+                    $gen=strval($first.$tahun.$bulan."00001");
+                elseif($bulan<>date('m')):
+                    $bulan=date('m');
+                    $gen=strval($first.$tahun.$bulan."00001");
+                endif;
+            elseif($tahun==date('y')):
+                if(intval($bulan)<>date('m')):
+                    $bulan=date('m');
+                    $gen=strval($first.$tahun.$bulan."00001"); 
+                elseif($bulan==date('m')):
+                    $gen=strval($first.$tahun.$bulan.$newpo2);
+                endif;
+            endif;
+        else:
+            // $gen="PT151100001";
+            $gen=" ".date('ym')."00001";
+        endif;
+        return $gen;
+    }
+     function get_new_faktur(){
+        echo $this->gen_faktur();
+    }
+
     
 
 }
