@@ -4,7 +4,8 @@
 
 // if($_SERVER['HTTP_HOST']=='localhost'):
 
-$config['assets_url'] = "http://".$_SERVER['HTTP_HOST']."/dewa-project/public/assets/";
+// $config['assets_url'] = "http://".$_SERVER['HTTP_HOST']."/dewa-project/public/assets/";
+$config['assets_url'] = "http://".$_SERVER['HTTP_HOST']."/public/assets/";
 
 // else:
 

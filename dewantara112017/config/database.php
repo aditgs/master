@@ -102,9 +102,11 @@ $db['default']['hostname'] = 'localhost';
 
 $db['default']['username'] = 'root';
 
-$db['default']['password'] = 'latansa876';
+// $db['default']['password'] = 'latansa876';
+$db['default']['password'] = '';
 
-$db['default']['database'] = 'u9504986_stied_siakad2018';
+$db['default']['database'] = 'dewantara2018';
+// $db['default']['database'] = 'u9504986_stied_siakad2018';
 
 $db['default']['dbdriver'] = 'mysqli';
 
