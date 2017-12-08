@@ -19,7 +19,7 @@ class Tagihanbayar_model extends CI_Model {
     
     //get data terakhir di generate
     function ceknomornull(){
-          // $this->db->select('*'); //Faktur
+          $this->db->select('kode'); //Faktur
         $this->db->where('datetime',NULL);
         $this->db->where('tanggal',NULL);
         $this->db->where('islocked',NULL);
@@ -36,7 +36,7 @@ class Tagihanbayar_model extends CI_Model {
     //untuk generate faktur baru
     function get_last(){
 
-        $this->db->select('*'); //faktur
+        $this->db->select('kode'); //faktur
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
@@ -88,9 +88,9 @@ class Tagihanbayar_model extends CI_Model {
         $last=$this->get_last();
         // print_r($last);
         if(!empty($last)):
-            $faktur=genfaktur($last['faktur'],"PL");//diganti sesuai faktur/kode transaksi
+            $faktur=genfaktur($last['kode'],"PAY",3);//diganti sesuai faktur/kode transaksi
         else:
-            $faktur="PL".date('ym')."00001";//diganti sesuai faktur/kode transaksi
+            $faktur="PAY".date('ym')."0001";//diganti sesuai faktur/kode transaksi
         endif;
         return ($faktur);
     }

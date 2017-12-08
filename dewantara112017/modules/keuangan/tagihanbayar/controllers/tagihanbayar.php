@@ -6,7 +6,7 @@ class tagihanbayar extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('tagihanbayar_model','tagihanbayardb',TRUE);
+        $this->load->model('tagihanbayar_model','tagbayardb',TRUE);
         $this->session->set_userdata('lihat','tagihanbayar');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -41,36 +41,46 @@ class tagihanbayar extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Tagihanbayar');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanbayar/";','embed');  
+        $this->template->set_title('Kelola Pembayaran Tagihan');
+        $this->template->add_js('var baseurl="'.base_url().'tagihanbayar/";
+              $("body").on("click",".bukaform ",function(e){
+                e.preventDefault();
+                $.post(baseurl+"formbayar",function(data,status){
+                    if(status=="success"){
+                        $("body #modal-bayar .modal-body").html(data);
+
+                    }
+                })
+            });
+            ','embed');  
         $this->template->load_view('tagihanbayar_view',array(
-            'view'=>'',
-            'title'=>'Kelola Data Tagihanbayar',
-            'subtitle'=>'Pengelolaan Tagihanbayar',
+            'view'=>'databayartagihan',
+            'title'=>'Kelola Data Pembayaran Tagihan',
+            'subtitle'=>'Pengelolaan Pembayaran Tagihan',
             'breadcrumb'=>array(
-            'Tagihanbayar'),
+            'Pembayaran Tagihan'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Tagihanbayar');
+        $this->template->set_title('Kelola Pembayaran Tagihan');
         $this->template->add_js('var baseurl="'.base_url().'tagihanbayar/";','embed');  
         $this->template->load_view('tagihanbayar_view',array(
-            'view'=>'Tagihanbayar_data',
-            'title'=>'Kelola Data Tagihanbayar',
-            'subtitle'=>'Pengelolaan Tagihanbayar',
+            'view'=>'Pembayaran Tagihan_data',
+            'title'=>'Kelola Data Pembayaran Tagihan',
+            'subtitle'=>'Pengelolaan Pembayaran Tagihan',
             'breadcrumb'=>array(
-            'Tagihanbayar'),
+            'Pembayaran Tagihan'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Tagihanbayar');
+        $this->template->set_title('Kelola Pembayaran Tagihan');
         $this->template->add_js('var baseurl="'.base_url().'tagihanbayar/";','embed');  
         $this->template->load_view('tagihanbayar_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Tagihanbayar',
-            'subtitle'=>'Pengelolaan Tagihanbayar',
+            'title'=>'Kelola Data Pembayaran Tagihan',
+            'subtitle'=>'Pengelolaan Pembayaran Tagihan',
             'breadcrumb'=>array(
-            'Tagihanbayar'),
+            'Pembayaran Tagihan'),
         ));
         
     }
@@ -82,16 +92,16 @@ class tagihanbayar extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->tagihanbayardb->ceknomornull();
+        $null=$this->tagbayardb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
-            $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
+            $kode=$null['kode']; //nama field perlu menyesuaikan tabel
             $id=$null['id'];
-            $this->__updatestatproses($faktur);
+            $this->__updatestatproses($kode);
         }else{
 
-            $faktur=$this->tagihanbayardb->genfaktur();
-            $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
+            $kode=$this->tagbayardb->genfaktur();
+            $data['faktur']=$kode; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
             $data['islocked']=1;
@@ -99,8 +109,8 @@ class tagihanbayar extends MX_Controller {
         }
        
         $session=array('new'=>false,'edit'=>true);
-        $nopo=array('faktur'=>$faktur,'idx'=>$id);
-        $default['faktur']=$faktur;
+        $nopo=array('kode'=>$kode,'idx'=>$id);
+        $default['kode']=$kode;
     
         return (json_encode($nopo));
         // return base64_encode(json_encode($nopo));
@@ -111,13 +121,13 @@ class tagihanbayar extends MX_Controller {
        $this->db->insert('tagihanbayar',$data);
        return $this->db->insert_id();
     }
-     function __updatestatproses($faktur){
+     function __updatestatproses($kode){
         $data=array(
             
             // 'status'=>'Proses',
             'islocked'=>1,
             );
-        $this->db->where('Faktur',$faktur); //nama field perlu menyesuaikan tabel
+        $this->db->where('kode',$kode); //nama field perlu menyesuaikan tabel
         $this->db->update('tagihanbayar',$data);
     }
      
@@ -167,11 +177,18 @@ class tagihanbayar extends MX_Controller {
 
         $this->load->view('tagihanbayar_form_inside');
            
+    } 
+    function formbayar(){   
+
+        $html=$this->load->view('formbayar',true);
+        return $html;
+        // $this->output->set_output($html);
+           
     }
 
     public function get($id=null){
         if($id!==null){
-            echo json_encode($this->tagihanbayardb->get_one($id));
+            echo json_encode($this->tagbayardb->get_one($id));
         }
     }
     function tables(){
@@ -180,7 +197,7 @@ class tagihanbayar extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->tagihanbayardb->get_one($id);
+            $data=$this->tagbayardb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -210,19 +227,19 @@ class tagihanbayar extends MX_Controller {
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
-            $this->tagihanbayardb->update($this->input->post('id'));
+            $this->tagbayardb->update($this->input->post('id'));
           }else{
-            //$this->tagihanbayardb->save();
-            $this->tagihanbayardb->saveas();
+            //$this->tagbayardb->save();
+            $this->tagbayardb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('id')){
-                $this->tagihanbayardb->update($this->input->post('id'));
+                $this->tagbayardb->update($this->input->post('id'));
               }else{
-                //$this->tagihanbayardb->save();
-                $this->tagihanbayardb->saveas();
+                //$this->tagbayardb->save();
+                $this->tagbayardb->saveas();
               }
           }
         }
@@ -233,7 +250,7 @@ class tagihanbayar extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->tagihanbayardb->delete($this->input->post('id'));
+                $this->tagbayardb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -243,7 +260,7 @@ class tagihanbayar extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->tagihanbayardb->upddel_detail($this->input->post('id'));
+                $this->tagbayardb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -258,7 +275,7 @@ class tagihanbayar extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->tagihanbayardb->delete_detail($this->input->post('id'));
+                $this->tagbayardb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -266,7 +283,7 @@ class tagihanbayar extends MX_Controller {
         }
     } 
     private function gen_faktur(){
-        $last=$this->tagihanbayardb->get_last_pt();
+        $last=$this->tagbayardb->get_last_pt();
         // print_r($last);
         if(!empty($last)):
             $first=substr($last['faktur_pt'],0,2);
