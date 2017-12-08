@@ -43,7 +43,7 @@ class tagihanbayar extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Pembayaran Tagihan');
         $this->template->add_js('var baseurl="'.base_url().'tagihanbayar/";
-              $("body").on("click",".bukaform ",function(e){
+              /*$("body").on("click",".bukaform ",function(e){
                 e.preventDefault();
                 $.post(baseurl+"formbayar",function(data,status){
                     if(status=="success"){
@@ -51,10 +51,13 @@ class tagihanbayar extends MX_Controller {
 
                     }
                 })
-            });
+            });*/
             ','embed');  
+       // print_r();
         $this->template->load_view('tagihanbayar_view',array(
             'view'=>'databayartagihan',
+            'default'=>array('kode'=>$this->tagbayardb->genfaktur()),
+            'opt_invoice'=>$this->tagbayardb->getinvoice(),
             'title'=>'Kelola Data Pembayaran Tagihan',
             'subtitle'=>'Pengelolaan Pembayaran Tagihan',
             'breadcrumb'=>array(
@@ -101,7 +104,7 @@ class tagihanbayar extends MX_Controller {
         }else{
 
             $kode=$this->tagbayardb->genfaktur();
-            $data['faktur']=$kode; //nama field perlu menyesuaikan tabel
+            $data['kode']=$kode; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
             $data['islocked']=1;

@@ -314,6 +314,27 @@ class Tagihanbayar_model extends CI_Model {
         }
         return $result;
     }
+    function get_dropdown_paket(){
+        $result = array();
+        $array_keys_values = $this->db->query('select id_siakad_keu_paket as id,kode_akademik as kode,nm_paket as nama from siakad_keu_paket order by id asc');
+        // $result[0]="-- Pilih Urutan id --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->nama." (".$row->kode.")" ;
+        }
+        return $result;
+    }
+    function getinvoice(){
+        $result = array();
+        $array_keys_values = $this->db->query('select `a`.`id` AS `id`,`a`.`kode` AS `kode`,`a`.`tanggal` AS `tanggal`,`a`.`tgltempo` AS `tgltempo`,`a`.`mhs` AS `mhs`,`c`.`nama` AS `nama`,`c`.`nim` AS `nim`,`a`.`multipaket` AS `multipaket`,`a`.`total` AS `total`,`a`.`status` AS `status`,`b`.`id` AS `idbayar`,`b`.`kode` AS `kodebayar`,`b`.`invoice` AS `kodetagih`,`b`.`tanggal` AS `tgltagih` from ((`tagihanmhs` `a` left join `tagihanbayar` `b` on((`a`.`kode` = `b`.`invoice`))) join `mhsmaster` `c` on((`a`.`mhs` = `c`.`id`))) where isnull(`b`.`invoice`)');
+        $result[0]="-- Pilih Invoice --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->kode] = $row->kode." - (".$row->nim.") ".$row->nama;
+            // $result[$row->id] = $row->kode;
+        }
+        return $result;
+    }
 
     //Update 30122014 SWI
     //untuk Array Dropdown dari database yang lain
