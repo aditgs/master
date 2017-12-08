@@ -19,7 +19,7 @@ class Tagihanbayar_model extends CI_Model {
     
     //get data terakhir di generate
     function ceknomornull(){
-          // $this->db->select('*'); //Faktur
+          $this->db->select('kode'); //Faktur
         $this->db->where('datetime',NULL);
         $this->db->where('tanggal',NULL);
         $this->db->where('islocked',NULL);
@@ -36,7 +36,7 @@ class Tagihanbayar_model extends CI_Model {
     //untuk generate faktur baru
     function get_last(){
 
-        $this->db->select('*'); //faktur
+        $this->db->select('kode'); //faktur
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
@@ -88,9 +88,9 @@ class Tagihanbayar_model extends CI_Model {
         $last=$this->get_last();
         // print_r($last);
         if(!empty($last)):
-            $faktur=genfaktur($last['faktur'],"PL");//diganti sesuai faktur/kode transaksi
+            $faktur=genfaktur($last['kode'],"PAY",3);//diganti sesuai faktur/kode transaksi
         else:
-            $faktur="PL".date('ym')."00001";//diganti sesuai faktur/kode transaksi
+            $faktur="PAY".date('ym')."0001";//diganti sesuai faktur/kode transaksi
         endif;
         return ($faktur);
     }
@@ -311,6 +311,27 @@ class Tagihanbayar_model extends CI_Model {
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->$value;
+        }
+        return $result;
+    }
+    function get_dropdown_paket(){
+        $result = array();
+        $array_keys_values = $this->db->query('select id_siakad_keu_paket as id,kode_akademik as kode,nm_paket as nama from siakad_keu_paket order by id asc');
+        // $result[0]="-- Pilih Urutan id --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->nama." (".$row->kode.")" ;
+        }
+        return $result;
+    }
+    function getinvoice(){
+        $result = array();
+        $array_keys_values = $this->db->query('select `a`.`id` AS `id`,`a`.`kode` AS `kode`,`a`.`tanggal` AS `tanggal`,`a`.`tgltempo` AS `tgltempo`,`a`.`mhs` AS `mhs`,`c`.`nama` AS `nama`,`c`.`nim` AS `nim`,`a`.`multipaket` AS `multipaket`,`a`.`total` AS `total`,`a`.`status` AS `status`,`b`.`id` AS `idbayar`,`b`.`kode` AS `kodebayar`,`b`.`invoice` AS `kodetagih`,`b`.`tanggal` AS `tgltagih` from ((`tagihanmhs` `a` left join `tagihanbayar` `b` on((`a`.`kode` = `b`.`invoice`))) join `mhsmaster` `c` on((`a`.`mhs` = `c`.`id`))) where isnull(`b`.`invoice`)');
+        $result[0]="-- Pilih Invoice --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->kode] = $row->kode." - (".$row->nim.") ".$row->nama;
+            // $result[$row->id] = $row->kode;
         }
         return $result;
     }
