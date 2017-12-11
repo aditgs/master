@@ -216,6 +216,11 @@ class Tarif_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->update('tarif', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/
+    }  
+    function updatetarif($data) {
+        $this->db->where('id', $data['id']);
+        $this->db->update('tarif', $data);
+        /*'datetime' => date('Y-m-d H:i:s'),*/
     }
 
     function delete($id) {
