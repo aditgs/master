@@ -193,7 +193,7 @@ class tarif extends MX_Controller {
     }
     public function getxx(){
         $id=$this->input->post('id');
-        if($id!==null){
+        if($id!==null){ 
             $data=$this->tarifdb->get_one($id);
             $kode=$data['KodeT'];
             $default=$this->bacakode($kode);
@@ -218,6 +218,7 @@ class tarif extends MX_Controller {
             $kode=$data['KodeT'];
             $default=$this->bacakode($kode);
             $default['Tarif']=$data['Tarif'];
+            $default['id']=$data['id'];
             $datax=$default;
             echo json_encode($datax);
         }else{
@@ -267,10 +268,10 @@ class tarif extends MX_Controller {
         // print_r($smt);
 
         $bcjenis=$this->tarifdb->bacajenis($jenis);
-        $bckelompokmhs=$this->tarifdb->bacakelompokmhs($kel);
+        $bckelmhs=$this->tarifdb->bacakelompokmhs($kel);
         $bcprodi=$this->tarifdb->bacaprodi($prodi);
         // print_r($bcjenis[]);
-        return ($bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelompokmhs['Kelompok']);
+        return ($bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelmhs['Kelompok']);
 
     }
     function bacakode($kode){
@@ -289,10 +290,29 @@ class tarif extends MX_Controller {
         // print_r($smt);
 
         $bcjenis=$this->tarifdb->bacajenis($jenis);
-        $bckelompokmhs=$this->tarifdb->bacakelompokmhs($kel);
+        $bckelmhs=$this->tarifdb->bacakelompokmhs($kel);
         $bcprodi=$this->tarifdb->bacaprodi($prodi);
-        // print_r($bcjenis[]);
-        $ket=$bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelompokmhs['Kelompok'];
+        // print_r($bcjenis);
+        // print_r($bckelmhs);
+        // print_r($bcprodi);
+        if((!empty($bcjenis) || $bcjenis!=null) && (!empty($bcprodi) || $bcprodi!=null) && (!empty($bckelmhs) || $bckelmhs!=null)){
+            if(array_key_exists('Jenis', $bcjenis) && array_key_exists('Prodi',$bcprodi) && array_key_exists('Kelompok',$bckelmhs)){
+
+                $ket=$bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelmhs['Kelompok'];
+            }else{
+                $ket='';
+                $ket.=isset($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
+                $ket.=isset($bcprodi['Prodi'])?$bcprodi['Prodi']:'';
+                $ket.=isset($bckelmhs['Kelompok'])?$bckelmhs['Kelompok']:'';
+
+            }
+        }else{
+            // $ket="Kode tidak lengkap atau tidak dapat dikenali";
+            $ket='';
+                $ket.=isset($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
+                $ket.=isset($bcprodi['Prodi'])?$bcprodi['Prodi']:'';
+                $ket.=isset($bckelmhs['Kelompok'])?$bckelmhs['Kelompok']:'';
+        }
         $data=array(
             'angkatan'=>"20".$angktn,
             'prodi'=>$prodi,
