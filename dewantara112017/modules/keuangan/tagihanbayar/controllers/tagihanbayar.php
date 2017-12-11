@@ -52,10 +52,12 @@ class tagihanbayar extends MX_Controller {
                     }
                 })
             });*/
-            $(".select2").select2({
+            $("#invoice").select2({
                 theme: "bootstrap input-md",
                 dropdownParent: "#modal-bayar"
-                
+            });
+            $("#invoice").on("change",function(){
+                console.log("oke");
             });
             ','embed');  
        // print_r();

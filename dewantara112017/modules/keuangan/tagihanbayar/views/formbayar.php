@@ -6,6 +6,10 @@
         z-index: 2200 !important;
 
     }
+    .select2.select2-container.select2-container--bootstrap.input-md.select2-container--below.select2-container--open{
+        z-index: 2200 !important;
+
+    }
  
 </style>
 <div id="form_input" class="row gutter5">
@@ -44,7 +48,7 @@
                 <?php $invoice = isset($default['invoice'])? $default['invoice'] : '0';  ?>
                 <?php 
                 // print_r($opt_invoice);
-                echo form_dropdown('invoice',$opt_invoice,$invoice,'id="invoice" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Invoice"'); ?>
+                echo form_dropdown('invoice',$opt_invoice,$invoice,'id="invoice" class="rekening input-lg form-control select2 input-md" style="z-index:2200 !important;width:100%" placeholder="Invoice"'); ?>
                 <!--  <span class="input-group-btn">
                                                         <a class="cekvendor btn btn-primary" data-toggle="modal" href='#modal-bon'><i class="fa fa-refresh"></i></a>
                                                     </span> -->
