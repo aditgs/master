@@ -211,7 +211,6 @@ $(document).ready(function () {
                     type:"POST",
                     beforeSend:function(){
 
-                        $('button[type=submit], input[type=submit]').prop('disabled',true);
                     },
                     success:function(){
                         $('button#save').fadeIn(200);
@@ -225,6 +224,7 @@ $(document).ready(function () {
 
                         $('#datatables').DataTable().clear(0).draw();
                       
+                        // $('button[type=submit], input[type=submit]').prop('disabled',true);
                         // va/r id=0;
                         //$('.id').trigger("reset");
                         // alert(data);

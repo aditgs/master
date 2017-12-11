@@ -92,7 +92,8 @@ function bacatarif($kode){
         $bcjenis=$ci->tarifdb->bacajenis($jenis);
         $bckelompokmhs=$ci->tarifdb->bacakelompokmhs($kelompok);
         $bcprodi=$ci->tarifdb->bacaprodi($prodi);
-        // print_r($bcjenis[]);
+        // print_r($bcjenis);
+        // print_r($bcprodi);
         return ($bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelompokmhs['Kelompok']);
 
     }

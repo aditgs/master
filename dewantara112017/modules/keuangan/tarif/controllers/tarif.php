@@ -43,6 +43,8 @@ class tarif extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Tarif');
         $this->template->add_js('var baseurl="'.base_url().'tarif/";','embed');  
+        $this->template->add_js('modules/tarif.js');  
+        
         $this->template->load_view('tarif_view',array(
             'view'=>'tarif_data',
             'opt_jenis'=>$this->tarifdb->dropdown_jenis(),
@@ -241,13 +243,14 @@ class tarif extends MX_Controller {
         $tahun=$this->input->post('tahun');
         $semester=$this->input->post('semester');
         $tarif=$this->input->post('tarif');
-        print_r($prodi." ".$jenis." ".$kelompok);
+        // print_r($prodi." ".$jenis." ".$kelompok);
         $kode=$angkatan.$prodi.$jenis.$kelompok.$tahun.$semester;
         $data=array(
             'KodeT'=>$kode,
             'Tarif'=>$tarif,
         );
-        $this->db->insert('tarif',$data);
+        // $this->db->insert('tarif',$data);
+        return $data;
     }
     public function submit(){
         if ($this->input->post('ajax')){
@@ -255,7 +258,7 @@ class tarif extends MX_Controller {
             $this->tarifdb->update($this->input->post('id'));
           }else{
             //$this->tarifdb->save();
-            $this->tarifdb->saveas();
+            $this->tarifdb->savetarif($this->submit_settarif());
           }
 
         }else{
@@ -264,7 +267,7 @@ class tarif extends MX_Controller {
                 $this->tarifdb->update($this->input->post('id'));
               }else{
                 //$this->tarifdb->save();
-                $this->tarifdb->saveas();
+                $this->tarifdb->savetarif($this->submit_settarif());
               }
           }
         }
