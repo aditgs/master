@@ -90,11 +90,15 @@ function bacatarif($kode){
         // print_r($semester);
 
         $bcjenis=$ci->tarifdb->bacajenis($jenis);
-        $bckelompokmhs=$ci->tarifdb->bacakelompokmhs($kelompok);
+        $bckelmhs=$ci->tarifdb->bacakelompokmhs($kelompok);
         $bcprodi=$ci->tarifdb->bacaprodi($prodi);
         // print_r($bcjenis);
         // print_r($bcprodi);
-        return ($bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelompokmhs['Kelompok']);
+        if((!empty($bcjenis) || $bcjenis!=null) && (!empty($bcprodi) || $bcprodi!=null) && (!empty($bckelmhs) || $bckelmhs!=null)){
+            return ($bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelmhs['Kelompok']);
+        }else{
+            return '<span class="label label-warning">Kode tidak lengkap atau tidak dapat dikenali</span>';
+        }
 
     }
     } 

@@ -141,10 +141,8 @@ class tarif extends MX_Controller {
            /* $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
-                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+               
                 </div>" , 'id');*/
-            $this->datatables->unset_column('id');
 
         // else:
             $this->datatables->select('id,KodeT,Tarif,')
@@ -152,7 +150,10 @@ class tarif extends MX_Controller {
             $this->datatables->add_column('tambah','$1','bacatarif(KodeT)');
             $this->datatables->edit_column('Tarif','<div class="text-right">$1</div>','rp(Tarif)');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
+                <a href='#modal-form'  data-toggle='modal' data-placement='top' title='Edit' class='edite btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a> <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                </div>" , 'id');
+            $this->datatables->unset_column('id');
             // $this->datatables->unset_column('id');
         // endif;
         echo $this->datatables->generate();
@@ -181,9 +182,46 @@ class tarif extends MX_Controller {
            
     }
 
-    public function get($id=null){
+    // public function get($id=null){
+    public function getx(){
+        $id=$this->input->post('id');
         if($id!==null){
             echo json_encode($this->tarifdb->get_one($id));
+        }else{
+            echo "data tidak ditemukan";
+        }
+    }
+    public function getxx(){
+        $id=$this->input->post('id');
+        if($id!==null){
+            $data=$this->tarifdb->get_one($id);
+            $kode=$data['KodeT'];
+            $default=$this->bacakode($kode);
+            $html=$this->load->view('form_settarif',
+                array(
+                    'opt_jenis'=>$this->tarifdb->dropdown_jenis(),
+                    'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
+                    'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
+                    'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
+                    'default'=>$default,
+            ),TRUE);
+            $this->output->set_output($html);
+            // echo json_encode($this->tarifdb->get_one($id));
+        }else{
+            echo "data tidak ditemukan";
+        }
+    }
+    public function get(){
+        $id=$this->input->post('id');
+        if($id!==null){
+            $data=$this->tarifdb->get_one($id);
+            $kode=$data['KodeT'];
+            $default=$this->bacakode($kode);
+            $default['Tarif']=$data['Tarif'];
+            $datax=$default;
+            echo json_encode($datax);
+        }else{
+            echo "data tidak ditemukan";
         }
     }
     function tables(){
@@ -215,36 +253,68 @@ class tarif extends MX_Controller {
     }
     function bacatarifx($kode){
 
-        $angkatan=substr($kode,0,2);
-        // print_r($angkatan);
+        $angktn=substr($kode,0,2);
+        // print_r($angktn);
         $prodi=substr($kode,2,2);
         // print_r($prodi);
         $jenis=substr($kode,4,2);
         // print_r($jenis);
-        $kelompok=substr($kode,6,1);
-        // print_r($kelompok);
-        $tahun=substr($kode,7,4);
-        // print_r($tahun);
-        $semester=substr($kode,-1);
-        // print_r($semester);
+        $kel=substr($kode,6,1);
+        // print_r($kel);
+        $thn=substr($kode,7,4);
+        // print_r($thn);
+        $smt=substr($kode,-1);
+        // print_r($smt);
 
         $bcjenis=$this->tarifdb->bacajenis($jenis);
-        $bckelompokmhs=$this->tarifdb->bacakelompokmhs($kelompok);
+        $bckelompokmhs=$this->tarifdb->bacakelompokmhs($kel);
         $bcprodi=$this->tarifdb->bacaprodi($prodi);
         // print_r($bcjenis[]);
         return ($bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelompokmhs['Kelompok']);
 
     }
+    function bacakode($kode){
+
+        $angktn=substr($kode,0,2);
+        // print_r($angktn);
+        $prodi=substr($kode,2,2);
+        // print_r($prodi);
+        $jenis=substr($kode,4,2);
+        // print_r($jenis);
+        $kel=substr($kode,6,1);
+        // print_r($kel);
+        $thn=substr($kode,7,4);
+        // print_r($thn);
+        $smt=substr($kode,-1);
+        // print_r($smt);
+
+        $bcjenis=$this->tarifdb->bacajenis($jenis);
+        $bckelompokmhs=$this->tarifdb->bacakelompokmhs($kel);
+        $bcprodi=$this->tarifdb->bacaprodi($prodi);
+        // print_r($bcjenis[]);
+        $ket=$bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelompokmhs['Kelompok'];
+        $data=array(
+            'angkatan'=>"20".$angktn,
+            'prodi'=>$prodi,
+            'jenis'=>$jenis,
+            'kelompok'=>$kel,
+            'tahun'=>$thn,
+            'semester'=>$smt,
+            'keterangan'=>$ket,
+        );
+        return $data;
+
+    }
     function submit_settarif(){
-        $angkatan=substr($this->input->post('angkatan'),-2);
+        $angktn=substr($this->input->post('angkatan'),-2);
         $prodi=$this->input->post('prodi');
         $jenis=$this->input->post('jenis');
-        $kelompok=$this->input->post('kelompok');
-        $tahun=$this->input->post('tahun');
-        $semester=$this->input->post('semester');
-        $tarif=$this->input->post('tarif');
-        // print_r($prodi." ".$jenis." ".$kelompok);
-        $kode=$angkatan.$prodi.$jenis.$kelompok.$tahun.$semester;
+        $kel=$this->input->post('kelompok');
+        $thn=$this->input->post('tahun');
+        $smt=$this->input->post('semester');
+        $tarif=$this->input->post('Tarif');
+        // print_r($prodi." ".$jenis." ".$kel);
+        $kode=$angktn.$prodi.$jenis.$kel.$thn.$smt;
         $data=array(
             'KodeT'=>$kode,
             'Tarif'=>$tarif,
@@ -253,21 +323,26 @@ class tarif extends MX_Controller {
         return $data;
     }
     public function submit(){
+        $datatarif=$this->submit_settarif();
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
-            $this->tarifdb->update($this->input->post('id'));
+            $datatarif['id']=$this->input->post('id');
+            // $this->tarifdb->update($this->input->post('id'));
+            $this->tarifdb->updatetarif($datatarif);
           }else{
             //$this->tarifdb->save();
-            $this->tarifdb->savetarif($this->submit_settarif());
+            $this->tarifdb->savetarif($datatarif);
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('id')){
-                $this->tarifdb->update($this->input->post('id'));
+                $datatarif['id']=$this->input->post('id');
+                $this->tarifdb->updatetarif($datatarif);
+                // $this->tarifdb->update($this->input->post('id'));
               }else{
                 //$this->tarifdb->save();
-                $this->tarifdb->savetarif($this->submit_settarif());
+                $this->tarifdb->savetarif($datatarif);
               }
           }
         }
@@ -326,23 +401,23 @@ class tarif extends MX_Controller {
             $newpo=strval($nopt+1);
             $newpo2=substr(strval("00000$newpo"),-5);
 
-        $tahun=substr($left,0,2);
+        $thn=substr($left,0,2);
         $bulan=substr($left,2,4);
         
-            if($tahun<>date('y')):
-                $tahun=date('y');
+            if($thn<>date('y')):
+                $thn=date('y');
                 if($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan."00001");
+                    $gen=strval($first.$thn.$bulan."00001");
                 elseif($bulan<>date('m')):
                     $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001");
+                    $gen=strval($first.$thn.$bulan."00001");
                 endif;
-            elseif($tahun==date('y')):
+            elseif($thn==date('y')):
                 if(intval($bulan)<>date('m')):
                     $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001"); 
+                    $gen=strval($first.$thn.$bulan."00001"); 
                 elseif($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan.$newpo2);
+                    $gen=strval($first.$thn.$bulan.$newpo2);
                 endif;
             endif;
         else:

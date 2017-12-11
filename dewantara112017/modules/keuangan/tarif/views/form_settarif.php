@@ -71,12 +71,15 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="form-group">
-            <?php echo form_label('Nominal Tarif : ','tarif',array('class'=>'control-label')); ?>
+            <?php echo form_label('Nominal Tarif : ','Tarif',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('tarif',set_value('tarif', isset($default['tarif']) ? $default['tarif'] : ''),'id="tarif" class="form-control input-lg text-right" placeholder="Rp"'); ?>
+                <?php echo form_input('Tarif',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" class="form-control input-lg text-right" placeholder="Rp"'); ?>
             </div>
         </div>
     </div>
+    <?php if(isset($default)){
+        print_r($default);
+    } ?>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="savetarif" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
