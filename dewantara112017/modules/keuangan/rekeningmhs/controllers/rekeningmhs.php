@@ -44,7 +44,7 @@ class rekeningmhs extends MX_Controller {
         $this->template->set_title('Kelola Rekening Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'rekeningmhs/";','embed');  
         $this->template->load_view('rekeningmhs_view',array(
-            'view'=>'',
+            'view'=>'datarek',
             'title'=>'Kelola Data Rekening Mahasiswa',
             'subtitle'=>'Pengelolaan Rekening Mahasiswa',
             'breadcrumb'=>array(
