@@ -35,7 +35,7 @@ class Tarif_model extends CI_Model {
         }
     }
     function bacakelompokmhs($kode){
-        $this->db->where('KodeK',$kode);
+        $this->db->where('Kodek',$kode);
         $result=$this->db->get('kelompokmhs');
         if ($result->num_rows() == 1) {
             return $result->row_array();

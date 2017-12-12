@@ -77,6 +77,14 @@
             </div>
         </div>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group">
+            <?php echo form_label('Keterangan : ','keterangan',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('keterangan',set_value('keterangan', isset($default['keterangan']) ? $default['keterangan'] : ''),'id="tarif" disabled class="disable form-control input-lg text-center" placeholder="Keterangan"'); ?>
+            </div>
+        </div>
+    </div>
     <?php if(isset($default)){
         print_r($default);
     } ?>
