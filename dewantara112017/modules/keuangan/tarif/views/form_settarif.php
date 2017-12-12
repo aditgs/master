@@ -89,12 +89,12 @@
         print_r($default);
     } ?>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <button id="savetarif" type="submit" class="btn btn-lg btn-success">
+        <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
+        <button id="save_edit" type="submit" class="btn btn-lg btn-primary" style="display:none;">
+            <icon class="fa fa-refresh"></icon> Koreksi</button>
         <button id="reset" type="reset" class="btn btn-lg btn-info">
             <icon class="fa fa-refresh"></icon> Reset</button>
-        <button id="save_edit" type="submit" class="btn btn-lg btn-primary" style="display:none;">
-            <icon class="fa fa-refresh"></icon> Perbaiki</button>
         <button id="cancel_edit" data-dismiss="modal" class="btn btn-lg btn-danger batal" style=""><i class="glyphicon glyphicon-remove"></i> Batal</button>
     </div>
     <?php echo form_close();?>

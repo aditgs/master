@@ -216,6 +216,8 @@ class tarif extends MX_Controller {
         if($id!==null){
             $data=$this->tarifdb->get_one($id);
             $kode=$data['KodeT'];
+            // 166102120161    
+
             $default=$this->bacakode($kode);
             $default['Tarif']=$data['Tarif'];
             $default['id']=$data['id'];
@@ -275,6 +277,7 @@ class tarif extends MX_Controller {
 
     }
     function bacakode($kode){
+        // 166102120161    
 
         $angktn=substr($kode,0,2);
         // print_r($angktn);
@@ -301,17 +304,17 @@ class tarif extends MX_Controller {
                 $ket=$bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelmhs['Kelompok'];
             }else{
                 $ket='';
-                $ket.=isset($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
-                $ket.=isset($bcprodi['Prodi'])?$bcprodi['Prodi']:'';
-                $ket.=isset($bckelmhs['Kelompok'])?$bckelmhs['Kelompok']:'';
+                $ket.=!empty($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
+                $ket.=!empty($bcprodi['Prodi'])?$bcprodi['Prodi']:'';
+                $ket.=!empty($bckelmhs['Kelompok'])?$bckelmhs['Kelompok']:'';
 
             }
         }else{
             // $ket="Kode tidak lengkap atau tidak dapat dikenali";
             $ket='';
-                $ket.=isset($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
-                $ket.=isset($bcprodi['Prodi'])?$bcprodi['Prodi']:'';
-                $ket.=isset($bckelmhs['Kelompok'])?$bckelmhs['Kelompok']:'';
+                $ket.=!empty($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
+                $ket.=!empty($bcprodi['Prodi'])?$bcprodi['Prodi']:'';
+                $ket.=!empty($bckelmhs['Kelompok'])?$bckelmhs['Kelompok']:'';
         }
         $data=array(
             'angkatan'=>"20".$angktn,
@@ -322,6 +325,7 @@ class tarif extends MX_Controller {
             'semester'=>$smt,
             'keterangan'=>$ket,
         );
+        print_r($data);
         return $data;
 
     }
