@@ -11,11 +11,7 @@
                                                        
                                                         <th>kodepaket</th>
                                                         <th>namapaket</th>
-                                                        <th>isactive</th>
-                                                        <th>isdeleted</th>
-                                                        <th>datedeleted</th>
-                                                        <th>userid</th>
-                                                        <th>datetime</th>
+                                                  
                                                         <th>Aksi</th>
 
                                                     </tr>

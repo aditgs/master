@@ -1,21 +1,17 @@
 <div class="datatable-ajax-source">
         <div class="btn-group" style="margin:20px 0px 30px">
-                            <a href="<?php echo base_url('paket/baru') ?>" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Buka Paket Baru </a>
-                            <a href="<?php echo base_url('paket') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Paket</a>
+                            <a href="<?php echo base_url('paket_tarif/baru') ?>" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Buka paket_tarif Baru </a>
+                            <a href="<?php echo base_url('paket_tarif') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data paket_tarif</a>
                         </div>
-        <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data Paket</h2>
+        <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data paket_tarif</h2>
     
                                 <table id="datatables" class="table table-bordered table-condensed table-striped" style="">
                                     <thead class="">
                                         <tr>
                                                        
                                                         <th>kodepaket</th>
-                                                        <th>namapaket</th>
-                                                        <th>isactive</th>
-                                                        <th>isdeleted</th>
-                                                        <th>datedeleted</th>
-                                                        <th>userid</th>
-                                                        <th>datetime</th>
+                                                        <th>kodetarif</th>
+                                                     
                                                         <th>Aksi</th>
 
                                                     </tr>

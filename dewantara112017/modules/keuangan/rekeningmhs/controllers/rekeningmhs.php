@@ -6,7 +6,7 @@ class rekeningmhs extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('rekeningmhs_model','rekeningmhsdb',TRUE);
+        $this->load->model('rekeningmhs_model','rekdb',TRUE);
         $this->session->set_userdata('lihat','rekeningmhs');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -41,36 +41,36 @@ class rekeningmhs extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Rekeningmhs');
+        $this->template->set_title('Kelola Rekening Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'rekeningmhs/";','embed');  
         $this->template->load_view('rekeningmhs_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Rekeningmhs',
-            'subtitle'=>'Pengelolaan Rekeningmhs',
+            'title'=>'Kelola Data Rekening Mahasiswa',
+            'subtitle'=>'Pengelolaan Rekening Mahasiswa',
             'breadcrumb'=>array(
-            'Rekeningmhs'),
+            'Rekening Mahasiswa'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Rekeningmhs');
+        $this->template->set_title('Kelola Rekening Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'rekeningmhs/";','embed');  
         $this->template->load_view('rekeningmhs_view',array(
             'view'=>'Rekeningmhs_data',
-            'title'=>'Kelola Data Rekeningmhs',
-            'subtitle'=>'Pengelolaan Rekeningmhs',
+            'title'=>'Kelola Data Rekening Mahasiswa',
+            'subtitle'=>'Pengelolaan Rekening Mahasiswa',
             'breadcrumb'=>array(
-            'Rekeningmhs'),
+            'Rekening Mahasiswa'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Rekeningmhs');
+        $this->template->set_title('Kelola Rekening Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'rekeningmhs/";','embed');  
         $this->template->load_view('rekeningmhs_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Rekeningmhs',
-            'subtitle'=>'Pengelolaan Rekeningmhs',
+            'title'=>'Kelola Data Rekening Mahasiswa',
+            'subtitle'=>'Pengelolaan Rekening Mahasiswa',
             'breadcrumb'=>array(
-            'Rekeningmhs'),
+            'Rekening Mahasiswa'),
         ));
         
     }
@@ -82,7 +82,7 @@ class rekeningmhs extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->rekeningmhsdb->ceknomornull();
+        $null=$this->rekdb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +90,7 @@ class rekeningmhs extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->rekeningmhsdb->genfaktur();
+            $faktur=$this->rekdb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -171,7 +171,7 @@ class rekeningmhs extends MX_Controller {
 
     public function get($id=null){
         if($id!==null){
-            echo json_encode($this->rekeningmhsdb->get_one($id));
+            echo json_encode($this->rekdb->get_one($id));
         }
     }
     function tables(){
@@ -180,7 +180,7 @@ class rekeningmhs extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->rekeningmhsdb->get_one($id);
+            $data=$this->rekdb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -210,19 +210,19 @@ class rekeningmhs extends MX_Controller {
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
-            $this->rekeningmhsdb->update($this->input->post('id'));
+            $this->rekdb->update($this->input->post('id'));
           }else{
-            //$this->rekeningmhsdb->save();
-            $this->rekeningmhsdb->saveas();
+            //$this->rekdb->save();
+            $this->rekdb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('id')){
-                $this->rekeningmhsdb->update($this->input->post('id'));
+                $this->rekdb->update($this->input->post('id'));
               }else{
-                //$this->rekeningmhsdb->save();
-                $this->rekeningmhsdb->saveas();
+                //$this->rekdb->save();
+                $this->rekdb->saveas();
               }
           }
         }
@@ -233,7 +233,7 @@ class rekeningmhs extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->rekeningmhsdb->delete($this->input->post('id'));
+                $this->rekdb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -243,7 +243,7 @@ class rekeningmhs extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->rekeningmhsdb->upddel_detail($this->input->post('id'));
+                $this->rekdb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -258,7 +258,7 @@ class rekeningmhs extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->rekeningmhsdb->delete_detail($this->input->post('id'));
+                $this->rekdb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -266,7 +266,7 @@ class rekeningmhs extends MX_Controller {
         }
     } 
     private function gen_faktur(){
-        $last=$this->rekeningmhsdb->get_last_pt();
+        $last=$this->rekdb->get_last_pt();
         // print_r($last);
         if(!empty($last)):
             $first=substr($last['faktur_pt'],0,2);

@@ -6,7 +6,7 @@ class paket_tarif extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('paket_tarif_model','paket_tarifdb',TRUE);
+        $this->load->model('paket_tarif_model','ptarifdb',TRUE);
         $this->session->set_userdata('lihat','paket_tarif');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -41,34 +41,34 @@ class paket_tarif extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Paket_tarif');
+        $this->template->set_title('Kelola Paket Tarif');
         $this->template->add_js('var baseurl="'.base_url().'paket_tarif/";','embed');  
         $this->template->load_view('paket_tarif_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Paket_tarif',
-            'subtitle'=>'Pengelolaan Paket_tarif',
+            'title'=>'Kelola Data Paket Tarif',
+            'subtitle'=>'Pengelolaan Paket Tarif',
             'breadcrumb'=>array(
             'Paket_tarif'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Paket_tarif');
+        $this->template->set_title('Kelola Paket Tarif');
         $this->template->add_js('var baseurl="'.base_url().'paket_tarif/";','embed');  
         $this->template->load_view('paket_tarif_view',array(
             'view'=>'Paket_tarif_data',
-            'title'=>'Kelola Data Paket_tarif',
-            'subtitle'=>'Pengelolaan Paket_tarif',
+            'title'=>'Kelola Data Paket Tarif',
+            'subtitle'=>'Pengelolaan Paket Tarif',
             'breadcrumb'=>array(
             'Paket_tarif'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Paket_tarif');
+        $this->template->set_title('Kelola Paket Tarif');
         $this->template->add_js('var baseurl="'.base_url().'paket_tarif/";','embed');  
         $this->template->load_view('paket_tarif_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Paket_tarif',
-            'subtitle'=>'Pengelolaan Paket_tarif',
+            'title'=>'Kelola Data Paket Tarif',
+            'subtitle'=>'Pengelolaan Paket Tarif',
             'breadcrumb'=>array(
             'Paket_tarif'),
         ));
@@ -82,7 +82,7 @@ class paket_tarif extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->paket_tarifdb->ceknomornull();
+        $null=$this->ptarifdb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +90,7 @@ class paket_tarif extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->paket_tarifdb->genfaktur();
+            $faktur=$this->ptarifdb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -171,7 +171,7 @@ class paket_tarif extends MX_Controller {
 
     public function get($id=null){
         if($id!==null){
-            echo json_encode($this->paket_tarifdb->get_one($id));
+            echo json_encode($this->ptarifdb->get_one($id));
         }
     }
     function tables(){
@@ -180,7 +180,7 @@ class paket_tarif extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->paket_tarifdb->get_one($id);
+            $data=$this->ptarifdb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -210,19 +210,19 @@ class paket_tarif extends MX_Controller {
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
-            $this->paket_tarifdb->update($this->input->post('id'));
+            $this->ptarifdb->update($this->input->post('id'));
           }else{
-            //$this->paket_tarifdb->save();
-            $this->paket_tarifdb->saveas();
+            //$this->ptarifdb->save();
+            $this->ptarifdb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('id')){
-                $this->paket_tarifdb->update($this->input->post('id'));
+                $this->ptarifdb->update($this->input->post('id'));
               }else{
-                //$this->paket_tarifdb->save();
-                $this->paket_tarifdb->saveas();
+                //$this->ptarifdb->save();
+                $this->ptarifdb->saveas();
               }
           }
         }
@@ -233,7 +233,7 @@ class paket_tarif extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->paket_tarifdb->delete($this->input->post('id'));
+                $this->ptarifdb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -243,7 +243,7 @@ class paket_tarif extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->paket_tarifdb->upddel_detail($this->input->post('id'));
+                $this->ptarifdb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -258,7 +258,7 @@ class paket_tarif extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->paket_tarifdb->delete_detail($this->input->post('id'));
+                $this->ptarifdb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -266,7 +266,7 @@ class paket_tarif extends MX_Controller {
         }
     } 
     private function gen_faktur(){
-        $last=$this->paket_tarifdb->get_last_pt();
+        $last=$this->ptarifdb->get_last_pt();
         // print_r($last);
         if(!empty($last)):
             $first=substr($last['faktur_pt'],0,2);
