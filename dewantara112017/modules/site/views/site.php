@@ -14,7 +14,7 @@ a.ahover:hover {
         <div class="jumbotron home">
             <div class="container text-center">
                 <div class="row gutter5">
-                    <h1>SIKA DEWANTARA JOMBANG</h1>
+                    <h1>SIKA DEWANTARA</h1>
                     <h2>SISTEM INFORMASI AKADEMIK STIE DEWANTARA </h2>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="widget style1 navy-bg">
