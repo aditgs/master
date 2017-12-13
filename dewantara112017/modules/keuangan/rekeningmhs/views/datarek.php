@@ -9,14 +9,14 @@
                                     <thead class="">
                                         <tr>
                                                        
-                                                        <th>kode</th>
-                                                        <th>kodemhs</th>
-                                                        <th>kodejurnal</th>
-                                                        <th>tanggal</th>
-                                                        <th>saldoawal</th>
-                                                        <th>debet</th>
-                                                        <th>kredit</th>
-                                                        <th>saldo</th>
+                                                        <th>Kode</th>
+                                                        <th>Kode mahasiswa</th>
+                                                        <th>Kode jurnal</th>
+                                                        <th>Tanggal</th>
+                                                        <th>Saldo awal</th>
+                                                        <th>Debet</th>
+                                                        <th>Kredit</th>
+                                                        <th>Saldo</th>
                                                   
                                                         <th>Aksi</th>
 

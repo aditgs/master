@@ -4,7 +4,7 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element text-center"> <span class="">
-                            <img alt="image" style="width:50px;" class="" src="<?= assets_url('images/fikri.jpeg') ?>" />
+                            <img alt="image" style="width:50px;" class="img-circle" src="<?= assets_url('images/fikri.jpeg') ?>" />
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                            <?php if ($this->ion_auth->logged_in()): ?>
