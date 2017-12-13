@@ -10,7 +10,7 @@
                            <?php if ($this->ion_auth->logged_in()): ?>
                                  <?php $user = $this->ion_auth->user()->row(); ?>
                                     <?php if ( ! empty($user)): ?>
-                            <span class="clear"> <span class="text-muted text-xs block m-t-xs"><strong class="font-bold"><?php echo $user->id." ".$user->first_name." ".$user->last_name; ?></strong><b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="text-muted text-xs block m-t-xs"><strong class="font-bold"><?php echo $user->first_name." ".$user->last_name; ?></strong><b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 
                                 <li><a href="<?php echo base_url('auth/logout') ?>">Logout</a></li>
