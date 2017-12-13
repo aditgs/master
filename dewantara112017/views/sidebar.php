@@ -18,7 +18,7 @@
                         <?php endif;endif; ?>
                         </div>
                         <div class="logo-element">
-                            SIKA Dewantara
+                            <img alt="image" style="width:50px;" class="img-circle" src="<?= assets_url('images/logo.png') ?>" />
                         </div>
                     </li>
                   
