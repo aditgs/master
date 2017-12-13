@@ -62,9 +62,9 @@ class Site extends MX_Controller{
                                 $isajax=$value['is_ajax_url'];
                                 $isactive=$value['is_active'];
                                     if($isactive=='1'):
-                                        $div.="<li><a href='".domain().$value['module']."/".$value['url']."' title='".$value['title']."'><i class='fa fa-sitemap'></i>";
+                                        $div.="<li><a href='".domain().$value['module']."/".$value['url']."' title='".$value['title']."'><i class='".$value['icon']."'></i>";
                                     else:
-                                        $div.="<li class='disabled'><a href='#' title='".$value['title'].$value['is_active']."'><i class='fa fa-sitemap'></i>";
+                                        $div.="<li class='disabled'><a href='#' title='".$value['title'].$value['is_active']."'><i class='".$value['icon']."'></i>";
                                     endif;
                                 if(empty($child)){
                                     $div.="".$value['title']."</a></li>";
