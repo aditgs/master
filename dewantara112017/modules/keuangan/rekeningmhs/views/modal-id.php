@@ -17,3 +17,11 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+<script type="text/javascript">
+    $(document).ready(function(e){
+        e.preventDefault();
+        console.log('haloo');
+        // $('$modal-id .modal-body').html('siap');
+    });
+
+</script>

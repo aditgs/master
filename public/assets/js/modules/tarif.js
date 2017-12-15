@@ -3,7 +3,7 @@ $(document).ready(function() {
         $('#modal-form .modal-body #addform #reset').trigger('click');
     });
     $("body").on("click", ".edite", function(e) {
-        e.preventDefault();
+        // e.preventDefault();
         /* $('#outside').addClass('active in');
          $('li.baru').addClass('active');
          $('li.daftar').removeClass('active');

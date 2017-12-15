@@ -325,7 +325,7 @@ class tarif extends MX_Controller {
             'semester'=>$smt,
             'keterangan'=>$ket,
         );
-        print_r($data);
+        // print_r($data);
         return $data;
 
     }
