@@ -1,3 +1,29 @@
+<style type="text/css">
+    .select2-result-label .wrap:before{
+    position:absolute;
+    left:4px;
+    font-family:fontAwesome;
+    color:#999;
+    content:"\f096";
+    width:25px;
+    height:25px;
+    
+}
+.select2-result-label .wrap.checked:before{
+    content:"\f14a";
+}
+.select2-result-label .wrap{
+    margin-left:15px;
+}
+
+/* not required css */
+
+.row
+{
+  padding: 10px;
+}
+    
+</style>
 <select multiple id="e1" style="width:300px">
         <option value="AL">Alabama</option>
         <option value="Am">Amalapuram</option>
@@ -76,3 +102,34 @@
     ...
   <option value="WY">Wyoming</option>
 </select>
+
+<div class="row">
+  <select name="sel-01" id="sel-01" class="select2-multiple">
+    <option></option>
+    <option value="AL">Alabama</option>
+    <option value="CA">California</option>
+    <option value="NY">New York</option>
+    <option value="TX">Texas</option>
+    <option value="WY">Wyoming</option>
+  </select>
+</div>
+ <div class="row">
+  <select name="sel-02" id="sel-02" class="select2-multiple2">
+    <option></option>
+    <option value="AL">Alabama</option>
+    <option value="CA">California</option>
+    <option value="NY">New York</option>
+    <option value="TX">Texas</option>
+    <option value="WY">Wyoming</option>
+  </select>
+</div>
+<div class="row">
+  <select name="sel-03" id="sel-03" class="select2-original" multiple>
+    <option></option>
+    <option value="AL">Alabama</option>
+    <option value="CA">California</option>
+    <option value="NY">New York</option>
+    <option value="TX">Texas</option>
+    <option value="WY">Wyoming</option>
+  </select>
+</div>
