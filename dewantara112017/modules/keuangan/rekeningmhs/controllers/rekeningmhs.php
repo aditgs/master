@@ -43,7 +43,7 @@ class rekeningmhs extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Rekening Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'rekeningmhs/";'."
-    $(document).on('show','#md-load-test-modal',function(){
+    $(document).on('show','#modal-id',function(){
           console.log('Modal opened');
       });
             ",'embed');  
