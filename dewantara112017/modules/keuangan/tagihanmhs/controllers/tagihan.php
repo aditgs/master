@@ -51,7 +51,7 @@ class Tagihan extends MX_Controller {
 
     public function index() {
         $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";
+        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/tagihan/";
              $("#mhs,#paket").select2({
                 theme: "bootstrap input-md",
                 dropdownParent: "#modal-form"
@@ -85,6 +85,7 @@ class Tagihan extends MX_Controller {
             'subtitle'=>'Pengelolaan Tagihanmhs',
             'opt_mhs'=>$this->tagihdb->get_dropdown_mhs(),
             'opt_paket'=>$this->tagihdb->get_dropdown_paket(),
+            'opt_detailpaket'=>array(),
             'opt_multipaket'=>$this->tagihdb->get_dropdown_paket(),
             'breadcrumb'=>array(
             'Tagihanmhs'),
