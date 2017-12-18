@@ -1,61 +1,74 @@
 <style type="text/css">
-    .datepicker{
-        z-index: 2200 !important;
-    }
-    span.select2-container.select2-container--bootstrap.input-md.select2-container--open{
-        z-index: 2200 !important;
+.datepicker {
+    z-index: 2200 !important;
+}
 
-    }
- 
+span.select2-container.select2-container--bootstrap.input-md.select2-container--open {
+    z-index: 2200 !important;
+}
+.select2-result-label .wrap:before{
+    position:absolute;
+    left:4px;
+    font-family:fontAwesome;
+    color:#999;
+    content:"\f096";
+    width:25px;
+    height:25px;
+    
+}
+.select2-result-label .wrap.checked:before{
+    content:"\f14a";
+}
+.select2-result-label .wrap{
+    margin-left:15px;
+}
+
+/* not required css */
+
+.row
+{
+  padding: 10px;
+}
 </style>
 <script type="text/javascript">
-    
-    
-  function checkForm(form)
-  {
+function checkForm(form) {
     //
     // validate form fields
     //
 
     form.myButton.disabled = true;
     return true;
-  }
+}
+
+    $('.select2-multiple').select2MultiCheckboxes({
+        placeholder: "Choose multiple elements",
+    })
+    $('.select2-multiple2').select2MultiCheckboxes({
+        formatSelection: function(selected, total) {
+        return "Selected " + selected.length + " of " + total;
+      }
+    })
+    $('.select2-original').select2({
+        placeholder: "Choose elements",
+      width: "100%"
+    })
+
 
 </script>
 <!-- Rounded switch -->
-
-
-
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'tagihanmhs/submit',array('id'=>'addform','role'=>'form','class'=>'form','onsubmit="checkForm(this)"')); ?>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <input type="hidden" value='' id="id" name="id">
         <div class="form-group">
             <?php echo form_label('Kode : ','kode',array('class'=>'control-label')); ?>
             <div class="controls input-group">
                 <?php echo form_input('kode',set_value('kode', isset($default['kode']) ? $default['kode'] : ''),'id="kode" class="form-control" readonly placeholder="#Kode Tagihan"'); ?>
                 <span class="input-group-btn">
-                                                <a class="genfaktur btn btn-primary disabled" data-toggle="" href='#'><i class="fa fa-cogs"></i></a>
-                                            </span>
+                    <a class="genfaktur btn btn-primary disabled" data-toggle="" href='#'><i class="fa fa-cogs"></i></a>
+                </span>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label">
-                Nama Mahasiswa
-            </label>
-            <div class="controls input-group">
-                <?php $mhs = isset($default['mhs'])? $default['mhs'] : '0';  ?>
-                <?php echo form_dropdown('mhs',$opt_mhs,$mhs,'id="mhs" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Mahasiswa"'); ?>
-                
-                <!--  <span class="input-group-btn">
-                                                        <a class="cekvendor btn btn-primary" data-toggle="modal" href='#modal-bon'><i class="fa fa-refresh"></i></a>
-                                                    </span> -->
-            </div>
-            
-        </div>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            
         <div class="form-group tanggal">
             <?php echo form_label('Tanggal: ','tanggal',array('class'=>'control-label')); ?>
             <div class="input-daterange input-group controls" id="datepicker">
@@ -66,8 +79,7 @@
                 <input id="tanggal" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tanggal" required />
                 <?php endif; ?>
                 <span class="input-group-btn">
-                                                <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a>
-                                              </span>
+                    <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
             </div>
         </div>
         <div class="form-group tgltempo">
@@ -80,29 +92,75 @@
                 <input id="tgltempo" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgltempo" required />
                 <?php endif; ?>
                 <span class="input-group-btn">
-                                                <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a>
-                                              </span>
+                    <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
             </div>
         </div>
-        
-       
+      
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="form-group">
+            <label class="control-label">
+                Nama Mahasiswa
+            </label>
+            <div class="controls input-group">
+                <?php $mhs = isset($default['mhs'])? $default['mhs'] : '0';  ?>
+                <?php echo form_dropdown('mhs',$opt_mhs,$mhs,'id="mhs" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Mahasiswa"'); ?>
+              
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
         <div class="form-group">
             <label class="control-label">
-                 Paket Tagihan
+                Paket Tagihan
             </label>
             <div class="controls input-group">
                 <?php $multipaket = isset($default['multipaket'])? $default['multipaket'] : '0';  ?>
                 <?php echo form_dropdown('multipaket[]',$opt_paket,$multipaket,'id="paket" class="rekening input-lg form-control select2 input-md" style="width:100%;" multiple="multiple" placeholder="Multi Paket"'); ?>
-                
-                <!--  <span class="input-group-btn">
-                                                        <a class="cekvendor btn btn-primary" data-toggle="modal" href='#modal-bon'><i class="fa fa-refresh"></i></a>
-                                                    </span> -->
+              
             </div>
-            
         </div>
+        <div class="form-group">
+            <label class="control-label">
+                Detail Paket Tagihan
+            </label>
+            <div class="controls input-group">
+                <?php $detailpaket = isset($default['detailpaket'])? $default['detailpaket'] : '0';  ?>
+                <?php echo form_dropdown('detailpaket[]',$opt_detailpaket,$detailpaket,'id="paket" class="rekening input-lg form-control select2 input-md" style="width:100%;" multiple="multiple" placeholder="Multi Paket"'); ?>
+              
+            </div>
+        </div>
+        <div class="row">
+  <select name="sel-01" id="sel-01" class="select2-multiple">
+    <option></option>
+    <option value="AL">Alabama</option>
+    <option value="CA">California</option>
+    <option value="NY">New York</option>
+    <option value="TX">Texas</option>
+    <option value="WY">Wyoming</option>
+  </select>
+</div>
+ <div class="row">
+  <select name="sel-02" id="sel-02" class="select2-multiple2">
+    <option></option>
+    <option value="AL">Alabama</option>
+    <option value="CA">California</option>
+    <option value="NY">New York</option>
+    <option value="TX">Texas</option>
+    <option value="WY">Wyoming</option>
+  </select>
+</div>
+<div class="row">
+  <select name="sel-03" id="sel-03" class="select2-original" multiple>
+    <option></option>
+    <option value="AL">Alabama</option>
+    <option value="CA">California</option>
+    <option value="NY">New York</option>
+    <option value="TX">Texas</option>
+    <option value="WY">Wyoming</option>
+  </select>
+</div>
+
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" name="myButton" type="submit" class="btn btn-lg btn-success">
@@ -113,4 +171,3 @@
     </div>
     <?php echo form_close();?>
 </div>
-
