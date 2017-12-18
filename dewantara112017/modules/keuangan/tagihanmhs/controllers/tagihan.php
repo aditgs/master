@@ -91,11 +91,25 @@ class Tagihan extends MX_Controller {
             'Tagihanmhs'),
         ));
     }
+
     public function data() {
         $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";','embed');  
+        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/tagihan/";','embed');  
         $this->template->load_view('tagihanmhs_view',array(
             'view'=>'Tagihanmhs_data',
+            'title'=>'Kelola Data Tagihanmhs',
+            'subtitle'=>'Pengelolaan Tagihanmhs',
+            'breadcrumb'=>array(
+            'Tagihanmhs'),
+        ));
+    }
+
+    public function checkbox() {
+        $this->template->set_title('Kelola Tagihanmhs');
+        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/tagihan/";','embed'); 
+        $this->template->add_js('modules/selectcheckbox.js'); 
+        $this->template->load_view('tagihanmhs_view',array(
+            'view'=>'formcheckbox',
             'title'=>'Kelola Data Tagihanmhs',
             'subtitle'=>'Pengelolaan Tagihanmhs',
             'breadcrumb'=>array(

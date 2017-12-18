@@ -6,6 +6,29 @@
 span.select2-container.select2-container--bootstrap.input-md.select2-container--open {
     z-index: 2200 !important;
 }
+.select2-result-label .wrap:before{
+    position:absolute;
+    left:4px;
+    font-family:fontAwesome;
+    color:#999;
+    content:"\f096";
+    width:25px;
+    height:25px;
+    
+}
+.select2-result-label .wrap.checked:before{
+    content:"\f14a";
+}
+.select2-result-label .wrap{
+    margin-left:15px;
+}
+
+/* not required css */
+
+.row
+{
+  padding: 10px;
+}
 </style>
 <script type="text/javascript">
 function checkForm(form) {
@@ -16,34 +39,21 @@ function checkForm(form) {
     form.myButton.disabled = true;
     return true;
 }
-var select = $('select');
 
-function formatSelection(state) {
-    return state.text;   
-}
+    $('.select2-multiple').select2MultiCheckboxes({
+        placeholder: "Choose multiple elements",
+    })
+    $('.select2-multiple2').select2MultiCheckboxes({
+        formatSelection: function(selected, total) {
+        return "Selected " + selected.length + " of " + total;
+      }
+    })
+    $('.select2-original').select2({
+        placeholder: "Choose elements",
+      width: "100%"
+    })
 
-function formatResult(state) {
-    console.log(state)
-    if (!state.id) return state.text; // optgroup
-    var id = 'state' + state.id.toLowerCase();
-    var label = $('<label></label>', { for: id })
-            .text(state.text);
-    var checkbox = $('<input type="checkbox">', { id: id });
-    
-    return checkbox.add(label);   
-}
 
-select.select2({
-    closeOnSelect: false,
-    formatResult: formatResult,
-    formatSelection: formatSelection,
-    escapeMarkup: function (m) {
-        return m;
-    },
-    matcher: function(term, text, opt){
-         return text.toUpperCase().indexOf(term.toUpperCase())>=0 || opt.parent("optgroup").attr("label").toUpperCase().indexOf(term.toUpperCase())>=0
-    }
-});
 </script>
 <!-- Rounded switch -->
 <div id="form_input" class="row gutter5">
@@ -110,73 +120,6 @@ select.select2({
               
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="form-group">
-                <select multiple style="width: 300px;" id="pilihan">
-    <optgroup label="Alaskan/Hawaiian Time Zone">
-        <option value="AK">Alaska</option>
-        <option value="HI">Hawaii</option>
-    </optgroup>
-    <optgroup label="Pacific Time Zone">
-        <option value="CA">California</option>
-        <option value="NV">Nevada</option>
-        <option value="OR">Oregon</option>
-        <option value="WA">Washington</option>
-    </optgroup>
-    <optgroup label="Mountain Time Zone">
-        <option value="AZ">Arizona</option>
-        <option value="CO">Colorado</option>
-        <option value="ID">Idaho</option>
-        <option value="MT">Montana</option>
-        <option value="NE">Nebraska</option>
-        <option value="NM">New Mexico</option>
-        <option value="ND">North Dakota</option>
-        <option value="UT">Utah</option>
-        <option value="WY">Wyoming</option>
-    </optgroup>
-    <optgroup label="Central Time Zone">
-        <option value="AL">Alabama</option>
-        <option value="AR">Arkansas</option>
-        <option value="IL">Illinois</option>
-        <option value="IA">Iowa</option>
-        <option value="KS">Kansas</option>
-        <option value="KY">Kentucky</option>
-        <option value="LA">Louisiana</option>
-        <option value="MN">Minnesota</option>
-        <option value="MS">Mississippi</option>
-        <option value="MO">Missouri</option>
-        <option value="OK">Oklahoma</option>
-        <option value="SD">South Dakota</option>
-        <option value="TX">Texas</option>
-        <option value="TN">Tennessee</option>
-        <option value="WI">Wisconsin</option>
-    </optgroup>
-    <optgroup label="Eastern Time Zone">
-        <option value="CT">Connecticut</option>
-        <option value="DE">Delaware</option>
-        <option value="FL">Florida</option>
-        <option value="GA">Georgia</option>
-        <option value="IN">Indiana</option>
-        <option value="ME">Maine</option>
-        <option value="MD">Maryland</option>
-        <option value="MA">Massachusetts</option>
-        <option value="MI">Michigan</option>
-        <option value="NH">New Hampshire</option>
-        <option value="NJ">New Jersey</option>
-        <option value="NY">New York</option>
-        <option value="NC">North Carolina</option>
-        <option value="OH">Ohio</option>
-        <option value="PA">Pennsylvania</option>
-        <option value="RI">Rhode Island</option>
-        <option value="SC">South Carolina</option>
-        <option value="VT">Vermont</option>
-        <option value="VA">Virginia</option>
-        <option value="WV">West Virginia</option>
-    </optgroup>
-</select>
-            </div>
-        </div>
         <div class="form-group">
             <label class="control-label">
                 Detail Paket Tagihan
@@ -187,6 +130,37 @@ select.select2({
               
             </div>
         </div>
+        <div class="row">
+  <select name="sel-01" id="sel-01" class="select2-multiple">
+    <option></option>
+    <option value="AL">Alabama</option>
+    <option value="CA">California</option>
+    <option value="NY">New York</option>
+    <option value="TX">Texas</option>
+    <option value="WY">Wyoming</option>
+  </select>
+</div>
+ <div class="row">
+  <select name="sel-02" id="sel-02" class="select2-multiple2">
+    <option></option>
+    <option value="AL">Alabama</option>
+    <option value="CA">California</option>
+    <option value="NY">New York</option>
+    <option value="TX">Texas</option>
+    <option value="WY">Wyoming</option>
+  </select>
+</div>
+<div class="row">
+  <select name="sel-03" id="sel-03" class="select2-original" multiple>
+    <option></option>
+    <option value="AL">Alabama</option>
+    <option value="CA">California</option>
+    <option value="NY">New York</option>
+    <option value="TX">Texas</option>
+    <option value="WY">Wyoming</option>
+  </select>
+</div>
+
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" name="myButton" type="submit" class="btn btn-lg btn-success">
