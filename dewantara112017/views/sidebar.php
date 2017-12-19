@@ -4,13 +4,13 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element text-center"> <span class="">
-                            <img alt="image" style="width:50px;" class="" src="<?= assets_url('images/fikri.jpeg') ?>" />
+                            <img alt="image" style="width:50px;" class="img-circle" src="<?= assets_url('images/fikri.jpeg') ?>" />
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                            <?php if ($this->ion_auth->logged_in()): ?>
                                  <?php $user = $this->ion_auth->user()->row(); ?>
                                     <?php if ( ! empty($user)): ?>
-                            <span class="clear"> <span class="text-muted text-xs block m-t-xs"><strong class="font-bold"><?php echo $user->id." ".$user->first_name." ".$user->last_name; ?></strong><b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="text-muted text-xs block m-t-xs"><strong class="font-bold"><?php echo $user->first_name." ".$user->last_name; ?></strong><b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 
                                 <li><a href="<?php echo base_url('auth/logout') ?>">Logout</a></li>
@@ -18,7 +18,7 @@
                         <?php endif;endif; ?>
                         </div>
                         <div class="logo-element">
-                            SIKA Dewantara
+                            <img alt="image" style="width:50px;" class="img-circle" src="<?= assets_url('images/logo.png') ?>" />
                         </div>
                     </li>
                   
