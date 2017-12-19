@@ -63,9 +63,20 @@
             </div>
         </div>
         <div class="form-group">
-            <?php echo form_label('Semester : ','semester',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('semester',set_value('semester', isset($default['semester']) ? $default['semester'] : ''),'id="semester" class="form-control" placeholder="Semester"'); ?>
+            <?php echo form_label('Semester : ','semester',array('class'=>'control-label')); ?>
+                <div class="checkbox">
+                    <div class="radio">
+                        <label>
+                            <input class="radio" type="radio" name="semester" id="semester" value="1">
+                            Ganjil
+                        </label>
+                        <label>
+                            <input class="radio" type="radio" name="semester" id="semester" value="2">
+                            Genap
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -73,7 +84,7 @@
         <div class="form-group">
             <?php echo form_label('Nominal Tarif : ','Tarif',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('Tarif',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" class="form-control input-lg text-right" placeholder="Rp"'); ?>
+                <?php echo form_input('Tarif',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="font-size:24px" class="form-control input-lg text-right" placeholder="Rp"'); ?>
             </div>
         </div>
     </div>

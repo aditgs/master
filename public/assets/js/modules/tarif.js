@@ -3,13 +3,7 @@ $(document).ready(function() {
         $('#modal-form .modal-body #addform #reset').trigger('click');
     });
     $("body").on("click", ".edite", function(e) {
-        // e.preventDefault();
-        /* $('#outside').addClass('active in');
-         $('li.baru').addClass('active');
-         $('li.daftar').removeClass('active');
-         $('#inside').removeClass('active');
-         $('.kelola').show(200);
-        */
+        e.preventDefault();
         var id = $(this).attr("id");
         $(this).ready(function() {
             $.ajax({
@@ -41,3 +35,22 @@ $(document).ready(function() {
 
     });
 })
+
+$.fn.checkit=function(id,v){
+            // alert(id+" - "+v);
+            // alert($(this).val());
+            return this.each(function(){
+                if($(this).val()==v){
+                    alert(id+$(this).val()+"-"+v)
+                // if($(id).val()==v){
+                     // $(this).attr('checked','checked');
+                     $(this).prop('checked',true);
+                     console.log('checked true');
+                     // $(id).attr('checked','checked');
+                }else{
+                    // $(this).attr('checked','');
+                    console.log('checked false');
+                    $(this).prop('checked',false);
+                }
+            });
+        }

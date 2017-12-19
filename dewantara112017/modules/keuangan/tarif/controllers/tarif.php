@@ -302,6 +302,7 @@ class tarif extends MX_Controller {
             if(array_key_exists('Jenis', $bcjenis) && array_key_exists('Prodi',$bcprodi) && array_key_exists('Kelompok',$bckelmhs)){
 
                 $ket=$bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelmhs['Kelompok'];
+                // implode(glue, pieces)
             }else{
                 $ket='';
                 $ket.=!empty($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
@@ -323,22 +324,23 @@ class tarif extends MX_Controller {
             'kelompok'=>$kel,
             'tahun'=>$thn,
             'semester'=>$smt,
-            'keterangan'=>$ket,
+            'keterangan'=>htmlspecialchars(trim($ket)),
         );
         // print_r($data);
         return $data;
 
     }
     function submit_settarif(){
-        $angktn=substr($this->input->post('angkatan'),-2);
-        $prodi=$this->input->post('prodi');
-        $jenis=$this->input->post('jenis');
-        $kel=$this->input->post('kelompok');
-        $thn=$this->input->post('tahun');
-        $smt=$this->input->post('semester');
-        $tarif=$this->input->post('Tarif');
+        $angktn=substr($this->input->post('angkatan',TRUE),-2);
+        $prodi=$this->input->post('prodi',TRUE);
+        $jenis=$this->input->post('jenis',TRUE);
+        $kel=$this->input->post('kelompok',TRUE);
+        $thn=$this->input->post('tahun',TRUE);
+        $smt=$this->input->post('semester',TRUE);
+        $tarif=$this->input->post('Tarif',TRUE);
         // print_r($prodi." ".$jenis." ".$kel);
-        $kode=$angktn.$prodi.$jenis.$kel.$thn.$smt;
+        $kode=htmlspecialchars(trim(stripslashes($angktn.$prodi.$jenis.$kel.$thn.$smt)));
+        print_r($kode);
         $data=array(
             'KodeT'=>$kode,
             'Tarif'=>$tarif,
