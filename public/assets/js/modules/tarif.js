@@ -41,7 +41,7 @@ $.fn.checkit=function(id,v){
             // alert($(this).val());
             return this.each(function(){
                 if($(this).val()==v){
-                    alert(id+$(this).val()+"-"+v)
+                    // alert(id+$(this).val()+"-"+v)
                 // if($(id).val()==v){
                      // $(this).attr('checked','checked');
                      $(this).prop('checked',true);
