@@ -5,7 +5,7 @@
                         </div>
         <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data prodi</h2>
     
-                                <table id="datatables" class="table table-bordered table-condensed table-striped" style="">
+                                <table id="datatables" class="table table-bordered table-condensed table-striped" style="width:100%">
                                     <thead class="">
                                         <tr>
                                                        

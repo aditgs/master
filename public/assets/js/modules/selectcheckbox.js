@@ -41,3 +41,29 @@ select.select2({
          return text.toUpperCase().indexOf(term.toUpperCase())>=0 || opt.parent("optgroup").attr("label").toUpperCase().indexOf(term.toUpperCase())>=0
     }
 });
+
+/**
+ * jQuery Select2 Multi checkboxes
+ * - allow to select multi values via normal dropdown control
+ * 
+ * author      : wasikuss
+ * repo        : https://github.com/wasikuss/select2-multi-checkboxes/tree/select2-3.5.x
+ * inspired by : https://github.com/select2/select2/issues/411
+ * License     : MIT
+ */
+
+jQuery(function($)
+{
+    $('.select2-multiple').select2MultiCheckboxes({
+    	placeholder: "Choose multiple elements",
+    })
+    $('.select2-multiple2').select2MultiCheckboxes({
+    	formatSelection: function(selected, total) {
+      	return "Selected " + selected.length + " of " + total;
+      }
+    })
+    $('.select2-original').select2({
+    	placeholder: "Choose elements",
+      width: "100%"
+    })
+});
