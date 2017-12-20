@@ -32,6 +32,15 @@ a.ahover:hover {
                             <div class="row" style="margin-top:20px">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="btn-group">
+                                        <a class="btn btn-success" href="<?php echo domain() ?>siku/jenis">Jenis Tarif</a>
+                                        <a class="btn btn-info" href="<?php echo domain() ?>siku/kelompokmhs">Kelompok Mahasiswa</a>
+                                        <a class="btn btn-warning" href="<?php echo domain() ?>siku/prodi">Program Studi</a>
+
+                                    </div>
+                                    <p></p>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="btn-group">
                                        
                                         <a class="btn btn-warning" href=" <?php echo domain() ?>siku/tarif/">Tarif Dasar</a>
                                         <a class="btn btn-info" href=" <?php echo domain() ?>siku/paket_tarif/">Kelompok Tarif</a>
