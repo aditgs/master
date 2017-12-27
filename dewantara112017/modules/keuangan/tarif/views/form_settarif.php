@@ -68,11 +68,11 @@
                 <div class="checkbox">
                     <div class="radio">
                         <label>
-                            <input class="radio" type="radio" name="semester" id="semester" value="1">
+                            <input class="radio ganjil" type="radio" name="semester" id="ganjil" value="1">
                             Ganjil
                         </label>
                         <label>
-                            <input class="radio" type="radio" name="semester" id="semester" value="2">
+                            <input class="radio genap" type="radio" name="semester" id="genap" value="2">
                             Genap
                         </label>
                     </div>
