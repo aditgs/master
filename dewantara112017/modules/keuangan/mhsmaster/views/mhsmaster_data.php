@@ -1,11 +1,11 @@
 <div class="datatable-ajax-source">
         <div class="btn-group" style="margin:20px 0px 30px">
-                            <a href="<?php echo base_url('mhsmaster/baru') ?>" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Buka Mahasiswa Baru </a>
-                            <a href="<?php echo base_url('mhsmaster') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Mahasiswa</a>
+                            <a href="#outside" data-toggle="tab" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Buka Mahasiswa Baru </a>
+                            <a href="#inside" data-toggle="tab" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Mahasiswa</a>
                         </div>
         <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data Mahasiswa</h2>
     
-                                <table id="datatables" class="table table-bordered table-condensed table-striped" style="">
+                                <table id="datatables" class="table table-bordered table-condensed table-striped" style="width:100%">
                                     <thead class="">
                                         <tr>
                                                        

@@ -14,13 +14,9 @@
                             $this->load->view('mhsmaster_table');
                         endif;
                     ?>
-
-
                     </div>
                 </div>
                 </div>
-               
             </div>
-          
-            
 </div>
+<?php $this->load->view('modal-id') ?>
