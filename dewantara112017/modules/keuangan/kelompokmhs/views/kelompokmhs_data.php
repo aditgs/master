@@ -1,7 +1,7 @@
 <div class="datatable-ajax-source">
         <div class="btn-group" style="margin:20px 0px 30px">
-                            <a href="<?php echo base_url('kelompokmhs/baru') ?>" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Buka Kelompok Mahasiswa Baru </a>
-                            <a href="<?php echo base_url('kelompokmhs') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Kelompok Mahasiswa</a>
+                            <a  href="#outside" data-toggle="tab" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Kelompok Mahasiswa Baru </a>
+                            <a href="#inside" data-toggle="tab"  class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Kelompok Mahasiswa</a>
                         </div>
         <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data Kelompok Mahasiswa</h2>
     
@@ -17,7 +17,7 @@
 
                                     <tbody class="table-bordered">
                                         <tr>
-                                            <td colspan="3" class="text-center dataTables_empty"><img src="<?php echo assets_url('images/loader.gif');  ?>" title="Loading" alt="Loading">&nbsp;&nbsp; Loading data, please wait....</td>
+                                            <td colspan="2" class="text-center dataTables_empty"><img src="<?php echo assets_url('images/loader.gif');  ?>" title="Loading" alt="Loading">&nbsp;&nbsp; Loading data, please wait....</td>
                                             
                                         </tr>
                                         
