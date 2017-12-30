@@ -41,34 +41,34 @@ class mhsmaster extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Mhsmaster');
+        $this->template->set_title('Kelola Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhsmaster/";','embed');  
         $this->template->load_view('mhsmaster_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Mhsmaster',
-            'subtitle'=>'Pengelolaan Mhsmaster',
+            'title'=>'Kelola Data Mahasiswa',
+            'subtitle'=>'Pengelolaan Mahasiswa',
             'breadcrumb'=>array(
             'Mhsmaster'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Mhsmaster');
+        $this->template->set_title('Kelola Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhsmaster/";','embed');  
         $this->template->load_view('mhsmaster_view',array(
             'view'=>'Mhsmaster_data',
-            'title'=>'Kelola Data Mhsmaster',
-            'subtitle'=>'Pengelolaan Mhsmaster',
+            'title'=>'Kelola Data Mahasiswa',
+            'subtitle'=>'Pengelolaan Mahasiswa',
             'breadcrumb'=>array(
             'Mhsmaster'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Mhsmaster');
+        $this->template->set_title('Kelola Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhsmaster/";','embed');  
         $this->template->load_view('mhsmaster_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Mhsmaster',
-            'subtitle'=>'Pengelolaan Mhsmaster',
+            'title'=>'Kelola Data Mahasiswa',
+            'subtitle'=>'Pengelolaan Mahasiswa',
             'breadcrumb'=>array(
             'Mhsmaster'),
         ));
@@ -125,7 +125,7 @@ class mhsmaster extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
+       
             $this->datatables->select('id,nim,nama,')
                             ->from('mhsmaster');
             $this->datatables->add_column('edit',"<div class='btn-group'>
@@ -136,13 +136,7 @@ class mhsmaster extends MX_Controller {
                 </div>" , 'id');
             $this->datatables->unset_column('id');
 
-        else:
-            $this->datatables->select('id,nim,nama,')
-                            ->from('mhsmaster');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('mhsmaster/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
-            $this->datatables->unset_column('id');
-        endif;
+       
         echo $this->datatables->generate();
     }
     function enkrip(){
