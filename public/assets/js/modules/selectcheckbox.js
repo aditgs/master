@@ -13,7 +13,7 @@ $("#button").click(function(){
        alert($("#e1").val());
 });
 
-var select = $('select');
+var select = $('select#multi');
 
 function formatSelection(state) {
     return state.text;   

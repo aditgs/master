@@ -1,7 +1,7 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Tagihanmhs_model extends CI_Model {
+class Tagihan_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -76,6 +76,15 @@ class Tagihanmhs_model extends CI_Model {
     } 
     function getpaket($id){
         $this->db->select('id_siakad_keu_paket as id, kode_akademik as kode,nm_paket as nama,')->from('siakad_keu_paket')->where('id_siakad_keu_paket',$id);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }
+    } 
+    function gettarifbymhs($mhs){
+        $this->db->select('*')->from('004-view-tarif')->where('kodemhs',$mhs);
         $result=$this->db->get();
         if($result->num_rows()==1){
             return $result->row_array();
