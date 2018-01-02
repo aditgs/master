@@ -6,8 +6,9 @@ class Tagihan extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('tagihanmhs_model','tagihdb',TRUE);
+        $this->load->model('tagihan_model','tagihdb',TRUE);
         $this->load->model('tarif/tarif_model','tarifdb',TRUE);
+        $this->load->model('mhsmaster/mhsmaster_model','mhsdb',TRUE);
         $this->session->set_userdata('lihat','tagihanmhs');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -51,33 +52,11 @@ class Tagihan extends MX_Controller {
 
     public function index() {
         $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/tagihan/";
-             $("#mhs,#paket").select2({
-                theme: "bootstrap input-md",
-                dropdownParent: "#modal-form"
-                
-            });
-           
-  
-            $("#multipaket").select2({
-                theme: "bootstrap input-md",
-                tags: true,
-                tokenSeparators: [",", ""],
-                closeOnSelect: false,
-                dropdownParent: "#modal-form"
-            });
-            $("body .dropdown-toggle").dropdown(); 
-            $("body").on("click",".bukaform ",function(e){
-                e.preventDefault();
-                $.post(baseurl+"forms",function(data,status){
-                    if(status=="success"){
-                        $("body #modal-form modal-body").html(data);
-
-                    }
-                })
-            });
+        $this->template->add_js('var baseurl="'.base_url().'tagihan/";
+             
             ','embed');  
-       
+        $this->template->add_js('modules/tagihan.js');
+        $this->template->add_css('forms.css');
         $this->template->load_view('tagihanmhs_view',array(
             'default'=>array('kode'=>$this->tagihdb->genfaktur()),
             'view'=>'datatagihan',
@@ -94,7 +73,7 @@ class Tagihan extends MX_Controller {
 
     public function data() {
         $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/tagihan/";','embed');  
+        $this->template->add_js('var baseurl="'.base_url().'tagihan/";','embed');  
         $this->template->load_view('tagihanmhs_view',array(
             'view'=>'Tagihanmhs_data',
             'title'=>'Kelola Data Tagihanmhs',
@@ -106,7 +85,7 @@ class Tagihan extends MX_Controller {
 
     public function checkbox() {
         $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/tagihan/";','embed'); 
+        $this->template->add_js('var baseurl="'.base_url().'tagihan/";','embed'); 
         $this->template->add_js('modules/selectcheckbox.js'); 
         $this->template->load_view('tagihanmhs_view',array(
             'view'=>'formcheckbox',
@@ -119,18 +98,14 @@ class Tagihan extends MX_Controller {
 
      public function baru() {
         $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihanmhs/";
-            $("#mhs,#paket").select2({
+   
+        $this->template->add_js('var baseurl="'.base_url().'tagihan/";
+            $("#mhs").select2({
                 theme: "bootstrap input-md",
                 
             });
              
-            $("#multipaket").select2({
-                theme: "bootstrap input-md",
-                tags: true,
-                 closeOnSelect: false,
-                tokenSeparators: [",", ""]
-            });
+         
             ','embed');  
         $this->template->add_js(" 
             $('input.input-toggle').change(function(){
@@ -153,6 +128,8 @@ class Tagihan extends MX_Controller {
              
             
             ",'embed');
+         $this->template->add_js('modules/tagihan.js');
+         $this->template->add_css('forms.css');
         $this->template->load_view('tagihanview',array(
             'default'=>array('kode'=>$this->tagihdb->genfaktur()),
             'view'=>'formtagihan',
@@ -216,9 +193,35 @@ class Tagihan extends MX_Controller {
         $this->db->where('Faktur',$faktur); //nama field perlu menyesuaikan tabel
         $this->db->update('tagihanmhs',$data);
     }
-     
+    function get_tarif(){
+
      //<!-- Start Primary Key -->
-    
+    }
+    public function gettarif(){
+
+        $idmhs=$this->input->post('id');
+            
+        if(isset($idmhs)||!empty($idmhs)){
+            $mhs=$this->mhsdb->get_one($idmhs);
+            // print_r($mhs);
+            if(!empty($mhs)||$mhs!==''){
+                $kode=substr($mhs['nim'],0,4);
+                // print_r($kode);
+                $this->datatables->select('id,kodetarif,tarif,kodemhs')->from('004-view-tarif')->where('kodemhs',$kode);
+            }
+        }else{
+            $this->datatables->select('id,kodetarif,tarif,kodemhs')->from('004-view-tarif');
+        }
+            $this->datatables->edit_column('id','<input type="checkbox" id="$1" value="$1" name="tarif[]">','id');
+            $this->datatables->add_column('baca','$1','bacatarif(kodetarif)');
+            $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
+            $this->datatables->add_column('edit',"<div class='btn-group'>
+                <a href='#modal-form'  data-toggle='modal' data-placement='top' title='Edit' class='edite btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a> <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                </div>" , 'id');
+            // $this->datatables->unset_column('kodemhs');
+        echo $this->datatables->generate();
+    }
 
     public function getdatatables(){
         // if($this->isadmin()==1):

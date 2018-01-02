@@ -44,13 +44,24 @@ class tarif extends MX_Controller {
         $this->template->set_title('Kelola Tarif');
         $this->template->add_js('var baseurl="'.base_url().'tarif/";','embed');  
         $this->template->add_js('modules/tarif.js');  
-        
+        $tahun=array(
+            '0'=>'-- Pilih Tahun --',
+            '2014'=>'2014',
+            '2015'=>'2015',
+            '2016'=>'2016',
+            '2017'=>'2017',
+            '2018'=>'2018',
+            '2019'=>'2019',
+            '2020'=>'2020',
+            '2021'=>'2021',
+        );
         $this->template->load_view('tarif_view',array(
             'view'=>'tarif_data',
             'opt_jenis'=>$this->tarifdb->dropdown_jenis(),
             'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
+            'opt_tahun'=>$tahun,
             'title'=>'Kelola Data Tarif',
             'subtitle'=>'Pengelolaan Tarif',
             'breadcrumb'=>array(
@@ -60,6 +71,17 @@ class tarif extends MX_Controller {
     public function data() {
         $this->template->set_title('Kelola Tarif');
         $this->template->add_js('var baseurl="'.base_url().'tarif/";','embed');  
+        $tahun=array(
+            '0'=>'-- Pilih Tahun --',
+            '2014'=>'2014',
+            '2015'=>'2015',
+            '2016'=>'2016',
+            '2017'=>'2017',
+            '2018'=>'2018',
+            '2019'=>'2019',
+            '2020'=>'2020',
+            '2021'=>'2021',
+        );
         $this->template->load_view('tarif_view',array(
             'view'=>'tarif_data',
             'title'=>'Kelola Data Tarif',
@@ -68,6 +90,7 @@ class tarif extends MX_Controller {
             'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
+            'opt_tahun'=>$tahun,
             'breadcrumb'=>array(
             'Tarif'),
         ));
@@ -75,6 +98,17 @@ class tarif extends MX_Controller {
      public function baru() {
         $this->template->set_title('Kelola Tarif');
         $this->template->add_js('var baseurl="'.base_url().'tarif/";','embed');  
+        $tahun=array(
+            '0'=>'-- Pilih Tahun --',
+            '2014'=>'2014',
+            '2015'=>'2015',
+            '2016'=>'2016',
+            '2017'=>'2017',
+            '2018'=>'2018',
+            '2019'=>'2019',
+            '2020'=>'2020',
+            '2021'=>'2021',
+        );
         $this->template->load_view('tarif_view',array(
             'view'=>'',
             'title'=>'Kelola Data Tarif',
@@ -83,6 +117,7 @@ class tarif extends MX_Controller {
             'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
+            'opt_tahun'=>$tahun,
             'breadcrumb'=>array(
             'Tarif'),
         ));

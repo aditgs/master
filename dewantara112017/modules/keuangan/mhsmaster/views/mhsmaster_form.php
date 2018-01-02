@@ -3,10 +3,10 @@
 <div class="tab-pane fade" id="outside">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon-table"></i> Form mhsmaster</h3>
+            <h3 class="panel-title"><i class="icon-table"></i> Form Mahasiswa</h3>
             <div class="btn-group pull-right">
-                <a href="#inside" data-toggle="tab" class="btn btn-success"><i class="icon-checkbox-partial"></i> Daftar Mhsmaster</a>
-                <a class="btn btn-info reset" href="#" >Reset Form</a>
+                <a href="#inside" data-toggle="tab" class="btn btn-success"><i class="fa fa-database"></i> Data Mahasiswa</a>
+                <a class="btn btn-info reset" href="#" ><i class="fa fa-refresh"></i> Reset Form</a>
             </div> 
         </div>
         <div class="panel-body">
