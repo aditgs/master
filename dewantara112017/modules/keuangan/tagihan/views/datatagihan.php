@@ -9,13 +9,13 @@
     <table id="datatables" class="table table-bordered table-condensed table-striped" style="width:100%">
         <thead class="">
             <tr>
-                <th>Kode</th>
-                <th>Tanggal/Tempo</th>
-                <th>Mahasiswa/NIM</th>
-                <th>Paket</th>
-                <th>Status</th>
-                <th>Terbayar</th>
-                <th>Aksi</th>
+                <th style="width:10%" class="">Kode</th>
+                <th style="width:15%" class="">Tanggal/Tempo</th>
+                <th style="width:15%" class="">Mahasiswa/NIM</th>
+                <th style="width:15%" class="">Paket</th>
+                <th style="width:15%" class="">Status</th>
+                <th style="width:15%" class="">Terbayar</th>
+                <th style="width:15%" class="">Aksi</th>
             </tr>
         </thead>
         <tbody class="table-bordered">
