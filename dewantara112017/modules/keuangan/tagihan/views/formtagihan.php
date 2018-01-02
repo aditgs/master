@@ -2,7 +2,7 @@
 <!-- Rounded switch -->
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'tagihanmhs/submit',array('id'=>'addform','role'=>'form','class'=>'form','onsubmit="checkForm(this)"')); ?>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
         <input type="hidden" value='' id="id" name="id">
         <div class="form-group">
             <?php echo form_label('Kode : ','kode',array('class'=>'control-label')); ?>
@@ -26,7 +26,7 @@
                     <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
             </div>
         </div>
-         <div class="form-group">
+        <div class="form-group">
             <label class="control-label">
                 Nama Mahasiswa
             </label>
@@ -36,9 +36,36 @@
               
             </div>
         </div>
+        <div class="form-group">
+            <label class="control-label">
+                Tahun
+            </label>
+            <div class="controls input-group">
+                <?php $tahun = isset($default['tahun'])? $default['tahun'] : '0';  ?>
+                <?php echo form_dropdown('tahun',$opt_tahun,$tahun,'id="tahun" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Mahasiswa"'); ?>
+              
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="controls">
+            <?php echo form_label('Semester : ','semester',array('class'=>'control-label')); ?>
+                <div class="checkbox">
+                    <div class="radio">
+                        <label>
+                            <input class="radio ganjil" type="radio" name="semester" id="ganjil" value="1">
+                            Ganjil
+                        </label>
+                        <label>
+                            <input class="radio genap" type="radio" name="semester" id="genap" value="2">
+                            Genap
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
       
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
        <?php $this->load->view('tabeltarif') ?>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

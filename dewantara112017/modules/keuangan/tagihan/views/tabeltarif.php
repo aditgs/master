@@ -5,7 +5,7 @@
             <th class="text-center">KodeT</th>
             <th class="text-center">Tarif</th>
             <th class="text-center">Keterangan</th>
-            <th class="text-center">Kode</th>
+            <!-- <th class="text-center">Kode</th> -->
             <th class="text-center">Aksi</th>
         </tr>
     </thead>

@@ -19,20 +19,26 @@ $(document).ready(function() {
         })
     });
     $('select#mhs').change(function(){
-        $("#data").DataTable().destroy();
+        // $("#data").DataTable().destroy();
         id=$("#mhs").val();
         loadtagihan(id);
     })
-    // alert($("#mhs").val());
+    $('select#tahun').change(function(){
+        // $("#data").DataTable().destroy();
+        tahun=$("#tahun").val();
+        loadtagihan(id,tahun);
+    })
+    // alert($("#tahun").val());
 
 });
 
-function loadtagihan(id) {
+function loadtagihan(id,tahun=0) {
+    // tahun=$('#tahun').val();
     $(".tabeltarif").DataTable({
         "ajax": {
             "url": baseurl + "gettarif",
             "dataType": "json",
-            "data": { id: id},
+            "data": { id: id,tahun:tahun},
         },
         "sServerMethod": "POST",
         "bServerSide": true,
