@@ -228,24 +228,25 @@ class Tagihan extends MX_Controller {
         $smster=$this->input->post('smster');
         $tahun=$this->input->post('tahun');
             
-        // if(isset($idmhs)||!empty($idmhs)){
+            $this->datatables->select('id,kodetarif,tarif,kodemhs,tarif,kdsmster,tahun')
+                ->from('004-view-tarif');
+
+        if(isset($idmhs)||!empty($idmhs)){
             $mhs=$this->mhsdb->get_one($idmhs);
             // print_r($mhs);
             // if(!empty($mhs)||$mhs!==''){
                 $kode=substr($mhs['nim'],0,4);
                 
-            $this->datatables->select('id,kodetarif,tarif,kodemhs,tarif,kdsmster,tahun')
-                ->from('004-view-tarif');
             $this->datatables->where('kodemhs',$kode);
         // $this->datatables->select('id,kodetarif,tarif,kodemhs,kdsmster,tahun');
                 
-            // }
+        }
         // }else{
             // $this->datatables->select('id,kodetarif,tarif,kodemhs')->from('004-view-tarif');
         // }
-        // if(isset($kdsmster)||!empty($kdsmster)){
-        //     $this->datatables->where('kdsmster',$kdsmster);
-        // }
+        if(isset($kdsmster)||!empty($kdsmster)){
+            $this->datatables->where('kdsmster',$kdsmster);
+        }
         if(isset($tahun)||!empty($tahun)){
             $this->datatables->where('tahun',$tahun);
         }

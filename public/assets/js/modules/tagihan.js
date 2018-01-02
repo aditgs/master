@@ -1,7 +1,7 @@
 $(document).ready(function() {
     id=$("#mhs").val();
     if(id!==''||id!=='undefined'){
-        loadtagihan(id);
+        loadtagihan(id,0);
     }
    /* $("#mhs,#multi").select2({
         theme: "bootstrap input-md",
@@ -21,13 +21,16 @@ $(document).ready(function() {
     $('select#mhs').change(function(){
         // $("#data").DataTable().destroy();
         id=$("#mhs").val();
-        loadtagihan(id);
-    })
+        loadtagihan(id,0);
+    });
     $('select#tahun').change(function(){
         // $("#data").DataTable().destroy();
         tahun=$("#tahun").val();
         loadtagihan(id,tahun);
-    })
+    });
+    $('input[type=radio]').change( function() {
+       alert("test  "+ this.checked);   
+    });
     // alert($("#tahun").val());
 
 });
@@ -38,7 +41,7 @@ function loadtagihan(id,tahun=0) {
         "ajax": {
             "url": baseurl + "gettarif",
             "dataType": "json",
-            "data": { id: id,tahun:tahun},
+            "data": { id: id,tahun:tahun,kodesmster:smster,},
         },
         "sServerMethod": "POST",
         "bServerSide": true,
