@@ -1,8 +1,8 @@
 $(document).ready(function() {
     id=$("#mhs").val();
-    if(id!==''||id!=='undefined'){
-        loadtagihan(id,0);
-    }
+    // if(id!==''||id!=='undefined'){
+        loadtagihan();
+    // }
    /* $("#mhs,#multi").select2({
         theme: "bootstrap input-md",
         dropdownParent: "#modal-form"
@@ -19,29 +19,36 @@ $(document).ready(function() {
         })
     });
     $('select#mhs').change(function(){
-        // $("#data").DataTable().destroy();
-        id=$("#mhs").val();
-        loadtagihan(id,0);
+        $("#data").DataTable().destroy();
+        
+        loadtagihan();
     });
     $('select#tahun').change(function(){
-        // $("#data").DataTable().destroy();
-        tahun=$("#tahun").val();
-        loadtagihan(id,tahun);
+        $("#data").DataTable().destroy();
+       
+        loadtagihan();
     });
     $('input[type=radio]').change( function() {
-       alert("test  "+ this.checked);   
+        $("#data").DataTable().destroy();
+        // sms=$(this).val();
+       // alert("test  "+ this.checked);   
+       loadtagihan();
     });
     // alert($("#tahun").val());
 
 });
 
-function loadtagihan(id,tahun=0) {
+function loadtagihan() {
+    id=$("select#mhs").val();
+    tahun=$('select#tahun').val();
+    sms=$('input[type=radio]').val();
     // tahun=$('#tahun').val();
-    $(".tabeltarif").DataTable({
+    // if(typeof(tabeltarif)=='undefined'){
+    var tabeltarif=$(".tabeltarif").DataTable({
         "ajax": {
             "url": baseurl + "gettarif",
             "dataType": "json",
-            "data": { id: id,tahun:tahun,kodesmster:smster,},
+            "data": { id: id,tahun:tahun,kodesmster:sms},
         },
         "sServerMethod": "POST",
         "bServerSide": true,
@@ -58,4 +65,7 @@ function loadtagihan(id,tahun=0) {
         "language": { "decimal": ",", "thousands": "." },
         "columnDefs": [{ "type": "html", "targets": 0 }],
     });
+    // }else{
+        // tabeltarif.
+    // }
 }

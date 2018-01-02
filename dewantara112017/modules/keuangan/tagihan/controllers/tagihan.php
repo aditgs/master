@@ -228,11 +228,10 @@ class Tagihan extends MX_Controller {
         $smster=$this->input->post('smster');
         $tahun=$this->input->post('tahun');
             
-            $this->datatables->select('id,kodetarif,tarif,kodemhs,tarif,kdsmster,tahun')
-                ->from('004-view-tarif');
 
-        if(isset($idmhs)||!empty($idmhs)){
+        // if(isset($idmhs)||!empty($idmhs)){
             $mhs=$this->mhsdb->get_one($idmhs);
+            $this->datatables->select('id,kodetarif,tarif,kodemhs,tarif,kdsmster,tahun')->from('004-view-tarif');
             // print_r($mhs);
             // if(!empty($mhs)||$mhs!==''){
                 $kode=substr($mhs['nim'],0,4);
@@ -240,16 +239,16 @@ class Tagihan extends MX_Controller {
             $this->datatables->where('kodemhs',$kode);
         // $this->datatables->select('id,kodetarif,tarif,kodemhs,kdsmster,tahun');
                 
-        }
+        // }
         // }else{
             // $this->datatables->select('id,kodetarif,tarif,kodemhs')->from('004-view-tarif');
         // }
-        if(isset($kdsmster)||!empty($kdsmster)){
+        // if(isset($kdsmster)||!empty($kdsmster)||$kdsmster!=0||$kdsmster!=null){
             $this->datatables->where('kdsmster',$kdsmster);
-        }
-        if(isset($tahun)||!empty($tahun)){
+        // }
+        // if(isset($tahun)||!empty($tahun)||$tahun!=0||$tahun!=null){
             $this->datatables->where('tahun',$tahun);
-        }
+        // }
             $this->datatables->edit_column('id','<input type="checkbox" id="$1" value="$1" name="tarif[]">','id');
             $this->datatables->add_column('baca','$1','bacatarif(kodetarif)');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
