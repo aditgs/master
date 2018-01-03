@@ -42,7 +42,9 @@ $(document).ready(function() {
     });
     $("#selectall").change(function () {
         $("input:checkbox").prop('checked', $(this).prop("checked"));
+        cekbox();
     });
+   
    /* // alert($("#tahun").val());
     $('body tabel.tabeltarif #selectall').click (function () {
          var checkedStatus = this.checked;
@@ -52,6 +54,21 @@ $(document).ready(function() {
     });*/
 
 });
+function cekbox(){
+     // $("#selectall").click(function(){
+
+            var favorite = [];
+
+            $.each($("input[name='tarif[]']:checked"), function(){            
+
+                favorite.push($(this).val());
+
+            });
+            alert(JSON.stringify(favorite));
+            // alert("My favourite sports are: " + favorite.join(", "));
+
+        // });
+}
 
 function loadtagihan() {
     id=$("select#mhs").val();
