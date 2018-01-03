@@ -77,6 +77,8 @@ class Tagihan extends MX_Controller {
             'opt_paket'=>$this->tagihdb->get_dropdown_paket(),
             'opt_detailpaket'=>array(),
             'opt_multipaket'=>$this->tagihdb->get_dropdown_paket(),
+            'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
+            'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             'opt_tahun'=>$tahun,
             'breadcrumb'=>array(
             'Tagihanmhs'),
@@ -119,6 +121,7 @@ class Tagihan extends MX_Controller {
              
          
             ','embed');  
+         $this->template->add_js('modules/tagihan.js');
         $this->template->add_js(" 
             $('input.input-toggle').change(function(){
                 id=$(this).prop('id');
@@ -140,7 +143,6 @@ class Tagihan extends MX_Controller {
              
             
             ",'embed');
-         $this->template->add_js('modules/tagihan.js');
          $this->template->add_css('forms.css');
          $tahun=array(
             '0'=>'-- Pilih Tahun --',
@@ -160,7 +162,10 @@ class Tagihan extends MX_Controller {
             'subtitle'=>'Pengelolaan Tagihanmhs',
             'opt_mhs'=>$this->tagihdb->get_dropdown_mhs(),
             'opt_paket'=>$this->tagihdb->get_dropdown_paket(),
+            'opt_detailpaket'=>array(),
             'opt_multipaket'=>$this->tagihdb->get_dropdown_paket(),
+            'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
+            'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             'opt_tahun'=>$tahun,
             'breadcrumb'=>array(
             'Tagihanmhs'),
@@ -224,19 +229,21 @@ class Tagihan extends MX_Controller {
     public function gettarif(){
 
         $idmhs=$this->input->post('id');
-        $kdsmster=$this->input->post('kodesmster');
+        $kdsmster=$this->input->post('kdsmster');
         $smster=$this->input->post('smster');
         $tahun=$this->input->post('tahun');
+        $kel=$this->input->post('kelompok');
             
 
         // if(isset($idmhs)||!empty($idmhs)){
             $mhs=$this->mhsdb->get_one($idmhs);
-            $this->datatables->select('id,kodetarif,tarif,kodemhs,tarif,kdsmster,tahun')->from('004-view-tarif');
+            $kode=substr($mhs['nim'],0,4);
+            $this->datatables->select('id,kodetarif,kodeket,tarif,kodemhs,tarif,kdsmster,tahun,kel')->from('004-view-tarif');
+            $this->datatables->filter(array('kodemhs'=>$kode,'tahun'=>$tahun,'kdsmster'=>$kdsmster,'kel'=>$kel));
+            // $this->datatables->where('kodemhs',$kode);
             // print_r($mhs);
             // if(!empty($mhs)||$mhs!==''){
-                $kode=substr($mhs['nim'],0,4);
                 
-            $this->datatables->where('kodemhs',$kode);
         // $this->datatables->select('id,kodetarif,tarif,kodemhs,kdsmster,tahun');
                 
         // }
@@ -244,19 +251,19 @@ class Tagihan extends MX_Controller {
             // $this->datatables->select('id,kodetarif,tarif,kodemhs')->from('004-view-tarif');
         // }
         // if(isset($kdsmster)||!empty($kdsmster)||$kdsmster!=0||$kdsmster!=null){
-            $this->datatables->where('kdsmster',$kdsmster);
+            // $this->datatables->where('kdsmster',$kdsmster);
         // }
         // if(isset($tahun)||!empty($tahun)||$tahun!=0||$tahun!=null){
-            $this->datatables->where('tahun',$tahun);
+            // $this->datatables->where('tahun',$tahun);
         // }
-            $this->datatables->edit_column('id','<input type="checkbox" id="$1" value="$1" name="tarif[]">','id');
-            $this->datatables->add_column('baca','$1','bacatarif(kodetarif)');
+            $this->datatables->edit_column('id','<input class="checkbox" type="checkbox" id="tarif" value="$1" name="tarif[]">','id');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
+         
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a href='#modal-form'  data-toggle='modal' data-placement='top' title='Edit' class='edite btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a> <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
-            $this->datatables->unset_column('kodemhs,kdsmster,tahun');
+            $this->datatables->unset_column('kodeket');
         echo $this->datatables->generate();
     }
 

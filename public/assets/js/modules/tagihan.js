@@ -3,10 +3,10 @@ $(document).ready(function() {
     // if(id!==''||id!=='undefined'){
         loadtagihan();
     // }
-   /* $("#mhs,#multi").select2({
+    $("#mhs").select2({
         theme: "bootstrap input-md",
         dropdownParent: "#modal-form"
-    });*/
+    });
 
     $("body .dropdown-toggle").dropdown();
 
@@ -28,44 +28,86 @@ $(document).ready(function() {
        
         loadtagihan();
     });
-    $('input[type=radio]').change( function() {
+    $('select#kdsmster').change( function() {
         $("#data").DataTable().destroy();
         // sms=$(this).val();
        // alert("test  "+ this.checked);   
        loadtagihan();
     });
-    // alert($("#tahun").val());
+    $('select#kelompok').change( function() {
+        $("#data").DataTable().destroy();
+        // sms=$(this).val();
+       // alert("test  "+ this.checked);   
+       loadtagihan();
+    });
+    $("#selectall").change(function () {
+        $("input:checkbox").prop('checked', $(this).prop("checked"));
+        cekbox();
+    });
+   
+   /* // alert($("#tahun").val());
+    $('body tabel.tabeltarif #selectall').click (function () {
+         var checkedStatus = this.checked;
+        $('body tabel.tabeltarif tbody tr').find('td:first :checkbox,td > input.checkbox,td.checkbox :checkbox').each(function () {
+            $(this).prop('checked', checkedStatus);
+         });
+    });*/
 
 });
+function cekbox(){
+     // $("#selectall").click(function(){
+
+            var favorite = [];
+
+            $.each($("input[name='tarif[]']:checked"), function(){            
+
+                favorite.push($(this).val());
+
+            });
+            alert(JSON.stringify(favorite));
+            // alert("My favourite sports are: " + favorite.join(", "));
+
+        // });
+}
 
 function loadtagihan() {
     id=$("select#mhs").val();
     tahun=$('select#tahun').val();
-    sms=$('input[type=radio]').val();
+    sms=$('select#kdsmster').val();
+    kel=$('select#kelompok').val();
     // tahun=$('#tahun').val();
-    // if(typeof(tabeltarif)=='undefined'){
-    var tabeltarif=$(".tabeltarif").DataTable({
-        "ajax": {
-            "url": baseurl + "gettarif",
-            "dataType": "json",
-            "data": { id: id,tahun:tahun,kodesmster:sms},
-        },
-        "sServerMethod": "POST",
-        "bServerSide": true,
-        "bAutoWidth": true,
-        // "bDeferRender": true,
-        "bSortClasses": false,
-        "bscrollCollapse": true,
-        // "bStateSave": true,
-        "responsive": true,
-        "scrollX": true,
-        "sScrollX": true,
-        "fixedHeader": true,
-        "iDisplayLength": 25,
-        "language": { "decimal": ",", "thousands": "." },
-        "columnDefs": [{ "type": "html", "targets": 0 }],
-    });
-    // }else{
-        // tabeltarif.
-    // }
+    // if(typeof tabeltarif ==='undefined'|| tabeltarif === null){
+        // alert('undefine');
+        tabletarif=$("#data").DataTable({
+            "ajax": {
+                "url": baseurl + "gettarif",
+                "dataType": "json",
+                "data": { id: id,tahun:tahun,kdsmster:sms,kelompok:kel},
+            },
+
+            "sServerMethod": "POST",
+            "bServerSide": true,
+            "bAutoWidth": true,
+            "bDeferRender": true,
+            "bSortClasses": false,
+            "bscrollCollapse": true,
+            "bStateSave": true,
+            "responsive": true,
+            "scrollX": true,
+            "sScrollX": true,
+            "scrollY": 800,
+            "fixedHeader": true,
+            "iDisplayLength": 10,
+            "language": { "decimal": ",", "thousands": "." },
+            "columnDefs": [{ "orderable": false, "targets": 0 } ]
+        });
+    /*}else{
+        // alert('defined');
+        // $('.tabeltarif').dataTable().ajax.reload();tabeltarif.
+        // $('#data').DataTable().ajax.reload();
+        tabeltarif.ajax.reload();
+        tabeltarif.clear(0).draw(); 
+
+
+    }*/
 }

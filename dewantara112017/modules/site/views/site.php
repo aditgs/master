@@ -44,8 +44,8 @@ a.ahover:hover {
                                        
                                         <a class="btn btn-warning" href=" <?php echo domain() ?>siku/tarif/">Tarif Dasar</a>
                                         <a class="btn btn-info" href=" <?php echo domain() ?>siku/paket_tarif/">Kelompok Tarif</a>
-                                        <a class="btn btn-danger" href=" <?php echo domain() ?>siku/tagihanmhs/">Tagihan</a>
-                                        <a class="btn btn-success" href=" <?php echo domain() ?>siku/tagihanmhs/validasi/">Validasi</a>
+                                        <a class="btn btn-danger" href=" <?php echo domain() ?>siku/tagihan/">Tagihan</a>
+                                        <a class="btn btn-success" href=" <?php echo domain() ?>siku/tagihan/validasi/">Validasi</a>
                                     </div>
                                 </div>
                             </div>
