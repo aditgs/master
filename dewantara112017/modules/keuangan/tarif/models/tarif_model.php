@@ -34,6 +34,15 @@ class Tarif_model extends CI_Model {
             return array();
         }
     } 
+    function getviewtarif($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('004-view-tarif');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    } 
     function bacajenis($kode){
         $this->db->where('KodeJ',$kode);
         $result=$this->db->get('jenis');

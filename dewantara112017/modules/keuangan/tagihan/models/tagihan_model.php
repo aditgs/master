@@ -92,6 +92,15 @@ class Tagihan_model extends CI_Model {
             return array();
         }
     }
+    function getmhs($id){
+        $this->db->select('*')->from('mhsmaster')->where('id',$id);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }
+    }
     //get data terakhir di generate
     function ceknomornull(){
         $this->db->select('kode'); //Faktur
@@ -265,6 +274,9 @@ class Tagihan_model extends CI_Model {
     }
     function savetagihanmhs($data){
         $this->db->insert('tagihanmhs',$data);
+    }
+    function savedetailbatch($data){
+        $this->db->insert_batch('tagihan_detail',$data);
     }
     function save_detail($data){
         $this->db->insert('tagihanmhs_detail',$data);
