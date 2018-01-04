@@ -42,7 +42,7 @@ $(document).ready(function() {
     });
     $("#selectall").change(function () {
         $("input:checkbox").prop('checked', $(this).prop("checked"));
-        cekbox();
+       loadjumlah(cekbox());
     });
     $("body").on("click","input[name='tarif[]']",function(){
         loadjumlah(cekbox());
