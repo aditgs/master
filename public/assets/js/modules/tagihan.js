@@ -113,7 +113,6 @@ function loadtagihan() {
             "responsive": true,
             "scrollX": true,
             "sScrollX": true,
-            "scrollY": 800,
             "fixedHeader": true,
             "iDisplayLength": 10,
             "language": { "decimal": ",", "thousands": "." },

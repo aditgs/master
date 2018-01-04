@@ -351,18 +351,7 @@ class Tagihan extends MX_Controller {
             }
         }*/
     }
-    function getjumlah(){
-        $data=$this->input->post('data');
-        $data=json_decode($data);
-        // print_r($data);
-        $total=0;
-        foreach ($data as $key => $value) {
-            $jml=$this->tarifdb->getbyid($value);
-            $total=$total+$jml['Tarif'];
-            # code...
-        }
-            echo json_encode($total);
-    }
+   
     function bacatarif($kode){
         
         $angkatan=substr($kode,0,2);
@@ -514,9 +503,21 @@ class Tagihan extends MX_Controller {
         // print_r($data);
         return $data;
     }
+     function getjumlah(){
+        $data=$this->input->post('data');
+        $data=json_decode($data);
+        // print_r($data);
+        $total=0;
+        foreach ($data as $key => $value) {
+            $jml=$this->tarifdb->getbyid($value);
+            $total=$total+$jml['Tarif'];
+            # code...
+        }
+            echo json_encode($total);
+    }
     public function submit(){
             $item=$this->input->post('tarif', TRUE);
-            print_r($item);
+            // print_r($item);
             $paket=json_encode($item);
         $data = array(
         
@@ -534,6 +535,17 @@ class Tagihan extends MX_Controller {
             'userid' => userid(),
             'datetime' => NOW(),
         );
+        foreach ($item as $key => $value) {
+            # code...
+            $dx[$key]['kodetagihan']=$this->input->post('kode', TRUE);
+            $tarif=$this->tarifdb->getviewtarif($value);
+            $mhs=$this->tagihdb->getmhs($this->input->post('mhs', TRUE));
+            $dx[$key]['kodetarif']=$tarif['kodetarif'];
+            $dx[$key]['nim']=$mhs['nim'];
+            $dx[$key]['tarif']=$tarif['tarif'];
+            $dx[$key]['datetime']=NOW();
+        }
+        // print_r($dx);
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
             $this->tagihdb->update($this->input->post('id'));
@@ -541,6 +553,7 @@ class Tagihan extends MX_Controller {
             //$this->tagihdb->save();
             // $this->tagihdb->saveas();
             $this->tagihdb->savetagihanmhs($data);
+            $this->tagihdb->savedetailbatch($dx);
           }
 
         }else{
@@ -549,6 +562,7 @@ class Tagihan extends MX_Controller {
                 $this->tagihdb->update($this->input->post('id'));
               }else{
                 //$this->tagihdb->save();
+                $this->tagihdb->savedetailbatch($dx);
                 $this->tagihdb->savetagihanmhs($data);
                 // $this->tagihdb->saveas();
               }
