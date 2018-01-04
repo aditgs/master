@@ -44,6 +44,9 @@ $(document).ready(function() {
         $("input:checkbox").prop('checked', $(this).prop("checked"));
         cekbox();
     });
+    $("body").on("click","input[name='tarif[]']",function(){
+        loadjumlah(cekbox());
+    });
    
    /* // alert($("#tahun").val());
     $('body tabel.tabeltarif #selectall').click (function () {
@@ -64,12 +67,27 @@ function cekbox(){
                 favorite.push($(this).val());
 
             });
-            alert(JSON.stringify(favorite));
+            data=JSON.stringify(favorite);
+            // console.log(data);
+            // alert(JSON.stringify(favorite));
             // alert("My favourite sports are: " + favorite.join(", "));
 
         // });
 }
 
+function loadjumlah(){
+
+    $.post(baseurl+"getjumlah",{data:data},function(data,status){
+        if(status=="success"){
+            dt=JSON.parse(data);
+            $("#modal-form .modal-body #total").val(dt);
+            // alert(data);
+
+        }
+
+    });
+
+}
 function loadtagihan() {
     id=$("select#mhs").val();
     tahun=$('select#tahun').val();

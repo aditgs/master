@@ -347,6 +347,18 @@ class Tagihan extends MX_Controller {
             }
         }*/
     }
+    function getjumlah(){
+        $data=$this->input->post('data');
+        $data=json_decode($data);
+        // print_r($data);
+        $total=0;
+        foreach ($data as $key => $value) {
+            $jml=$this->tarifdb->getbyid($value);
+            $total=$total+$jml['Tarif'];
+            # code...
+        }
+            echo json_encode($total);
+    }
     function bacatarif($kode){
         
         $angkatan=substr($kode,0,2);
