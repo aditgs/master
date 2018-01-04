@@ -239,7 +239,8 @@ class Tagihan extends MX_Controller {
             $mhs=$this->mhsdb->get_one($idmhs);
             $kode=substr($mhs['nim'],0,4);
             $this->datatables->select('id,kodetarif,kodeket,tarif,kodemhs,tarif,kdsmster,tahun,kel')->from('004-view-tarif');
-            $this->datatables->filter(array('kodemhs'=>$kode,'tahun'=>$tahun,'kdsmster'=>$kdsmster,'kel'=>$kel));
+            // $this->datatables->filter(array('kodemhs'=>$kode,'tahun'=>$tahun,'kdsmster'=>$kdsmster,'kel'=>$kel));
+            $this->datatables->filter(array('kodemhs'=>$kode));
             // $this->datatables->where('kodemhs',$kode);
             // print_r($mhs);
             // if(!empty($mhs)||$mhs!==''){
@@ -250,12 +251,15 @@ class Tagihan extends MX_Controller {
         // }else{
             // $this->datatables->select('id,kodetarif,tarif,kodemhs')->from('004-view-tarif');
         // }
-        // if(isset($kdsmster)||!empty($kdsmster)||$kdsmster!=0||$kdsmster!=null){
-            // $this->datatables->where('kdsmster',$kdsmster);
-        // }
-        // if(isset($tahun)||!empty($tahun)||$tahun!=0||$tahun!=null){
-            // $this->datatables->where('tahun',$tahun);
-        // }
+        if(isset($kdsmster)||!empty($kdsmster)||$kdsmster!==0||$kdsmster!==null){
+            $this->datatables->where('kdsmster',$kdsmster);
+        }
+        if(isset($tahun)||!empty($tahun)||$tahun!==0||$tahun!==null){
+            $this->datatables->where('tahun',$tahun);
+        }
+        if(isset($kel)||!empty($kel)||$kel!==0||$kel!==null){
+            $this->datatables->where('kel',$kel);
+        }
             $this->datatables->edit_column('id','<input class="checkbox" type="checkbox" id="tarif" value="$1" name="tarif[]">','id');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
          
@@ -346,6 +350,18 @@ class Tagihan extends MX_Controller {
                 return"<ul>".$output."</ul>";
             }
         }*/
+    }
+    function getjumlah(){
+        $data=$this->input->post('data');
+        $data=json_decode($data);
+        // print_r($data);
+        $total=0;
+        foreach ($data as $key => $value) {
+            $jml=$this->tarifdb->getbyid($value);
+            $total=$total+$jml['Tarif'];
+            # code...
+        }
+            echo json_encode($total);
     }
     function bacatarif($kode){
         
@@ -499,6 +515,9 @@ class Tagihan extends MX_Controller {
         return $data;
     }
     public function submit(){
+            $item=$this->input->post('tarif', TRUE);
+            print_r($item);
+            $paket=json_encode($item);
         $data = array(
         
             'kode' => $this->input->post('kode', TRUE),
@@ -507,7 +526,7 @@ class Tagihan extends MX_Controller {
             'total' => $this->input->post('total', TRUE),
             'multipaket' => json_encode($this->input->post('multipaket', TRUE)),
             'mhs' => $this->input->post('mhs', TRUE),
-            'idpaket' => $this->input->post('idpaket', TRUE),
+            'multiitem' => $paket,
             'status' => 'open',
             'isactive' =>1,
             'islocked' =>1,

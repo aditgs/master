@@ -24,6 +24,15 @@ class Tarif_model extends CI_Model {
         } else {
             return array();
         }
+    }
+    function getbyid($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('tarif');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
     } 
     function bacajenis($kode){
         $this->db->where('KodeJ',$kode);
