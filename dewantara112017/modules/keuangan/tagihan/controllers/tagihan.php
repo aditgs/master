@@ -544,11 +544,15 @@ class Tagihan extends MX_Controller {
             $dx[$key]['nim']=$mhs['nim'];
             $dx[$key]['tarif']=$tarif['tarif'];
             $dx[$key]['datetime']=NOW();
+            $dx[$key]['istagihan']=1;
+            $dx[$key]['isactive']=1;
         }
         // print_r($dx);
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
             $this->tagihdb->update($this->input->post('id'));
+          // }elseif ($this->input->post('kode')){
+            // $this->tagihdb->updatebykode($this->input->post('kode'));
           }else{
             //$this->tagihdb->save();
             // $this->tagihdb->saveas();
