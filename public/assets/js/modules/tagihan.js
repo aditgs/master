@@ -1,7 +1,7 @@
 $(document).ready(function() {
     id=$("#mhs").val();
     // if(id!==''||id!=='undefined'){
-        loadtagihan();
+        // loadtagihan();
     // }
     $("#mhs").select2({
         theme: "bootstrap input-md",
@@ -46,6 +46,13 @@ $(document).ready(function() {
     });
     $("body").on("click","input[name='tarif[]']",function(){
         loadjumlah(cekbox());
+    });
+    $("#modal-form").on("shown.bs.modal", function() {
+        // $('#modal-form .modal-body #addform #reset').trigger('click');
+        loadtagihan();
+    });
+    $("#modal-form").on("hidden.bs.modal", function() {
+        $('#modal-form .modal-body #addform #reset').trigger('click');
     });
    
    /* // alert($("#tahun").val());

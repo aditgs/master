@@ -279,7 +279,7 @@ class Tagihan_model extends CI_Model {
         $this->db->insert_batch('tagihan_detail',$data);
     }
     function save_detail($data){
-        $this->db->insert('tagihanmhs_detail',$data);
+        $this->db->insert('tagihan_detail',$data);
     }
     function updatestatus($id,$status="open") {
         if($status=='close'){
@@ -362,12 +362,12 @@ class Tagihan_model extends CI_Model {
     }
     function delete_detail($id=null) {
         $this->db->where('id_detail', $id);
-        $this->db->delete('tagihanmhs_detail'); 
+        $this->db->delete('tagihan_detail'); 
        
     } 
     function deletebybukti($bukti=null) {
         $this->db->where('faktur', $bukti);
-        $this->db->delete('tagihanmhs_detail');       
+        $this->db->delete('tagihan_detail');       
     }
     function get_dropdown_mhs(){
         $result = array();
