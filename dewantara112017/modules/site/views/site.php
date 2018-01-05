@@ -14,8 +14,8 @@ a.ahover:hover {
         <div class="jumbotron home">
             <div class="container text-center">
                 <div class="row gutter5">
-                    <h1>SIKA DEWANTARA</h1>
-                    <h2>SISTEM INFORMASI AKADEMIK STIE DEWANTARA </h2>
+                    <h1>SIKA PGRI DEWANTARA</h1>
+                    <h2>SISTEM INFORMASI AKADEMIK STIE PGRI DEWANTARA JOMBANG</h2>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="widget style1 navy-bg">
                             <a class="ahover" style="" href="<?php echo base_url('siku') ?>" data-load="<?php echo base_url('siku') ?>" data-table="<?php echo base_url('siku') ?>" data-remote-target="#ajax-remote">
