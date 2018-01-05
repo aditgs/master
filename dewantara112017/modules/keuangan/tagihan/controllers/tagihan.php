@@ -18,7 +18,7 @@ class Tagihan extends MX_Controller {
         
         $this->template->add_js('datatables.js');
         $this->template->add_js('muria.js');
-        $this->template->add_js('crud.js');
+        // $this->template->add_js('crud.js');
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
