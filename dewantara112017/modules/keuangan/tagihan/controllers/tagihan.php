@@ -18,7 +18,7 @@ class Tagihan extends MX_Controller {
         
         $this->template->add_js('datatables.js');
         $this->template->add_js('muria.js');
-        $this->template->add_js('crud.js');
+        // $this->template->add_js('crud.js');
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
@@ -55,7 +55,7 @@ class Tagihan extends MX_Controller {
         $this->template->add_js('var baseurl="'.base_url().'tagihan/";
              
             ','embed');  
-        $this->template->add_js('modules/tagihan.js');
+        $this->template->add_js('modules/tagihan.0.1.js');
         $this->template->add_css('forms.css');
            $tahun=array(
             '0'=>'-- Pilih Tahun --',
@@ -121,7 +121,7 @@ class Tagihan extends MX_Controller {
              
          
             ','embed');  
-         $this->template->add_js('modules/tagihan.js');
+         $this->template->add_js('modules/tagihan.0.1.js');
         $this->template->add_js(" 
             $('input.input-toggle').change(function(){
                 id=$(this).prop('id');
@@ -238,7 +238,7 @@ class Tagihan extends MX_Controller {
         // if(isset($idmhs)||!empty($idmhs)){
             $mhs=$this->mhsdb->get_one($idmhs);
             $kode=substr($mhs['nim'],0,4);
-            $this->datatables->select('id,kodetarif,kodeket,tarif,kodemhs,tarif,kdsmster,tahun,kel')->from('004-view-tarif');
+            $this->datatables->select('id,kodetarif,kodeket,tarif,kodemhs,kdsmster,tahun,kel')->from('004-view-tarif');
             // $this->datatables->filter(array('kodemhs'=>$kode,'tahun'=>$tahun,'kdsmster'=>$kdsmster,'kel'=>$kel));
             $this->datatables->filter(array('kodemhs'=>$kode));
             // $this->datatables->where('kodemhs',$kode);
@@ -260,14 +260,14 @@ class Tagihan extends MX_Controller {
         if(isset($kel)||!empty($kel)||$kel!==0||$kel!==null){
             $this->datatables->where('kel',$kel);
         }
-            $this->datatables->edit_column('id','<input class="checkbox" type="checkbox" id="tarif" value="$1" name="tarif[]">','id');
+            $this->datatables->edit_column('id','<div class="text-center"><input class="checkbox" type="checkbox" id="tarif" value="$1" name="tarif[]"></div>','id');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
+            $this->datatables->edit_column('kodeket','<div class="text-left">$1</div>','bacatarif(kodeket)');
          
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a href='#modal-form'  data-toggle='modal' data-placement='top' title='Edit' class='edite btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a> <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
                 </div>" , 'id');
-            $this->datatables->unset_column('kodeket');
+            $this->datatables->unset_column('kodemhs,tahun,kdsmster,kel');
         echo $this->datatables->generate();
     }
 
@@ -326,8 +326,29 @@ class Tagihan extends MX_Controller {
     function forms(){   
 
         // $this->load->view('tagihanmhs_form_inside');
-        $html=$this->load->view('formtagihan',true);
+        $tahun=array(
+            '0'=>'-- Pilih Tahun --',
+            '2014'=>'2014',
+            '2015'=>'2015',
+            '2016'=>'2016',
+            '2017'=>'2017',
+            '2018'=>'2018',
+            '2019'=>'2019',
+            '2020'=>'2020',
+            '2021'=>'2021',
+        );
+   
+        $html=$this->load->view('formtagihan',array(
+            'opt_mhs'=>$this->tagihdb->get_dropdown_mhs(),
+            'opt_paket'=>$this->tagihdb->get_dropdown_paket(),
+            'opt_detailpaket'=>array(),
+            'opt_multipaket'=>$this->tagihdb->get_dropdown_paket(),
+            'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
+            'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
+            'opt_tahun'=>$tahun,
+        ),true);
         $this->output->set_output($html);
+        // return $html;
 
            
     }
@@ -503,6 +524,11 @@ class Tagihan extends MX_Controller {
         // print_r($data);
         return $data;
     }
+    function formtagihan(){
+        $html=$this->load->view('formtagihan',true);
+        // $html=$this->output->set_output($html);
+        return $html;
+    }
      function getjumlah(){
         $data=$this->input->post('data');
         $data=json_decode($data);
@@ -515,63 +541,90 @@ class Tagihan extends MX_Controller {
         }
             echo json_encode($total);
     }
+    function __formvalidation(){
+        $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('kode', 'Kode', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('semester', 'Semester', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('tarif[]','Item Tarif Tagihan ','required|numeric|trim|xss_clean');
+        $this->form_validation->set_rules('mhs','Mahasiswa','required|numeric|is_natural_no_zero|trim|xss_clean');
+        $this->form_validation->set_rules('total','Total Tagihan','required|numeric|trim|xss_clean');
+
+       
+
+        if ($this->form_validation->run() == FALSE)
+            {
+                // $this->session->set_flashdata(validation_errors());             
+                return json_encode(array('st'=>0, 'msg' => validation_errors()));
+                // return FALSE;
+            }
+        else{
+            return TRUE;
+        }
+        // return $status;
+    }
     public function submit(){
+        // print_r($this->__formvalidation());
+        if($this->__formvalidation()===TRUE):
             $item=$this->input->post('tarif', TRUE);
             // print_r($item);
             $paket=json_encode($item);
-        $data = array(
-        
-            'kode' => $this->input->post('kode', TRUE),
-            'tanggal' => $this->input->post('tanggal', TRUE),
-            'tgltempo' => $this->input->post('tgltempo', TRUE),
-            'total' => $this->input->post('total', TRUE),
-            'multipaket' => json_encode($this->input->post('multipaket', TRUE)),
-            'mhs' => $this->input->post('mhs', TRUE),
-            'multiitem' => $paket,
-            'status' => 'open',
-            'isactive' =>1,
-            'islocked' =>1,
-            'isdeleted' =>0,
-            'userid' => userid(),
-            'datetime' => NOW(),
-        );
-        foreach ($item as $key => $value) {
-            # code...
-            $dx[$key]['kodetagihan']=$this->input->post('kode', TRUE);
-            $tarif=$this->tarifdb->getviewtarif($value);
-            $mhs=$this->tagihdb->getmhs($this->input->post('mhs', TRUE));
-            $dx[$key]['kodetarif']=$tarif['kodetarif'];
-            $dx[$key]['nim']=$mhs['nim'];
-            $dx[$key]['tarif']=$tarif['tarif'];
-            $dx[$key]['datetime']=NOW();
-            $dx[$key]['istagihan']=1;
-            $dx[$key]['isactive']=1;
-        }
-        // print_r($dx);
-        if ($this->input->post('ajax')){
-          if ($this->input->post('id')){
-            $this->tagihdb->update($this->input->post('id'));
-          // }elseif ($this->input->post('kode')){
-            // $this->tagihdb->updatebykode($this->input->post('kode'));
-          }else{
-            //$this->tagihdb->save();
-            // $this->tagihdb->saveas();
-            $this->tagihdb->savetagihanmhs($data);
-            $this->tagihdb->savedetailbatch($dx);
-          }
-
-        }else{
-          if ($this->input->post('submit')){
+            $data = array(
+            
+                'kode' => $this->input->post('kode', TRUE),
+                'tanggal' => $this->input->post('tanggal', TRUE),
+                'total' => $this->input->post('total', TRUE),
+                'mhs' => $this->input->post('mhs', TRUE),
+                'multiitem' => $paket,
+                'status' => 'open',
+                'isactive' =>1,
+                'islocked' =>1,
+                'isdeleted' =>0,
+                'userid' => userid(),
+                'datetime' => NOW(),
+            );
+            foreach ($item as $key => $value) {
+                # code...
+                $dx[$key]['kodetagihan']=$this->input->post('kode', TRUE);
+                $tarif=$this->tarifdb->getviewtarif($value);
+                $mhs=$this->tagihdb->getmhs($this->input->post('mhs', TRUE));
+                $dx[$key]['kodetarif']=$tarif['kodetarif'];
+                $dx[$key]['nim']=$mhs['nim'];
+                $dx[$key]['tarif']=$tarif['tarif'];
+                $dx[$key]['datetime']=NOW();
+                $dx[$key]['istagihan']=1;
+                $dx[$key]['isactive']=1;
+            }
+            // print_r($dx);
+            if ($this->input->post('ajax')){
               if ($this->input->post('id')){
                 $this->tagihdb->update($this->input->post('id'));
+              // }elseif ($this->input->post('kode')){
+                // $this->tagihdb->updatebykode($this->input->post('kode'));
               }else{
                 //$this->tagihdb->save();
-                $this->tagihdb->savedetailbatch($dx);
-                $this->tagihdb->savetagihanmhs($data);
                 // $this->tagihdb->saveas();
+                $this->tagihdb->savetagihanmhs($data);
+                $this->tagihdb->savedetailbatch($dx);
               }
-          }
-        }
+
+            }else{
+              if ($this->input->post('submit')){
+                  if ($this->input->post('id')){
+                    $this->tagihdb->update($this->input->post('id'));
+                  }else{
+                    //$this->tagihdb->save();
+                    $this->tagihdb->savedetailbatch($dx);
+                    $this->tagihdb->savetagihanmhs($data);
+                    // $this->tagihdb->saveas();
+                  }
+              }
+            }
+            echo json_encode(array('st'=>1, 'msg' => 'Data tagihan sukses disimpan'));
+        else:
+            echo $this->__formvalidation();
+        endif;
     }
     
 

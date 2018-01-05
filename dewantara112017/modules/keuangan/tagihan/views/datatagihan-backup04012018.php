@@ -2,7 +2,8 @@
     <div class="btn-group" style="margin:20px 0px 30px">
         <a class="bukaform btn btn-primary btn-lg" data-toggle="modal" href='#modal-form'>Buka Tagihan</a>
        
-           <a href="<?php echo base_url('tagihan') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Tagihan Mahasiswa</a>
+        <a href="<?php echo base_url('tagihan/baru') ?>" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Buka Tagihan Mahasiswa</a>
+        <a href="<?php echo base_url('tagihan') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Tagihan Mahasiswa</a>
     </div>
     <h2 class="text-center" style="margin:20px 0px 30px">Tabel Data Tagihan Mahasiswa</h2>
     <table id="datatables" class="table table-bordered table-condensed table-striped" style="width:100%">
