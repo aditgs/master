@@ -10,14 +10,14 @@ $(document).ready(function() {
 
     $("body .dropdown-toggle").dropdown();
 
-    $("body").on("click", ".bukaform ", function(e) {
+   /* $("body").on("click", ".bukaform ", function(e) {
         e.preventDefault();
         $.post(baseurl + "forms", function(data, status) {
             if (status == "success") {
                 $("body #modal-form modal-body").html(data);
             }
         })
-    });
+    });*/
     $('select#mhs').change(function(){
         $("#data").DataTable().destroy();
         
@@ -50,9 +50,6 @@ $(document).ready(function() {
     $("#modal-form").on("shown.bs.modal", function() {
         // $('#modal-form .modal-body #addform #reset').trigger('click');
         loadtagihan();
-    });
-    $("#modal-form").on("hidden.bs.modal", function() {
-        $('#modal-form .modal-body #addform #reset').trigger('click');
     });
    
    /* // alert($("#tahun").val());

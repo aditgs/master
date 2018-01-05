@@ -1,13 +1,11 @@
 <table id="data" class="tabeltarif table table-bordered table-condensed table-striped" style="width:100%">
     <thead class="">
         <tr>
-            <th><input type="checkbox" name="selectall" id="selectall" class="selectall"></th>
-            <th class="text-center">Kode</th>
-            <th class="text-center">Tarif</th>
-            <th class="text-center">Keterangan</th>
-            <th class="text-center">Sms</th>
-            <th class="text-center">Tahun</th>
-            <th class="text-center">Aksi</th>
+            <th style="width:10%" class="text-center"><input type="checkbox" name="selectall" id="selectall" class="selectall"></th>
+            <th style="width:20%" class="text-center">Kode</th>
+            <th style="width:40%" class="text-center">Keterangan</th>
+            <th  style="width:20%" class="text-center">Tarif</th>
+            <th style="width:10%" class="text-center">Aksi</th>
         </tr>
     </thead>
     <tbody class="table-bordered">
