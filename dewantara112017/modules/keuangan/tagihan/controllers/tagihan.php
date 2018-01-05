@@ -281,7 +281,7 @@ class Tagihan extends MX_Controller {
             $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
             $this->datatables->edit_column('idmultipaket','$1',"getmultipaket(id)");
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>"
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>"
                 .'
   <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="fa fa-eye"></i> Aksi <span class="caret"></span>
@@ -351,6 +351,97 @@ class Tagihan extends MX_Controller {
         // return $html;
 
            
+    }
+    function getmultitem($id,$isdetail=FALSE){
+        $data=$this->tagihdb->get_one($id);
+        if(!empty($data)):
+            $multitem=$data['multiitem'];
+            if(!empty($data['multiitem']) && $data['multiitem']!=='false'){
+                // if($data['multiitem']!==0||$data['multiitem']!==null){
+                   
+                    $items=json_decode($data['multiitem']);
+                    // print_r($items);
+                    if($isdetail!==TRUE):
+                        foreach ($items as $k => $v) {
+                            # code...
+                            $dt=$this->tagihdb->gettarifbyid($v);
+                            // $dx[$k]['kode']=$dt['kodetarif'];
+                            // $dx[$k]['ket']=trim(bacatarif($dt['kodetarif']));
+                            // $dx[$k]['tarif']=$dt['tarif'];
+                            $dx[$k]="<li>(".$dt['kodetarif'].") ".(trim(bacatarif($dt['kodetarif'])))."</li>";
+                        }
+                        // echo "<ul>".implode("", $dx)."</ul>";
+                    else:
+                        // print_r($data);
+                        foreach ($items as $key => $value) {
+                            # code...
+                            $dt=$this->tagihdb->gettarifbyid($value);
+                            
+                            $dx[]="<li>(".$dt['kodetarif'].") ".(trim(bacatarif($dt['kodetarif'])))."<span class='pull-right text-right'> ".rp($dt['tarif'])."</span></li>";
+                            
+                        }
+
+                    endif;
+                        echo "<ul>".implode("", $dx)."</ul>";
+                // }else{
+                    // echo $data['multiitem'];
+                }else{
+                    // echo $data['multiitem'];
+                    echo "<h3>Data detail tidak ditemukan</h3>";
+                // echo "<pre>";
+                // print_r($dx);
+                // echo "</pre>";
+            }
+        endif;
+    }
+    function getmultipaketx($id,$isdetail=FALSE){
+ // function getmultipaket($id=null){
+        // $ci = & get_instance(); 
+        // $data=$ci->tagihdb->getmultipaket($id);
+        // if($data['multipaket']!=='false'||is_null($data['multipaket'])||!empty($data['multipaket'])){
+        if(!empty($data['multipaket'])){
+            if($data['multipaket']!=='false'){
+                $multi=json_decode($data['multipaket']);
+                // print_r($multi);
+                $total=0;
+                foreach ($multi as $value) {
+                    # code...
+                    $datapaket=$ci->tagihdb->getpaket($value);
+                    $paket[]="";
+                    $paket[].="<li>".$datapaket['nama']. "(".$datapaket['kode'].")";
+                    if($isdetail==TRUE){
+                        $detail=$ci->tagihdb->getdetailmultipaket($datapaket['id']);
+                        $paket[].="<ul>";
+                        $biaya=0;
+                        foreach ($detail as $k => $v) {
+                            $paket[].="<li>".$v['nm_tagihan']." (".rp($v['nominal_biaya']).")</li>";
+                            $biaya=$biaya+$v['nominal_biaya'];
+                        }
+
+                        $paket[].="</ul>";
+                        // $paket[].="<h4 class='text-right'>".rp($biaya)."</h4>";
+
+                        $total=$total+$biaya;
+                    }
+                    $paket[].="</li>";
+                    // $paket[].="<h3 class='text-right'>".rp($total)."</h3>";
+                }
+                $output=implode(" ",$paket);
+                if($isdetail==TRUE){
+                    return "<ul>".$output."</ul><h3 class='text-right'>".rp($total)."</h3>";
+                }else{
+                    return "<ul>".$output."</ul>";
+                }
+                // echo "<pre>";
+                // print_r($output);
+                // echo "</pre>";
+            }else{
+                return " ";
+            }
+                return " ";
+        }
+    // }
+
     }
     function getmultipaket($id=null){
         echo getmultipaket($id);
@@ -447,8 +538,11 @@ class Tagihan extends MX_Controller {
         if($id!==null){
             $data=$this->tagihdb->get_one($id);
             // print_r($data);
-            $html=$this->load->view('detailtagihan',array('data'=>$data,'total'=>$this->getotmultipaket($id)),TRUE);
-            return $this->output->set_output($html);
+            $html=$this->load->view('viewdetailtagihan',array(
+                'data'=>$data,
+                'total'=>$this->getotmultitem($id))
+            ,TRUE);
+            $this->output->set_output($html);
         }else{
             return "<h1>Data tidak ditemukan</h1>";
         }
@@ -478,6 +572,33 @@ class Tagihan extends MX_Controller {
                     'total'=>$total,
                 );
                 // print_r($result);
+                return $result;
+            }
+        }else{
+            return array();
+        }
+    }
+    function getotmultitem($id){
+        $data=$this->tagihdb->get_one($id);
+        // print_r($data);
+        if(!empty($data)){
+            if($data['multiitem']!=='false'){
+                $multiitem=json_decode($data['multiitem']);
+                // print_r($multiitem);
+                $total=0;
+                // echo "<pre>";
+                foreach ($multiitem as $key => $value) {
+                    # code...
+                    $dx=$this->tagihdb->gettarifbyid($value);
+                // print_r($dx);
+                    $total=$total+$dx['tarif'];
+                }
+                $result=array(
+                    'id'=>$id,
+                    'total'=>$total,
+                );
+                // print_r($result);
+                // echo "</pre>";
                 return $result;
             }
         }else{

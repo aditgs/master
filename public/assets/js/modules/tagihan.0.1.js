@@ -35,7 +35,7 @@ $(document).ready(function() {
     });
     $("#modal-form").on("shown.bs.modal", function() {
         loadtagihan();
-    }); 
+    });
     $("#modal-form").on("hidden.bs.modal", function() {
         // tabeltarif.ajax.reload();
         $("#data").DataTable().destroy();
@@ -50,7 +50,26 @@ $(document).ready(function() {
         e.preventDefault();
         save(0);
     });
+    $("body").on("click", ".delete", function(e) {
+        e.preventDefault();
+        var del_data = {
+            id: $(this).attr("id"),
+            ajax: 1
+        }
+        if (confirm('Anda Yakin Ingin Menghapus?')) {
+            $(this).ready(function() {
 
+                $.ajax({
+                    url: baseurl + "delete/",
+                    type: 'POST',
+                    data: del_data,
+                    success: function(msg) {
+                        $('#datatables').DataTable().clear(0).draw();
+                    }
+                });
+            });
+        }
+    });
 
 });
 
