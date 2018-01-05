@@ -36,9 +36,7 @@ if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($de
 		</tr>
 		<tr>
 			<th>Nama/NIM</th>
-			<td><?php echo $detail['nmmhs']." (".$detail['nimmhs'].")<br>".(new tagihanmhs)->bacatarif($detail['nimmhs']) ?></td>
-			<th>Tempo</th>
-			<th><?php echo thedate($data['tgltempo']) ?></th>
+			<td><?php echo $detail['nmmhs']." (".$detail['nimmhs'].")<br>".(new tagihan)->bacatarif($detail['nimmhs']) ?></td>
 		</tr>
 
 	</thead>
@@ -48,7 +46,8 @@ if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($de
 			<th colspan="2" >Total Tagihan</th>
 		</tr>
 		<tr>
-			<td colspan="2" class=""><?php echo getmultipaket($data['id'],true); ?></td>
+			<td colspan="2" class=""><?php (new tagihan)->getmultitem($data['id'],true); ?></td>
+            <?php //print_r($total) ?>
 			<td colspan="2" class="text-right"><h3><?php echo rp($total['total']) ?></h3></td>
 		</tr>
 	</tbody>

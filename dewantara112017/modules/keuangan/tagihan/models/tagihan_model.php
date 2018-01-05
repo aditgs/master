@@ -92,6 +92,15 @@ class Tagihan_model extends CI_Model {
             return array();
         }
     }
+    function gettarifbyid($id){
+        $this->db->select('*')->from('004-view-tarif')->where('id',$id);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }
+    }
     function getmhs($id){
         $this->db->select('*')->from('mhsmaster')->where('id',$id);
         $result=$this->db->get();
