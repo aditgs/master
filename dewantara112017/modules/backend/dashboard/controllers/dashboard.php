@@ -146,13 +146,13 @@ class Dashboard extends MX_Controller {
 
         $this->template->load_view('dashboard_view',array(
 
-                        'title'=>'Dashboard Keuangan Mahasiswa',
+                        'title'=>'Dashboard Administrator',
 
-                        'subtitle'=>'Keuangan Mahasiswa',
+                        'subtitle'=>'Administrator',
 
                         'breadcrumb'=>array(
 
-                            'Keuangan Mahasiswa'),
+                            'Administrator'),
 
             ));
 
