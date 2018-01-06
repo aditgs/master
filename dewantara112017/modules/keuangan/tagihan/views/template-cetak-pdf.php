@@ -25,7 +25,7 @@
         <div class="wrapper wrapper-content gray-bg" class="" style="min-height: 655px;">
             <div class="text-center">
                 <div class="btn-group" style="">
-                    <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']." / ".base64_encode("pdf ");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
+                    <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf ");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
                     <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
                 </div>
             </div>
@@ -33,9 +33,7 @@
                 <div class="col-lg-12">
                     <div class="wrapper wrapper-content animated fadeInRight">
                         <div class="ibox-content p-xl table-responsive m-t">
-                            <?php 
-
-if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($detail)?>
+                            <?php if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($detail)?>
                             <table class="table table-striped table-hover table-bordered">
                                 <thead>
                                     <tr>
@@ -51,7 +49,7 @@ if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($de
                                     <tr>
                                         <th>Nama/NIM</th>
                                         <td>
-                                            <?php echo $detail['nmmhs']." (".$detail['nimmhs'].")<br>".(new tagihanmhs)->bacatarif($detail['nimmhs']) ?>
+                                            <?php echo $detail['nmmhs']." (".$detail['nimmhs'].")<br>".(new tagihan)->bacatarif($detail['nimmhs']) ?>
                                         </td>
                                         <th>Tempo</th>
                                         <th>
@@ -66,7 +64,7 @@ if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($de
                                     </tr>
                                     <tr>
                                         <td colspan="2" class="">
-                                            <?php echo getmultipaket($data['id'],true); ?>
+                                            <?php (new tagihan)->getmultitem($data['id'],true); ?>
                                         </td>
                                         <td colspan="2" class="text-right">
                                             <h3><?php echo rp($total['total']) ?></h3></td>
