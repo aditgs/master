@@ -9,7 +9,9 @@ class Template {
 
     private $_ci;
 
-    protected $brand_name = 'SIKA PGRI Dewantara';
+
+    protected $brand_name = 'SIKA PGRI Dewantara'; 
+
     protected $title_separator = ' | ';
     protected $ga_id = FALSE; // UA-XXXXX-X
 

@@ -288,8 +288,8 @@ class Tagihan extends MX_Controller {
   </button>
   <ul class="dropdown-menu" style="position:relative;z-index:10000 !important">
     <li><a href="#">Lihat</a></li>
-    <li><a href="'.base_url('tagihanmhs/cetakpdf/$2/$3').'"><i class="fa fa-file-pdf-o"></i> PDF</a></li>
-    <li><a href="'.base_url('tagihanmhs/cetakpdf/$2').'" target="_blank"><i class="fa fa-print"></i> Print</a></li>
+    <li><a href="'.base_url('tagihan/cetakpdf/$2/$3').'"><i class="fa fa-file-pdf-o"></i> PDF</a></li>
+    <li><a href="'.base_url('tagihan/cetakpdf/$2').'" target="_blank"><i class="fa fa-print"></i> Print</a></li>
      <li role="separator" class="divider"></li>'
      ."<li><a href='#' class='edit' title='Edit' id='$1'><i class='fa fa-edit'></i> Edit</a></li>
                <li> <a data-toggle='tooltip' data-placement='top' title='Hapus' class='delete ' id='$1'><i class='fa fa-remove'></i> Hapus</a></li>".'</ul>
@@ -382,7 +382,8 @@ class Tagihan extends MX_Controller {
                         }
 
                     endif;
-                        echo "<ul>".implode("", $dx)."</ul>";
+                    $total=$this->getotmultitem($id);
+                        echo "<ul>".implode("", $dx)."<span style='border-top:1px solid #333333' class='pull-right text-right'>".rp($total['total'])."</span></ul>";
                 // }else{
                     // echo $data['multiitem'];
                 }else{
@@ -508,7 +509,7 @@ class Tagihan extends MX_Controller {
             $data=$this->tagihdb->get_one($id);
           
             $this->template->set_layout('cetak');
-            $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'total'=>$this->getotmultipaket($id)),TRUE);
+            $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'total'=>$this->getotmultitem($id)),TRUE);
 
           /*  $html=$this->load->view('cetak_po_baru-pdf',array(
                 // 'supplier'=>$this->podb->get_onesp($supplier),

@@ -4,7 +4,7 @@
         <div class="modal-content panel panel-success">
             <div class="modal-header panel-heading blue-bg">
                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="panel-title">Detail Tagihan</h3>
+                <h3 class="panel-title">Detail Pembayaran</h3>
             </div>
             <div class="modal-body panel-body" style="padding:5px;">
             </div>
