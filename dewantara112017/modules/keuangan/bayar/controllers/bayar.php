@@ -6,7 +6,8 @@ class bayar extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('bayar_model','bayardb',TRUE);
+        $this->load->model('bayar_model','paydb',TRUE);
+        $this->load->model('bayar_detail/bayar_detail_model','detaildb',TRUE);
         $this->session->set_userdata('lihat','bayar');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -44,7 +45,7 @@ class bayar extends MX_Controller {
         $this->template->set_title('Kelola Bayar');
         $this->template->add_js('var baseurl="'.base_url().'bayar/";','embed');  
         $this->template->load_view('bayar_view',array(
-            'view'=>'',
+            'view'=>'databayar',
             'title'=>'Kelola Data Bayar',
             'subtitle'=>'Pengelolaan Bayar',
             'breadcrumb'=>array(
@@ -82,7 +83,7 @@ class bayar extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->bayardb->ceknomornull();
+        $null=$this->paydb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +91,7 @@ class bayar extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->bayardb->genfaktur();
+            $faktur=$this->paydb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -165,13 +166,15 @@ class bayar extends MX_Controller {
     }
     function forms(){   
 
-        $this->load->view('bayar_form_inside');
+        $html=$this->load->view('formbayar',TRUE);
+        // $this->output->set_output($html);
+        return $html;
            
     }
 
     public function get($id=null){
         if($id!==null){
-            echo json_encode($this->bayardb->get_one($id));
+            echo json_encode($this->paydb->get_one($id));
         }
     }
     function tables(){
@@ -180,7 +183,7 @@ class bayar extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->bayardb->get_one($id);
+            $data=$this->paydb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -210,19 +213,19 @@ class bayar extends MX_Controller {
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
-            $this->bayardb->update($this->input->post('id'));
+            $this->paydb->update($this->input->post('id'));
           }else{
-            //$this->bayardb->save();
-            $this->bayardb->saveas();
+            //$this->paydb->save();
+            $this->paydb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('id')){
-                $this->bayardb->update($this->input->post('id'));
+                $this->paydb->update($this->input->post('id'));
               }else{
-                //$this->bayardb->save();
-                $this->bayardb->saveas();
+                //$this->paydb->save();
+                $this->paydb->saveas();
               }
           }
         }
@@ -233,7 +236,7 @@ class bayar extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->bayardb->delete($this->input->post('id'));
+                $this->paydb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -243,7 +246,7 @@ class bayar extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->bayardb->upddel_detail($this->input->post('id'));
+                $this->paydb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -258,7 +261,7 @@ class bayar extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->bayardb->delete_detail($this->input->post('id'));
+                $this->paydb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');

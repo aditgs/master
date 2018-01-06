@@ -1,6 +1,6 @@
 <div class="datatable-ajax-source">
     <div class="btn-group" style="margin:20px 0px 30px">
-        <a class="btn btn-primary btn-lg" data-toggle="modal" href='#modal-form' data-load-remote="<?php echo base_url('forms') ?>" data-remote-target="#modal-form .modal-body.panel-body">bayar Baru</a>
+        <a class="btn btn-primary btn-lg" data-toggle="modal" href='#modal-form' data-load-remote="<?php echo base_url('bayar/forms') ?>" data-remote-target="#modal-form .modal-body.panel-body">bayar Baru</a>
         <a href="<?php echo base_url('bayar/baru') ?>" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Buka bayar Baru </a>
         <a href="<?php echo base_url('bayar') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data bayar</a>
     </div>
