@@ -7,6 +7,7 @@ class bayar extends MX_Controller {
           
         //Load IgnitedDatatables Library
         $this->load->model('bayar_model','paydb',TRUE);
+        $this->load->model('tagihan/tagihan_model','tagihdb',TRUE);
         $this->load->model('bayar_detail/bayar_detail_model','detaildb',TRUE);
         $this->session->set_userdata('lihat','bayar');
         if ( !$this->ion_auth->logged_in()): 
@@ -21,14 +22,14 @@ class bayar extends MX_Controller {
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
-        /*$this->template->add_js('accounting.min.js');
+        $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
-        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');*/
+        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
         
         /*ONLINE CDN*/
         /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
@@ -44,7 +45,11 @@ class bayar extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Bayar');
         $this->template->add_js('var baseurl="'.base_url().'bayar/";','embed');  
+        $this->template->add_js('modules/bayar.js');
+
         $this->template->load_view('bayar_view',array(
+            'default'=>array('kode'=>$this->paydb->genfaktur()),
+            'opt_mhs'=>$this->paydb->get_dropdown_mhs(),
             'view'=>'databayar',
             'title'=>'Kelola Data Bayar',
             'subtitle'=>'Pengelolaan Bayar',
@@ -125,6 +130,21 @@ class bayar extends MX_Controller {
      //<!-- Start Primary Key -->
     
 
+    public function getinvoice($mhs=null){
+          
+            $this->datatables->select('id,kode,invoice,multiitem,total,mhs')
+                            ->from('bayar');
+            $this->datatables->where('mhs',$mhs);
+            $this->datatables->add_column('edit',"<div class='btn-group'>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('bayar/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+
+                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                </div>" , 'id');
+            $this->datatables->unset_column('id');
+
+        echo $this->datatables->generate();
+    }
     public function getdatatables(){
         if($this->isadmin()==1):
             $this->datatables->select('id,kode,invoice,itembayar,tanggal,bank,refbank,tglbank,totalbayar,sisabayar,totaltagihan,sisatagihan,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
@@ -165,10 +185,13 @@ class bayar extends MX_Controller {
         endif;
     }
     function forms(){   
-
-        $html=$this->load->view('formbayar',TRUE);
-        // $this->output->set_output($html);
-        return $html;
+         // $this->template->add_js('modules/bayar.js');
+        $html=$this->load->view('formbayar',array(
+             'default'=>array('kode'=>$this->paydb->genfaktur()),
+            'opt_mhs'=>$this->paydb->get_dropdown_mhs(),
+        ),TRUE);
+        $this->output->set_output($html);
+        // return $html;
            
     }
 

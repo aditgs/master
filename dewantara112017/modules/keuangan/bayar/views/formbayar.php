@@ -10,7 +10,29 @@
                 <?php echo form_input('kode',set_value('kode', isset($default['kode']) ? $default['kode'] : ''),'id="kode" class="form-control" placeholder="Masukkan kode"'); ?>
             </div>
         </div>
-        
+         <div class="form-group tanggal">
+            <?php echo form_label('Tanggal: ','tanggal',array('class'=>'control-label')); ?>
+            <div class="input-daterange input-group controls" id="datepicker">
+                <?php if(!empty($default['tanggal'])): //print_r($default);?>
+                <?php //rint_r($default); ?>
+                <input id="tanggal" value="<?php echo $default['tanggal']; ?>" type="text" onchange="" class="input-md form-control" name="tanggal" required />
+                <?php else: ?>
+                <input id="tanggal" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tanggal" required />
+                <?php endif; ?>
+                <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
+            </div>
+        </div>
+         <div class="form-group">
+            <label class="control-label">
+                Nama Mahasiswa
+            </label>
+            <div class="controls input-group">
+                <?php $mhs = isset($default['mhs'])? $default['mhs'] : '0';  ?>
+                <?php echo form_dropdown('mhs',$opt_mhs,$mhs,'id="mhs" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Mahasiswa"'); ?>
+              
+            </div>
+        </div>
         <div class="form-group">
             <?php echo form_label('invoice : ','invoice',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -25,12 +47,7 @@
             </div>
         </div>
         
-        <div class="form-group">
-            <?php echo form_label('tanggal : ','tanggal',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('tanggal',set_value('tanggal', isset($default['tanggal']) ? $default['tanggal'] : ''),'id="tanggal" class="form-control" placeholder="Masukkan tanggal"'); ?>
-            </div>
-        </div>
+     
         
         <div class="form-group">
             <?php echo form_label('bank : ','bank',array('class'=>'control-label')); ?>

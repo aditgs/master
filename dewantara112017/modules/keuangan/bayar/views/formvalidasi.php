@@ -95,48 +95,6 @@
             </div>
         </div>
         
-        <div class="form-group">
-            <?php echo form_label('isactive : ','isactive',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('isactive',set_value('isactive', isset($default['isactive']) ? $default['isactive'] : ''),'id="isactive" class="form-control" placeholder="Masukkan isactive"'); ?>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <?php echo form_label('islocked : ','islocked',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('islocked',set_value('islocked', isset($default['islocked']) ? $default['islocked'] : ''),'id="islocked" class="form-control" placeholder="Masukkan islocked"'); ?>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <?php echo form_label('isdeleted : ','isdeleted',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('isdeleted',set_value('isdeleted', isset($default['isdeleted']) ? $default['isdeleted'] : ''),'id="isdeleted" class="form-control" placeholder="Masukkan isdeleted"'); ?>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <?php echo form_label('datedeleted : ','datedeleted',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('datedeleted',set_value('datedeleted', isset($default['datedeleted']) ? $default['datedeleted'] : ''),'id="datedeleted" class="form-control" placeholder="Masukkan datedeleted"'); ?>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <?php echo form_label('userid : ','userid',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('userid',set_value('userid', isset($default['userid']) ? $default['userid'] : ''),'id="userid" class="form-control" placeholder="Masukkan userid"'); ?>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <?php echo form_label('datetime : ','datetime',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('datetime',set_value('datetime', isset($default['datetime']) ? $default['datetime'] : ''),'id="datetime" class="form-control" placeholder="Masukkan datetime"'); ?>
-            </div>
-        </div>
-        
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">

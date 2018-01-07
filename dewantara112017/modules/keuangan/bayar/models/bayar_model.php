@@ -19,7 +19,7 @@ class Bayar_model extends CI_Model {
     
     //get data terakhir di generate
     function ceknomornull(){
-          // $this->db->select('*'); //Faktur
+          $this->db->select('kode'); //Faktur
         $this->db->where('datetime',NULL);
         $this->db->where('tanggal',NULL);
         $this->db->where('islocked',NULL);
@@ -36,7 +36,7 @@ class Bayar_model extends CI_Model {
     //untuk generate faktur baru
     function get_last(){
 
-        $this->db->select('*'); //faktur
+        $this->db->select('kode'); //faktur
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
@@ -88,9 +88,9 @@ class Bayar_model extends CI_Model {
         $last=$this->get_last();
         // print_r($last);
         if(!empty($last)):
-            $faktur=genfaktur($last['faktur'],"PL");//diganti sesuai faktur/kode transaksi
+            $faktur=genfaktur($last['kode'],"PAY",3);//diganti sesuai faktur/kode transaksi
         else:
-            $faktur="PL".date('ym')."00001";//diganti sesuai faktur/kode transaksi
+            $faktur="PAY".date('ym')."0001";//diganti sesuai faktur/kode transaksi
         endif;
         return ($faktur);
     }
@@ -307,7 +307,16 @@ class Bayar_model extends CI_Model {
         $this->db->where('faktur', $bukti);
         $this->db->delete('bayar_detail');       
     }
-
+     function get_dropdown_mhs(){
+        $result = array();
+        $array_keys_values = $this->db->query('select id,nim,nama from mhsmaster order by id asc');
+        // $result[0]="-- Pilih Urutan id --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->nama." (".$row->nim.")" ;
+        }
+        return $result;
+    }
     //Update 07122013 SWI
     //untuk Array Dropdown
     function get_dropdown_array($value){
