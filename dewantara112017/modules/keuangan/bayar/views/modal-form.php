@@ -7,7 +7,7 @@
                 <h3 class="panel-title">Pembayaran</h3>
             </div>
             <div class="modal-body panel-body" style="padding:5px;">
-                                <?php $this->load->view('formbayar') ?>
+                <?php $this->load->view('formbayar') ?>
 
             </div>
             <div class="panel-footer">

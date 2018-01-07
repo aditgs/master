@@ -46,10 +46,12 @@ class bayar extends MX_Controller {
         $this->template->set_title('Kelola Bayar');
         $this->template->add_js('var baseurl="'.base_url().'bayar/";','embed');  
         $this->template->add_js('modules/bayar.js');
+        $this->template->add_css('forms.css');
 
         $this->template->load_view('bayar_view',array(
             'default'=>array('kode'=>$this->paydb->genfaktur()),
             'opt_mhs'=>$this->paydb->get_dropdown_mhs(),
+            'opt_inv'=>$this->paydb->getdropinvoice(),
             'view'=>'databayar',
             'title'=>'Kelola Data Bayar',
             'subtitle'=>'Pengelolaan Bayar',
@@ -132,9 +134,12 @@ class bayar extends MX_Controller {
 
     public function getinvoice($mhs=null){
           
-            $this->datatables->select('id,kode,invoice,multiitem,total,mhs')
-                            ->from('bayar');
-            $this->datatables->where('mhs',$mhs);
+            $this->datatables->select('id,kode,tanggal,multiitem,total,mhs')
+                            ->from('001-view-tagihan');
+            if(!empty($mhs)||$mhs!=null){
+
+                $this->datatables->where('mhs',$mhs);
+            }
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('bayar/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
@@ -190,8 +195,8 @@ class bayar extends MX_Controller {
              'default'=>array('kode'=>$this->paydb->genfaktur()),
             'opt_mhs'=>$this->paydb->get_dropdown_mhs(),
         ),TRUE);
-        $this->output->set_output($html);
-        // return $html;
+        // $this->output->set_output($html);
+        return $html;
            
     }
 
@@ -199,6 +204,24 @@ class bayar extends MX_Controller {
         if($id!==null){
             echo json_encode($this->paydb->get_one($id));
         }
+    }
+    function getdropinvoice(){
+
+        $result = array();
+        $mhs=$this->input->post('mhs');
+        if(!empty($mhs)||$mhs!==null){
+
+            $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` where mhs='.$mhs.' order by id asc');
+        }else{
+
+            $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` order by id asc');
+        }
+        $result[0]="-- Pilih Tagihan --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->kode." (".thedate($row->tanggal).")" ;
+        }
+        echo json_encode($result);
     }
     function tables(){
         $this->load->view('bayar_data');

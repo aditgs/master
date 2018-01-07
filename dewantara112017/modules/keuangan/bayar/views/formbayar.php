@@ -1,5 +1,5 @@
 
-<div id="form_input" class="row gutter10">
+<div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'bayar/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
         <input type="hidden" value='' id="id" name="id"> 
@@ -7,7 +7,7 @@
         <div class="form-group">
             <?php echo form_label('kode : ','kode',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('kode',set_value('kode', isset($default['kode']) ? $default['kode'] : ''),'id="kode" class="form-control" placeholder="Masukkan kode"'); ?>
+                <?php echo form_input('kode',set_value('kode', isset($default['kode']) ? $default['kode'] : ''),'id="kode" class="form-control" readonly placeholder="Masukkan kode"'); ?>
             </div>
         </div>
          <div class="form-group tanggal">
@@ -33,12 +33,7 @@
               
             </div>
         </div>
-        <div class="form-group">
-            <?php echo form_label('invoice : ','invoice',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('invoice',set_value('invoice', isset($default['invoice']) ? $default['invoice'] : ''),'id="invoice" class="form-control" placeholder="Masukkan invoice"'); ?>
-            </div>
-        </div>
+       
         
         <div class="form-group">
             <?php echo form_label('itembayar : ','itembayar',array('class'=>'control-label')); ?>
@@ -100,6 +95,21 @@
         
         
     </div>
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        <div class="form-group">
+            <label class="control-label">
+                Invoice
+            </label>
+            <div class="controls input-group">
+                <?php $inv = isset($default['invoice'])? $default['invoice'] : '0';  ?>
+                <?php echo form_dropdown('invoice',$opt_inv,$inv,'id="invoice" class=" input-lg form-control select2 input-md" style="width:100%" placeholder="Invoice"'); ?>
+              
+            </div>
+        </div>
+        <div id="datainvoice">
+            <?php  $this->load->view('tabeltarif')?>
+        </div>     
+    </div>   
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>

@@ -316,6 +316,22 @@ class Bayar_model extends CI_Model {
             $result[$row->id]= $row->nama." (".$row->nim.")" ;
         }
         return $result;
+    } 
+    function getdropinvoice($mhs=null){
+        $result = array();
+        if(!empty($mhs)||$mhs!==null){
+
+            $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` where mhs='.$mhs.' order by id asc');
+        }else{
+
+            $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` order by id asc');
+        }
+        // $result[0]="-- Pilih Urutan id --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->kode." (".thedate($row->tanggal).")" ;
+        }
+        return $result;
     }
     //Update 07122013 SWI
     //untuk Array Dropdown
