@@ -2,8 +2,9 @@
     <thead class="">
         <tr>
             <th style="width:10%" class="text-center"><input type="checkbox" name="selectall" id="selectall" class="selectall"></th>
+            <th style="width:10%" class="text-center">NIM</th>
             <th style="width:20%" class="text-center">Kode</th>
-            <th style="width:40%" class="text-center">Keterangan</th>
+            <th style="width:30%" class="text-center">Keterangan</th>
             <th  style="width:20%" class="text-center">Tarif</th>
             <th style="width:10%" class="text-center">Aksi</th>
         </tr>

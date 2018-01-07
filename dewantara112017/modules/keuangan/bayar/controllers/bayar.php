@@ -8,7 +8,10 @@ class bayar extends MX_Controller {
         //Load IgnitedDatatables Library
         $this->load->model('bayar_model','paydb',TRUE);
         $this->load->model('tagihan/tagihan_model','tagihdb',TRUE);
+        $this->load->model('tarif/tarif_model','tarifdb',TRUE);
         $this->load->model('bayar_detail/bayar_detail_model','detaildb',TRUE);
+        $this->load->model('mhsmaster/mhsmaster_model','mhsdb',TRUE);
+
         $this->session->set_userdata('lihat','bayar');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -150,6 +153,30 @@ class bayar extends MX_Controller {
 
         echo $this->datatables->generate();
     }
+    public function gettagihdetail(){
+
+        $id=$this->input->post('id');
+        $idmhs=$this->input->post('mhs');
+
+            $mhs=$this->mhsdb->get_one($idmhs);
+            $detail=$this->tagihdb->get_one($id);
+            $this->datatables->select('id,nim,kodetagihan,kodetarif,kodetarif as kodeket,tarif,isactive,isvalidated')->from('tagihan_detail');
+            if(!empty($detail)||$detail!=null){
+                $this->datatables->where('kodetagihan',$detail['kode']);
+            }
+            if(!empty($mhs)||$mhs!=null){
+                $this->datatables->where('nim',$mhs['nim']);
+            }
+            $this->datatables->edit_column('id','<div class="text-center"><input class="checkbox" type="checkbox" id="bayar" value="$1" name="bayar[]"></div>','id');
+            $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
+            $this->datatables->edit_column('kodeket','<div class="text-left">$1</div>','bacatarif(kodeket)');
+         
+            $this->datatables->add_column('edit',"<div class='btn-group'>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                </div>" , 'id');
+            $this->datatables->unset_column('isactive,isvalidated,kodetagihan');
+        echo $this->datatables->generate();
+    }
     public function getdatatables(){
         if($this->isadmin()==1):
             $this->datatables->select('id,kode,invoice,itembayar,tanggal,bank,refbank,tglbank,totalbayar,sisabayar,totaltagihan,sisatagihan,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
@@ -211,10 +238,10 @@ class bayar extends MX_Controller {
         $mhs=$this->input->post('mhs');
         if(!empty($mhs)||$mhs!==null){
 
-            $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` where mhs='.$mhs.' order by id asc');
+            $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` where mhs='.$mhs.'  group by id order by id asc');
         }else{
 
-            $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` order by id asc');
+            $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` group by id order by id asc ');
         }
         $result[0]="-- Pilih Tagihan --";
         foreach ($array_keys_values->result() as $row)
