@@ -7,7 +7,11 @@ class bayar extends MX_Controller {
           
         //Load IgnitedDatatables Library
         $this->load->model('bayar_model','paydb',TRUE);
+        $this->load->model('tagihan/tagihan_model','tagihdb',TRUE);
+        $this->load->model('tarif/tarif_model','tarifdb',TRUE);
         $this->load->model('bayar_detail/bayar_detail_model','detaildb',TRUE);
+        $this->load->model('mhsmaster/mhsmaster_model','mhsdb',TRUE);
+
         $this->session->set_userdata('lihat','bayar');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -21,14 +25,14 @@ class bayar extends MX_Controller {
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
-        /*$this->template->add_js('accounting.min.js');
+        $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
-        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');*/
+        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
         
         /*ONLINE CDN*/
         /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
@@ -44,7 +48,13 @@ class bayar extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Bayar');
         $this->template->add_js('var baseurl="'.base_url().'bayar/";','embed');  
+        $this->template->add_js('modules/bayar.js');
+        $this->template->add_css('forms.css');
+
         $this->template->load_view('bayar_view',array(
+            'default'=>array('kode'=>$this->paydb->genfaktur()),
+            'opt_mhs'=>$this->paydb->get_dropdown_mhs(),
+            'opt_inv'=>$this->paydb->getdropinvoice(),
             'view'=>'databayar',
             'title'=>'Kelola Data Bayar',
             'subtitle'=>'Pengelolaan Bayar',
@@ -125,6 +135,48 @@ class bayar extends MX_Controller {
      //<!-- Start Primary Key -->
     
 
+    public function getinvoice($mhs=null){
+          
+            $this->datatables->select('id,kode,tanggal,multiitem,total,mhs')
+                            ->from('001-view-tagihan');
+            if(!empty($mhs)||$mhs!=null){
+
+                $this->datatables->where('mhs',$mhs);
+            }
+            $this->datatables->add_column('edit',"<div class='btn-group'>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('bayar/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+
+                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                </div>" , 'id');
+            $this->datatables->unset_column('id');
+
+        echo $this->datatables->generate();
+    }
+    public function gettagihdetail(){
+
+        $id=$this->input->post('id');
+        $idmhs=$this->input->post('mhs');
+
+            $mhs=$this->mhsdb->get_one($idmhs);
+            $detail=$this->tagihdb->get_one($id);
+            $this->datatables->select('id,nim,kodetagihan,kodetarif,kodetarif as kodeket,tarif,isactive,isvalidated')->from('tagihan_detail');
+            if(!empty($detail)||$detail!=null){
+                $this->datatables->where('kodetagihan',$detail['kode']);
+            }
+            if(!empty($mhs)||$mhs!=null){
+                $this->datatables->where('nim',$mhs['nim']);
+            }
+            $this->datatables->edit_column('id','<div class="text-center"><input class="checkbox" type="checkbox" id="bayar" value="$1" name="bayar[]"></div>','id');
+            $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
+            $this->datatables->edit_column('kodeket','<div class="text-left">$1</div>','bacatarif(kodeket)');
+         
+            $this->datatables->add_column('edit',"<div class='btn-group'>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                </div>" , 'id');
+            $this->datatables->unset_column('isactive,isvalidated,kodetagihan');
+        echo $this->datatables->generate();
+    }
     public function getdatatables(){
         if($this->isadmin()==1):
             $this->datatables->select('id,kode,invoice,itembayar,tanggal,bank,refbank,tglbank,totalbayar,sisabayar,totaltagihan,sisatagihan,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
@@ -165,8 +217,11 @@ class bayar extends MX_Controller {
         endif;
     }
     function forms(){   
-
-        $html=$this->load->view('formbayar',TRUE);
+         // $this->template->add_js('modules/bayar.js');
+        $html=$this->load->view('formbayar',array(
+             'default'=>array('kode'=>$this->paydb->genfaktur()),
+            'opt_mhs'=>$this->paydb->get_dropdown_mhs(),
+        ),TRUE);
         // $this->output->set_output($html);
         return $html;
            
@@ -176,6 +231,24 @@ class bayar extends MX_Controller {
         if($id!==null){
             echo json_encode($this->paydb->get_one($id));
         }
+    }
+    function getdropinvoice(){
+
+        $result = array();
+        $mhs=$this->input->post('mhs');
+        if(!empty($mhs)||$mhs!==null){
+
+            $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` where mhs='.$mhs.'  group by id order by id asc');
+        }else{
+
+            $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` group by id order by id asc ');
+        }
+        $result[0]="-- Pilih Tagihan --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->kode." (".thedate($row->tanggal).")" ;
+        }
+        echo json_encode($result);
     }
     function tables(){
         $this->load->view('bayar_data');

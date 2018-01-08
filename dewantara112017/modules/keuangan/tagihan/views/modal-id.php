@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-id">
-    <div class="modal-dialog modal-fullscreen">
+    <div class="modal-dialog modal-lg">
         <!-- <div class="modal-content"> -->
         <div class="modal-content panel panel-success">
             <div class="modal-header panel-heading blue-bg">
