@@ -9,6 +9,7 @@
                                     <thead class="">
                                         <tr>
                                                        
+                                                        <th>kode_prodi</th>
                                                         <th>kode_pt</th>
                                                         <th>kode_prodi_less</th>
                                                         <th>nm_prodi</th>

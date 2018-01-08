@@ -1,7 +1,7 @@
  
 
                     <div id="form_input" class="">
-                    <?php echo form_open(base_url().'siakad_mhs/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
+                    <?php echo form_open(base_url().'mhs/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
                                                    
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <input type="hidden" value='' id="nim_mhs" name="nim_mhs">

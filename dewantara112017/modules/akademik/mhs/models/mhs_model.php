@@ -1,7 +1,7 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Siakad_mhs_model extends CI_Model {
+class mhs_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -9,7 +9,7 @@ class Siakad_mhs_model extends CI_Model {
     
     function get_all($limit, $uri) {
 
-        $result = $this->db->get('siakad_mhs', $limit, $uri);
+        $result = $this->db->get('mhs', $limit, $uri);
         if ($result->num_rows() > 0) {
             return $result->result_array();
         } else {
@@ -26,7 +26,7 @@ class Siakad_mhs_model extends CI_Model {
         $this->db->order_by('nim_mhs','ASC');
         $this->db->limit(1);
 
-        $result=$this->db->get('siakad_mhs');
+        $result=$this->db->get('mhs');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -40,7 +40,7 @@ class Siakad_mhs_model extends CI_Model {
         $this->db->order_by('nim_mhs','DESC');
         $this->db->limit(1);
 
-        $result=$this->db->get('siakad_mhs');
+        $result=$this->db->get('mhs');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -49,7 +49,7 @@ class Siakad_mhs_model extends CI_Model {
     } 
     function gettotaldetail($faktur){
         $this->db->select('faktur,sum(jumlah) as total'); //field perlu disesuaikan dengan tabel
-        $this->db->from('siakad_mhs');
+        $this->db->from('mhs');
         $this->db->where('faktur',$faktur); //field perlu disesuaikan dengan tabel
         $this->db->where('isactive',1);
         $this->db->group_by('faktur'); //field perlu disesuaikan dengan tabel
@@ -65,7 +65,7 @@ class Siakad_mhs_model extends CI_Model {
     //field dan tabel perlu disesuaikan dengan tabel
     function getdetail($data) {
         $this->db->select('id,Faktur as faktur,Jthtmp as jthtempo,NoBon as nobon,Supplier as kode,total,NmSupplier as nama,NoAccSup as noacc,Tgl as tanggal,IF(LEFT(NoAccSup,5)="1.700","Karyawan",IF(LEFT(NoAccSup,5)="1.250","Customer",IF(LEFT(NoAccSup,5)="2.300","Supplier","-"))) as tipe',FALSE);
-        $this->db->from('siakad_mhs');
+        $this->db->from('mhs');
         if(!empty($data['kdvendor'])||$data['kdvendor']!==''):
             $this->db->where('Supplier',((!empty($data['kdvendor'])||($data['kdvendor']>0))?$data['kdvendor']:'0'));
         endif;
@@ -96,7 +96,7 @@ class Siakad_mhs_model extends CI_Model {
     }
     function get_one($nim_mhs) {
         $this->db->where('nim_mhs', $nim_mhs);
-        $result = $this->db->get('siakad_mhs');
+        $result = $this->db->get('mhs');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -106,11 +106,11 @@ class Siakad_mhs_model extends CI_Model {
     
     function save() {
         $data=$this->__save();
-        $this->db->insert('siakad_mhs', $data);
+        $this->db->insert('mhs', $data);
     }
     function saveas() {
         $data=$this->__saveas();
-        $this->db->insert('siakad_mhs', $data);
+        $this->db->insert('mhs', $data);
 
     }
     function __save(){
@@ -244,11 +244,11 @@ class Siakad_mhs_model extends CI_Model {
         //    'Time' => NOW(),
         return $data;
     }
-    function savesiakad_mhs($data){
-        $this->db->insert('siakad_mhs',$data);
+    function savemhs($data){
+        $this->db->insert('mhs',$data);
     }
     function save_detail($data){
-        $this->db->insert('siakad_mhs_detail',$data);
+        $this->db->insert('mhs_detail',$data);
     }
     function upddel_detail($nim_mhs=null) {
         //semua field ini menyesuaikan dengan yang ada pada model dan tabel
@@ -263,12 +263,12 @@ class Siakad_mhs_model extends CI_Model {
             );
         
         $this->db->where('nim_mhs', $nim_mhs);
-        $this->db->update('siakad_mhs', $data);
+        $this->db->update('mhs', $data);
        
     } 
     function updatebyid($nim_mhs,$data){
         $this->db->where('nim_mhs', $nim_mhs);
-        $this->db->update('siakad_mhs', $data);
+        $this->db->update('mhs', $data);
     }
     function update($nim_mhs) {
         $data = array(
@@ -325,30 +325,30 @@ class Siakad_mhs_model extends CI_Model {
        
         );
         $this->db->where('nim_mhs', $nim_mhs);
-        $this->db->update('siakad_mhs', $data);
+        $this->db->update('mhs', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/
     }
 
     function delete($nim_mhs) {
         $this->db->where('nim_mhs', $nim_mhs);
-        $this->db->delete('siakad_mhs'); 
+        $this->db->delete('mhs'); 
        
     }
     function delete_detail($id=null) {
         $this->db->where('id_detail', $id);
-        $this->db->delete('siakad_mhs_detail'); 
+        $this->db->delete('mhs_detail'); 
        
     } 
     function deletebybukti($bukti=null) {
         $this->db->where('faktur', $bukti);
-        $this->db->delete('siakad_mhs_detail');       
+        $this->db->delete('mhs_detail');       
     }
 
     //Update 07122013 SWI
     //untuk Array Dropdown
     function get_dropdown_array($value){
         $result = array();
-        $array_keys_values = $this->db->query('select nim_mhs, '.$value.' from siakad_mhs order by nim_mhs asc');
+        $array_keys_values = $this->db->query('select nim_mhs, '.$value.' from mhs order by nim_mhs asc');
         $result[0]="-- Pilih Urutan nim_mhs --";
         foreach ($array_keys_values->result() as $row)
         {
