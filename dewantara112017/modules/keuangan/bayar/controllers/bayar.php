@@ -316,6 +316,7 @@ class bayar extends MX_Controller {
                 'tanggal' => $this->input->post('tanggal', TRUE),
                 'total' => $this->input->post('total', TRUE),
                 'mhs' => $this->input->post('mhs', TRUE),
+                'invoice' => $this->input->post('invoice', TRUE),
                 'itembayar' => $bayar,
                 'isactive' =>1,
                 'islocked' =>1,
@@ -325,7 +326,7 @@ class bayar extends MX_Controller {
             );
             foreach ($item as $key => $value) {
                 # code...
-                $dx[$key]['kodetagihan']=$this->input->post('kode', TRUE);
+                $dx[$key]['invoice']=$this->input->post('kode', TRUE);
                 $tarif=$this->tarifdb->getviewtarif($value);
                 $mhs=$this->tagihdb->getmhs($this->input->post('mhs', TRUE));
                 $dx[$key]['kodetarif']=$tarif['kodetarif'];
