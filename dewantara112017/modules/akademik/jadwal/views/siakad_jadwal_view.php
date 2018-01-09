@@ -3,7 +3,7 @@
                 <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Form Mahasiswa</h5>
+                        <h5>Form Jadwal</h5>
                         
                     </div>
                     <div class="ibox-content">
@@ -11,7 +11,7 @@
                         if(!empty($view)):
                             $this->load->view($view);
                         else:
-                            $this->load->view('mhs_table');
+                            $this->load->view('siakad_jadwal_table');
                         endif;
                     ?>
 
@@ -29,7 +29,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Detail Mahasiswa</h4>
+                    <h4 class="modal-title">Detail siakad_jadwal</h4>
                 </div>
                 <div class="modal-body">
                     
