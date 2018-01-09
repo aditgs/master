@@ -317,7 +317,6 @@ class bayar extends MX_Controller {
                 'total' => $this->input->post('total', TRUE),
                 'mhs' => $this->input->post('mhs', TRUE),
                 'itembayar' => $bayar,
-                'status' => 'open',
                 'isactive' =>1,
                 'islocked' =>1,
                 'isdeleted' =>0,
