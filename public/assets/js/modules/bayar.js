@@ -6,10 +6,6 @@ $(document).ready(function() {
     });
     $("#modal-form").on("shown.bs.modal", function() {
         loadtagihan();
-    }); 
-    $("#modal-form").on("hidden.bs.modal", function() {
-        $("#data").DataTable().destroy();
-        
     });
     $('#mhs').change(function(e) {
         e.preventDefault();
@@ -19,10 +15,6 @@ $(document).ready(function() {
 
         loadtagihan();
     })
-    $("#selectall").change(function() {
-        $("input:checkbox").prop('checked', $(this).prop("checked"));
-        // loadjumlah(cekbox());
-    });
     $('select#invoice').change(function(){
     	$("#data").DataTable().destroy();
     	loadtagihan();

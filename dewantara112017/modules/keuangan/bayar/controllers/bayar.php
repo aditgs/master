@@ -169,12 +169,12 @@ class bayar extends MX_Controller {
             }
             $this->datatables->edit_column('id','<div class="text-center"><input class="checkbox" type="checkbox" id="bayar" value="$1" name="bayar[]"></div>','id');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
-            $this->datatables->edit_column('kodeket','<div class="text-left">($2) $1</div>','bacatarif(kodeket),kodetarif');
+            $this->datatables->edit_column('kodeket','<div class="text-left">$1</div>','bacatarif(kodeket)');
          
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
                 </div>" , 'id');
-            $this->datatables->unset_column('nim,isactive,isvalidated,kodetarif');
+            $this->datatables->unset_column('isactive,isvalidated,kodetagihan');
         echo $this->datatables->generate();
     }
     public function getdatatables(){
@@ -282,49 +282,8 @@ class bayar extends MX_Controller {
         }
       
     }
-    function __formvalidation(){
-        $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('invoice', 'Invoice', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('kode', 'Kode', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('itembayar', 'Item Pembayaran', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('bayar[]','Item Pembayaran','required|numeric|trim|xss_clean');
-        $this->form_validation->set_rules('totaltagihan','Total Tagihan','required|numeric|trim|xss_clean');
-        $this->form_validation->set_rules('totalbayar','Total Tagihan','required|numeric|trim|xss_clean');
-
-       
-
-        if ($this->form_validation->run() == FALSE)
-            {
-                // $this->session->set_flashdata(validation_errors());             
-                return json_encode(array('st'=>0, 'msg' => validation_errors()));
-                // return FALSE;
-            }
-        else{
-            return TRUE;
-        }
-        // return $status;
-    }
 
     public function submit(){
-         if($this->__formvalidation()===TRUE):
-            $item=$this->input->post('bayar', TRUE);
-            // print_r($item);
-            $bayar=json_encode($item);
-            $data = array(
-            
-                'kode' => $this->input->post('kode', TRUE),
-                'tanggal' => $this->input->post('tanggal', TRUE),
-                'total' => $this->input->post('total', TRUE),
-                'mhs' => $this->input->post('mhs', TRUE),
-                'itembayar' => $bayar,
-                'status' => 'open',
-                'isactive' =>1,
-                'islocked' =>1,
-                'isdeleted' =>0,
-                'userid' => userid(),
-                'datetime' => NOW(),
-            );
-        endif;
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
             $this->paydb->update($this->input->post('id'));

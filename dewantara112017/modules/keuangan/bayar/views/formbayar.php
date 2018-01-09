@@ -8,7 +8,37 @@
                 <?php echo form_input('kode',set_value('kode', isset($default['kode']) ? $default['kode'] : ''),'id="kode" class="form-control" readonly placeholder="Masukkan kode"'); ?>
             </div>
         </div>
-        
+        <div class="form-group tanggal">
+            <?php echo form_label('Tanggal: ','tanggal',array('class'=>'control-label')); ?>
+            <div class="input-daterange input-group controls" id="datepicker">
+                <?php if(!empty($default['tanggal'])): //print_r($default);?>
+                <?php //rint_r($default); ?>
+                <input id="tanggal" value="<?php echo $default['tanggal']; ?>" type="text" onchange="" class="input-md form-control" name="tanggal" required />
+                <?php else: ?>
+                <input id="tanggal" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tanggal" required />
+                <?php endif; ?>
+                <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">
+                Nama Mahasiswa
+            </label>
+            <div class="controls input-group">
+                <?php $mhs = isset($default['mhs'])? $default['mhs'] : '0';  ?>
+                <?php echo form_dropdown('mhs',$opt_mhs,$mhs,'id="mhs" class="rekening input-lg form-control select2 input-lg" style="width:100%" placeholder="Mahasiswa"'); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">
+                Invoice
+            </label>
+            <div class="controls input-group">
+                <?php $inv = isset($default['invoice'])? $default['invoice'] : '0';  ?>
+                <?php echo form_dropdown('invoice',$opt_inv,$inv,'id="invoice" class=" input-lg form-control select2 input-lg" style="width:100%" placeholder="Invoice"'); ?>
+            </div>
+        </div>
         <div class="form-group">
             <?php echo form_label('itembayar : ','itembayar',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -42,49 +72,8 @@
        
      
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 ">
-        <div class="row gutter5 blue-bg ">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                        <div class="form-group tanggal">
-                    <?php echo form_label('Tanggal: ','tanggal',array('class'=>'control-label')); ?>
-                    <div class="input-daterange input-group controls" id="datepicker">
-                        <?php if(!empty($default['tanggal'])): //print_r($default);?>
-                        <?php //rint_r($default); ?>
-                        <input id="tanggal" value="<?php echo $default['tanggal']; ?>" type="text" onchange="" class="input-md form-control" name="tanggal" required />
-                        <?php else: ?>
-                        <input id="tanggal" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tanggal" required />
-                        <?php endif; ?>
-                        <span class="input-group-btn">
-                            <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
-                    </div>
-                </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    
-                <div class="form-group">
-                    <label class="control-label">
-                        Nama Mahasiswa
-                    </label>
-                    <div class="controls input-group">
-                        <?php $mhs = isset($default['mhs'])? $default['mhs'] : '0';  ?>
-                        <?php echo form_dropdown('mhs',$opt_mhs,$mhs,'id="mhs" class="rekening input-lg form-control select2 input-lg" style="width:100%" placeholder="Mahasiswa"'); ?>
-                    </div>
-                </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                    
-                <div class="form-group">
-                    <label class="control-label">
-                        Invoice
-                    </label>
-                    <div class="controls input-group">
-                        <?php $inv = isset($default['invoice'])? $default['invoice'] : '0';  ?>
-                        <?php echo form_dropdown('invoice',$opt_inv,$inv,'id="invoice" class=" input-lg form-control select2 input-lg" style="width:100%" placeholder="Invoice"'); ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="datainvoice" class="row table-responsive dt-responsive">
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        <div id="datainvoice">
             <?php  $this->load->view('tabeltarif')?>
         </div>
     </div>
