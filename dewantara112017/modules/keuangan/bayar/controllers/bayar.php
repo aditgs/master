@@ -324,25 +324,45 @@ class bayar extends MX_Controller {
                 'userid' => userid(),
                 'datetime' => NOW(),
             );
-        endif;
-        if ($this->input->post('ajax')){
-          if ($this->input->post('id')){
-            $this->paydb->update($this->input->post('id'));
-          }else{
-            //$this->paydb->save();
-            $this->paydb->saveas();
-          }
-
-        }else{
-          if ($this->input->post('submit')){
+            foreach ($item as $key => $value) {
+                # code...
+                $dx[$key]['kodetagihan']=$this->input->post('kode', TRUE);
+                $tarif=$this->tarifdb->getviewtarif($value);
+                $mhs=$this->tagihdb->getmhs($this->input->post('mhs', TRUE));
+                $dx[$key]['kodetarif']=$tarif['kodetarif'];
+                $dx[$key]['nim']=$mhs['nim'];
+                $dx[$key]['tarif']=$tarif['tarif'];
+                $dx[$key]['datetime']=NOW();
+                $dx[$key]['istagihan']=1;
+                $dx[$key]['isactive']=1;
+            }
+            if ($this->input->post('ajax')){
               if ($this->input->post('id')){
                 $this->paydb->update($this->input->post('id'));
               }else{
                 //$this->paydb->save();
-                $this->paydb->saveas();
+                // $this->paydb->saveas();
+                $this->paydb->savebayar($data);
+                $this->paydb->savedetailbatch($dx);
               }
-          }
-        }
+
+            }else{
+              if ($this->input->post('submit')){
+                  if ($this->input->post('id')){
+                    $this->paydb->update($this->input->post('id'));
+                  }else{
+                    //$this->paydb->save();
+                    // $this->paydb->saveas();
+                    $this->paydb->savebayar($data);
+                    $this->paydb->savedetailbatch($dx);
+                  }
+              }
+            }
+        else:
+            echo $this->__formvalidation();
+        endif;
+        
+        
     }
     
 
