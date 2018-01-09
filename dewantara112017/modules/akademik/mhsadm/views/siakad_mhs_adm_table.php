@@ -1,7 +1,7 @@
 <div class="tabbable page-tabs">
     <ul class="nav nav-tabs">
-        <li class="daftar active"><a href="#inside" data-toggle="tab"><i class="icon-checkbox-partial"></i> Daftar Siakad_mhs_adm</a></li>
-        <li class="baru"><a href="#outside" data-toggle="tab"><i class="icon-plus"></i> Tambah Siakad_mhs_adm Baru</a></li>
+        <li class="daftar active"><a href="#inside" data-toggle="tab"><i class="icon-checkbox-partial"></i> Daftar Administrasi</a></li>
+        <li class="baru"><a href="#outside" data-toggle="tab"><i class="icon-plus"></i> Tambah Administrasi</a></li>
     </ul>
     <div class="tab-content">
         
@@ -10,11 +10,11 @@
             <!-- AJAX source -->
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h6 class="panel-title"><i class="icon-table"></i> Daftar Siakad_mhs_adm</h6>
+                    <h6 class="panel-title"><i class="icon-table"></i> Daftar Administrasi</h6>
                 </div>
                 <div class="panel-body">
                     <div class="btn-group pull-right">
-                        <a href="#outside" data-toggle="tab" class="baru btn btn-success"><i class="icon-plus"></i> Tambah Siakad_mhs_adm Baru</a>
+                        <a href="#outside" data-toggle="tab" class="baru btn btn-success"><i class="icon-plus"></i> Tambah Administrasi</a>
                     </div>
                     <?php $this->load->view('siakad_mhs_adm_data') ?>
                 </div>

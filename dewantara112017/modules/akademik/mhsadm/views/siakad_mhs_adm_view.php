@@ -3,7 +3,7 @@
                 <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Form Siakad_mhs_adm</h5>
+                        <h5>Form Administrasi</h5>
                         
                     </div>
                     <div class="ibox-content">

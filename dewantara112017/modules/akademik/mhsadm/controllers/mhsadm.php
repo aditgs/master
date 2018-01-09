@@ -41,36 +41,38 @@ class Mhsadm extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Siakad_mhs_adm');
+        $this->template->set_title('Kelola Administrasi');
         $this->template->add_js('var baseurl="'.base_url().'mhsadm/";','embed');  
         $this->template->load_view('siakad_mhs_adm_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Siakad_mhs_adm',
-            'subtitle'=>'Pengelolaan Siakad_mhs_adm',
+            'title'=>'Kelola Data Administrasi',
+            'subtitle'=>'Pengelolaan Administrasi',
+            'modal'=>array(
+                'id'=>'modal-id'),
             'breadcrumb'=>array(
-            'Siakad_mhs_adm'),
+            'Administrasi'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Siakad_mhs_adm');
+        $this->template->set_title('Kelola Administrasi');
         $this->template->add_js('var baseurl="'.base_url().'mhsadm/";','embed');  
         $this->template->load_view('siakad_mhs_adm_view',array(
             'view'=>'Siakad_mhs_adm_data',
-            'title'=>'Kelola Data Siakad_mhs_adm',
-            'subtitle'=>'Pengelolaan Siakad_mhs_adm',
+            'title'=>'Kelola Data Administrasi',
+            'subtitle'=>'Pengelolaan Administrasi',
             'breadcrumb'=>array(
-            'Siakad_mhs_adm'),
+            'Administrasi'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Siakad_mhs_adm');
+        $this->template->set_title('Kelola Administrasi');
         $this->template->add_js('var baseurl="'.base_url().'mhsadm/";','embed');  
         $this->template->load_view('siakad_mhs_adm_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Siakad_mhs_adm',
-            'subtitle'=>'Pengelolaan Siakad_mhs_adm',
+            'title'=>'Kelola Data Administrasi',
+            'subtitle'=>'Pengelolaan Administrasi',
             'breadcrumb'=>array(
-            'Siakad_mhs_adm'),
+            'Administrasi'),
         ));
         
     }
