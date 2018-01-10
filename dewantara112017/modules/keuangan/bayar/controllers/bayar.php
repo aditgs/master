@@ -286,10 +286,10 @@ class bayar extends MX_Controller {
         $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
         $this->form_validation->set_rules('invoice', 'Invoice', 'required|trim|xss_clean');
         $this->form_validation->set_rules('kode', 'Kode', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('itembayar', 'Item Pembayaran', 'required|trim|xss_clean');
+       
         $this->form_validation->set_rules('bayar[]','Item Pembayaran','required|numeric|trim|xss_clean');
         $this->form_validation->set_rules('totaltagihan','Total Tagihan','required|numeric|trim|xss_clean');
-        $this->form_validation->set_rules('totalbayar','Total Tagihan','required|numeric|trim|xss_clean');
+        $this->form_validation->set_rules('totalbayar','Total Pembayaran','required|numeric|trim|xss_clean');
 
        
 
@@ -310,11 +310,14 @@ class bayar extends MX_Controller {
             $item=$this->input->post('bayar', TRUE);
             // print_r($item);
             $bayar=json_encode($item);
+            // print_r($bayar);
+            $tagihan=$this->paydb->gettagihanbykode($this->input->post('kode', TRUE));
             $data = array(
             
                 'kode' => $this->input->post('kode', TRUE),
                 'tanggal' => $this->input->post('tanggal', TRUE),
-                'total' => $this->input->post('total', TRUE),
+                'totalbayar' => $this->input->post('total', TRUE),
+                'totaltagihan' => $tagihan['total'],
                 'mhs' => $this->input->post('mhs', TRUE),
                 'invoice' => $this->input->post('invoice', TRUE),
                 'itembayar' => $bayar,
@@ -326,15 +329,17 @@ class bayar extends MX_Controller {
             );
             foreach ($item as $key => $value) {
                 # code...
-                $dx[$key]['invoice']=$this->input->post('kode', TRUE);
+                $dx[$key]['kode']=$this->input->post('kode', TRUE);
+                $dx[$key]['invoice']=$this->input->post('invoice', TRUE);
                 $tarif=$this->tarifdb->getviewtarif($value);
-                $mhs=$this->tagihdb->getmhs($this->input->post('mhs', TRUE));
                 $dx[$key]['kodetarif']=$tarif['kodetarif'];
-                $dx[$key]['nim']=$mhs['nim'];
-                $dx[$key]['tarif']=$tarif['tarif'];
+                $dx[$key]['idtarif']=$tarif['id'];
+                $dx[$key]['nominal_tarif']=$tarif['tarif'];
+                $dx[$key]['nominal_bayar']=$tarif['tarif'];
                 $dx[$key]['datetime']=NOW();
-                $dx[$key]['istagihan']=1;
                 $dx[$key]['isactive']=1;
+                $dx[$key]['userid'] =userid();
+                $dx[$key]['datetime'] = NOW();
             }
             if ($this->input->post('ajax')){
               if ($this->input->post('id')){

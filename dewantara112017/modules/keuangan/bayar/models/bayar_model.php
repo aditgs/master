@@ -47,6 +47,15 @@ class Bayar_model extends CI_Model {
             return array();
         }
     } 
+    function gettagihanbykode($kode){
+        $this->db->select('*')->from('001-view-tagihan')->where('kode',$kode);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }
+    } 
     function gettotaldetail($faktur){
         $this->db->select('faktur,sum(jumlah) as total'); //field perlu disesuaikan dengan tabel
         $this->db->from('bayar');
