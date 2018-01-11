@@ -283,93 +283,25 @@ class bayar extends MX_Controller {
       
     }
 
-    function __formvalidation(){
-        $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('invoice', 'Invoice', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('kode', 'Kode', 'required|trim|xss_clean');
-       
-        $this->form_validation->set_rules('bayar[]','Item Pembayaran','required|numeric|trim|xss_clean');
-        $this->form_validation->set_rules('totaltagihan','Total Tagihan','required|numeric|trim|xss_clean');
-        $this->form_validation->set_rules('totalbayar','Total Pembayaran','required|numeric|trim|xss_clean');
-
-       
-
-        if ($this->form_validation->run() == FALSE)
-            {
-                // $this->session->set_flashdata(validation_errors());             
-                return json_encode(array('st'=>0, 'msg' => validation_errors()));
-                // return FALSE;
-            }
-        else{
-            return TRUE;
-        }
-        // return $status;
-    }
-
     public function submit(){
-         if($this->__formvalidation()===TRUE):
-            $item=$this->input->post('bayar', TRUE);
-            // print_r($item);
-            $bayar=json_encode($item);
-            // print_r($bayar);
-            $tagihan=$this->paydb->gettagihanbykode($this->input->post('kode', TRUE));
-            $data = array(
-            
-                'kode' => $this->input->post('kode', TRUE),
-                'tanggal' => $this->input->post('tanggal', TRUE),
-                'totalbayar' => $this->input->post('total', TRUE),
-                'totaltagihan' => $tagihan['total'],
-                'mhs' => $this->input->post('mhs', TRUE),
-                'invoice' => $this->input->post('invoice', TRUE),
-                'itembayar' => $bayar,
-                'isactive' =>1,
-                'islocked' =>1,
-                'isdeleted' =>0,
-                'userid' => userid(),
-                'datetime' => NOW(),
-            );
-            foreach ($item as $key => $value) {
-                # code...
-                $dx[$key]['kode']=$this->input->post('kode', TRUE);
-                $dx[$key]['invoice']=$this->input->post('invoice', TRUE);
-                $tarif=$this->tarifdb->getviewtarif($value);
-                $dx[$key]['kodetarif']=$tarif['kodetarif'];
-                $dx[$key]['idtarif']=$tarif['id'];
-                $dx[$key]['nominal_tarif']=$tarif['tarif'];
-                $dx[$key]['nominal_bayar']=$tarif['tarif'];
-                $dx[$key]['datetime']=NOW();
-                $dx[$key]['isactive']=1;
-                $dx[$key]['userid'] =userid();
-                $dx[$key]['datetime'] = NOW();
-            }
-            if ($this->input->post('ajax')){
+        if ($this->input->post('ajax')){
+          if ($this->input->post('id')){
+            $this->paydb->update($this->input->post('id'));
+          }else{
+            //$this->paydb->save();
+            $this->paydb->saveas();
+          }
 
+        }else{
+          if ($this->input->post('submit')){
               if ($this->input->post('id')){
                 $this->paydb->update($this->input->post('id'));
               }else{
                 //$this->paydb->save();
-                // $this->paydb->saveas();
-                $this->paydb->savebayar($data);
-                $this->paydb->savedetailbatch($dx);
+                $this->paydb->saveas();
               }
-
-            }else{
-              if ($this->input->post('submit')){
-                  if ($this->input->post('id')){
-                    $this->paydb->update($this->input->post('id'));
-                  }else{
-                    //$this->paydb->save();
-                    // $this->paydb->saveas();
-                    $this->paydb->savebayar($data);
-                    $this->paydb->savedetailbatch($dx);
-                  }
-              }
-            }
-        else:
-            echo $this->__formvalidation();
-        endif;
-        
-        
+          }
+        }
     }
     
 
