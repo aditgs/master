@@ -169,12 +169,12 @@ class bayar extends MX_Controller {
             }
             $this->datatables->edit_column('id','<div class="text-center"><input class="checkbox" type="checkbox" id="bayar" value="$1" name="bayar[]"></div>','id');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
-            $this->datatables->edit_column('kodeket','<div class="text-left">($2) $1</div>','bacatarif(kodeket),kodetarif');
+            $this->datatables->edit_column('kodeket','<div class="text-left">$1</div>','bacatarif(kodeket)');
          
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
                 </div>" , 'id');
-            $this->datatables->unset_column('nim,isactive,isvalidated,kodetarif');
+            $this->datatables->unset_column('isactive,isvalidated,kodetagihan');
         echo $this->datatables->generate();
     }
     public function getdatatables(){
@@ -282,6 +282,7 @@ class bayar extends MX_Controller {
         }
       
     }
+
     function __formvalidation(){
         $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
         $this->form_validation->set_rules('invoice', 'Invoice', 'required|trim|xss_clean');
@@ -342,6 +343,7 @@ class bayar extends MX_Controller {
                 $dx[$key]['datetime'] = NOW();
             }
             if ($this->input->post('ajax')){
+
               if ($this->input->post('id')){
                 $this->paydb->update($this->input->post('id'));
               }else{
