@@ -47,6 +47,15 @@ class Bayar_model extends CI_Model {
             return array();
         }
     } 
+    function gettagihanbykode($kode){
+        $this->db->select('*')->from('001-view-tagihan')->where('kode',$kode);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }
+    } 
     function gettotaldetail($faktur){
         $this->db->select('faktur,sum(jumlah) as total'); //field perlu disesuaikan dengan tabel
         $this->db->from('bayar');
@@ -226,6 +235,9 @@ class Bayar_model extends CI_Model {
     function save_detail($data){
         $this->db->insert('bayar_detail',$data);
     }
+    function savedetailbatch($data){
+        $this->db->insert_batch('bayar_detail',$data);
+    }
     function upddel_detail($id=null) {
         //semua field ini menyesuaikan dengan yang ada pada model dan tabel
         $data=array(
@@ -310,7 +322,7 @@ class Bayar_model extends CI_Model {
      function get_dropdown_mhs(){
         $result = array();
         $array_keys_values = $this->db->query('select id,nim,nama from mhsmaster order by id asc');
-        // $result[0]="-- Pilih Urutan id --";
+        $result[0]="-- Pilih Mahasiswa --";
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->nama." (".$row->nim.")" ;
@@ -326,7 +338,7 @@ class Bayar_model extends CI_Model {
 
             $array_keys_values = $this->db->query('select id,kode,tanggal,mhs,total from `001-view-tagihan` order by id asc');
         }
-        // $result[0]="-- Pilih Urutan id --";
+        $result[0]="-- Pilih Invoice --";
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->kode." (".thedate($row->tanggal).")" ;
