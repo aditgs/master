@@ -276,8 +276,8 @@ class Tagihan extends MX_Controller {
             $this->datatables->select("id,kode,tanggal,tgltempo,mhs,nimmhs,nmmhs,id as idmultipaket,multipaket,status,islunas")
                             ->from('001-view-tagihanmhs');
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
-            $this->datatables->edit_column('tanggal','<label class="label label-primary">$1</label><br><label class="label label-info label-xs">$1</label>',"thedate(tanggal),thedate(tgltempo)");
-            $this->datatables->edit_column('status','$1',"getstatus(id)");
+            $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
+            $this->datatables->edit_column('status','$1',"getstatus(id,tagihdb)");
             $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
             $this->datatables->edit_column('idmultipaket','$1',"getmultipaket(id)");
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
