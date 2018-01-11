@@ -1,9 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 if(!function_exists('getstatus')){
-    function getstatus($id){
+    function getstatus($id,$tables){
         $ci = & get_instance(); 
-        $stat=$ci->tagihdb->getstatus($id);
+        // $tables=
+        // $stat=$ci->tagihdb->getstatus($id);
+        $stat=$ci->$tables->getstatus($id);
         if(!empty($stat['status'])){
             if($stat['status']=='open'){
                 $checked="checked='checked'";

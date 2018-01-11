@@ -277,7 +277,7 @@ class Tagihan extends MX_Controller {
                             ->from('001-view-tagihanmhs');
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
-            $this->datatables->edit_column('status','$1',"getstatus(id)");
+            $this->datatables->edit_column('status','$1',"getstatus(id,tagihdb)");
             $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
             
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
