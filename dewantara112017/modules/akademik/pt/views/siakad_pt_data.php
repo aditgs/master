@@ -10,17 +10,9 @@
                                         <tr>
                                                        
                                                         <th>Nama Perguruan Tinggi</th>
-                                                        <th>Tanggal Perguruan Tinggi</th>
+                                                        <th>Tanggal Pendirian</th>
                                                         <th>SK Perguruan Tinggi</th>
-                                                        <th>Tanggal SK Perguruan Tinggi</th>
-                                                        <th>Alamat Perguruan Tinggi</th>
-                                                        <th>Kota Perguruan Tinggi</th>
-                                                        <th>Kodepos Perguruan Tinggi</th>
-                                                        <th>Telp Perguruan Tinggi</th>
-                                                        <th>Fax Perguruan Tinggi</th>
-                                                        <th>Email Perguruan Tinggi</th>
-                                                        <th>Web Perguruan Tinggi</th>
-                                                        <th>Logo Perguruan Tinggi</th>
+                                                        <th>Tanggal SK</th>
                                                         <th>Aksi</th>
 
                                                     </tr>
