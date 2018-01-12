@@ -10,7 +10,7 @@
     }
 </style>
 <div id="form_input" class="row gutter5">
-    <?php echo form_open(base_url().'tarif/submit_settarif',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
+    <?php echo form_open(base_url().'tarif/setup/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
         <input type="hidden" value='' id="id" name="id">
         <div class="form-group sp-dropdown">
