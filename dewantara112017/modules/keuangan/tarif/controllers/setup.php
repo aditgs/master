@@ -42,6 +42,10 @@ class Setup extends MX_Controller {
             'Tarif'),
         ));
     }
+    function __form_validation(){}
+    function submit(){
+
+    }
 }
 
 /* End of file setup.php */
