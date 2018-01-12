@@ -219,6 +219,8 @@ if (defined('ENVIRONMENT'))
 
 		define('UPPATH', BASEPATH.$uploads_folder.'/');
 	}
+	// define('UPDIR', str_replace("\\", "/", UPPATH));
+	define('UPDIR', str_replace("\\", "/", UPPATH));
     /*
     * HOMEPATH ADMIN - The full server path to the home root path
      */

@@ -15,12 +15,12 @@ class Multiupload extends MX_Controller {
             'result' => ''
         );
          if($this->input->post('go_upload')) {
-            $config['upload_path'] = '../images/uploaded/';
+            $config['upload_path'] = '../uploads/';
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['max_size']	= '500';
             $config['max_width']  = '1024';
             $config['max_height']  = '768';
-
+            print_r($config['upload_path']);
             $this->load->library('upload', $config);
             $sub_data['result'] = '';
             $result_array = array();
