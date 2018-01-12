@@ -14,9 +14,11 @@ a.ahover:hover {
         <div class="jumbotron home">
             <div class="container text-center">
                 <div class="row gutter5">
-                    <h1>SIKA DEWANTARA</h1>
-                    <h2>SISTEM INFORMASI AKADEMIK STIE DEWANTARA </h2>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h1>SIKA PGRI DEWANTARA</h1>
+                    <h2>SISTEM INFORMASI AKADEMIK STIE PGRI DEWANTARA JOMBANG</h2>
+
+                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
                         <div class="widget style1 navy-bg">
                             <a class="ahover" style="" href="<?php echo base_url('siku') ?>" data-load="<?php echo base_url('siku') ?>" data-table="<?php echo base_url('siku') ?>" data-remote-target="#ajax-remote">
                                 <div class="row">
@@ -32,12 +34,20 @@ a.ahover:hover {
                             <div class="row" style="margin-top:20px">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="btn-group">
-                                        <a class="btn btn-success" href=" <?php echo domain() ?>siku/rekeningmhs/">Rekening</a>
+                                        <a class="btn btn-success" href="<?php echo domain() ?>siku/jenis">Jenis Tarif</a>
+                                        <a class="btn btn-info" href="<?php echo domain() ?>siku/kelompokmhs">Kelompok Mahasiswa</a>
+                                        <a class="btn btn-warning" href="<?php echo domain() ?>siku/prodi">Program Studi</a>
+
+                                    </div>
+                                    <p></p>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="btn-group">
+                                       
                                         <a class="btn btn-warning" href=" <?php echo domain() ?>siku/tarif/">Tarif Dasar</a>
-                                        <a class="btn btn-info" href=" <?php echo domain() ?>siku/paket_tarif/">Paket Tarif</a>
-                                        <a class="btn btn-danger" href=" <?php echo domain() ?>siku/tagihanmhs/">Tagihan</a>
-                                        <a class="btn btn-warning" href=" <?php echo domain() ?>siku/tagihanmhs/">Pembayaran</a>
-                                        <a class="btn btn-success" href=" <?php echo domain() ?>siku/tagihanmhs/validasi/">Validasi</a>
+                                        <a class="btn btn-info" href=" <?php echo domain() ?>siku/paket_tarif/">Kelompok Tarif</a>
+                                        <a class="btn btn-danger" href=" <?php echo domain() ?>siku/tagihan/">Tagihan</a>
+                                        <a class="btn btn-success" href=" <?php echo domain() ?>siku/tagihan/validasi/">Validasi</a>
                                     </div>
                                 </div>
                             </div>

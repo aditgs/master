@@ -1,6 +1,6 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /*
- * jQuery File Upload Plugin PHP Class 7.1.4
+ * jQuery File Upload Plugin PHP Class 7.1.0
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2010, Sebastian Tschan
@@ -33,9 +33,7 @@ class UploadHandler
         'max_width' => 'Image exceeds maximum width',
         'min_width' => 'Image requires a minimum width',
         'max_height' => 'Image exceeds maximum height',
-        'min_height' => 'Image requires a minimum height',
-        'abort' => 'File upload aborted',
-        'image_resize' => 'Failed to resize image'
+        'min_height' => 'Image requires a minimum height'
     );
 
     protected $image_objects = array();
@@ -226,8 +224,7 @@ class UploadHandler
         if (!$direct && $this->options['download_via_php']) {
             $url = $this->options['script_url']
                 .$this->get_query_separator($this->options['script_url'])
-                .$this->get_singular_param_name()
-                .'='.rawurlencode($file_name);
+                .'file='.rawurlencode($file_name);
             if ($version) {
                 $url .= '&version='.rawurlencode($version);
             }
@@ -380,10 +377,9 @@ class UploadHandler
             $file->error = $this->get_error_message('min_file_size');
             return false;
         }
-        if (is_int($this->options['max_number_of_files']) &&
-                ($this->count_file_objects() >= $this->options['max_number_of_files']) &&
-                // Ignore additional chunks of existing files:
-                !is_file($this->get_upload_path($file->name))) {
+        if (is_int($this->options['max_number_of_files']) && (
+                $this->count_file_objects() >= $this->options['max_number_of_files'])
+            ) {
             $file->error = $this->get_error_message('max_number_of_files');
             return false;
         }
@@ -463,7 +459,7 @@ class UploadHandler
             $name .= '.'.$matches[1];
         }
         if (function_exists('exif_imagetype')) {
-            switch(@exif_imagetype($file_path)){
+            switch(exif_imagetype($file_path)){
                 case IMAGETYPE_JPEG:
                     $extensions = array('jpg', 'jpeg');
                     break;
@@ -1006,12 +1002,19 @@ class UploadHandler
                     $file->size = $this->get_file_size($file_path, true);
                 }
             } else {
-                $failed_versions[] = $version ? $version : 'original';
+                $failed_versions[] = $version;
             }
         }
-        if (count($failed_versions)) {
-            $file->error = $this->get_error_message('image_resize')
-                    .' ('.implode($failed_versions,', ').')';
+        switch (count($failed_versions)) {
+            case 0:
+                break;
+            case 1:
+                $file->error = 'Failed to create scaled version: '
+                    .$failed_versions[0];
+                break;
+            default:
+                $file->error = 'Failed to create scaled versions: '
+                    .implode($failed_versions,', ');
         }
         // Free memory:
         $this->destroy_image_object($file_path);
@@ -1062,7 +1065,7 @@ class UploadHandler
                 $file->size = $file_size;
                 if (!$content_range && $this->options['discard_aborted_uploads']) {
                     unlink($file_path);
-                    $file->error = $this->get_error_message('abort');
+                    $file->error = 'abort';
                 }
             }
             $this->set_additional_file_properties($file);

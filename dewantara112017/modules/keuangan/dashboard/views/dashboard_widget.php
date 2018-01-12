@@ -21,7 +21,7 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>siku/tagihanmhs/" >
+    <a class="" href="<?php echo domain() ?>siku/tagihan/" >
     <div class="widget style1 red-bg">
     <div class="row">
         <div class="col-xs-4">
@@ -37,7 +37,7 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>siku/tagihanmhs/validasi" >
+    <a class="" href="<?php echo domain() ?>siku/tagihan/validasi" >
     <div class="widget style1 navy-bg">
     <div class="row">
         <div class="col-xs-4">

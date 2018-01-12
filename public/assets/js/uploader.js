@@ -1,4 +1,5 @@
 function reloadFiles() {
+    // alert(filesurl);
     $.ajax({
         url: baseurl+'filebrowse/',
         dataType: 'json',
@@ -8,12 +9,11 @@ function reloadFiles() {
             for (var i = 0, len = data.files.length; i < len; i++) {
                 var file = data.files[i];
                 html.push('<tr>\
-                        <td class="preview"><img src="' +file.url + '" /></td>\
-                        <td class="name"><span class="pull-left label label-info label-xs">' + file.name + '</span>\
+                        <td class="preview"><img class="img-reponsive img-thumbnail" src="' +filesurl+file.url + '" /><br><span class="label label-info label-xs">' + file.name + '</span><span class="label label-success">' + (file.size / 1024 / 1024).toFixed(2) + 'MB</span></td>\
+                        <td class="name">\
                            <div class="btn-group pull-right"><a class="insert btn btn-success btn-xs" href="#" data-url="' +file.url+ '">Tambah ke Editor</a>\
                             <a class="delete btn btn-danger btn-xs" href="#" data-url="' + file.delete + '" data-file="' + file.name + '">Hapus</a></div>\
                         </td>\
-                        <td class="size">' + (file.size / 1024 / 1024).toFixed(2) + 'MB</td>\
                         <td class="action">\
                         </td>\
                     </tr>');
@@ -66,6 +66,7 @@ $(function() {
             data: {'file': file},
             success: function(data) {
                 el.parent().parent().remove();
+                reloadFiles();
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert('서버에 문제가 생겼습니다.\n잠시후에 다시 시도해 주세요.');

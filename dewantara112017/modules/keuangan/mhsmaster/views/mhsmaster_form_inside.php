@@ -7,14 +7,14 @@
                             <input type="hidden" value='' id="id" name="id">
                             
                             <div class="form-group">
-                                <?php echo form_label('nim : ','nim',array('class'=>'control-label')); ?>
+                                <?php echo form_label('NIM : ','nim',array('class'=>'control-label')); ?>
                                 <div class="controls">
                                 <?php echo form_input('nim',set_value('nim', isset($default['nim']) ? $default['nim'] : ''),'id="nim" class="form-control" placeholder="Masukkan nim"'); ?>
                                 </div>
                             </div>
                         
                             <div class="form-group">
-                                <?php echo form_label('nama : ','nama',array('class'=>'control-label')); ?>
+                                <?php echo form_label('Nama : ','nama',array('class'=>'control-label')); ?>
                                 <div class="controls">
                                 <?php echo form_input('nama',set_value('nama', isset($default['nama']) ? $default['nama'] : ''),'id="nama" class="form-control" placeholder="Masukkan nama"'); ?>
                                 </div>

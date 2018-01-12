@@ -4,12 +4,6 @@ $(document).ready(function() {
     });
     $("body").on("click", ".edite", function(e) {
         e.preventDefault();
-        /* $('#outside').addClass('active in');
-         $('li.baru').addClass('active');
-         $('li.daftar').removeClass('active');
-         $('#inside').removeClass('active');
-         $('.kelola').show(200);
-        */
         var id = $(this).attr("id");
         $(this).ready(function() {
             $.ajax({
@@ -28,7 +22,7 @@ $(document).ready(function() {
                         //gunakan ini untuk repopulate select option ke form dengan ajax
                         $("body #modal-form .modal-body select#" + i + "").find('option').selectit(i, data[i]);
                         $("body #modal-form .modal-body .checkbox").find('input[type="checkbox"]').checkit(i, data[i]);
-                        $("body #modal-form .modal-body .radio").find('input[type="radio"]').checkit(i, data[i]);
+                        $("body #modal-form .modal-body .radio").find('input[type="radio"][value="1"]').radioit(i, data[i]);
                     }
                     $('#body').val(data.body);
                     $('body #modal-form .modal-body button#save').hide(200);
@@ -41,3 +35,25 @@ $(document).ready(function() {
 
     });
 })
+/* if (response.drive == 'Manual')
+    $('#editVehicle').find(':radio[name=drive][value="1"]').prop('checked', true);
+  else
+    $('#editVehicle').find(':radio[name=drive][value="2"]').prop('checked', true);*/
+$.fn.radioit=function(id,v){
+            // alert(id+" - "+v);
+            // alert($(this).val());
+            return this.each(function(){
+                if($(this).val()==1){
+                    // alert(id+$(this).val()+"-"+v)
+                // if($(id).val()==v){
+                     $(this).attr('checked','checked');
+                     $(this).prop('checked',true);
+                     // console.log('checked true');
+                     // $(id).attr('checked','checked');
+                }else{
+                    $(this).attr('checked','');
+                    // console.log('checked false');
+                    $(this).prop('checked',false);
+                }
+            });
+        }

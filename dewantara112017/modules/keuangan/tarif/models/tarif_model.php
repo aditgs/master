@@ -24,6 +24,24 @@ class Tarif_model extends CI_Model {
         } else {
             return array();
         }
+    }
+    function getbyid($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('tarif');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    } 
+    function getviewtarif($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('004-view-tarif');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
     } 
     function bacajenis($kode){
         $this->db->where('KodeJ',$kode);
@@ -254,6 +272,19 @@ class Tarif_model extends CI_Model {
   
         $result[0]="-- Pilih Angkatan--";
         foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->angkatan]= $row->angkatan;
+        }
+        return $result;
+    } 
+    function dropdowntahun(){
+        $result = array('');
+            // $array_keys_values = $this->db->query('select concat("20",left(nim,2)) as angkatan from mhsmaster group by(left(nim,2)) order by (left(nim,2)) asc');
+  
+        // $result[0]="-- Pilih Angkatan--";
+        // $result['']="-- Pilih Angkatan--";
+        // foreach ($array_keys_values->result() as $row)
+        foreach ($result as $row)
         {
             $result[$row->angkatan]= $row->angkatan;
         }

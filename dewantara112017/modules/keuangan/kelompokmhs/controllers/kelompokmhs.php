@@ -6,7 +6,7 @@ class kelompokmhs extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('kelompokmhs_model','kelompokmhsdb',TRUE);
+        $this->load->model('kelompokmhs_model','keldb',TRUE);
         $this->session->set_userdata('lihat','kelompokmhs');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -82,7 +82,7 @@ class kelompokmhs extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->kelompokmhsdb->ceknomornull();
+        $null=$this->keldb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +90,7 @@ class kelompokmhs extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->kelompokmhsdb->genfaktur();
+            $faktur=$this->keldb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -125,195 +125,7 @@ class kelompokmhs extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
-            $this->datatables->select('Kodek,Kelompok,')
-                            ->from('kelompokmhs');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('kelompokmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
-
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
-                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
-                </div>" , 'id');
-            $this->datatables->unset_column('Kodek');
-
-        else:
-            $this->datatables->select('Kodek,Kelompok,')
-                            ->from('kelompokmhs');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('kelompokmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
-            $this->datatables->unset_column('Kodek');
-        endif;
-        echo $this->datatables->generate();
-    }
-    function enkrip(){
-        return md5($this->session->userdata('lihat').":".$this->getuser()."+".date('H:m'));
-        // echo $this->session->userdata('kelompokmhs');
-    }
-    function isadmin(){
-       return $this->ion_auth->is_admin();
-    }
-    function getuser(){
-        if ($this->ion_auth->logged_in()):
-            $user = $this->ion_auth->user()->row();
-            if (!empty($user)):
-                $userid=$user->id;
-                return $userid;
-            else:
-                return array();
-            endif;
-        endif;
-    }
-    function forms(){   
-
-        $this->load->view('kelompokmhs_form_inside');
-           
-    }
-
-    public function get($Kodek=null){
-        if($Kodek!==null){
-            echo json_encode($this->kelompokmhsdb->get_one($Kodek));
-        }
-    }
-    function tables(){
-        $this->load->view('kelompokmhs_data');
-    }
-
-    function getone($id=null){
-        if($id!==null){
-            $data=$this->kelompokmhsdb->get_one($id);
-            $jml=count($data);
-            // print_r($jml);
-            // print_r($data);
-            $div='';
-            $div.="<table class='table table-condensed table-striped table-bordered'>";
-            $i=0;
-            foreach ($data as $key => $value) {
-                # code...
-                
-                
-                    $div.="<tr>";
-                
-                $div.="<td>".$key."</td>";
-                $div.="<td>".$value."</td>";
-                    $div.="</tr>";
-                
-                $i++;
-
-            }
-            $div.="</table>";
-           echo $div;
       
-        }
-      
-    }
-
-    public function submit(){
-        if ($this->input->post('ajax')){
-          if ($this->input->post('Kodek')){
-            $this->kelompokmhsdb->update($this->input->post('Kodek'));
-          }else{
-            //$this->kelompokmhsdb->save();
-            $this->kelompokmhsdb->saveas();
-          }
-
-        }else{
-          if ($this->input->post('submit')){
-              if ($this->input->post('Kodek')){
-                $this->kelompokmhsdb->update($this->input->post('Kodek'));
-              }else{
-                //$this->kelompokmhsdb->save();
-                $this->kelompokmhsdb->saveas();
-              }
-          }
-        }
-    }
-    
-
-    
-    public function delete(){
-        if(isset($_POST['ajax'])){
-            if(!empty($_POST['id'])){
-                $this->kelompokmhsdb->delete($this->input->post('id'));
-                $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
-            }else {
-                $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
-            }
-        }
-    }
-    public function delete_detail(){
-        if(isset($_POST['ajax'])){
-            if(!empty($_POST['Kodek'])){
-                $this->kelompokmhsdb->upddel_detail($this->input->post('Kodek'));
-                $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
-            echo'<div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <strong>Delete Detail!</strong> Sukses...
-            </div>';
-            }else {
-                $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
-            }
-            
-        }
-    } 
-     public function delete_detailxx(){
-        if(isset($_POST['ajax'])){
-            if(!empty($_POST['Kodek'])){
-                $this->kelompokmhsdb->delete_detail($this->input->post('Kodek'));
-                $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
-            }else {
-                $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
-            }
-        }
-    } 
-    private function gen_faktur(){
-        $last=$this->kelompokmhsdb->get_last_pt();
-        // print_r($last);
-        if(!empty($last)):
-            $first=substr($last['faktur_pt'],0,2);
-            if($first==''||$first==null){
-                $first=' ';
-            }
-            $left=substr($last['faktur_pt'],2,4);
-            $right=substr($last['faktur_pt'],-5);
-            $nopt=number_format($right); 
-            
-            
-            $newpo=strval($nopt+1);
-            $newpo2=substr(strval("00000$newpo"),-5);
-
-        $tahun=substr($left,0,2);
-        $bulan=substr($left,2,4);
-        
-            if($tahun<>date('y')):
-                $tahun=date('y');
-                if($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan."00001");
-                elseif($bulan<>date('m')):
-                    $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001");
-                endif;
-            elseif($tahun==date('y')):
-                if(intval($bulan)<>date('m')):
-                    $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001"); 
-                elseif($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan.$newpo2);
-                endif;
-            endif;
-        else:
-            // $gen="PT151100001";
-            $gen=" ".date('ym')."00001";
-        endif;
-        return $gen;
-    }
-     function get_new_faktur(){
-        echo $this->gen_faktur();
-    }
-
-    
-
-    public function getdatatables(){
-        if($this->isadmin()==1):
             $this->datatables->select('id,Kelompok,')
                             ->from('kelompokmhs');
             $this->datatables->add_column('edit',"<div class='btn-group'>
@@ -324,13 +136,7 @@ class kelompokmhs extends MX_Controller {
                 </div>" , 'id');
             $this->datatables->unset_column('id');
 
-        else:
-            $this->datatables->select('id,Kelompok,')
-                            ->from('kelompokmhs');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('kelompokmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
-            $this->datatables->unset_column('id');
-        endif;
+       
         echo $this->datatables->generate();
     }
     function enkrip(){
@@ -359,7 +165,7 @@ class kelompokmhs extends MX_Controller {
 
     public function get($id=null){
         if($id!==null){
-            echo json_encode($this->kelompokmhsdb->get_one($id));
+            echo json_encode($this->keldb->get_one($id));
         }
     }
     function tables(){
@@ -368,7 +174,7 @@ class kelompokmhs extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->kelompokmhsdb->get_one($id);
+            $data=$this->keldb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -398,19 +204,19 @@ class kelompokmhs extends MX_Controller {
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
-            $this->kelompokmhsdb->update($this->input->post('id'));
+            $this->keldb->update($this->input->post('id'));
           }else{
-            //$this->kelompokmhsdb->save();
-            $this->kelompokmhsdb->saveas();
+            //$this->keldb->save();
+            $this->keldb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('id')){
-                $this->kelompokmhsdb->update($this->input->post('id'));
+                $this->keldb->update($this->input->post('id'));
               }else{
-                //$this->kelompokmhsdb->save();
-                $this->kelompokmhsdb->saveas();
+                //$this->keldb->save();
+                $this->keldb->saveas();
               }
           }
         }
@@ -421,7 +227,7 @@ class kelompokmhs extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->kelompokmhsdb->delete($this->input->post('id'));
+                $this->keldb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -431,7 +237,7 @@ class kelompokmhs extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->kelompokmhsdb->upddel_detail($this->input->post('id'));
+                $this->keldb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -446,7 +252,7 @@ class kelompokmhs extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->kelompokmhsdb->delete_detail($this->input->post('id'));
+                $this->keldb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -454,7 +260,7 @@ class kelompokmhs extends MX_Controller {
         }
     } 
     private function gen_faktur(){
-        $last=$this->kelompokmhsdb->get_last_pt();
+        $last=$this->keldb->get_last_pt();
         // print_r($last);
         if(!empty($last)):
             $first=substr($last['faktur_pt'],0,2);

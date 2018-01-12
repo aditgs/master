@@ -62,7 +62,7 @@ function buildpdf($html, $filename='', $stream=TRUE)
                    $font, 6, array(0,0,0));*/
 
             // $font = $fontMetrics->getFont("Arial", "bold");
-            $canvas->page_text(10, 580, "STIE DEWANTARA JOMBANG", $font, 10, array(0, 0, 0));
+            $canvas->page_text(10, 580, "STIE PGRI DEWANTARA JOMBANG", $font, 10, array(0, 0, 0));
             $canvas->page_text(770, 580, "Hal. {PAGE_NUM} / {PAGE_COUNT}", $font, 10, array(0, 0, 0));
             $canvas->line(10, 575, 830, 575, array(0,0,0), 1);
 
@@ -95,7 +95,7 @@ function savepdf($html, $filename='', $stream=TRUE){
     // the same call as in my previous example
     // $dompdf->setPaper('A4', 'landscape');
     // $dompdf->set_paper('A4', 'landscape');
-    $dompdf->set_Paper(array(0, 0, 595, 841), 'landscape');
+    $dompdf->set_Paper(array(0, 0, 610, 312), 'portrait');
     /* $x = 72;
             $y = 18;
             $text = "Hal. {PAGE_NUM} / {PAGE_COUNT}";

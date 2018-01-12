@@ -1,0 +1,29 @@
+.datepicker {
+    z-index: 2200 !important;
+}
+
+span.select2-container.select2-container--bootstrap.input-md.select2-container--open {
+    z-index: 2200 !important;
+}
+.select2-result-label .wrap:before{
+    position:absolute;
+    left:4px;
+    font-family:fontAwesome;
+    color:#999;
+    content:"\f096";
+    width:25px;
+    height:25px;
+    
+}
+.select2-result-label .wrap.checked:before{
+    content:"\f14a";
+}
+.select2-result-label .wrap{
+    margin-left:15px;
+}
+
+
+.row
+{
+  padding: 10px;
+}

@@ -20,37 +20,48 @@ class tarif extends MX_Controller {
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
-        $this->template->add_js('accounting.min.js');
-        $this->template->add_js('jquery.maskMoney.min.js');   
-        $this->template->add_css('plugins/datapicker/datepicker3.css');
-        $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
-        $this->template->add_js('datepicker.js'); //tanggal
+        // $this->template->add_js('accounting.min.js');
+        // $this->template->add_js('jquery.maskMoney.min.js');   
+        // $this->template->add_css('plugins/datapicker/datepicker3.css');
+        // $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
+        // $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
         $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
         
         /*ONLINE CDN*/
-        /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
+        $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
         $this->template->add_js('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js','cdn');
-        $this->template->add_js('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js','cdn');
-        $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css','cdn');
-        $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css','cdn');
+        // $this->template->add_js('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js','cdn');
+        // $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css','cdn');
+        // $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css','cdn');
         $this->template->add_js('https://cdn.jsdelivr.net/jquery.maskmoney/3.0.2/jquery.maskMoney.min.js','cdn');
         $this->template->add_js('https://cdn.jsdelivr.net/accounting.js/0.3.2/accounting.min.js','cdn');
-        */
+        
     }
 
     public function index() {
         $this->template->set_title('Kelola Tarif');
         $this->template->add_js('var baseurl="'.base_url().'tarif/";','embed');  
         $this->template->add_js('modules/tarif.js');  
-        
+        $tahun=array(
+            '0'=>'-- Pilih Tahun --',
+            '2014'=>'2014',
+            '2015'=>'2015',
+            '2016'=>'2016',
+            '2017'=>'2017',
+            '2018'=>'2018',
+            '2019'=>'2019',
+            '2020'=>'2020',
+            '2021'=>'2021',
+        );
         $this->template->load_view('tarif_view',array(
             'view'=>'tarif_data',
             'opt_jenis'=>$this->tarifdb->dropdown_jenis(),
             'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
+            'opt_tahun'=>$tahun,
             'title'=>'Kelola Data Tarif',
             'subtitle'=>'Pengelolaan Tarif',
             'breadcrumb'=>array(
@@ -60,6 +71,17 @@ class tarif extends MX_Controller {
     public function data() {
         $this->template->set_title('Kelola Tarif');
         $this->template->add_js('var baseurl="'.base_url().'tarif/";','embed');  
+        $tahun=array(
+            '0'=>'-- Pilih Tahun --',
+            '2014'=>'2014',
+            '2015'=>'2015',
+            '2016'=>'2016',
+            '2017'=>'2017',
+            '2018'=>'2018',
+            '2019'=>'2019',
+            '2020'=>'2020',
+            '2021'=>'2021',
+        );
         $this->template->load_view('tarif_view',array(
             'view'=>'tarif_data',
             'title'=>'Kelola Data Tarif',
@@ -68,6 +90,7 @@ class tarif extends MX_Controller {
             'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
+            'opt_tahun'=>$tahun,
             'breadcrumb'=>array(
             'Tarif'),
         ));
@@ -75,10 +98,26 @@ class tarif extends MX_Controller {
      public function baru() {
         $this->template->set_title('Kelola Tarif');
         $this->template->add_js('var baseurl="'.base_url().'tarif/";','embed');  
+        $tahun=array(
+            '0'=>'-- Pilih Tahun --',
+            '2014'=>'2014',
+            '2015'=>'2015',
+            '2016'=>'2016',
+            '2017'=>'2017',
+            '2018'=>'2018',
+            '2019'=>'2019',
+            '2020'=>'2020',
+            '2021'=>'2021',
+        );
         $this->template->load_view('tarif_view',array(
             'view'=>'',
             'title'=>'Kelola Data Tarif',
             'subtitle'=>'Pengelolaan Tarif',
+            'opt_jenis'=>$this->tarifdb->dropdown_jenis(),
+            'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
+            'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
+            'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
+            'opt_tahun'=>$tahun,
             'breadcrumb'=>array(
             'Tarif'),
         ));
@@ -278,69 +317,81 @@ class tarif extends MX_Controller {
     }
     function bacakode($kode){
         // 166102120161    
+        $kode=trim($kode);
+        $kode = preg_replace('/\s+/', '', $kode);
+        $kode = str_replace(' ', '', $kode);
 
-        $angktn=substr($kode,0,2);
-        // print_r($angktn);
-        $prodi=substr($kode,2,2);
-        // print_r($prodi);
-        $jenis=substr($kode,4,2);
-        // print_r($jenis);
-        $kel=substr($kode,6,1);
-        // print_r($kel);
-        $thn=substr($kode,7,4);
-        // print_r($thn);
-        $smt=substr($kode,-1);
-        // print_r($smt);
+        if(strlen($kode)==12):
 
-        $bcjenis=$this->tarifdb->bacajenis($jenis);
-        $bckelmhs=$this->tarifdb->bacakelompokmhs($kel);
-        $bcprodi=$this->tarifdb->bacaprodi($prodi);
-        // print_r($bcjenis);
-        // print_r($bckelmhs);
-        // print_r($bcprodi);
-        if((!empty($bcjenis) || $bcjenis!=null) && (!empty($bcprodi) || $bcprodi!=null) && (!empty($bckelmhs) || $bckelmhs!=null)){
-            if(array_key_exists('Jenis', $bcjenis) && array_key_exists('Prodi',$bcprodi) && array_key_exists('Kelompok',$bckelmhs)){
+            $angktn=substr($kode,0,2);
+            // print_r($angktn);
+            $prodi=substr($kode,2,2);
+            // print_r($prodi);
+            $jenis=substr($kode,4,2);
+            // print_r($jenis);
+            $kel=substr($kode,6,1);
+            // print_r($kel);
+            $thn=substr($kode,7,4);
+            // print_r($thn);
+            $smt=substr($kode,-1);
+            // print_r($smt);
 
-                $ket=$bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelmhs['Kelompok'];
+            $bcjenis=$this->tarifdb->bacajenis($jenis);
+            $bckelmhs=$this->tarifdb->bacakelompokmhs($kel);
+            $bcprodi=$this->tarifdb->bacaprodi($prodi);
+            // print_r($bcjenis);
+            // print_r($bckelmhs);
+            // print_r($bcprodi);
+            if((!empty($bcjenis) || $bcjenis!=null) && (!empty($bcprodi) || $bcprodi!=null) && (!empty($bckelmhs) || $bckelmhs!=null)){
+                if(array_key_exists('Jenis', $bcjenis) && array_key_exists('Prodi',$bcprodi) && array_key_exists('Kelompok',$bckelmhs)){
+
+                    $ket=$bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelmhs['Kelompok'];
+                    // implode(glue, pieces)
+                }else{
+                    $ket='';
+                    $ket.=!empty($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
+                    $ket.=!empty($bcprodi['Prodi'])?$bcprodi['Prodi']:'';
+                    $ket.=!empty($bckelmhs['Kelompok'])?$bckelmhs['Kelompok']:'';
+
+                }
             }else{
+                // $ket="Kode tidak lengkap atau tidak dapat dikenali";
                 $ket='';
-                $ket.=!empty($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
-                $ket.=!empty($bcprodi['Prodi'])?$bcprodi['Prodi']:'';
-                $ket.=!empty($bckelmhs['Kelompok'])?$bckelmhs['Kelompok']:'';
-
+                    $ket.=!empty($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
+                    $ket.=!empty($bcprodi['Prodi'])?$bcprodi['Prodi']:'';
+                    $ket.=!empty($bckelmhs['Kelompok'])?$bckelmhs['Kelompok']:'';
             }
-        }else{
-            // $ket="Kode tidak lengkap atau tidak dapat dikenali";
-            $ket='';
-                $ket.=!empty($bcjenis['Jenis'])?$bcjenis['Jenis']:'';
-                $ket.=!empty($bcprodi['Prodi'])?$bcprodi['Prodi']:'';
-                $ket.=!empty($bckelmhs['Kelompok'])?$bckelmhs['Kelompok']:'';
-        }
-        $data=array(
-            'angkatan'=>"20".$angktn,
-            'prodi'=>$prodi,
-            'jenis'=>$jenis,
-            'kelompok'=>$kel,
-            'tahun'=>$thn,
-            'semester'=>$smt,
-            'keterangan'=>$ket,
-        );
-        print_r($data);
-        return $data;
-
+            $data=array(
+                'angkatan'=>"20".$angktn,
+                'prodi'=>$prodi,
+                'jenis'=>$jenis,
+                'kelompok'=>$kel,
+                'tahun'=>$thn,
+                'semester'=>$smt,
+                'keterangan'=>$ket,
+            );
+            // print_r($data);
+            return $data;
+        else:
+            return array();
+        endif;
     }
     function submit_settarif(){
-        $angktn=substr($this->input->post('angkatan'),-2);
-        $prodi=$this->input->post('prodi');
-        $jenis=$this->input->post('jenis');
-        $kel=$this->input->post('kelompok');
-        $thn=$this->input->post('tahun');
-        $smt=$this->input->post('semester');
-        $tarif=$this->input->post('Tarif');
+        $angktn=substr($this->input->post('angkatan',TRUE),-2);
+        $prodi=$this->input->post('prodi',TRUE);
+        $jenis=$this->input->post('jenis',TRUE);
+        $kel=$this->input->post('kelompok',TRUE);
+        $thn=$this->input->post('tahun',TRUE);
+        $smt=$this->input->post('semester',TRUE);
+        $tarif=$this->input->post('Tarif',TRUE);
         // print_r($prodi." ".$jenis." ".$kel);
         $kode=$angktn.$prodi.$jenis.$kel.$thn.$smt;
+        // print_r((trim($kode)));
+        $kode=trim($kode);
+        $kode = preg_replace('/\s+/', '', $kode);
+        $kode = str_replace(' ', '', $kode);
         $data=array(
-            'KodeT'=>$kode,
+            'KodeT'=>trim($kode),
             'Tarif'=>$tarif,
         );
         // $this->db->insert('tarif',$data);
@@ -348,6 +399,7 @@ class tarif extends MX_Controller {
     }
     public function submit(){
         $datatarif=$this->submit_settarif();
+        // print_r($datatarif);
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
             $datatarif['id']=$this->input->post('id');

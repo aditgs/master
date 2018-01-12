@@ -56,7 +56,7 @@ if (defined('ENVIRONMENT'))
  * as this file.
  *
  */
-	$system_path = '../core';
+	$system_path = '../../core';
 
 /*
  *---------------------------------------------------------------
@@ -72,7 +72,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = '../muria';
+	$application_folder = '../../dewantara112017';
 
 /*
  * --------------------------------------------------------------------
@@ -123,13 +123,6 @@ if (defined('ENVIRONMENT'))
 	// $assign_to_config['name_of_config_item'] = 'value of config item';
 	$assign_to_config['base_url'] = "http://".$_SERVER['HTTP_HOST'];
  	$assign_to_config['base_url'] .= preg_replace('@/+$@','',dirname($_SERVER['SCRIPT_NAME'])).'/';
- 	// $assign_to_config['assets_url'] = "http://".$_SERVER['HTTP_HOST'];
- 	// $assign_to_config['assets_url'] .= preg_replace('@/+$@','',dirname($_SERVER['SCRIPT_NAME'])).'/assets/';
-	
-	// $assign_to_config['base_url'] = 'http://localhost/ci-smpn20/admin';
-	$assign_to_config['assets_url'] = 'http://localhost/ci-kinerja-saw/assets/';
-	$assign_to_config['index_page'] = '';
-	$assign_to_config['url_suffix'] = '';
 
 
 // --------------------------------------------------------------------
@@ -226,6 +219,8 @@ if (defined('ENVIRONMENT'))
 
 		define('UPPATH', BASEPATH.$uploads_folder.'/');
 	}
+	// define('UPDIR', str_replace("\\", "/", UPPATH));
+	define('UPDIR', str_replace("\\", "/", UPPATH));
     /*
     * HOMEPATH ADMIN - The full server path to the home root path
      */
