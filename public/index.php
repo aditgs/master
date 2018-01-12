@@ -177,7 +177,16 @@ if (defined('ENVIRONMENT'))
 
 	// Name of the "system folder"
 	define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
+	define('DIR', pathinfo(__DIR__, PATHINFO_BASENAME));
 
+
+	// Path C:\xampp\htdocs\ci-smpn205\files\
+	// define('UPPATH', str_replace(DIR, '', __DIR__."files\\"));
+	// define('UPPATH', str_replace(DIR, '', __DIR__));
+	
+	// DIR C:/xampp/htdocs/ci-smpn205/files/
+	// define('UPDIR', str_replace("\\", "/", UPPATH."files"));
+	// define('UPDIR', str_replace("\\", "/", UPPATH));
 
 	// The path to the "application" folder
 	if (is_dir($application_folder))
@@ -196,20 +205,20 @@ if (defined('ENVIRONMENT'))
 
 
 	// The path to the "uploads" folder
-	$uploads_folder = '../uploads';
-	if (is_dir($uploads_folder))
-	{
-		define('UPPATH', $uploads_folder.'/');
-	}
-	else
-	{
-		if ( ! is_dir(BASEPATH.$uploads_folder.'/'))
-		{
-			exit("Your uploads folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);
-		}
+	// $uploads_folder = '../uploads';
+	// if (is_dir($uploads_folder))
+	// {
+	// 	define('UPPATH', $uploads_folder.'/');
+	// }
+	// else
+	// {
+	// 	if ( ! is_dir(BASEPATH.$uploads_folder.'/'))
+	// 	{
+	// 		exit("Your uploads folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);
+	// 	}
 
-		define('UPPATH', BASEPATH.$uploads_folder.'/');
-	}
+	// 	define('UPPATH', BASEPATH.$uploads_folder.'/');
+	// }
 
 /*
  * --------------------------------------------------------------------
