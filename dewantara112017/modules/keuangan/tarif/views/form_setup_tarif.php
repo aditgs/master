@@ -1,6 +1,17 @@
+<style type="text/css">
+    .row .genjenis > [class*='col-']{
+        border-bottom: 1px solid #dddddd;
+    }
+    .genjenis .form-group{
+        margin-bottom: 0px;
+    }
+    .form-control.noborder{
+        border:none;
+    }
+</style>
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'tarif/submit_settarif',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
         <input type="hidden" value='' id="id" name="id">
         <div class="form-group sp-dropdown">
             <?php echo form_label('Angkatan ','angkatan',array('class'=>'control-label')); ?>
@@ -22,18 +33,7 @@
                 </div>
           
         </div>
-        <div class="form-group sp-dropdown">
-            <?php echo form_label('Jenis Tarif: ','jenis',array('class'=>'control-label')); ?>
-        
-                <div class="controls">
-                    <?php //print_r($opt_supplier) ?>
-                    <?php $jenis = isset($default['jenis'])? $default['jenis'] : '0';  ?>
-                    <?php echo form_dropdown('jenis',$opt_jenis,$jenis,'id="jenis" class="form-control select2" placeholder="Supplier"'); ?>
-                </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <div class="form-group sp-dropdown">
+          <div class="form-group sp-dropdown">
             <?php echo form_label('Kelompok Kelas: ','kelompok',array('class'=>'control-label')); ?>
         
                 <div class="controls">
@@ -44,7 +44,7 @@
         
         </div>
         <div class="form-group sp-dropdown">
-            <?php echo form_label('Tahun: ','kelompok',array('class'=>'control-label')); ?>
+            <?php echo form_label('Tahun Akademik: ','kelompok',array('class'=>'control-label')); ?>
              
                 <div class="controls">
                     <?php //print_r($opt_supplier) ?>
@@ -69,23 +69,55 @@
                 </div>
             </div>
         </div>
+      
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="form-group">
-            <?php echo form_label('Nominal Tarif : ','Tarif',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('Tarif',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="font-size:24px" class="form-control input-lg text-right" placeholder="Rp"'); ?>
-            </div>
+    
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+        <div class="row no-gutter genjenis">
+            <h3>Jenis Pembayaran</h3>
+            <?php if(isset($jenis)):
+                if(!empty($jenis)||$jenis!=null){
+
+                    foreach ($jenis as $key => $value) {?>
+                         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                            <div class="form-group">
+                                
+                                <div class="controls">
+                                    <?php echo form_input('KodeT[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="" class="form-control input-md text-center" placeholder="'.$value['KodeJ'].'" readonly'); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                             <div class="form-group">
+                                
+                                <div class="controls form-control input-md noborder">
+                                    <?= "(".$value['KodeJ'] .") ".$value['Jenis'] ?>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                            <div class="form-group">
+                                
+                                <div class="controls">
+                                    <?php echo form_input('Tarif[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="" class="form-control input-md text-right" placeholder="Rp"'); ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }
+                }
+                ?>
+            <?php else:?>
+            <?php endif;?>
+
         </div>
+
+
+        
+   
+        
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="form-group">
-            <?php echo form_label('Keterangan : ','keterangan',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('keterangan',set_value('keterangan', isset($default['keterangan']) ? $default['keterangan'] : ''),'id="tarif" disabled class="disable form-control input-lg text-center" placeholder="Keterangan"'); ?>
-            </div>
-        </div>
-    </div>
+   
     <?php if(isset($default)){
         print_r($default);
     } ?>

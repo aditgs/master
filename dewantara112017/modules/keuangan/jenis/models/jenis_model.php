@@ -15,6 +15,15 @@ class Jenis_model extends CI_Model {
         } else {
             return array();
         }
+    }  
+    function getall() {
+
+        $result = $this->db->get('jenis');
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return array();
+        }
     }
     
     //get data terakhir di generate
