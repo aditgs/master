@@ -42,6 +42,7 @@ class Setup extends MX_Controller {
         $this->template->add_js('modules/setuptarif.js');  
         $tahun=array(
             '0'=>'-- Pilih Tahun --',
+			'2013'=>'2013',
             '2014'=>'2014',
             '2015'=>'2015',
             '2016'=>'2016',
