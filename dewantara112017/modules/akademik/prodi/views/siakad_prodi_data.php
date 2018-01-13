@@ -7,27 +7,27 @@
         <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data Prodi</h2>
 
     
-                                <table id="datatables" class="table table-bordered table-condensed table-striped" style="">
+                                <table id="datatables" class="table table-bordered table-condensed table-striped" style="width: 100%">
                                     <thead class="">
                                         <tr>
                                                        
 
-                                                        <th>Kode Prodi</th>
-                                                        <th>Kode PT</th>
-                                                        <th>Kode Prodi Less</th>
+                                                       <th>Kode Prodi</th>
+                                                       <th>Kode PT</th>
+                                                        <!-- <th>kode_prodi_less</th> -->
                                                         <th>Nama Prodi</th>
-                                                        <th>Strata Prodi</th>
-                                                        <th>Tanggal Prodi</th>
+                                                        <th>Strata</th>
+                                                        <th>Tanggal Berdiri</th>
                                                         <th>SK Prodi</th>
-                                                        <th>Tanggal SK Prodi</th>
-                                                        <th>SKS Prodi</th>
-                                                        <th>Status Prodi</th>
-                                                        <th>SK BANPT Prodi</th>
-                                                        <th>Tahun BANPT Prodi</th>
-                                                        <th>Akreditas BANPT Prodi</th>
-
-                                                        <th>ex_banpt_prodi</th>
+                                                        <th>Tgl SK</th>
+                                                        <th>SKS Max</th>
+                                                        <th>Status</th>
+                                                        <!-- <th>sk_banpt_prodi</th> -->
+                                                        <!-- <th>thn_banpt_prodi</th> -->
+                                                        <!-- <th>akr_banpt_prodi</th> -->
+                                                        <!-- <th>ex_banpt_prodi</th> -->
                                                         <th>Aksi</th>
+
 
                                                     </tr>
                                     </thead>
