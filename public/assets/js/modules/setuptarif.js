@@ -27,7 +27,10 @@ $(document).ready(function() {
     $('.kodetarif').change(function() {
     	var x=$(this).val();
     	var y=$(this).data("tarif");
-        $(this).val(x+y);
+    	var l=x.substr(0,4);
+    	var r=x.substr(6,6);
+    	var z=x+y;
+        $(this).val(l+y+r);
     });
 });
 
