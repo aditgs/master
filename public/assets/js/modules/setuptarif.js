@@ -67,7 +67,7 @@ function handleSubmit(data) {
     }
 }
 function save(id) {
-    var data = $('body form#formtarif').serializeArray();
+    var data = $('body form#addform').serializeArray();
     data.push({ name: 'ajax', value: 1 });
 
     $(this).ready(function() {

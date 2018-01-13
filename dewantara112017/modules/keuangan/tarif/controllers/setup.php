@@ -75,34 +75,32 @@ class Setup extends MX_Controller {
     	$detail=($this->input->post('detail',true));
     	// foreach ($data as $key => $value) {
     		$dx=array(
-    			'angkatan'=>substr($data[0]['value'],2,2),
-    			'prodi'=>$data[1]['value'],
+    			'angkatan'=>(isset($data[0]['value'])?substr($data[0]['value'],2,2):'00'),
+    			'prodi'=>(isset($data[1]['value'])?$data[1]['value']:'00'),
     			'jenis'=>'00',
-    			'kelompok'=>$data[2]['value'],
-    			'tahun'=>$data[3]['value'],
-    			'smster'=>(isset($data[10]['value'])?$data[10]['value']:0),
+    			'kelompok'=>(isset($data[2]['value'])?$data[2]['value']:'0'),
+    			'tahun'=>(isset($data[3]['value'])?$data[3]['value']:'0000'),
+    			'smster'=>(isset($data[10]['value'])?$data[10]['value']:'0'),
     		);
     		echo implode("", $dx);
     		# code...
     	// }
     	// print_r(array_search('angkatan',$data[1]));
     	// $dx['id']=$data[0]['value'];
-    	// $ang=($data[1]['value']);
+    	// $ang=($data[1]['value']$data[1]['value']);
     	// $prodi=($data[2]['value']);
     	// $kel=($data[3]['value']);
     
-    	// $angktn=$this->input->post('angkatan');
-    	// $prodis=$this->input->post('prodi');
-    	// $kodeta=$this->input->post('KodeT');
+    	
     	// print_r($data);
     	
     }
    function __formvalidation(){
-        // $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim|xss_clean');
         // $this->form_validation->set_rules('kodeT[]', 'Kode Tarif', 'required|trim|xss_clean');
-        // $this->form_validation->set_rules('prodi', 'Program Studi', 'required|trim|xss_clean');
-        // $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|xss_clean');
-        // $this->form_validation->set_rules('semester', 'Semester', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('prodi', 'Program Studi', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('semester', 'Semester', 'required|trim|xss_clean');
         // $this->form_validation->set_rules('tarif[]','Item Tarif Tagihan ','required|numeric|trim|xss_clean');
 
        
@@ -118,13 +116,28 @@ class Setup extends MX_Controller {
         }
         // return $status;
     }
-
+    function __submit(){
+    	$angktn=$this->input->post('angkatan');
+    	$prodi=$this->input->post('prodi');
+    	$kodet=$this->input->post('KodeT[]');
+    	print_r($kodet);
+    	$tarif=$this->input->post('Tarif[]');
+    	$data=array(
+    		'angktn'=>$angktn,
+    		'prodi'=>$prodi,
+    		'kodet'=>$kodet,
+    		'prodi'=>$prodi
+    	);
+    	return $data;
+    	/*foreach ($kodet as $k => $v) {
+    		print_r($v);
+    		# code...
+    	}*/
+    }
     function submit(){
-    	$kode=$this->input->post('KodeT');
-    	$tarif=$this->input->post('Jenis');
-    	print_r($kode);
-    	print_r($tarif);
+    	
     	if($this->__formvalidation()===TRUE):
+    		// print_r($this->__submit());
     		echo json_encode(array('st'=>1, 'msg' => "<i class='fa fa-check'></i> Setup Tarif Berhasil Disimpan"));
   		else:
             echo $this->__formvalidation();
