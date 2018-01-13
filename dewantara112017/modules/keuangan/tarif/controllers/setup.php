@@ -65,19 +65,43 @@ class Setup extends MX_Controller {
             'Tarif'),
         ));
     }
+    function getdata(){
+
+    }
     function genkode(){
-    	$ang=$this->input->post('angkatan');
-    	$prodi=$this->input->post('prodi');
-    	$kodet=$this->input->post('KodeT');
-    	print_r($kodet);
+    	// $data=json_decode($this->input->post('data'));
+    	$data=($this->input->post('data',true));
+    	$detail=($this->input->post('detail',true));
+    	// foreach ($data as $key => $value) {
+    		$dx=array(
+    			'angkatan'=>substr($data[0]['value'],2,2),
+    			'prodi'=>$data[1]['value'],
+    			'kelompok'=>$data[2]['value'],
+    			'tahun'=>$data[3]['value'],
+    			'smster'=>(isset($data[10]['value'])?$data[10]['value']:0),
+    		);
+    		echo implode("", $dx);
+    		# code...
+    	// }
+    	// print_r(array_search('angkatan',$data[1]));
+    	// $dx['id']=$data[0]['value'];
+    	// $ang=($data[1]['value']);
+    	// $prodi=($data[2]['value']);
+    	// $kel=($data[3]['value']);
+    
+    	// $angktn=$this->input->post('angkatan');
+    	// $prodis=$this->input->post('prodi');
+    	// $kodeta=$this->input->post('KodeT');
+    	// print_r($data);
+    	
     }
    function __formvalidation(){
         $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('kodeT[]', 'Kode Tarif', 'required|trim|xss_clean');
+        // $this->form_validation->set_rules('kodeT[]', 'Kode Tarif', 'required|trim|xss_clean');
         $this->form_validation->set_rules('prodi', 'Program Studi', 'required|trim|xss_clean');
         $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|xss_clean');
         $this->form_validation->set_rules('semester', 'Semester', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('tarif[]','Item Tarif Tagihan ','required|numeric|trim|xss_clean');
+        // $this->form_validation->set_rules('tarif[]','Item Tarif Tagihan ','required|numeric|trim|xss_clean');
 
        
 

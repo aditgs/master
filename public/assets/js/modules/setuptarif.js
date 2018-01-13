@@ -21,14 +21,23 @@ $(document).ready(function() {
     $('select#jenis').change(function() {
         gen();
     });
+    $('input[name="semester"]').change(function() {
+        gen();
+    });
 });
 function gen(){
-	data = $('body form#addform').serializeArray();
-	$.post(baseurl+"genkode",{data:data},function(dx,status){
+	// data = $('body form#addform').serializeArray();
+	detail = $('body form input').serializeArray();
+	data=$('select').serializeArray();
+	data.push(
+		{name:'id',value:$('#id').val()},
+		{name:'smster',value:$('input[name="semester"]:checked').val()});
+	// $.post(baseurl+"genkode",{data:JSON.stringify(data)},function(dx,status){
+	$.post(baseurl+"genkode",{detail:detail,data:data},function(dx,status){
 		if(status=="success"){
-			alert(dx);
+			$('.kodetarif').val(dx);
 		}
-	});
+	},'json');
 	// dx = JSON.stringify(data);
 	// alert(dx);
 }
@@ -40,7 +49,7 @@ function handleSubmit(data) {
         // $('#modal-form').modal('toggle');
 
     } else {
-        $('#modal-alert').show();
+        $('#modal-alert').modal('toggle');
         $('#modal-alert .modal-body').html(dx.msg);
         // $('#modal-form').modal('toggle');
         // alert(dx.msg);
@@ -64,3 +73,12 @@ function save(id) {
         });
     });
 }
+
+/*
+$("button").click(function(){
+    var x = $("form").serializeArray();
+    $.each(x, function(i, field){
+        $("#results").append(field.name + ":" + field.value + " ");
+    });
+});
+*/
