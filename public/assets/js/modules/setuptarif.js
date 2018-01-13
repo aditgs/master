@@ -25,7 +25,12 @@ $(document).ready(function() {
         gen();
     }); 
     $('.kodetarif').change(function() {
-        alert($(this).val());
+    	var x=$(this).val();
+    	var y=$(this).data("tarif");
+    	var l=x.substr(0,4);
+    	var r=x.substr(6,6);
+    	var z=x+y;
+        $(this).val(l+y+r);
     });
 });
 
@@ -39,7 +44,8 @@ function gen(){
 	// $.post(baseurl+"genkode",{data:JSON.stringify(data)},function(dx,status){
 	$.post(baseurl+"genkode",{detail:detail,data:data},function(dx,status){
 		if(status=="success"){
-			$('.kodetarif').val(dx);
+			$('.kodetarif').val(dx).trigger('change');
+
 		}
 	},'json');
 	// dx = JSON.stringify(data);
