@@ -77,6 +77,7 @@ class Setup extends MX_Controller {
     		$dx=array(
     			'angkatan'=>substr($data[0]['value'],2,2),
     			'prodi'=>$data[1]['value'],
+    			'jenis'=>'00',
     			'kelompok'=>$data[2]['value'],
     			'tahun'=>$data[3]['value'],
     			'smster'=>(isset($data[10]['value'])?$data[10]['value']:0),
@@ -97,11 +98,11 @@ class Setup extends MX_Controller {
     	
     }
    function __formvalidation(){
-        $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim|xss_clean');
+        // $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim|xss_clean');
         // $this->form_validation->set_rules('kodeT[]', 'Kode Tarif', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('prodi', 'Program Studi', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('semester', 'Semester', 'required|trim|xss_clean');
+        // $this->form_validation->set_rules('prodi', 'Program Studi', 'required|trim|xss_clean');
+        // $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|xss_clean');
+        // $this->form_validation->set_rules('semester', 'Semester', 'required|trim|xss_clean');
         // $this->form_validation->set_rules('tarif[]','Item Tarif Tagihan ','required|numeric|trim|xss_clean');
 
        
