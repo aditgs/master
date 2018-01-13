@@ -125,24 +125,13 @@ class prodi extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
-            $this->datatables->select('kode_pt,kode_prodi_less,nm_prodi,strata_prodi,tgl_prodi,sk_prodi,tgl_sk_prodi,sks_prodi,status_prodi,sk_banpt_prodi,thn_banpt_prodi,akr_banpt_prodi,ex_banpt_prodi,')
-                            ->from('siakad_prodi');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('prodi/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
-
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
-                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
-                </div>" , 'kode_prodi');
-            $this->datatables->unset_column('kode_prodi');
-
-        else:
             $this->datatables->select('kode_prodi,kode_pt,kode_prodi_less,nm_prodi,strata_prodi,tgl_prodi,sk_prodi,tgl_sk_prodi,sks_prodi,status_prodi,sk_banpt_prodi,thn_banpt_prodi,akr_banpt_prodi,ex_banpt_prodi,')
                             ->from('siakad_prodi');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('prodi/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'kode_prodi');
-            $this->datatables->unset_column('kode_prodi');
-        endif;
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('prodi/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button></div>" , 'kode_prodi');
+            $this->datatables->unset_column('kode_prodi_less,sk_banpt_prodi,thn_banpt_prodi,akr_banpt_prodi,ex_banpt_prodi');
         echo $this->datatables->generate();
     }
     function enkrip(){
