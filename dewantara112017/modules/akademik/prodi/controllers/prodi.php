@@ -44,7 +44,7 @@ class prodi extends MX_Controller {
         $this->template->set_title('Kelola Prodi');
         $this->template->add_js('var baseurl="'.base_url().'prodi/";','embed');  
         $this->template->load_view('siakad_prodi_view',array(
-            'view'=>'Siakad_prodi_data',
+            'view'=>'siakad_prodi_data',
             'title'=>'Kelola Data Prodi',
             'subtitle'=>'Pengelolaan Prodi',
             'breadcrumb'=>array(
@@ -55,7 +55,7 @@ class prodi extends MX_Controller {
         $this->template->set_title('Kelola Prodi');
         $this->template->add_js('var baseurl="'.base_url().'prodi/";','embed');  
         $this->template->load_view('siakad_prodi_view',array(
-            'view'=>'Siakad_prodi_data',
+            'view'=>'siakad_prodi_data',
             'title'=>'Kelola Data Prodi',
             'subtitle'=>'Pengelolaan Prodi',
             'breadcrumb'=>array(
