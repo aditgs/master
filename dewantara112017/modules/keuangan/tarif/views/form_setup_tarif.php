@@ -11,7 +11,7 @@
 </style>
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'tarif/setup/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 formtarif">
         <input type="hidden" value='' id="id" name="id">
         <div class="form-group sp-dropdown">
             <?php echo form_label('Angkatan ','angkatan',array('class'=>'control-label')); ?>
@@ -83,7 +83,7 @@
                             <div class="form-group">
                                 
                                 <div class="controls">
-                                    <?php echo form_input('KodeT[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="" class="form-control input-md text-center" placeholder="'.$value['KodeJ'].'" readonly'); ?>
+                                    <?php echo form_input('KodeT[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="" data-tarif="'.$value['KodeJ'].'" class="form-control input-md text-center kodetarif" placeholder="'.$value['KodeJ'].'" readonly'); ?>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                             <div class="form-group">
                                 
                                 <div class="controls">
-                                    <?php echo form_input('Tarif[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="" class="form-control input-md text-right" placeholder="Rp"'); ?>
+                                    <?php echo form_input('Tarif[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="" class="form-control input-md text-right nilaitarif" placeholder="Rp"'); ?>
                                 </div>
                             </div>
                         </div>

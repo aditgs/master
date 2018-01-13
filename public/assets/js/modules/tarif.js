@@ -34,6 +34,7 @@ $(document).ready(function() {
         });
 
     });
+    
 })
 /* if (response.drive == 'Manual')
     $('#editVehicle').find(':radio[name=drive][value="1"]').prop('checked', true);

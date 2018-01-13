@@ -3,6 +3,7 @@
                             <a data-toggle="modal" href='#modal-form' class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Tarif Baru </a>
                             
                             <a href="<?php echo base_url('tarif/data') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Tarif</a>
+                            <a href='<?php echo base_url('tarif/setup') ?>' class="btn btn-lg btn-warning"><i class="fa fa-cogs"></i> Setup Tarif</a>
                         </div>
         <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data tarif</h2>
     
