@@ -23,8 +23,12 @@ $(document).ready(function() {
     });
     $('input[name="semester"]').change(function() {
         gen();
+    }); 
+    $('.kodetarif').change(function() {
+        alert($(this).val());
     });
 });
+
 function gen(){
 	// data = $('body form#addform').serializeArray();
 	detail = $('body form input').serializeArray();

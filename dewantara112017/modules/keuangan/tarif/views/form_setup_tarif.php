@@ -83,7 +83,7 @@
                             <div class="form-group">
                                 
                                 <div class="controls">
-                                    <?php echo form_input('KodeT[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="" class="form-control input-md text-center kodetarif" placeholder="'.$value['KodeJ'].'" readonly'); ?>
+                                    <?php echo form_input('KodeT[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="" data-tarif="'.$value['KodeJ'].'" class="form-control input-md text-center kodetarif" placeholder="'.$value['KodeJ'].'" readonly'); ?>
                                 </div>
                             </div>
                         </div>
