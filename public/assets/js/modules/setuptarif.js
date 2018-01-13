@@ -36,8 +36,8 @@ $(document).ready(function() {
 
 function gen(){
 	// data = $('body form#addform').serializeArray();
-	detail = $('body form input').serializeArray();
 	data=$('select').serializeArray();
+	detail = $('body form input').serializeArray();
 	data.push(
 		{name:'id',value:$('#id').val()},
 		{name:'smster',value:$('input[name="semester"]:checked').val()});

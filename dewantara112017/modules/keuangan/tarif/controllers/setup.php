@@ -7,6 +7,7 @@ class Setup extends MX_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('tarif_model','tarifdb',TRUE);
+		$this->load->model('tarif/setup_model','setdb',TRUE);
 		$this->load->model('jenis/jenis_model','jenisdb',TRUE);
 		if ( !$this->ion_auth->logged_in()): 
 			redirect('auth/login', 'refresh');
@@ -96,6 +97,7 @@ class Setup extends MX_Controller {
     	
     }
    function __formvalidation(){
+        $this->form_validation->set_rules('angkatan', 'Angkatan', 'required|trim|xss_clean');
         $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim|xss_clean');
         // $this->form_validation->set_rules('kodeT[]', 'Kode Tarif', 'required|trim|xss_clean');
         $this->form_validation->set_rules('prodi', 'Program Studi', 'required|trim|xss_clean');
@@ -117,18 +119,38 @@ class Setup extends MX_Controller {
         // return $status;
     }
     function __submit(){
+        print_r($this->input->post('KodeT[]'));
     	$angktn=$this->input->post('angkatan');
     	$prodi=$this->input->post('prodi');
     	$kodet=$this->input->post('KodeT[]');
-    	print_r($kodet);
     	$tarif=$this->input->post('Tarif[]');
-    	$data=array(
+    	print_r($kodet);
+    	print_r($tarif);
+    	$smster=$this->input->post('semester');
+    	$kel=$this->input->post('kelompok');
+    	$tahun=$this->input->post('tahun');
+    	$datasetup=array(
     		'angktn'=>$angktn,
     		'prodi'=>$prodi,
-    		'kodet'=>$kodet,
-    		'prodi'=>$prodi
+    		'idprodi'=>$prodi,
+    		'idkel'=>$kel,
+    		'thn'=>$tahun,
+    		'userid'=>userid(),
+    		'datetime'=>NOW(),
     	);
-    	return $data;
+       /* foreach ($kodet as $k => $v) {
+            # code...
+            // $data['KodeT']=$
+            print_r($v);
+        }
+        foreach ($tarif as $ky => $val) {
+            # code...
+            print_r($val);
+        }*/
+
+    		// 'kodet'=>$kodet,
+        // return array('setup'=>$datasetup);
+    	print_r(array('setup'=>$datasetup));
     	/*foreach ($kodet as $k => $v) {
     		print_r($v);
     		# code...
@@ -137,7 +159,31 @@ class Setup extends MX_Controller {
     function submit(){
     	
     	if($this->__formvalidation()===TRUE):
-    		// print_r($this->__submit());
+    		$x=($this->__submit());
+    		 if ($this->input->post('ajax')){
+              if ($this->input->post('id')){
+                $this->tagihdb->update($this->input->post('id'));
+              // }elseif ($this->input->post('kode')){
+                // $this->tagihdb->updatebykode($this->input->post('kode'));
+              }else{
+                //$this->tagihdb->save();
+                // $this->tagihdb->saveas();
+                $idx=$this->setdb->savesetup($x['setup']);
+                // $this->setdb->savetarifbatch($dx);
+              }
+
+            }else{
+              if ($this->input->post('submit')){
+                  if ($this->input->post('id')){
+                    $this->tagihdb->update($this->input->post('id'));
+                  }else{
+                    //$this->tagihdb->save();
+                    $this->setdb->savesetup($x['setup']);
+                    // $this->setdb->savetarifbatch($dx);
+                    // $this->tagihdb->saveas();
+                  }
+              }
+            }
     		echo json_encode(array('st'=>1, 'msg' => "<i class='fa fa-check'></i> Setup Tarif Berhasil Disimpan"));
   		else:
             echo $this->__formvalidation();
