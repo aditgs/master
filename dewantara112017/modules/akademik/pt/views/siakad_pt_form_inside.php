@@ -1,6 +1,6 @@
  
 
-                    <div id="form_input" class="">
+                    <div id="form_input" class="row">
                     <?php echo form_open(base_url().'pt/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
                                                    
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
