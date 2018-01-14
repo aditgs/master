@@ -4,9 +4,14 @@
                     <?php echo form_open(base_url().'pt/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
                                                    
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <input type="hidden" value='' id="kode_pt" name="kode_pt">
                             
                             <div class="form-group">
+                                <?php echo form_label('Kode Perguruan Tinggi : ','kode_pt',array('class'=>'control-label')); ?>
+                                <div class="controls">
+                                <?php echo form_input('kode_pt',set_value('kode_pt', isset($default['kode_pt']) ? $default['kode_pt'] : ''),'id="kode_pt" class="form-control" placeholder="Masukkan nama Perguruan tinggi"'); ?>
+                                </div>
+                            </div>
+                             <div class="form-group">
                                 <?php echo form_label('Nama Perguruan Tinggi : ','nm_pt',array('class'=>'control-label')); ?>
                                 <div class="controls">
                                 <?php echo form_input('nm_pt',set_value('nm_pt', isset($default['nm_pt']) ? $default['nm_pt'] : ''),'id="nm_pt" class="form-control" placeholder="Masukkan nama Perguruan tinggi"'); ?>
