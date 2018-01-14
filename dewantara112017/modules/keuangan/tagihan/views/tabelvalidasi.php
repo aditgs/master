@@ -16,11 +16,12 @@
 </table>
 
 <script type="text/javascript">
+    var id="<?php echo $id ?>"
      tabletarif=$("#data").DataTable({
             "ajax": {
-                "url": baseurl + "gettarif",
+                "url": baseurl + "getvalidation",
                 "dataType": "json",
-                "data": { id: id,tahun:tahun,kdsmster:sms,kelompok:kel},
+                "data": { id: id},
             },
 
             "sServerMethod": "POST",
