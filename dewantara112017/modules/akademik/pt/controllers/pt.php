@@ -6,7 +6,7 @@ class pt extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('siakad_pt_model','siakad_ptdb',TRUE);
+        $this->load->model('siakad_pt_model','ptdb',TRUE);
         $this->session->set_userdata('lihat','pt');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -43,8 +43,10 @@ class pt extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Perguruan Tinggi');
         $this->template->add_js('var baseurl="'.base_url().'pt/";','embed');  
+        $default=$this->ptdb->getpt();
         $this->template->load_view('siakad_pt_view',array(
-            'view'=>'',
+            'view'=>'siakad_pt_form_inside',
+            'default'=>$default,
             'title'=>'Kelola Data Perguruan Tinggi',
             'subtitle'=>'Pengelolaan Perguruan Tinggi',
             'breadcrumb'=>array(
@@ -82,7 +84,7 @@ class pt extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->siakad_ptdb->ceknomornull();
+        $null=$this->ptdb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +92,7 @@ class pt extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->siakad_ptdb->genfaktur();
+            $faktur=$this->ptdb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -171,7 +173,7 @@ class pt extends MX_Controller {
 
     public function get($kode_pt=null){
         if($kode_pt!==null){
-            echo json_encode($this->siakad_ptdb->get_one($kode_pt));
+            echo json_encode($this->ptdb->get_one($kode_pt));
         }
     }
     function tables(){
@@ -180,7 +182,7 @@ class pt extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->siakad_ptdb->get_one($id);
+            $data=$this->ptdb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -210,19 +212,19 @@ class pt extends MX_Controller {
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('kode_pt')){
-            $this->siakad_ptdb->update($this->input->post('kode_pt'));
+            $this->ptdb->update($this->input->post('kode_pt'));
           }else{
-            //$this->siakad_ptdb->save();
-            $this->siakad_ptdb->saveas();
+            //$this->ptdb->save();
+            $this->ptdb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('kode_pt')){
-                $this->siakad_ptdb->update($this->input->post('kode_pt'));
+                $this->ptdb->update($this->input->post('kode_pt'));
               }else{
-                //$this->siakad_ptdb->save();
-                $this->siakad_ptdb->saveas();
+                //$this->ptdb->save();
+                $this->ptdb->saveas();
               }
           }
         }
@@ -233,7 +235,7 @@ class pt extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->siakad_ptdb->delete($this->input->post('id'));
+                $this->ptdb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -243,7 +245,7 @@ class pt extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['kode_pt'])){
-                $this->siakad_ptdb->upddel_detail($this->input->post('kode_pt'));
+                $this->ptdb->upddel_detail($this->input->post('kode_pt'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -258,7 +260,7 @@ class pt extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['kode_pt'])){
-                $this->siakad_ptdb->delete_detail($this->input->post('kode_pt'));
+                $this->ptdb->delete_detail($this->input->post('kode_pt'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -266,7 +268,7 @@ class pt extends MX_Controller {
         }
     } 
     private function gen_faktur(){
-        $last=$this->siakad_ptdb->get_last_pt();
+        $last=$this->ptdb->get_last_pt();
         // print_r($last);
         if(!empty($last)):
             $first=substr($last['faktur_pt'],0,2);
