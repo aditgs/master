@@ -4,8 +4,9 @@
                             
                             <a href="<?php echo base_url('tarif/data') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Tarif</a>
                             <a href='<?php echo base_url('tarif/setup') ?>' class="btn btn-lg btn-warning"><i class="fa fa-cogs"></i> Setup Tarif</a>
+                            <a href='<?php echo base_url('set_tarif') ?>' class="btn btn-lg btn-primary"><i class="fa fa-database"></i> Data Setup Tarif</a>
                         </div>
-        <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data tarif</h2>
+        <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data Tarif</h2>
     
                                 <table id="datatables" class="table table-bordered table-condensed table-striped" style="width:100%">
                                     <thead class="">
