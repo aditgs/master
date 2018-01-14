@@ -12,9 +12,16 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $('button.print').click(function() {
-            window.print();
+            var id=$(this).data('id');
+
+            $.post('<?php echo $baseurl.'tagihan/cetak'; ?>',{id:id},function(data,status){
+                if(status=="success"){
+                    window.print();
+                }
+            });
             return false;
         });
+        
     });
     </script>
 </head>
@@ -26,7 +33,8 @@
             <div class="text-center">
                 <div class="btn-group" style="">
                     <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf ");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
-                    <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
+                    
+                    <button data-id="<?=isset($data['id'])?$data['id']:''; ?>" class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
                 </div>
             </div>
             <div class="row">

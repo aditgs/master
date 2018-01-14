@@ -130,8 +130,6 @@ class Set_tarif extends MX_Controller {
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-form' data-load-remote='".base_url('set_tarif/copy/$1/')."' data-remote-target='#modal-form .modal-body' class='btn btn-primary btn-xs'><i class='fa fa-copy'></i> Duplicate </a> 
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('set_tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
-
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
             $this->datatables->unset_column('id');

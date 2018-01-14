@@ -499,6 +499,11 @@ class Tagihan extends MX_Controller {
     function tables(){
         $this->load->view('tagihanmhs_data');
     }
+    function cetak(){
+        $id=$this->input->post('id');
+        $this->tagihdb->updcetak($id);
+
+    }
     function cetakpdf($id,$pdf=true){
         // $enkrip=$this->enkrip();
         $id=base64_decode($id);
@@ -507,9 +512,9 @@ class Tagihan extends MX_Controller {
         // print_r($pdf);
         if($id!=null){
             $data=$this->tagihdb->get_one($id);
-          
             $this->template->set_layout('cetak');
-            $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'total'=>$this->getotmultitem($id)),TRUE);
+           
+            $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'baseurl'=>base_url(),'total'=>$this->getotmultitem($id)),TRUE);
 
           /*  $html=$this->load->view('cetak_po_baru-pdf',array(
                 // 'supplier'=>$this->podb->get_onesp($supplier),

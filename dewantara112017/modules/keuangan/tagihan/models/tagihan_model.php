@@ -332,6 +332,27 @@ class Tagihan_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->update('tagihanmhs', $data);
     }
+    function updcetak($id){
+        $cetak=$this->get_one($id);
+        if(!empty($cetak)){
+            if(isset($cetak['printcount'])||$cetak['printcount']>0){
+                $numcetak=$cetak['printcount']+1;
+            }else{
+                $numcetak=1;
+            }
+        }else{
+            $numcetak=1;
+        }
+        $data=array(
+            'isprinted'=>1,
+            'lastprinted'=>NOW(),
+            'printcount'=>$numcetak,
+            'userprinted'=>userid(),
+        );
+        $this->db->where('id', $id);
+
+        $this->db->update('tagihanmhs', $data);
+    }
     function update($id) {
         $data = array(
         
