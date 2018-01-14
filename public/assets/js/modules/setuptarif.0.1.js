@@ -32,6 +32,15 @@ $(document).ready(function() {
         var z = x + y;
         $(this).val(l + y + r);
     });
+    $(".modal").modal({ backdrop: 'static', keyboard: false, show: false });
+    $("body .dropdown-toggle").dropdown();
+
+    $("#modal-notif").modal({ backdrop: 'static', keyboard: false, show: false });
+    $("#modal-notif").on("hidden.bs.modal", function() {
+        $(this).data("modal", null);
+        window.location = baseurl;
+        // $('#datatables').DataTable().ajax.reload();
+    });
 });
 
 function gen() {
@@ -66,29 +75,29 @@ function handleSubmit(data) {
 }
 
 function save(id) {
-    
+
     var data = {};
-        data.id = $('#id').val();
-        data.angkatan = $('#angkatan').val();
-        data.prodi = $('#prodi').val();
-        data.jenis = $('#jenis').val();
-        data.kelompok = $('#kelompok').val();
-        data.tahun = $('#tahun').val();
-        data.semester = $('input[name="semester"]').val();
-        data.ajax = 1;
+    data.id = $('#id').val();
+    data.angkatan = $('#angkatan').val();
+    data.prodi = $('#prodi').val();
+    data.jenis = $('#jenis').val();
+    data.kelompok = $('#kelompok').val();
+    data.tahun = $('#tahun').val();
+    data.semester = $('input[name="semester"]').val();
+    data.ajax = 1;
     // var detail={};
     var kdtarif = $('body form .kodetarif').serializeArray();
     var tarif = $('body form .nilaitarif').serializeArray();
-        data.kode=kdtarif;
-        data.tarif=tarif;
-    
+    data.kode = kdtarif;
+    data.tarif = tarif;
+
     $(this).ready(function() {
         $.ajax({
             url: baseurl + "submit",
             data: data,
             async: false,
             type: "POST",
-            success: function(dx,status) {
+            success: function(dx, status) {
                 // alert(dx);
                 handleSubmit(dx);
             }

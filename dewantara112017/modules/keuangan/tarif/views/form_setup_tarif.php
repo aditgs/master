@@ -73,7 +73,7 @@
     </div>
     
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-        <div class="row no-gutter genjenis">
+        <div id="genjenis" class="row no-gutter genjenis">
             <h3>Jenis Pembayaran</h3>
             <?php if(isset($jenis)):
                 if(!empty($jenis)||$jenis!=null){
