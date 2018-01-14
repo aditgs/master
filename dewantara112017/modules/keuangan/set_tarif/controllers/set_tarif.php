@@ -125,7 +125,7 @@ class Set_tarif extends MX_Controller {
     
 
     public function getdatatables(){
-            $this->datatables->select('id,angktn,prodi,Kelompok,thn,semester')
+            $this->datatables->select('id,kodeskema,angktn,prodi,Kelompok,thn,semester')
                             ->from('008-view-setup_tarif');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-form' data-load-remote='".base_url('set_tarif/copy/$1/')."' data-remote-target='#modal-form .modal-body' class='btn btn-primary btn-xs'><i class='fa fa-copy'></i> Duplicate </a> 

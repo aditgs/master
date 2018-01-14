@@ -8,6 +8,7 @@
         <thead class="">
             <tr>
                 
+                <th>Kode Skema</th>
                 <th>Angkatan</th>
                 <th>Program Studi</th>
                 <th>Kelompok</th>
