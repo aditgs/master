@@ -7,6 +7,7 @@ class Setup extends MX_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('tarif_model','tarifdb',TRUE);
+		$this->load->model('tarif/setup_model','setdb',TRUE);
 		$this->load->model('jenis/jenis_model','jenisdb',TRUE);
 		if ( !$this->ion_auth->logged_in()): 
 			redirect('auth/login', 'refresh');
@@ -39,7 +40,7 @@ class Setup extends MX_Controller {
 	public function index() {
         $this->template->set_title('Kelola Tarif');
         $this->template->add_js('var baseurl="'.base_url().'tarif/setup/";','embed');  
-        $this->template->add_js('modules/setuptarif.js');  
+        $this->template->add_js('modules/setuptarif.0.1.js');  
         $tahun=array(
             '0'=>'-- Pilih Tahun --',
 			'2013'=>'2013',
@@ -75,62 +76,113 @@ class Setup extends MX_Controller {
     	$detail=($this->input->post('detail',true));
     	// foreach ($data as $key => $value) {
     		$dx=array(
-    			'angkatan'=>substr($data[0]['value'],2,2),
-    			'prodi'=>$data[1]['value'],
+    			'angkatan'=>(isset($data[0]['value'])?substr($data[0]['value'],2,2):'00'),
+    			'prodi'=>(isset($data[1]['value'])?$data[1]['value']:'00'),
     			'jenis'=>'00',
-    			'kelompok'=>$data[2]['value'],
-    			'tahun'=>$data[3]['value'],
-    			'smster'=>(isset($data[10]['value'])?$data[10]['value']:0),
+    			'kelompok'=>(isset($data[2]['value'])?$data[2]['value']:'0'),
+    			'tahun'=>(isset($data[3]['value'])?$data[3]['value']:'0000'),
+    			'smster'=>(isset($data[10]['value'])?$data[10]['value']:'0'),
     		);
     		echo implode("", $dx);
     		# code...
     	// }
     	// print_r(array_search('angkatan',$data[1]));
     	// $dx['id']=$data[0]['value'];
-    	// $ang=($data[1]['value']);
+    	// $ang=($data[1]['value']$data[1]['value']);
     	// $prodi=($data[2]['value']);
     	// $kel=($data[3]['value']);
     
-    	// $angktn=$this->input->post('angkatan');
-    	// $prodis=$this->input->post('prodi');
-    	// $kodeta=$this->input->post('KodeT');
+    	
     	// print_r($data);
     	
     }
    function __formvalidation(){
-        // $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim|xss_clean');
-        // $this->form_validation->set_rules('kodeT[]', 'Kode Tarif', 'required|trim|xss_clean');
-        // $this->form_validation->set_rules('prodi', 'Program Studi', 'required|trim|xss_clean');
-        // $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|xss_clean');
-        // $this->form_validation->set_rules('semester', 'Semester', 'required|trim|xss_clean');
-        // $this->form_validation->set_rules('tarif[]','Item Tarif Tagihan ','required|numeric|trim|xss_clean');
+        $this->form_validation->set_rules('angkatan', 'Angkatan', 'required|trim|numeric|greater_than[0]|xss_clean');
+        $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim|numeric|greater_than[0]|xss_clean');
+        $this->form_validation->set_rules('prodi', 'Program Studi', 'required|trim|numeric|greater_than[0]|xss_clean');
+        $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|numeric|greater_than[0]|xss_clean');
+        $this->form_validation->set_rules('semester', 'Semester', 'required|trim|numeric|greater_than[0]|xss_clean');
 
        
 
         if ($this->form_validation->run() == FALSE)
             {
-                // $this->session->set_flashdata(validation_errors());             
                 return json_encode(array('st'=>0, 'msg' => validation_errors()));
-                // return FALSE;
+
             }
         else{
             return TRUE;
         }
-        // return $status;
-    }
 
+    }
+    function __datasetup(){
+        $angktn=$this->input->post('angkatan');
+        $idprodi=$this->input->post('prodi');
+        $kel=$this->input->post('kelompok');
+        $thn=$this->input->post('tahun');
+        $smster=$this->input->post('semester');
+        $prodi=$this->tarifdb->bacaprodi($idprodi);
+        $data=array(
+            'angktn'=>$angktn,
+            'prodi'=>$prodi['Prodi'],
+            'idprodi'=>$prodi['id'],
+            'idkel'=>$kel,
+            'smster'=>$smster,
+            'thn'=>$thn,
+            'userid'=>userid(),
+            'datetime'=>NOW(),
+        );
+        return $data;
+    }
+    function __detailtarif($setid=null){
+        $kode=$this->input->post('kode');
+        $tarif=$this->input->post('tarif');
+        foreach ($kode as $key => $value) {
+            # code...
+            // print_r($value)
+            $data[]=array(
+                'KodeT'=>$value['value'],
+                'Tarif'=>$tarif[$key]['value'],
+                'isactive'=>1,
+                'parent'=>0,
+                'setupid'=>$setid,
+                'userid'=>userid(),
+                'datetime'=>NOW(),
+            );
+        }
+        return $data;
+
+    }
     function submit(){
-    	$kode=$this->input->post('KodeT');
-    	$tarif=$this->input->post('Jenis');
-    	print_r($kode);
-    	print_r($tarif);
-    	if($this->__formvalidation()===TRUE):
-    		echo json_encode(array('st'=>1, 'msg' => "<i class='fa fa-check'></i> Setup Tarif Berhasil Disimpan"));
-  		else:
+        if($this->__formvalidation()===true):
+            $x=$this->__datasetup();
+          
+            
+            if ($this->input->post('ajax')){
+              if ($this->input->post('id')){
+                $this->tagihdb->update($this->input->post('id'));
+              }else{
+                $idx=$this->setdb->savesetup($x);
+                $y=$this->__detailtarif($idx);
+                $this->setdb->savetarifbatch($y);
+              }
+            }else{
+              if ($this->input->post('submit')){
+                  if ($this->input->post('id')){
+                    $this->tagihdb->update($this->input->post('id'));
+
+                  }else{
+                    $idx=$this->setdb->savesetup($x);
+                    $y=$this->__detailtarif($idx);
+                    $this->setdb->savetarifbatch($y);
+                    // $this->setdb->savetarifbatch($idx);
+                  }
+              }
+            }
+            echo json_encode(array('st'=>1, 'msg' => "<i class='fa fa-check'></i> Setup Tarif Berhasil Disimpan"));
+        else:
             echo $this->__formvalidation();
         endif;
-    	// print_r();
-
     }
 }
 
