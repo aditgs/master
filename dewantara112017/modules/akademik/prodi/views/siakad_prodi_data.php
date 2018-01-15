@@ -1,33 +1,28 @@
 <div class="datatable-ajax-source">
         <div class="btn-group" style="margin:20px 0px 30px">
+            <a data-toggle="modal" href='#modal-form' class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Prodi Baru </a>
 
-                            <a href="<?php echo base_url('prodi/baru') ?>" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Buka Prodi Baru </a>
-                            <a href="<?php echo base_url('prodi') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Prodi</a>
+                            <a href="<?php echo base_url('prodi/data') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Prodi</a>
                         </div>
         <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data Prodi</h2>
 
     
-                                <table id="datatables" class="table table-bordered table-condensed table-striped" style="">
+                                <table id="datatables" class="table table-bordered table-condensed table-striped" style="width: 100%">
                                     <thead class="">
                                         <tr>
                                                        
 
-                                                        <th>Kode Prodi</th>
-                                                        <th>Kode PT</th>
-                                                        <th>Kode Prodi Less</th>
+                                                       <th>Kode Prodi</th>
+                                                       <th>Kode PT</th>
                                                         <th>Nama Prodi</th>
-                                                        <th>Strata Prodi</th>
-                                                        <th>Tanggal Prodi</th>
+                                                        <th>Strata</th>
+                                                        <th>Tanggal Berdiri</th>
                                                         <th>SK Prodi</th>
-                                                        <th>Tanggal SK Prodi</th>
-                                                        <th>SKS Prodi</th>
-                                                        <th>Status Prodi</th>
-                                                        <th>SK BANPT Prodi</th>
-                                                        <th>Tahun BANPT Prodi</th>
-                                                        <th>Akreditas BANPT Prodi</th>
-
-                                                        <th>ex_banpt_prodi</th>
+                                                        <th>Tgl SK</th>
+                                                        <th>SKS Max</th>
+                                                        <th>Status</th>
                                                         <th>Aksi</th>
+
 
                                                     </tr>
                                     </thead>

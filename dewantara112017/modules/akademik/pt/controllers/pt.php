@@ -128,7 +128,7 @@ class pt extends MX_Controller {
 
     public function getdatatables(){
         if($this->isadmin()==1):
-            $this->datatables->select('kode_pt,nm_pt,tgl_pt,sk_pt,tgl_sk_pt,')
+            $this->datatables->select('kode_pt,nm_pt,tgl_pt,sk_pt,tgl_sk_pt,almt_pt,kota_pt,kodepos_pt,telp_pt,fax_pt,email_pt,web_pt,logo_pt,')
                             ->from('siakad_pt');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pt/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
@@ -139,7 +139,7 @@ class pt extends MX_Controller {
             $this->datatables->unset_column('kode_pt');
 
         else:
-            $this->datatables->select('kode_pt,nm_pt,tgl_pt,sk_pt,tgl_sk_pt,')
+            $this->datatables->select('kode_pt,nm_pt,tgl_pt,sk_pt,tgl_sk_pt,almt_pt,kota_pt,kodepos_pt,telp_pt,fax_pt,email_pt,web_pt,logo_pt,')
                             ->from('siakad_pt');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pt/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'kode_pt');
