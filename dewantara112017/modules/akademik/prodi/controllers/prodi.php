@@ -6,7 +6,7 @@ class prodi extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('siakad_prodi_model','siakad_prodidb',TRUE);
+        $this->load->model('siakad_prodi_model','prodidb',TRUE);
         $this->session->set_userdata('lihat','prodi');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -43,6 +43,7 @@ class prodi extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Prodi');
         $this->template->add_js('var baseurl="'.base_url().'prodi/";','embed');  
+        $this->template->add_js('modules/prodi.js');  
         $this->template->load_view('siakad_prodi_view',array(
             'view'=>'siakad_prodi_data',
             'title'=>'Kelola Data Prodi',
@@ -82,7 +83,7 @@ class prodi extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->siakad_prodidb->ceknomornull();
+        $null=$this->prodidb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +91,7 @@ class prodi extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->siakad_prodidb->genfaktur();
+            $faktur=$this->prodidb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -162,7 +163,7 @@ class prodi extends MX_Controller {
 
     public function get($kode_prodi=null){
         if($kode_prodi!==null){
-            echo json_encode($this->siakad_prodidb->get_one($kode_prodi));
+            echo json_encode($this->prodidb->get_one($kode_prodi));
         }
     }
     function tables(){
@@ -171,7 +172,7 @@ class prodi extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->siakad_prodidb->get_one($id);
+            $data=$this->prodidb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -201,19 +202,19 @@ class prodi extends MX_Controller {
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('kode_prodi')){
-            $this->siakad_prodidb->update($this->input->post('kode_prodi'));
+            $this->prodidb->update($this->input->post('kode_prodi'));
           }else{
-            //$this->siakad_prodidb->save();
-            $this->siakad_prodidb->saveas();
+            //$this->prodidb->save();
+            $this->prodidb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('kode_prodi')){
-                $this->siakad_prodidb->update($this->input->post('kode_prodi'));
+                $this->prodidb->update($this->input->post('kode_prodi'));
               }else{
-                //$this->siakad_prodidb->save();
-                $this->siakad_prodidb->saveas();
+                //$this->prodidb->save();
+                $this->prodidb->saveas();
               }
           }
         }
@@ -224,7 +225,7 @@ class prodi extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->siakad_prodidb->delete($this->input->post('id'));
+                $this->prodidb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -234,7 +235,7 @@ class prodi extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['kode_prodi'])){
-                $this->siakad_prodidb->upddel_detail($this->input->post('kode_prodi'));
+                $this->prodidb->upddel_detail($this->input->post('kode_prodi'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -249,7 +250,7 @@ class prodi extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['kode_prodi'])){
-                $this->siakad_prodidb->delete_detail($this->input->post('kode_prodi'));
+                $this->prodidb->delete_detail($this->input->post('kode_prodi'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -257,7 +258,7 @@ class prodi extends MX_Controller {
         }
     } 
     private function gen_faktur(){
-        $last=$this->siakad_prodidb->get_last_pt();
+        $last=$this->prodidb->get_last_pt();
         // print_r($last);
         if(!empty($last)):
             $first=substr($last['faktur_pt'],0,2);

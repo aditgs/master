@@ -26,5 +26,5 @@
           
             
 </div>
-<?php $this->load->view('siakad_prodi_modal_id') ?>
-<?php $this->load->view('siakad_prodi_modal_form') ?>
+<?php $this->load->view('modal_id') ?>
+<?php $this->load->view('modal_form') ?>
