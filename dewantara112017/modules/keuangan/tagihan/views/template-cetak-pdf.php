@@ -11,8 +11,14 @@
     <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-        $('button.print').click(function() {
-            window.print();
+         $('button.print').click(function() {
+            var id=$(this).data('id');
+
+            $.post('<?php echo $baseurl.'tagihan/cetak'; ?>',{id:id},function(data,status){
+                if(status=="success"){
+                    window.print();
+                }
+            });
             return false;
         });
     });
