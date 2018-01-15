@@ -1,13 +1,13 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-class siakad_prodi extends MX_Controller {
+class Set_tarif extends MX_Controller {
 
     function __construct() {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('siakad_prodi_model','siakad_prodidb',TRUE);
-        $this->session->set_userdata('lihat','siakad_prodi');
+        $this->load->model('setup_tarif_model','setup_tarifdb',TRUE);
+        $this->session->set_userdata('lihat','setup_tarif');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
         endif;
@@ -41,36 +41,36 @@ class siakad_prodi extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Siakad_prodi');
-        $this->template->add_js('var baseurl="'.base_url().'siakad_prodi/";','embed');  
-        $this->template->load_view('siakad_prodi_view',array(
-            'view'=>'',
-            'title'=>'Kelola Data Siakad_prodi',
-            'subtitle'=>'Pengelolaan Siakad_prodi',
+        $this->template->set_title('Kelola Setup Tarif');
+        $this->template->add_js('var baseurl="'.base_url().'set_tarif/";','embed');  
+        $this->template->load_view('setup_tarif_view',array(
+            'view'=>'setup_tarif_data',
+            'title'=>'Kelola Data Setup Tarif',
+            'subtitle'=>'Pengelolaan Setup Tarif',
             'breadcrumb'=>array(
-            'Siakad_prodi'),
+            'Setup_tarif'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Siakad_prodi');
-        $this->template->add_js('var baseurl="'.base_url().'siakad_prodi/";','embed');  
-        $this->template->load_view('siakad_prodi_view',array(
-            'view'=>'Siakad_prodi_data',
-            'title'=>'Kelola Data Siakad_prodi',
-            'subtitle'=>'Pengelolaan Siakad_prodi',
+        $this->template->set_title('Kelola Setup Tarif');
+        $this->template->add_js('var baseurl="'.base_url().'set_tarif/";','embed');  
+        $this->template->load_view('setup_tarif_view',array(
+            'view'=>'Setup_tarif_data',
+            'title'=>'Kelola Data Setup Tarif',
+            'subtitle'=>'Pengelolaan Setup Tarif',
             'breadcrumb'=>array(
-            'Siakad_prodi'),
+            'Setup_tarif'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Siakad_prodi');
-        $this->template->add_js('var baseurl="'.base_url().'siakad_prodi/";','embed');  
-        $this->template->load_view('siakad_prodi_view',array(
+        $this->template->set_title('Kelola Setup Tarif');
+        $this->template->add_js('var baseurl="'.base_url().'set_tarif/";','embed');  
+        $this->template->load_view('setup_tarif_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Siakad_prodi',
-            'subtitle'=>'Pengelolaan Siakad_prodi',
+            'title'=>'Kelola Data Setup Tarif',
+            'subtitle'=>'Pengelolaan Setup Tarif',
             'breadcrumb'=>array(
-            'Siakad_prodi'),
+            'Setup_tarif'),
         ));
         
     }
@@ -82,7 +82,7 @@ class siakad_prodi extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->siakad_prodidb->ceknomornull();
+        $null=$this->setup_tarifdb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +90,7 @@ class siakad_prodi extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->siakad_prodidb->genfaktur();
+            $faktur=$this->setup_tarifdb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -108,7 +108,7 @@ class siakad_prodi extends MX_Controller {
     }
     function __submitnomor($data){
 
-       $this->db->insert('siakad_prodi',$data);
+       $this->db->insert('setup_tarif',$data);
        return $this->db->insert_id();
     }
      function __updatestatproses($faktur){
@@ -118,36 +118,27 @@ class siakad_prodi extends MX_Controller {
             'islocked'=>1,
             );
         $this->db->where('Faktur',$faktur); //nama field perlu menyesuaikan tabel
-        $this->db->update('siakad_prodi',$data);
+        $this->db->update('setup_tarif',$data);
     }
      
      //<!-- Start Primary Key -->
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
-            $this->datatables->select('kode_pt,kode_prodi_less,nm_prodi,strata_prodi,tgl_prodi,sk_prodi,tgl_sk_prodi,sks_prodi,status_prodi,sk_banpt_prodi,thn_banpt_prodi,akr_banpt_prodi,ex_banpt_prodi,')
-                            ->from('siakad_prodi');
+            $this->datatables->select('id,kodeskema,angktn,prodi,Kelompok,thn,semester')
+                            ->from('008-view-setup_tarif');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_prodi/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
-
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a data-toggle='modal' href='#modal-form' data-load-remote='".base_url('set_tarif/copy/$1/')."' data-remote-target='#modal-form .modal-body' class='btn btn-primary btn-xs'><i class='fa fa-copy'></i> Duplicate </a> 
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('set_tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
-                </div>" , 'kode_prodi');
-            $this->datatables->unset_column('kode_prodi');
+                </div>" , 'id');
+            $this->datatables->unset_column('id');
 
-        else:
-            $this->datatables->select('kode_prodi,kode_pt,kode_prodi_less,nm_prodi,strata_prodi,tgl_prodi,sk_prodi,tgl_sk_prodi,sks_prodi,status_prodi,sk_banpt_prodi,thn_banpt_prodi,akr_banpt_prodi,ex_banpt_prodi,')
-                            ->from('siakad_prodi');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_prodi/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'kode_prodi');
-            $this->datatables->unset_column('kode_prodi');
-        endif;
         echo $this->datatables->generate();
     }
     function enkrip(){
         return md5($this->session->userdata('lihat').":".$this->getuser()."+".date('H:m'));
-        // echo $this->session->userdata('siakad_prodi');
+        // echo $this->session->userdata('setup_tarif');
     }
     function isadmin(){
        return $this->ion_auth->is_admin();
@@ -165,22 +156,22 @@ class siakad_prodi extends MX_Controller {
     }
     function forms(){   
 
-        $this->load->view('siakad_prodi_form_inside');
+        $this->load->view('setup_tarif_form_inside');
            
     }
 
-    public function get($kode_prodi=null){
-        if($kode_prodi!==null){
-            echo json_encode($this->siakad_prodidb->get_one($kode_prodi));
+    public function get($id=null){
+        if($id!==null){
+            echo json_encode($this->setup_tarifdb->get_one($id));
         }
     }
     function tables(){
-        $this->load->view('siakad_prodi_data');
+        $this->load->view('setup_tarif_data');
     }
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->siakad_prodidb->get_one($id);
+            $data=$this->setup_tarifdb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -209,20 +200,20 @@ class siakad_prodi extends MX_Controller {
 
     public function submit(){
         if ($this->input->post('ajax')){
-          if ($this->input->post('kode_prodi')){
-            $this->siakad_prodidb->update($this->input->post('kode_prodi'));
+          if ($this->input->post('id')){
+            $this->setup_tarifdb->update($this->input->post('id'));
           }else{
-            //$this->siakad_prodidb->save();
-            $this->siakad_prodidb->saveas();
+            //$this->setup_tarifdb->save();
+            $this->setup_tarifdb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
-              if ($this->input->post('kode_prodi')){
-                $this->siakad_prodidb->update($this->input->post('kode_prodi'));
+              if ($this->input->post('id')){
+                $this->setup_tarifdb->update($this->input->post('id'));
               }else{
-                //$this->siakad_prodidb->save();
-                $this->siakad_prodidb->saveas();
+                //$this->setup_tarifdb->save();
+                $this->setup_tarifdb->saveas();
               }
           }
         }
@@ -233,7 +224,7 @@ class siakad_prodi extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->siakad_prodidb->delete($this->input->post('id'));
+                $this->setup_tarifdb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -242,8 +233,8 @@ class siakad_prodi extends MX_Controller {
     }
     public function delete_detail(){
         if(isset($_POST['ajax'])){
-            if(!empty($_POST['kode_prodi'])){
-                $this->siakad_prodidb->upddel_detail($this->input->post('kode_prodi'));
+            if(!empty($_POST['id'])){
+                $this->setup_tarifdb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -257,62 +248,19 @@ class siakad_prodi extends MX_Controller {
     } 
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
-            if(!empty($_POST['kode_prodi'])){
-                $this->siakad_prodidb->delete_detail($this->input->post('kode_prodi'));
+            if(!empty($_POST['id'])){
+                $this->setup_tarifdb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
             }
         }
     } 
-    private function gen_faktur(){
-        $last=$this->siakad_prodidb->get_last_pt();
-        // print_r($last);
-        if(!empty($last)):
-            $first=substr($last['faktur_pt'],0,2);
-            if($first==''||$first==null){
-                $first=' ';
-            }
-            $left=substr($last['faktur_pt'],2,4);
-            $right=substr($last['faktur_pt'],-5);
-            $nopt=number_format($right); 
-            
-            
-            $newpo=strval($nopt+1);
-            $newpo2=substr(strval("00000$newpo"),-5);
-
-        $tahun=substr($left,0,2);
-        $bulan=substr($left,2,4);
-        
-            if($tahun<>date('y')):
-                $tahun=date('y');
-                if($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan."00001");
-                elseif($bulan<>date('m')):
-                    $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001");
-                endif;
-            elseif($tahun==date('y')):
-                if(intval($bulan)<>date('m')):
-                    $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001"); 
-                elseif($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan.$newpo2);
-                endif;
-            endif;
-        else:
-            // $gen="PT151100001";
-            $gen=" ".date('ym')."00001";
-        endif;
-        return $gen;
-    }
-     function get_new_faktur(){
-        echo $this->gen_faktur();
-    }
+    
 
     
 
 }
 
-/** Module siakad_prodi Controller **/
+/** Module setup_tarif Controller **/
 /** Build & Development By Syahroni Wahyu - roniwahyu@gmail.com */

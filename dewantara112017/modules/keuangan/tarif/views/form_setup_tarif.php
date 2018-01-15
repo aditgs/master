@@ -73,7 +73,7 @@
     </div>
     
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-        <div class="row no-gutter genjenis">
+        <div id="genjenis" class="row no-gutter genjenis">
             <h3>Jenis Pembayaran</h3>
             <?php if(isset($jenis)):
                 if(!empty($jenis)||$jenis!=null){
@@ -83,7 +83,7 @@
                             <div class="form-group">
                                 
                                 <div class="controls">
-                                    <?php echo form_input('KodeT[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="" data-tarif="'.$value['KodeJ'].'" class="form-control input-md text-center kodetarif" placeholder="'.$value['KodeJ'].'" readonly'); ?>
+                                    <?php echo form_input('KodeT[]',set_value('KodeT', isset($default['KodeT']) ? $default['KodeT'] : ''),'id="KodeT" style="" data-tarif="'.$value['KodeJ'].'" class="form-control input-md text-center kodetarif" placeholder="'.$value['KodeJ'].'" readonly'); ?>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                             <div class="form-group">
                                 
                                 <div class="controls">
-                                    <?php echo form_input('Tarif[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="tarif" style="" class="form-control input-md text-right nilaitarif" placeholder="Rp"'); ?>
+                                    <?php echo form_input('Tarif[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="Tarif" style="" class="form-control input-md text-right nilaitarif" placeholder="Rp"'); ?>
                                 </div>
                             </div>
                         </div>

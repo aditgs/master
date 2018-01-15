@@ -33,6 +33,24 @@ class Tarif_model extends CI_Model {
         } else {
             return array();
         }
+    }  
+    function getprodibyid($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('prodi');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }  
+    function getkelbyid($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('kelompokmhs');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
     } 
     function getviewtarif($id){
         $this->db->where('id',$id);

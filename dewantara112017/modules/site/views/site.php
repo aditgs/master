@@ -69,8 +69,8 @@ a.ahover:hover {
                             <div class="row" style="margin-top:20px">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="btn-group">
-                                        <a class="btn btn-info" href=" <?php echo domain() ?>sika/mhsmaster/">Mahasiswa</a>
-                                        <a class="btn btn-primary" href=" <?php echo domain() ?>sika/dosen">Dosen</a>
+                                        <a class="btn btn-info" href=" <?php echo domain() ?>sika/pt/">Profil PT</a>
+                                        <a class="btn btn-primary" href=" <?php echo domain() ?>sika/prodi">Profil Prodi</a>
                                         <a class="btn btn-warning" href=" <?php echo domain() ?>sika/matakuliah">Mata Kuliah</a>
                                         <a class="btn btn-danger" href=" <?php echo domain() ?>sika/nilai">Nilai</a>
                                     </div>

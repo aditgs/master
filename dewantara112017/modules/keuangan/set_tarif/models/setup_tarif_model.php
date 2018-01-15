@@ -1,7 +1,7 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Siakad_pt_model extends CI_Model {
+class Setup_tarif_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -9,7 +9,7 @@ class Siakad_pt_model extends CI_Model {
     
     function get_all($limit, $uri) {
 
-        $result = $this->db->get('siakad_pt', $limit, $uri);
+        $result = $this->db->get('setup_tarif', $limit, $uri);
         if ($result->num_rows() > 0) {
             return $result->result_array();
         } else {
@@ -23,10 +23,10 @@ class Siakad_pt_model extends CI_Model {
         $this->db->where('datetime',NULL);
         $this->db->where('tanggal',NULL);
         $this->db->where('islocked',NULL);
-        $this->db->order_by('kode_pt','ASC');
+        $this->db->order_by('id','ASC');
         $this->db->limit(1);
 
-        $result=$this->db->get('siakad_pt');
+        $result=$this->db->get('setup_tarif');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -37,10 +37,10 @@ class Siakad_pt_model extends CI_Model {
     function get_last(){
 
         $this->db->select('*'); //faktur
-        $this->db->order_by('kode_pt','DESC');
+        $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
-        $result=$this->db->get('siakad_pt');
+        $result=$this->db->get('setup_tarif');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -49,7 +49,7 @@ class Siakad_pt_model extends CI_Model {
     } 
     function gettotaldetail($faktur){
         $this->db->select('faktur,sum(jumlah) as total'); //field perlu disesuaikan dengan tabel
-        $this->db->from('siakad_pt');
+        $this->db->from('setup_tarif');
         $this->db->where('faktur',$faktur); //field perlu disesuaikan dengan tabel
         $this->db->where('isactive',1);
         $this->db->group_by('faktur'); //field perlu disesuaikan dengan tabel
@@ -65,7 +65,7 @@ class Siakad_pt_model extends CI_Model {
     //field dan tabel perlu disesuaikan dengan tabel
     function getdetail($data) {
         $this->db->select('id,Faktur as faktur,Jthtmp as jthtempo,NoBon as nobon,Supplier as kode,total,NmSupplier as nama,NoAccSup as noacc,Tgl as tanggal,IF(LEFT(NoAccSup,5)="1.700","Karyawan",IF(LEFT(NoAccSup,5)="1.250","Customer",IF(LEFT(NoAccSup,5)="2.300","Supplier","-"))) as tipe',FALSE);
-        $this->db->from('siakad_pt');
+        $this->db->from('setup_tarif');
         if(!empty($data['kdvendor'])||$data['kdvendor']!==''):
             $this->db->where('Supplier',((!empty($data['kdvendor'])||($data['kdvendor']>0))?$data['kdvendor']:'0'));
         endif;
@@ -94,18 +94,9 @@ class Siakad_pt_model extends CI_Model {
         endif;
         return ($faktur);
     }
-    function get_one($kode_pt) {
-        $this->db->where('kode_pt', $kode_pt);
-        $result = $this->db->get('siakad_pt');
-        if ($result->num_rows() == 1) {
-            return $result->row_array();
-        } else {
-            return array();
-        }
-    }
-    function getpt() {
-        // $this->db->where('kode_pt');
-        $result = $this->db->get('siakad_pt');
+    function get_one($id) {
+        $this->db->where('id', $id);
+        $result = $this->db->get('setup_tarif');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -115,11 +106,11 @@ class Siakad_pt_model extends CI_Model {
     
     function save() {
         $data=$this->__save();
-        $this->db->insert('siakad_pt', $data);
+        $this->db->insert('setup_tarif', $data);
     }
     function saveas() {
         $data=$this->__saveas();
-        $this->db->insert('siakad_pt', $data);
+        $this->db->insert('setup_tarif', $data);
 
     }
     function __save(){
@@ -131,29 +122,23 @@ class Siakad_pt_model extends CI_Model {
         //ganti faktur dengan ==> 'Faktur' =>$this->genfaktur(),
        $data = array(
         
-            'nm_pt' => $this->input->post('nm_pt', TRUE),
+            'angktn' => $this->input->post('angktn', TRUE),
            
-            'tgl_pt' => $this->input->post('tgl_pt', TRUE),
+            'prodi' => $this->input->post('prodi', TRUE),
            
-            'sk_pt' => $this->input->post('sk_pt', TRUE),
+            'idprodi' => $this->input->post('idprodi', TRUE),
            
-            'tgl_sk_pt' => $this->input->post('tgl_sk_pt', TRUE),
+            'idkel' => $this->input->post('idkel', TRUE),
            
-            'almt_pt' => $this->input->post('almt_pt', TRUE),
+            'thn' => $this->input->post('thn', TRUE),
            
-            'kota_pt' => $this->input->post('kota_pt', TRUE),
+            'smster' => $this->input->post('smster', TRUE),
            
-            'kodepos_pt' => $this->input->post('kodepos_pt', TRUE),
+            'kodetarif' => $this->input->post('kodetarif', TRUE),
            
-            'telp_pt' => $this->input->post('telp_pt', TRUE),
+            'userid' => $this->input->post('userid', TRUE),
            
-            'fax_pt' => $this->input->post('fax_pt', TRUE),
-           
-            'email_pt' => $this->input->post('email_pt', TRUE),
-           
-            'web_pt' => $this->input->post('web_pt', TRUE),
-           
-            'logo_pt' => $this->input->post('logo_pt', TRUE),
+            'datetime' => $this->input->post('datetime', TRUE),
            
         );
         //'isdeleted' => null,
@@ -167,29 +152,23 @@ class Siakad_pt_model extends CI_Model {
         
        $data = array(
         
-            'nm_pt' => $this->input->post('nm_pt', TRUE),
+            'angktn' => $this->input->post('angktn', TRUE),
            
-            'tgl_pt' => $this->input->post('tgl_pt', TRUE),
+            'prodi' => $this->input->post('prodi', TRUE),
            
-            'sk_pt' => $this->input->post('sk_pt', TRUE),
+            'idprodi' => $this->input->post('idprodi', TRUE),
            
-            'tgl_sk_pt' => $this->input->post('tgl_sk_pt', TRUE),
+            'idkel' => $this->input->post('idkel', TRUE),
            
-            'almt_pt' => $this->input->post('almt_pt', TRUE),
+            'thn' => $this->input->post('thn', TRUE),
            
-            'kota_pt' => $this->input->post('kota_pt', TRUE),
+            'smster' => $this->input->post('smster', TRUE),
            
-            'kodepos_pt' => $this->input->post('kodepos_pt', TRUE),
+            'kodetarif' => $this->input->post('kodetarif', TRUE),
            
-            'telp_pt' => $this->input->post('telp_pt', TRUE),
+            'userid' => $this->input->post('userid', TRUE),
            
-            'fax_pt' => $this->input->post('fax_pt', TRUE),
-           
-            'email_pt' => $this->input->post('email_pt', TRUE),
-           
-            'web_pt' => $this->input->post('web_pt', TRUE),
-           
-            'logo_pt' => $this->input->post('logo_pt', TRUE),
+            'datetime' => $this->input->post('datetime', TRUE),
            
         );
         //'isdeleted' => null,
@@ -201,13 +180,13 @@ class Siakad_pt_model extends CI_Model {
         //    'Time' => NOW(),
         return $data;
     }
-    function savesiakad_pt($data){
-        $this->db->insert('siakad_pt',$data);
+    function savesetup_tarif($data){
+        $this->db->insert('setup_tarif',$data);
     }
     function save_detail($data){
-        $this->db->insert('siakad_pt_detail',$data);
+        $this->db->insert('setup_tarif_detail',$data);
     }
-    function upddel_detail($kode_pt=null) {
+    function upddel_detail($id=null) {
         //semua field ini menyesuaikan dengan yang ada pada model dan tabel
         $data=array(
              'isdeleted' => 1,
@@ -219,71 +198,65 @@ class Siakad_pt_model extends CI_Model {
 
             );
         
-        $this->db->where('kode_pt', $kode_pt);
-        $this->db->update('siakad_pt', $data);
+        $this->db->where('id', $id);
+        $this->db->update('setup_tarif', $data);
        
     } 
-    function updatebyid($kode_pt,$data){
-        $this->db->where('kode_pt', $kode_pt);
-        $this->db->update('siakad_pt', $data);
+    function updatebyid($id,$data){
+        $this->db->where('id', $id);
+        $this->db->update('setup_tarif', $data);
     }
-    function update($kode_pt) {
+    function update($id) {
         $data = array(
-        'kode_pt' => $this->input->post('kode_pt',TRUE),
-       'nm_pt' => $this->input->post('nm_pt', TRUE),
+        'id' => $this->input->post('id',TRUE),
+       'angktn' => $this->input->post('angktn', TRUE),
        
-       'tgl_pt' => $this->input->post('tgl_pt', TRUE),
+       'prodi' => $this->input->post('prodi', TRUE),
        
-       'sk_pt' => $this->input->post('sk_pt', TRUE),
+       'idprodi' => $this->input->post('idprodi', TRUE),
        
-       'tgl_sk_pt' => $this->input->post('tgl_sk_pt', TRUE),
+       'idkel' => $this->input->post('idkel', TRUE),
        
-       'almt_pt' => $this->input->post('almt_pt', TRUE),
+       'thn' => $this->input->post('thn', TRUE),
        
-       'kota_pt' => $this->input->post('kota_pt', TRUE),
+       'smster' => $this->input->post('smster', TRUE),
        
-       'kodepos_pt' => $this->input->post('kodepos_pt', TRUE),
+       'kodetarif' => $this->input->post('kodetarif', TRUE),
        
-       'telp_pt' => $this->input->post('telp_pt', TRUE),
+       'userid' => $this->input->post('userid', TRUE),
        
-       'fax_pt' => $this->input->post('fax_pt', TRUE),
-       
-       'email_pt' => $this->input->post('email_pt', TRUE),
-       
-       'web_pt' => $this->input->post('web_pt', TRUE),
-       
-       'logo_pt' => $this->input->post('logo_pt', TRUE),
+       'datetime' => $this->input->post('datetime', TRUE),
        
         );
-        $this->db->where('kode_pt', $kode_pt);
-        $this->db->update('siakad_pt', $data);
+        $this->db->where('id', $id);
+        $this->db->update('setup_tarif', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/
     }
 
-    function delete($kode_pt) {
-        $this->db->where('kode_pt', $kode_pt);
-        $this->db->delete('siakad_pt'); 
+    function delete($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('setup_tarif'); 
        
     }
     function delete_detail($id=null) {
         $this->db->where('id_detail', $id);
-        $this->db->delete('siakad_pt_detail'); 
+        $this->db->delete('setup_tarif_detail'); 
        
     } 
     function deletebybukti($bukti=null) {
         $this->db->where('faktur', $bukti);
-        $this->db->delete('siakad_pt_detail');       
+        $this->db->delete('setup_tarif_detail');       
     }
 
     //Update 07122013 SWI
     //untuk Array Dropdown
     function get_dropdown_array($value){
         $result = array();
-        $array_keys_values = $this->db->query('select kode_pt, '.$value.' from siakad_pt order by kode_pt asc');
-        $result[0]="-- Pilih Urutan kode_pt --";
+        $array_keys_values = $this->db->query('select id, '.$value.' from setup_tarif order by id asc');
+        $result[0]="-- Pilih Urutan id --";
         foreach ($array_keys_values->result() as $row)
         {
-            $result[$row->kode_pt]= $row->$value;
+            $result[$row->id]= $row->$value;
         }
         return $result;
     }

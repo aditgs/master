@@ -3,7 +3,7 @@
                 <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Form Siakad_prodi</h5>
+                        <h5>Form Setup Tarif</h5>
                         
                     </div>
                     <div class="ibox-content">
@@ -11,7 +11,7 @@
                         if(!empty($view)):
                             $this->load->view($view);
                         else:
-                            $this->load->view('siakad_prodi_table');
+                            $this->load->view('setup_tarif_table');
                         endif;
                     ?>
 
@@ -24,6 +24,5 @@
           
             
 </div>
+<?php $this->load->view('modal-id'); ?>
 
-<?php $this->load->view('modal-id') ?>;
-<?php $this->load->view('modal-form') ?>;
