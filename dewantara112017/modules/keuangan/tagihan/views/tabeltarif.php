@@ -14,28 +14,3 @@
         </tr>
     </tbody>
 </table>
-
-<script type="text/javascript">
-     tabletarif=$("#data").DataTable({
-            "ajax": {
-                "url": baseurl + "gettarif",
-                "dataType": "json",
-                "data": { id: id,tahun:tahun,kdsmster:sms,kelompok:kel},
-            },
-
-            "sServerMethod": "POST",
-            "bServerSide": true,
-            "bAutoWidth": true,
-            "bDeferRender": true,
-            "bSortClasses": false,
-            "bscrollCollapse": true,
-            "bStateSave": true,
-            "responsive": true,
-            "scrollX": true,
-            "sScrollX": true,
-            "fixedHeader": true,
-            "iDisplayLength": 10,
-            "language": { "decimal": ",", "thousands": "." },
-            "columnDefs": [{ "orderable": false, "targets": 0 } ]
-        });
-</script>

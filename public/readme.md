@@ -5,7 +5,21 @@ readme.md
 | git diff | Show file differences that haven't been staged |
 
 -Setup tarif per kelompok kelas dan semester
-- duplikasi setup tarif
-- Bayar menjadi validasi
+- Bayar menjadi validasi -ok
+- SETUP KElmpok mahasiswa-pok
+
+
 - Report (belum tertagih, dan sudah tertagih, belumvalidas dan sudah validasi)
-- SETUP KElmpok mahasiswa
+report:
+- tagihan belum ditagihkan (piutang)
+- tagihan belum divalidasi
+- tagihan sudah divalidasi
+- tagihan sudah ditagihkan
+- mahasiswa yang memiliki piutang
+- report bulan
+Todo
+- duplikasi setup tarif
+- cetak kuitansi
+- view untuk cetak tagihan --> lebih dari 5 item tagihan
+Next Todo
+- Fix Menu

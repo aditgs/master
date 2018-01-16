@@ -1,13 +1,13 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-class tagihan_detail extends MX_Controller {
+class siakad_prodi extends MX_Controller {
 
     function __construct() {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('tagihan_detail_model','tagihan_detaildb',TRUE);
-        $this->session->set_userdata('lihat','tagihan_detail');
+        $this->load->model('siakad_prodi_model','prodidb',TRUE);
+        $this->session->set_userdata('lihat','siakad_prodi');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
         endif;
@@ -41,36 +41,37 @@ class tagihan_detail extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Tagihan_detail');
-        $this->template->add_js('var baseurl="'.base_url().'tagihan_detail/";','embed');  
-        $this->template->load_view('tagihan_detail_view',array(
+        $this->template->set_title('Kelola Program Studi');
+        $this->template->add_js('var baseurl="'.base_url().'siakad_prodi/";','embed');  
+        $this->template->load_view('siakad_prodi_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Tagihan_detail',
-            'subtitle'=>'Pengelolaan Tagihan_detail',
+            'title'=>'Kelola Data Program Studi',
+            'subtitle'=>'Pengelolaan Program Studi',
             'breadcrumb'=>array(
-            'Tagihan_detail'),
+            'Siakad_prodi'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Tagihan_detail');
-        $this->template->add_js('var baseurl="'.base_url().'tagihan_detail/";','embed');  
-        $this->template->load_view('tagihan_detail_view',array(
-            'view'=>'Tagihan_detail_data',
-            'title'=>'Kelola Data Tagihan_detail',
-            'subtitle'=>'Pengelolaan Tagihan_detail',
+        $this->template->set_title('Kelola Program Studi');
+        $this->template->add_js('var baseurl="'.base_url().'siakad_prodi/";','embed');  
+        $this->template->add_js('modules/prodi.js');  
+        $this->template->load_view('siakad_prodi_view',array(
+            'view'=>'Siakad_prodi_data',
+            'title'=>'Kelola Data Program Studi',
+            'subtitle'=>'Pengelolaan Program Studi',
             'breadcrumb'=>array(
-            'Tagihan_detail'),
+            'Siakad_prodi'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Tagihan_detail');
-        $this->template->add_js('var baseurl="'.base_url().'tagihan_detail/";','embed');  
-        $this->template->load_view('tagihan_detail_view',array(
+        $this->template->set_title('Kelola Program Studi');
+        $this->template->add_js('var baseurl="'.base_url().'siakad_prodi/";','embed');  
+        $this->template->load_view('siakad_prodi_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Tagihan_detail',
-            'subtitle'=>'Pengelolaan Tagihan_detail',
+            'title'=>'Kelola Data Program Studi',
+            'subtitle'=>'Pengelolaan Program Studi',
             'breadcrumb'=>array(
-            'Tagihan_detail'),
+            'Siakad_prodi'),
         ));
         
     }
@@ -82,7 +83,7 @@ class tagihan_detail extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->tagihan_detaildb->ceknomornull();
+        $null=$this->prodidb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +91,7 @@ class tagihan_detail extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->tagihan_detaildb->genfaktur();
+            $faktur=$this->prodidb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -108,7 +109,7 @@ class tagihan_detail extends MX_Controller {
     }
     function __submitnomor($data){
 
-       $this->db->insert('tagihan_detail',$data);
+       $this->db->insert('siakad_prodi',$data);
        return $this->db->insert_id();
     }
      function __updatestatproses($faktur){
@@ -118,36 +119,30 @@ class tagihan_detail extends MX_Controller {
             'islocked'=>1,
             );
         $this->db->where('Faktur',$faktur); //nama field perlu menyesuaikan tabel
-        $this->db->update('tagihan_detail',$data);
+        $this->db->update('siakad_prodi',$data);
     }
      
      //<!-- Start Primary Key -->
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
-            $this->datatables->select('id,kodetagihan,kodetarif,istagihan,isactive,isdeleted,datedeleted,datetime,')
-                            ->from('tagihan_detail');
+       
+            $this->datatables->select('kode_pt,kode_prodi_less,nm_prodi,strata_prodi,tgl_prodi,sk_prodi,tgl_sk_prodi,sks_prodi,status_prodi,sk_banpt_prodi,thn_banpt_prodi,akr_banpt_prodi,ex_banpt_prodi,')
+                            ->from('siakad_prodi');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan_detail/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_prodi/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
                 <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
-                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
-                </div>" , 'id');
-            $this->datatables->unset_column('id');
+                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                </div>" , 'kode_prodi');
+            $this->datatables->unset_column('kode_prodi');
 
-        else:
-            $this->datatables->select('id,kodetagihan,kodetarif,istagihan,isactive,isdeleted,datedeleted,datetime,')
-                            ->from('tagihan_detail');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan_detail/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
-            $this->datatables->unset_column('id');
-        endif;
+    
         echo $this->datatables->generate();
     }
     function enkrip(){
         return md5($this->session->userdata('lihat').":".$this->getuser()."+".date('H:m'));
-        // echo $this->session->userdata('tagihan_detail');
+        // echo $this->session->userdata('siakad_prodi');
     }
     function isadmin(){
        return $this->ion_auth->is_admin();
@@ -165,22 +160,22 @@ class tagihan_detail extends MX_Controller {
     }
     function forms(){   
 
-        $this->load->view('tagihan_detail_form_inside');
+        $this->load->view('siakad_prodi_form_inside');
            
     }
 
-    public function get($id=null){
-        if($id!==null){
-            echo json_encode($this->tagihan_detaildb->get_one($id));
+    public function get($kode_prodi=null){
+        if($kode_prodi!==null){
+            echo json_encode($this->prodidb->get_one($kode_prodi));
         }
     }
     function tables(){
-        $this->load->view('tagihan_detail_data');
+        $this->load->view('siakad_prodi_data');
     }
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->tagihan_detaildb->get_one($id);
+            $data=$this->prodidb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -209,20 +204,20 @@ class tagihan_detail extends MX_Controller {
 
     public function submit(){
         if ($this->input->post('ajax')){
-          if ($this->input->post('id')){
-            $this->tagihan_detaildb->update($this->input->post('id'));
+          if ($this->input->post('kode_prodi')){
+            $this->prodidb->update($this->input->post('kode_prodi'));
           }else{
-            //$this->tagihan_detaildb->save();
-            $this->tagihan_detaildb->saveas();
+            //$this->prodidb->save();
+            $this->prodidb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
-              if ($this->input->post('id')){
-                $this->tagihan_detaildb->update($this->input->post('id'));
+              if ($this->input->post('kode_prodi')){
+                $this->prodidb->update($this->input->post('kode_prodi'));
               }else{
-                //$this->tagihan_detaildb->save();
-                $this->tagihan_detaildb->saveas();
+                //$this->prodidb->save();
+                $this->prodidb->saveas();
               }
           }
         }
@@ -233,7 +228,7 @@ class tagihan_detail extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->tagihan_detaildb->delete($this->input->post('id'));
+                $this->prodidb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -242,8 +237,8 @@ class tagihan_detail extends MX_Controller {
     }
     public function delete_detail(){
         if(isset($_POST['ajax'])){
-            if(!empty($_POST['id'])){
-                $this->tagihan_detaildb->upddel_detail($this->input->post('id'));
+            if(!empty($_POST['kode_prodi'])){
+                $this->prodidb->upddel_detail($this->input->post('kode_prodi'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -257,8 +252,8 @@ class tagihan_detail extends MX_Controller {
     } 
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
-            if(!empty($_POST['id'])){
-                $this->tagihan_detaildb->delete_detail($this->input->post('id'));
+            if(!empty($_POST['kode_prodi'])){
+                $this->prodidb->delete_detail($this->input->post('kode_prodi'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -266,7 +261,7 @@ class tagihan_detail extends MX_Controller {
         }
     } 
     private function gen_faktur(){
-        $last=$this->tagihan_detaildb->get_last_pt();
+        $last=$this->prodidb->get_last_pt();
         // print_r($last);
         if(!empty($last)):
             $first=substr($last['faktur_pt'],0,2);
@@ -314,5 +309,5 @@ class tagihan_detail extends MX_Controller {
 
 }
 
-/** Module tagihan_detail Controller **/
+/** Module siakad_prodi Controller **/
 /** Build & Development By Syahroni Wahyu - roniwahyu@gmail.com */
