@@ -11,7 +11,7 @@
     <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-         $('button.print').click(function() {
+        $('button.print').click(function() {
             var id=$(this).data('id');
 
             $.post('<?php echo $baseurl.'tagihan/cetak'; ?>',{id:id},function(data,status){
@@ -21,92 +21,64 @@
             });
             return false;
         });
+        
     });
-    </script>
-    <script>
-    function to_word($number)
-    {
-        $words = "";
-        $arr_number = array(
-        "",
-        "satu",
-        "dua",
-        "tiga",
-        "empat",
-        "lima",
-        "enam",
-        "tujuh",
-        "delapan",
-        "sembilan",
-        "sepuluh",
-        "sebelas");
-
-        if($number<12)
-        {
-            $words = " ".$arr_number[$number];
-        }
-        else if($number<20)
-        {
-            $words = to_word($number-10)." belas";
-        }
-        else if($number<100)
-        {
-            $words = to_word($number/10)." puluh ".to_word($number%10);
-        }
-        else if($number<200)
-        {
-            $words = "seratus ".to_word($number-100);
-        }
-        else if($number<1000)
-        {
-            $words = to_word($number/100)." ratus ".to_word($number%100);
-        }
-        else if($number<2000)
-        {
-            $words = "seribu ".to_word($number-1000);
-        }
-        else if($number<1000000)
-        {
-            $words = to_word($number/1000)." ribu ".to_word($number%1000);
-        }
-        else if($number<1000000000)
-        {
-            $words = to_word($number/1000000)." juta ".to_word($number%1000000);
-        }
-        else
-        {
-            $words = "undefined";
-        }
-        return $words;
-    }
     </script>
 </head>
 
 <body class="">
-    
     <div id="wrapper">
         <!-- <div id="page-wrapper" class="gray-bg" > -->
-        <div class="wrapper wrapper-content gray-bg">
+        <div class="wrapper wrapper-content gray-bg" class="" style="min-height: 655px;">
             <div class="text-center">
                 <div class="btn-group" style="">
                     <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf ");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
-                    <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
+                    
+                    <button data-id="<?=isset($data['id'])?$data['id']:''; ?>" class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
                 </div>
             </div>
-            <div class="row" style="width: 21.5cm; height: 11cm; background: url('<?= assets_url('images/kuitansi.jpg') ?>'); background-size: 100% 100%;" >
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="wrapper wrapper-content animated fadeInRight">
                         <div class="ibox-content p-xl table-responsive m-t">
                             <?php if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($detail)?>
-                            <div class="rek">242.000.6669</div>
-                            <div class="uang"><?php echo rp($total['total']) ?></div>
-                            <div class="terbilang"><?php echo rp($total['total']) ?></div>
-                            <div class="bayar"><?php (new tagihan)->getmultitem($data['id']); ?></div>
-                            <div class="nama"><?php echo $detail['nmmhs']; ?></div>
-                            <div class="nim"><?php echo $detail['nimmhs']; ?></div>
-                            <span class="tgl"><?php echo thedate($data['tanggal']); ?></span>
-                            <div class="prodi"><?php echo (new tagihan)->bacatarif($detail['nimmhs']); ?></div>
-                            
+                            <table class="table table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No. Tagihan</th>
+                                        <td>#
+                                            <?php echo $data['kode'] ?>
+                                        </td>
+                                        <th>Tanggal</th>
+                                        <th>
+                                            <?php echo thedate($data['tanggal']) ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Nama/NIM</th>
+                                        <td>
+                                            <?php echo $detail['nmmhs']." (".$detail['nimmhs'].")<br>".(new tagihan)->bacatarif($detail['nimmhs']) ?>
+                                        </td>
+                                        <th>Tempo</th>
+                                        <th>
+                                            <?php echo thedate($data['tgltempo']) ?>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">Keterangan Detail Tagihan</th>
+                                        <th colspan="2">Total Tagihan</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="">
+                                            <?php (new tagihan)->getmultitem($data['id'],true); ?>
+                                        </td>
+                                        <td colspan="2" class="text-right">
+                                            <h3><?php echo rp($total['total']) ?></h3></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             <?php
 
 }else{
@@ -127,16 +99,7 @@
     @media print {
         .no-print,.no-print * {display: none !important;}
     }
-    .rek {margin-top: 3cm; margin-left: 6cm;}
-    .uang {margin-left: 6.5cm;}
-    .terbilang {margin-left: 6cm;}
-    .bayar {margin-top: 0.3cm; margin-left: 6cm;}
-    .nama {margin-top: 1.3cm; margin-left: 6cm;}
-    .nim {margin-left: 6cm;}
-    .tgl {float: right; margin-top: 0.1cm margin-right: 1cm;}
-    .prodi {margin-left: 6cm;}
     </style>
-    
 </body>
 
 </html>

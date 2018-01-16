@@ -1,13 +1,13 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-class prodi extends MX_Controller {
+class siakad_prodi extends MX_Controller {
 
     function __construct() {
         parent::__construct();
           
         //Load IgnitedDatatables Library
         $this->load->model('siakad_prodi_model','prodidb',TRUE);
-        $this->session->set_userdata('lihat','prodi');
+        $this->session->set_userdata('lihat','siakad_prodi');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
         endif;
@@ -41,35 +41,35 @@ class prodi extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Prodi');
-        $this->template->add_js('var baseurl="'.base_url().'prodi/";','embed');
-        $this->template->add_js('modules/prodi.js');  
+        $this->template->set_title('Kelola Program Studi');
+        $this->template->add_js('var baseurl="'.base_url().'siakad_prodi/";','embed');  
         $this->template->load_view('siakad_prodi_view',array(
-            'view'=>'siakad_prodi_data',
-            'title'=>'Kelola Data Prodi',
-            'subtitle'=>'Pengelolaan Prodi',
+            'view'=>'',
+            'title'=>'Kelola Data Program Studi',
+            'subtitle'=>'Pengelolaan Program Studi',
             'breadcrumb'=>array(
-            'Prodi'),
+            'Siakad_prodi'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Prodi');
-        $this->template->add_js('var baseurl="'.base_url().'prodi/";','embed');  
+        $this->template->set_title('Kelola Program Studi');
+        $this->template->add_js('var baseurl="'.base_url().'siakad_prodi/";','embed');  
+        $this->template->add_js('modules/prodi.js');  
         $this->template->load_view('siakad_prodi_view',array(
-            'view'=>'siakad_prodi_data',
-            'title'=>'Kelola Data Prodi',
-            'subtitle'=>'Pengelolaan Prodi',
+            'view'=>'Siakad_prodi_data',
+            'title'=>'Kelola Data Program Studi',
+            'subtitle'=>'Pengelolaan Program Studi',
             'breadcrumb'=>array(
-            'Prodi'),
+            'Siakad_prodi'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Prodi');
-        $this->template->add_js('var baseurl="'.base_url().'prodi/";','embed');  
+        $this->template->set_title('Kelola Program Studi');
+        $this->template->add_js('var baseurl="'.base_url().'siakad_prodi/";','embed');  
         $this->template->load_view('siakad_prodi_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Siakad_prodi',
-            'subtitle'=>'Pengelolaan Siakad_prodi',
+            'title'=>'Kelola Data Program Studi',
+            'subtitle'=>'Pengelolaan Program Studi',
             'breadcrumb'=>array(
             'Siakad_prodi'),
         ));
@@ -126,24 +126,18 @@ class prodi extends MX_Controller {
     
 
     public function getdatatables(){
-        //if($this->isadmin()==1):
-            $this->datatables->select('kode_prodi,kode_pt,kode_prodi_less,nm_prodi,strata_prodi,tgl_prodi,sk_prodi,tgl_sk_prodi,sks_prodi,status_prodi,sk_banpt_prodi,thn_banpt_prodi,akr_banpt_prodi,ex_banpt_prodi,')
+       
+            $this->datatables->select('kode_pt,kode_prodi_less,nm_prodi,strata_prodi,tgl_prodi,sk_prodi,tgl_sk_prodi,sks_prodi,status_prodi,sk_banpt_prodi,thn_banpt_prodi,akr_banpt_prodi,ex_banpt_prodi,')
                             ->from('siakad_prodi');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('prodi/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_prodi/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#modal-form' data-toggle='modal'  title='Edit' class='edit_prodi btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'kode_prodi');
             $this->datatables->unset_column('kode_prodi');
 
-        /*else:
-            $this->datatables->select('kode_prodi,kode_pt,kode_prodi_less,nm_prodi,strata_prodi,tgl_prodi,sk_prodi,tgl_sk_prodi,sks_prodi,status_prodi,sk_banpt_prodi,thn_banpt_prodi,akr_banpt_prodi,ex_banpt_prodi,')
-                            ->from('siakad_prodi');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('siakad_prodi/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'kode_prodi');
-            $this->datatables->unset_column('kode_prodi');
-        endif;*/
+    
         echo $this->datatables->generate();
     }
     function enkrip(){
@@ -170,10 +164,9 @@ class prodi extends MX_Controller {
            
     }
 
-    public function get(){
-        $id=$this->input->post('id');
-        if($id!==null){
-            echo json_encode($this->siakad_prodidb->get_one($id));
+    public function get($kode_prodi=null){
+        if($kode_prodi!==null){
+            echo json_encode($this->prodidb->get_one($kode_prodi));
         }
     }
     function tables(){

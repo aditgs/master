@@ -1,10 +1,13 @@
-<table id="data" class="tabeltarif table table-bordered table-condensed table-striped" style="width:100%">
+<table id="data" class="tabelvalidasi table table-bordered table-condensed table-striped" style="width:100%">
     <thead class="">
         <tr>
-            <th style="width:10%" class="text-center"><label>Valid</label><input type="checkbox" name="selectall" id="selectall" class="selectall"></th>
+            <th style="width:10%" class="text-center">
+                <label>Valid</label>
+                <input type="checkbox" name="all" id="all" class="all">
+            </th>
             <th style="width:20%" class="text-center">Kode</th>
             <th style="width:40%" class="text-center">Keterangan</th>
-            <th  style="width:20%" class="text-center">Tarif</th>
+            <th style="width:20%" class="text-center">Tarif</th>
             <th style="width:10%" class="text-center">Aksi</th>
         </tr>
     </thead>
@@ -14,29 +17,41 @@
         </tr>
     </tbody>
 </table>
-
+<input id="id" type="text" name="id" value="<?php echo isset($id)?$id:0 ?>">
 <script type="text/javascript">
-    var id="<?php echo $id ?>"
-     tabletarif=$("#data").DataTable({
-            "ajax": {
-                "url": baseurl + "getvalidation",
-                "dataType": "json",
-                "data": { id: id},
-            },
+$(document).ready(function() {
+    $("#all").change(function() {
+        $("input:checkbox").prop('checked', $(this).prop("checked"));
 
-            "sServerMethod": "POST",
-            "bServerSide": true,
-            "bAutoWidth": true,
-            "bDeferRender": true,
-            "bSortClasses": false,
-            "bscrollCollapse": true,
-            "bStateSave": true,
-            "responsive": true,
-            "scrollX": true,
-            "sScrollX": true,
-            "fixedHeader": true,
-            "iDisplayLength": 10,
-            "language": { "decimal": ",", "thousands": "." },
-            "columnDefs": [{ "orderable": false, "targets": 0 } ]
-        });
+    });
+    $(".tabelvalidasi").on("click", "input[name='valid[]']", function() {
+
+    });
+
+
+    var id = <?php echo isset($id)?$id:0 ?>;
+
+    tabletarif = $(".tabelvalidasi").DataTable({
+        "ajax": {
+            "url": baseurl + "getvalidation",
+            "dataType": "json",
+            "data": { id: id },
+        },
+
+        "sServerMethod": "POST",
+        "bServerSide": true,
+        "bAutoWidth": true,
+        "bDeferRender": true,
+        "bSortClasses": false,
+        "bscrollCollapse": true,
+        "bStateSave": true,
+        "responsive": true,
+        "scrollX": true,
+        "sScrollX": true,
+        "fixedHeader": true,
+        "iDisplayLength": 10,
+        "language": { "decimal": ",", "thousands": "." },
+        "columnDefs": [{ "orderable": false, "targets": 0 }]
+    });
+});
 </script>
