@@ -3,9 +3,7 @@
                 <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-
                         <h5>Form Prodi</h5>
-
                         
                     </div>
                     <div class="ibox-content">
@@ -21,10 +19,8 @@
                     </div>
                 </div>
                 </div>
-               
             </div>
-          
-            
 </div>
-<?php $this->load->view('modal_id') ?>
-<?php $this->load->view('modal_form') ?>
+
+<?php $this->load->view('modal-id') ?>;
+<?php $this->load->view('modal-form') ?>;
