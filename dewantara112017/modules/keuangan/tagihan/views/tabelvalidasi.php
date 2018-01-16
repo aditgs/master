@@ -1,4 +1,4 @@
-<?php print_r($baseurl); ?>
+<!-- <?php //print_r($baseurl); ?> -->
 <table id="data" class="tabelvalidasi table table-bordered table-condensed table-striped" style="width:100%">
     <thead class="">
         <tr>
@@ -18,7 +18,7 @@
         </tr>
     </tbody>
 </table>
-<input id="id" type="text" name="id" value="<?php echo isset($id)?$id:0 ?>">
+<input id="id" type="hidden" name="id" value="<?php echo isset($id)?$id:0 ?>">
 <script type="text/javascript">
 $(document).ready(function() {
     // var formurl='<?php echo $baseurl ?>/';
@@ -35,7 +35,7 @@ $(document).ready(function() {
 });
 function reload(){
     var id = <?php echo isset($id)?$id:0 ?>;
-    if(typeof tabeltarif ==='undefined'|| tabeltarif === null){
+    // if(typeof tabeltarif ==='undefined'|| tabeltarif === null){
      
         tabletarif = $(".tabelvalidasi").DataTable({
             "ajax": {
@@ -59,22 +59,27 @@ function reload(){
             "language": { "decimal": ",", "thousands": "." },
             "columnDefs": [{ "orderable": false, "targets": 0 }]
         });
-    }else{
-        // alert('defined');
-        // $('.tabeltarif').dataTable().ajax.reload();tabeltarif.
-        // $('#data').DataTable().ajax.reload();
-        tabeltarif.ajax.reload();
-        tabeltarif.clear(0).draw(); 
+    // }else{
+    //     // alert('defined');
+    //     // $('.tabeltarif').dataTable().ajax.reload();tabeltarif.
+    //     // $('#data').DataTable().ajax.reload();
+    //     tabeltarif.ajax.reload();
+    //     tabeltarif.clear(0).draw(); 
 
 
-    }
+    // }
 }
 function validation(idx){
     // alert(id);
     $.post(baseurl+'validation',{idval:idx},function(data,status){
         if(status=='success'){
-            alert(data);
+            // alert(data);
+            // reload();
+            // alert(tabeltarif);
             reload();
+            // tabeltarif.ajax.reload();
+            // tabeltarif.clear(0).draw();
+            // $('#data').DataTable().ajax.reload();
         }
     });
 }

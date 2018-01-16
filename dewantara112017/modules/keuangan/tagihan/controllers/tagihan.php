@@ -273,12 +273,12 @@ class Tagihan extends MX_Controller {
    public function getvalidation(){
         $id=$this->input->post('id');
        
-            $this->datatables->select('id,kodetarif,kodetarif as kodeket,tarif,mhs,valstatus,isvalidasi,idtagihan')->from('002-view-tagihandetail');
+            $this->datatables->select('id,kodetarif,kodetarif as kodeket,tarif,mhs,tagvalstat,isvalidated,idtagihan')->from('002-view-tagihandetail');
          
             if(isset($id)||!empty($id)||$id!==0||$id!==null){
                 $this->datatables->where('idtagihan',$id);
             }
-            $this->datatables->where('isvalidasi',0);
+            $this->datatables->where('isvalidated',null);
          
             $this->datatables->edit_column('id','<div class="text-center"><input class="validasi checkbox" type="checkbox" id="valid" value="$1" name="valid[]"></div>','id');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
@@ -287,7 +287,7 @@ class Tagihan extends MX_Controller {
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
                 </div>" , 'id');
-            $this->datatables->unset_column('idtagihan,valstatus,idvalidasi,mhs,isvalidasi');
+            $this->datatables->unset_column('idtagihan,valstatus,idvalidasi,mhs,');
         echo $this->datatables->generate();
     } 
    
@@ -376,10 +376,7 @@ class Tagihan extends MX_Controller {
     }
     function formval($id=null){
         $id=base64_decode($id);
-        $html=$this->load->view('tabelvalidasi',array(
-            'id'=>$id,
-            'baseurl'=>base_url('tagihan/'),
-        ),true);
+        $html=$this->load->view('formval',array(),true);
         $this->output->set_output($html);
         // return $html;
     }
