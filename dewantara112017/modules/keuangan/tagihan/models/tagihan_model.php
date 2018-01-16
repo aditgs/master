@@ -353,6 +353,17 @@ class Tagihan_model extends CI_Model {
 
         $this->db->update('tagihanmhs', $data);
     }
+    function updvalid($id){
+        $data=array(
+            'isvalidated'=>1,
+            'datevalidated'=>NOW(),
+            'uservalidated'=>userid(),
+        );
+        $this->db->where('id', $id);
+
+        $this->db->update('tagihan_detail', $data);
+        return $this->db->affected_rows();
+    }
     function update($id) {
         $data = array(
         
