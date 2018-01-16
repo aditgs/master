@@ -278,8 +278,9 @@ class Tagihan extends MX_Controller {
             if(isset($id)||!empty($id)||$id!==0||$id!==null){
                 $this->datatables->where('idtagihan',$id);
             }
+            $this->datatables->where('isvalidasi',0);
          
-            $this->datatables->edit_column('id','<div class="text-center"><input class="checkbox" type="checkbox" id="tarif" value="$1" name="valid[]"></div>','id');
+            $this->datatables->edit_column('id','<div class="text-center"><input class="validasi checkbox" type="checkbox" id="valid" value="$1" name="valid[]"></div>','id');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
             $this->datatables->edit_column('kodeket','<div class="text-left">$1</div>','bacatarif(kodeket)');
          
@@ -375,11 +376,22 @@ class Tagihan extends MX_Controller {
     }
     function formval($id=null){
         $id=base64_decode($id);
-        $html=$this->load->view('tabelvalidasi',array('id'=>$id
-        
+        $html=$this->load->view('tabelvalidasi',array(
+            'id'=>$id,
+            'baseurl'=>base_url('tagihan/'),
         ),true);
         $this->output->set_output($html);
         // return $html;
+    }
+    function validation(){
+        $idval=$this->input->post('idval');
+        if($this->tagihdb->updvalid($idval)>0){
+
+            $result=json_encode(array('st'=>1,'msg'=>'Validasi Sukses'));
+        }else{
+            $result=json_encode(array('st'=>0,'msg'=>'Validasi Gagal'));
+        }
+        echo $result;
     }
     function getmultitem($id,$isdetail=FALSE){
         $data=$this->tagihdb->get_one($id);
