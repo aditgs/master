@@ -79,6 +79,7 @@
                             <div class="form-group">
                                 <?php echo form_label('thn_banpt_prodi : ','thn_banpt_prodi',array('class'=>'control-label')); ?>
                                 <div class="controls">
+                                <?php echo form_input('thn_banpt_prodi',set_value('thn_banpt_prodi', isset($default['thn_banpt_prodi']) ? $default['thn_banpt_prodi'] : ''),'id="thn_banpt_prodi" class="form-control" placeholder="Masukkan thn_banpt_prodi"'); ?>
                                 </div>
                             </div>
                         

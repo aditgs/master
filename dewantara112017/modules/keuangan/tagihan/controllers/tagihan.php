@@ -271,22 +271,22 @@ class Tagihan extends MX_Controller {
         echo $this->datatables->generate();
     } 
    public function getvalidation(){
-    $id=$this->input->post('id');
+        $id=$this->input->post('id');
        
-            $this->datatables->select('id,kodetarif,kodeket,tarif,kodemhs,kdsmster,tahun,kel')->from('004-view-tarif');
+            $this->datatables->select('id,kodetarif,kodetarif as kodeket,tarif,mhs,valstatus,isvalidasi,idtagihan')->from('002-view-tagihandetail');
          
-        if(isset($id)||!empty($id)||$id!==0||$id!==null){
-            $this->datatables->where('id',$id);
-        }
-     
-            $this->datatables->edit_column('id','<div class="text-center"><input class="checkbox" type="checkbox" id="tarif" value="$1" name="tarif[]"></div>','id');
+            if(isset($id)||!empty($id)||$id!==0||$id!==null){
+                $this->datatables->where('idtagihan',$id);
+            }
+         
+            $this->datatables->edit_column('id','<div class="text-center"><input class="checkbox" type="checkbox" id="tarif" value="$1" name="valid[]"></div>','id');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
             $this->datatables->edit_column('kodeket','<div class="text-left">$1</div>','bacatarif(kodeket)');
          
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
                 </div>" , 'id');
-            $this->datatables->unset_column('kodemhs,tahun,kdsmster,kel');
+            $this->datatables->unset_column('idtagihan,valstatus,idvalidasi,mhs,isvalidasi');
         echo $this->datatables->generate();
     } 
    
@@ -302,7 +302,7 @@ class Tagihan extends MX_Controller {
             $this->datatables->edit_column('idmultipaket','$1',"getmultipaket(id)");
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/formvalidate/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-success btn-xs'><i class='fa fa-check'></i> </a>"
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/formval/$2/')."' data-remote-target='#modal-id .modal-body' class='btn btn-success btn-xs'><i class='fa fa-check'></i> </a>"
                 .'
   <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="fa fa-eye"></i> Aksi <span class="caret"></span>
@@ -373,8 +373,8 @@ class Tagihan extends MX_Controller {
 
            
     }
-    function formvalidate($id=null){
-
+    function formval($id=null){
+        $id=base64_decode($id);
         $html=$this->load->view('tabelvalidasi',array('id'=>$id
         
         ),true);
