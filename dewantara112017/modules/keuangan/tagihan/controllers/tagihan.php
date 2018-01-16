@@ -376,10 +376,7 @@ class Tagihan extends MX_Controller {
     }
     function formval($id=null){
         $id=base64_decode($id);
-        $html=$this->load->view('tabelvalidasi',array(
-            'id'=>$id,
-            'baseurl'=>base_url('tagihan/'),
-        ),true);
+        $html=$this->load->view('formval',array(),true);
         $this->output->set_output($html);
         // return $html;
     }
