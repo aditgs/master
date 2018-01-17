@@ -1,10 +1,14 @@
 $(document).ready(function() {
     id = $("#mhs").val();
 
-    $("#mhs").select2({
+    $("#mhs,#tahun,#kelompok,#kdsmster").select2({
         theme: "bootstrap input-md",
         dropdownParent: "#modal-form"
     });
+    $('.dropdown-toggle').click(function (){
+            dropDownFixPosition($('button'),$('.dropdown-menu'));
+        });
+
     $(".modal").modal({ backdrop: 'static', keyboard: false, show: false });
     $("body .dropdown-toggle").dropdown();
 
@@ -72,7 +76,11 @@ $(document).ready(function() {
     });
 
 });
-
+function dropDownFixPosition(button,dropdown){
+      var dropDownTop = button.offset().top + button.outerHeight();
+        dropdown.css('top', dropDownTop + "px");
+        dropdown.css('left', button.offset().left + "px");
+}
 function handleSubmit(data) {
     dx = JSON.parse(data);
     if (dx.st == 1) {
@@ -88,6 +96,7 @@ function handleSubmit(data) {
 
     }
 }
+
 
 function save(id) {
     var data = $('body form#addform').serializeArray();

@@ -9,17 +9,15 @@
         <thead class="">
             <tr>
                 <th style="width:10%" class="">Kode</th>
-                <th style="width:15%" class="">Tanggal/Tempo</th>
-                <th style="width:15%" class="">Mahasiswa/NIM</th>
-                <th style="width:15%" class="">Paket</th>
-                <th style="width:15%" class="">Status</th>
-                <th style="width:15%" class="">Terbayar</th>
+                <th style="width:10%" class="">Tanggal</th>
+                <th style="width:50%" class="">Mahasiswa/NIM</th>
+                <th style="width:10%" class="">Terbayar</th>
                 <th style="width:15%" class="">Aksi</th>
             </tr>
         </thead>
         <tbody class="table-bordered">
             <tr>
-                <td colspan="7" class="text-center dataTables_empty"><img src="<?php echo assets_url('images/loader.gif');  ?>" title="Loading" alt="Loading">&nbsp;&nbsp; Loading data, please wait....</td>
+                <td colspan="5" class="text-center dataTables_empty"><img src="<?php echo assets_url('images/loader.gif');  ?>" title="Loading" alt="Loading">&nbsp;&nbsp; Loading data, please wait....</td>
             </tr>
         </tbody>
     </table>
