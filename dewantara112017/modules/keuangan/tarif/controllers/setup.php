@@ -191,7 +191,7 @@ class Setup extends MX_Controller {
                   }
               }
             }
-            echo json_encode(array('st'=>1, 'msg' => "<i class='fa fa-check'></i> Setup Tarif Berhasil Disimpan"));
+            echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Generasi Tarif Sukses!, Setup Tarif Berhasil Disimpan</h3>'));
         else:
             echo $this->__formvalidation();
         endif;
