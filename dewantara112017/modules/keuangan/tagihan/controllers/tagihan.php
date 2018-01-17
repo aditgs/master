@@ -685,58 +685,64 @@ class Tagihan extends MX_Controller {
             $item=$this->input->post('tarif', TRUE);
             // print_r($item);
             $paket=json_encode($item);
-            $data = array(
-            
-                'kode' => $this->input->post('kode', TRUE),
-                'tanggal' => $this->input->post('tanggal', TRUE),
-                'total' => $this->input->post('total', TRUE),
-                'mhs' => $this->input->post('mhs', TRUE),
-                'multiitem' => $paket,
-                'status' => 'open',
-                'isactive' =>1,
-                'islocked' =>1,
-                'isdeleted' =>0,
-                'userid' => userid(),
-                'datetime' => NOW(),
-            );
-            foreach ($item as $key => $value) {
-                # code...
-                $dx[$key]['kodetagihan']=$this->input->post('kode', TRUE);
-                $tarif=$this->tarifdb->getviewtarif($value);
-                $mhs=$this->tagihdb->getmhs($this->input->post('mhs', TRUE));
-                $dx[$key]['kodetarif']=$tarif['kodetarif'];
-                $dx[$key]['nim']=$mhs['nim'];
-                $dx[$key]['tarif']=$tarif['tarif'];
-                $dx[$key]['datetime']=NOW();
-                $dx[$key]['istagihan']=1;
-                $dx[$key]['isactive']=1;
-            }
-            // print_r($dx);
-            if ($this->input->post('ajax')){
-              if ($this->input->post('id')){
-                $this->tagihdb->update($this->input->post('id'));
-              // }elseif ($this->input->post('kode')){
-                // $this->tagihdb->updatebykode($this->input->post('kode'));
-              }else{
-                //$this->tagihdb->save();
-                // $this->tagihdb->saveas();
-                $this->tagihdb->savetagihanmhs($data);
-                $this->tagihdb->savedetailbatch($dx);
-              }
-
-            }else{
-              if ($this->input->post('submit')){
+            // print_r(count($opt_pakett));
+            // print_r(count($item));
+            if(count($item)<=5):
+                $data = array(
+                
+                    'kode' => $this->input->post('kode', TRUE),
+                    'tanggal' => $this->input->post('tanggal', TRUE),
+                    'total' => $this->input->post('total', TRUE),
+                    'mhs' => $this->input->post('mhs', TRUE),
+                    'multiitem' => $paket,
+                    'status' => 'open',
+                    'isactive' =>1,
+                    'islocked' =>1,
+                    'isdeleted' =>0,
+                    'userid' => userid(),
+                    'datetime' => NOW(),
+                );
+                foreach ($item as $key => $value) {
+                    # code...
+                    $dx[$key]['kodetagihan']=$this->input->post('kode', TRUE);
+                    $tarif=$this->tarifdb->getviewtarif($value);
+                    $mhs=$this->tagihdb->getmhs($this->input->post('mhs', TRUE));
+                    $dx[$key]['kodetarif']=$tarif['kodetarif'];
+                    $dx[$key]['nim']=$mhs['nim'];
+                    $dx[$key]['tarif']=$tarif['tarif'];
+                    $dx[$key]['datetime']=NOW();
+                    $dx[$key]['istagihan']=1;
+                    $dx[$key]['isactive']=1;
+                }
+                // print_r($dx);
+                if ($this->input->post('ajax')){
                   if ($this->input->post('id')){
                     $this->tagihdb->update($this->input->post('id'));
+                  // }elseif ($this->input->post('kode')){
+                    // $this->tagihdb->updatebykode($this->input->post('kode'));
                   }else{
                     //$this->tagihdb->save();
-                    $this->tagihdb->savedetailbatch($dx);
-                    $this->tagihdb->savetagihanmhs($data);
                     // $this->tagihdb->saveas();
+                    $this->tagihdb->savetagihanmhs($data);
+                    $this->tagihdb->savedetailbatch($dx);
                   }
-              }
-            }
-            echo json_encode(array('st'=>1, 'msg' => 'Data tagihan sukses disimpan'));
+
+                }else{
+                  if ($this->input->post('submit')){
+                      if ($this->input->post('id')){
+                        $this->tagihdb->update($this->input->post('id'));
+                      }else{
+                        //$this->tagihdb->save();
+                        $this->tagihdb->savedetailbatch($dx);
+                        $this->tagihdb->savetagihanmhs($data);
+                        // $this->tagihdb->saveas();
+                      }
+                  }
+                }
+                echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data tagihan berhasil disimpan</h3>'));
+            else:
+                echo json_encode(array('st'=>0, 'msg' => '<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 5 item tarif</h3>'));
+            endif;
         else:
             echo $this->__formvalidation();
         endif;
