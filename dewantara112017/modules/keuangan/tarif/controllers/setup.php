@@ -84,7 +84,18 @@ class Setup extends MX_Controller {
     			'tahun'=>(isset($data[3]['value'])?$data[3]['value']:'0000'),
     			'smster'=>(isset($data[10]['value'])?$data[10]['value']:'0'),
     		);
-    		echo implode("", $dx);
+            $kode=implode("", $dx);
+            $paket=$dx;
+            unset($paket['jenis']);
+            
+    		$paket=implode("", $paket);
+            $pakettarif=$this->tarifdb->getpakettarif($paket);
+
+            if(count($pakettarif)>0):
+                echo json_encode(array('kode'=>$kode,'paket'=>$paket,'st'=>0,'msg'=>'<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Kode sudah pernah digenerasi, proses generasi tidak dapat dilanjutkan</h3>'));
+            else:
+                echo json_encode(array('kode'=>$kode,'paket'=>$paket,'st'=>1,'msg'=>'Kode dapat digenerasi'));
+            endif;
     		# code...
     	// }
     	// print_r(array_search('angkatan',$data[1]));
