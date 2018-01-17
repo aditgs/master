@@ -237,22 +237,19 @@ class Tagihan extends MX_Controller {
         $kel=$this->input->post('kelompok');
             
 
-        // if(isset($idmhs)||!empty($idmhs)){
+        if(!empty($idmhs)||$idmhs>0){
             $mhs=$this->mhsdb->get_one($idmhs);
             $kode=substr($mhs['nim'],0,4);
+        }else{
+            $kode=0;
+        }
             $this->datatables->select('id,kodetarif,kodeket,tarif,kodemhs,kdsmster,tahun,kel')->from('004-view-tarif');
-            // $this->datatables->filter(array('kodemhs'=>$kode,'tahun'=>$tahun,'kdsmster'=>$kdsmster,'kel'=>$kel));
-            $this->datatables->filter(array('kodemhs'=>$kode));
-            // $this->datatables->where('kodemhs',$kode);
-            // print_r($mhs);
-            // if(!empty($mhs)||$mhs!==''){
-                
-        // $this->datatables->select('id,kodetarif,tarif,kodemhs,kdsmster,tahun');
-                
-        // }
-        // }else{
-            // $this->datatables->select('id,kodetarif,tarif,kodemhs')->from('004-view-tarif');
-        // }
+
+            if(isset($kode)||!empty($kode)||$kode!==null||$kode>0):
+    
+                $this->datatables->where('kodemhs',$kode);
+            endif;
+
         if(isset($kdsmster)||!empty($kdsmster)||$kdsmster!==0||$kdsmster!==null){
             $this->datatables->where('kdsmster',$kdsmster);
         }
@@ -262,7 +259,7 @@ class Tagihan extends MX_Controller {
         if(isset($kel)||!empty($kel)||$kel!==0||$kel!==null){
             $this->datatables->where('kel',$kel);
         }
-            $this->datatables->edit_column('id','<div class="text-center"><input class="checkbox" type="checkbox" id="tarif" value="$1" name="tarif[]"></div>','id');
+            $this->datatables->edit_column('id','<div class="text-center checkbox i-checks"><label> <input type="checkbox"  id="tarif" value="$1" name="tarif[]"> <i></i> $1 </label></div>','id');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
             $this->datatables->edit_column('kodeket','<div class="text-left">$1</div>','bacatarif(kodeket)');
          
@@ -301,7 +298,7 @@ class Tagihan extends MX_Controller {
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
            
-            $this->datatables->edit_column('mhs','$2 ($1)',"nimmhs,nmmhs");
+            $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-mhs='$3' class='bymhs btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs");
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/formval/$2/')."' data-remote-target='#modal-id .modal-body' class='btn btn-success btn-xs'><i class='fa fa-check'></i> </a>" 
@@ -314,6 +311,29 @@ class Tagihan extends MX_Controller {
                 ."<li> <a data-toggle='tooltip' data-placement='top' title='Hapus' class='delete ' id='$1'><i class='fa fa-remove'></i> Hapus</a></li>"
                 .'</ul>
 </div>' , 'id,base64_encode(id),base64_encode("pdf")');
+            $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,isvalidasi');
+
+        /*else:
+            $this->datatables->select('id,kode,tanggal,tgltempo,mhs,kodebank,idpaket,status,dateopen,dateclosed,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
+                            ->from('tagihanmhs');
+            $this->datatables->add_column('edit',"<div class='btn-group'>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
+            $this->datatables->unset_column('id');
+        endif;*/
+        echo $this->datatables->generate();
+    }
+    public function gettagihan($mhs=null){
+        // if($this->isadmin()==1):
+            $this->datatables->select("id,kode,tanggal,tglvalidasi,mhs,nimmhs,nmmhs,islunas,isvalidasi")
+                            ->from('001-view-tagihanmhs');
+            $this->datatables->where('mhs',$mhs);
+                            // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
+            $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
+           
+            $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/gettagihan/$3/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs");
+            $this->datatables->add_column('edit',"<div class='btn-group' style=''>".
+               '<a href="'.base_url('tagihan/cetakpdf/$2/$3').'"><i class="fa fa-file-pdf-o"></i> PDF</a>
+               <a href="'.base_url('tagihan/cetakpdf/$2').'" target="_blank"><i class="fa fa-print"></i> Print</a></div>' , 'id,base64_encode(id),base64_encode("pdf")');
             $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,isvalidasi');
 
         /*else:
@@ -410,17 +430,18 @@ class Tagihan extends MX_Controller {
                         // echo "<ul>".implode("", $dx)."</ul>";
                     else:
                         // print_r($data);
+                        $i=1;
                         foreach ($items as $key => $value) {
                             # code...
                             $dt=$this->tagihdb->gettarifbyid($value);
                             
-                            $dx[]="<li class='list-group-item'><strong>(".$dt['kodetarif'].")</strong> ".(trim(bacatarif($dt['kodetarif'])))."<span class='pull-right text-right'> ".rp($dt['tarif'])."</span></li>";
-                            
+                            $dx[]="<li class='list-group-item '><div class='pull-left text-right'>".$i." | </div><strong>(".$dt['kodetarif'].")</strong> ".(trim(bacatarif($dt['kodetarif'])))."<span class='pull-right text-right'> ".rp($dt['tarif'])."</span></li>";
+                            $i++;
                         }
 
                     endif;
                     $total=$this->getotmultitem($id);
-                        echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item pull-right text-right'>".rp($total['total'])."</li></ul>";
+                        echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
                 // }else{
                     // echo $data['multiitem'];
                 }else{
@@ -432,56 +453,7 @@ class Tagihan extends MX_Controller {
             }
         endif;
     }
-    function getmultipaketx($id,$isdetail=FALSE){
- // function getmultipaket($id=null){
-        // $ci = & get_instance(); 
-        // $data=$ci->tagihdb->getmultipaket($id);
-        // if($data['multipaket']!=='false'||is_null($data['multipaket'])||!empty($data['multipaket'])){
-        if(!empty($data['multipaket'])){
-            if($data['multipaket']!=='false'){
-                $multi=json_decode($data['multipaket']);
-                // print_r($multi);
-                $total=0;
-                foreach ($multi as $value) {
-                    # code...
-                    $datapaket=$ci->tagihdb->getpaket($value);
-                    $paket[]="";
-                    $paket[].="<li>".$datapaket['nama']. "(".$datapaket['kode'].")";
-                    if($isdetail==TRUE){
-                        $detail=$ci->tagihdb->getdetailmultipaket($datapaket['id']);
-                        $paket[].="<ul>";
-                        $biaya=0;
-                        foreach ($detail as $k => $v) {
-                            $paket[].="<li>".$v['nm_tagihan']." (".rp($v['nominal_biaya']).")</li>";
-                            $biaya=$biaya+$v['nominal_biaya'];
-                        }
-
-                        $paket[].="</ul>";
-                        // $paket[].="<h4 class='text-right'>".rp($biaya)."</h4>";
-
-                        $total=$total+$biaya;
-                    }
-                    $paket[].="</li>";
-                    // $paket[].="<h3 class='text-right'>".rp($total)."</h3>";
-                }
-                $output=implode(" ",$paket);
-                if($isdetail==TRUE){
-                    return "<ul>".$output."</ul><h3 class='text-right'>".rp($total)."</h3>";
-                }else{
-                    return "<ul>".$output."</ul>";
-                }
-                // echo "<pre>";
-                // print_r($output);
-                // echo "</pre>";
-            }else{
-                return " ";
-            }
-                return " ";
-        }
-    // }
-
-    }
-    function getmultipaket($id=null){
+       function getmultipaket($id=null){
         echo getmultipaket($id);
        /* $data=$this->tagihdb->getmultipaket($id);
         // if($data['multipaket']!=='false'||is_null($data['multipaket'])||!empty($data['multipaket'])){
@@ -505,26 +477,9 @@ class Tagihan extends MX_Controller {
     function bacatarif($kode){
         
         $angkatan=substr($kode,0,2);
-        // print_r($angkatan);
         $prodi=substr($kode,2,2);
-        // print_r($prodi);
-        /*$jenis=substr($kode,4,2);
-        // print_r($jenis);
-        $kelompok=substr($kode,6,1);
-        // print_r($kelompok);
-        $tahun=substr($kode,7,4);
-        // print_r($tahun);
-        $semester=substr($kode,-1);
-        // print_r($semester);
-
-        $bcjenis=$this->tarifdb->bacajenis($jenis);
-        // print_r($jenis);
-        $bckelompokmhs=$this->tarifdb->bacakelompokmhs($kelompok);
-        */
+     
         $bcprodi=$this->tarifdb->bacaprodi($prodi);
-        // $angkat="2000".$ang
-        // print_r($bcjenis[]);
-        // return ($bcjenis['Jenis']." ".$bcprodi['Prodi']." ".$bckelompokmhs['Kelompok']);
         return ("Angkatan 20".$angkatan.", ".$bcprodi['Prodi']." ");
 
     }
@@ -542,38 +497,22 @@ class Tagihan extends MX_Controller {
 
     }
     function cetakpdf($id,$pdf=true){
-        // $enkrip=$this->enkrip();
+
         $id=base64_decode($id);
         $pdf=base64_decode($pdf);
-        // print_r($id);
-        // print_r($pdf);
+
         if($id!=null){
             $data=$this->tagihdb->get_one($id);
             $this->template->set_layout('cetak');
            
             $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'baseurl'=>base_url(),'total'=>$this->getotmultitem($id)),TRUE);
-
-          /*  $html=$this->load->view('cetak_po_baru-pdf',array(
-                // 'supplier'=>$this->podb->get_onesp($supplier),
-                'data'=>$data,
-                'detail'=>$detail,
-                ),TRUE);*/
-        
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                // $html1=$datax;
-                /*$html2=$this->load->view('template_cetak',array(
-                    'html'=>$html1,
-                    'title'=>$judul
-                ),TRUE);*/
                 $inv=$data['kode'];
                 // savepdf($html1, 'laporan-pembelian-'.date('d-m-Y-H-m-s'));
                 buildpdf($html, $inv."-".date('d-m-Y-Hms'),TRUE);
-                        // }
             }else{          
-                
                 echo ($html);
-                
             }
         }
     }
@@ -648,30 +587,7 @@ class Tagihan extends MX_Controller {
             return array();
         }
     }
-    function getonex($id=null){
-        if($id!==null){
-            $data=$this->tagihdb->get_one($id);
-            $jml=count($data);
-            // print_r($jml);
-            // print_r($data);
-            $div='';
-            $div.="<table class='table table-condensed table-striped table-bordered'>";
-            $i=0;
-            foreach ($data as $key => $value) {
-                    $div.="<tr>";
-                $div.="<td>".$key."</td>";
-                $div.="<td>".$value."</td>";
-                    $div.="</tr>";
-                
-                $i++;
-
-            }
-            $div.="</table>";
-           echo $div;
-      
-        }
-      
-    }
+   
     function getkodeakad($id){
         $data=$this->tagihdb->getmultipaket($id);
         $multipaket=json_decode($data['multipaket']);
@@ -697,13 +613,22 @@ class Tagihan extends MX_Controller {
         $data=$this->input->post('data');
         $data=json_decode($data);
         // print_r($data);
-        $total=0;
+        $total=0;$jumlah=0;$st=1;$msg='';
         foreach ($data as $key => $value) {
             $jml=$this->tarifdb->getbyid($value);
             $total=$total+$jml['Tarif'];
+            $jumlah++;
+            if($jumlah>5){
+                $st='0';
+                $msg='<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 5 item tarif</h3>';
+            }else{
+                $st='1';
+                $msg='';
+
+            }
             # code...
         }
-            echo json_encode($total);
+            echo json_encode(array('total'=>$total,'jml'=>$jumlah,'st'=>$st,'msg'=>$msg));
     }
     function __formvalidation(){
         $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
@@ -727,64 +652,97 @@ class Tagihan extends MX_Controller {
         }
         // return $status;
     }
+    function __validationtagihan(){
+        $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('kode', 'Kode', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('total','Total Tagihan','required|numeric|trim|xss_clean');
+        $this->form_validation->set_rules('password','Password','required|numeric|trim|xss_clean');
+
+       
+
+        if ($this->form_validation->run() == FALSE)
+            {
+                // $this->session->set_flashdata(validation_errors());             
+                return json_encode(array('st'=>0, 'msg' => validation_errors()));
+                // return FALSE;
+            }
+        else{
+            return TRUE;
+        }
+        // return $status;
+    }
+    function submitval(){
+        if($this->__validationtagihan()===TRUE):
+
+             echo json_encode(array('st'=>1, 'msg' => 'Tagihan berhasil di validasi'));
+        else:
+            echo $this->__validationtagihan();
+        endif;
+    }
     public function submit(){
         // print_r($this->__formvalidation());
         if($this->__formvalidation()===TRUE):
             $item=$this->input->post('tarif', TRUE);
             // print_r($item);
             $paket=json_encode($item);
-            $data = array(
-            
-                'kode' => $this->input->post('kode', TRUE),
-                'tanggal' => $this->input->post('tanggal', TRUE),
-                'total' => $this->input->post('total', TRUE),
-                'mhs' => $this->input->post('mhs', TRUE),
-                'multiitem' => $paket,
-                'status' => 'open',
-                'isactive' =>1,
-                'islocked' =>1,
-                'isdeleted' =>0,
-                'userid' => userid(),
-                'datetime' => NOW(),
-            );
-            foreach ($item as $key => $value) {
-                # code...
-                $dx[$key]['kodetagihan']=$this->input->post('kode', TRUE);
-                $tarif=$this->tarifdb->getviewtarif($value);
-                $mhs=$this->tagihdb->getmhs($this->input->post('mhs', TRUE));
-                $dx[$key]['kodetarif']=$tarif['kodetarif'];
-                $dx[$key]['nim']=$mhs['nim'];
-                $dx[$key]['tarif']=$tarif['tarif'];
-                $dx[$key]['datetime']=NOW();
-                $dx[$key]['istagihan']=1;
-                $dx[$key]['isactive']=1;
-            }
-            // print_r($dx);
-            if ($this->input->post('ajax')){
-              if ($this->input->post('id')){
-                $this->tagihdb->update($this->input->post('id'));
-              // }elseif ($this->input->post('kode')){
-                // $this->tagihdb->updatebykode($this->input->post('kode'));
-              }else{
-                //$this->tagihdb->save();
-                // $this->tagihdb->saveas();
-                $this->tagihdb->savetagihanmhs($data);
-                $this->tagihdb->savedetailbatch($dx);
-              }
-
-            }else{
-              if ($this->input->post('submit')){
+            // print_r(count($opt_pakett));
+            // print_r(count($item));
+            if(count($item)<=5):
+                $data = array(
+                
+                    'kode' => $this->input->post('kode', TRUE),
+                    'tanggal' => $this->input->post('tanggal', TRUE),
+                    'total' => $this->input->post('total', TRUE),
+                    'mhs' => $this->input->post('mhs', TRUE),
+                    'multiitem' => $paket,
+                    'status' => 'open',
+                    'isactive' =>1,
+                    'islocked' =>1,
+                    'isdeleted' =>0,
+                    'userid' => userid(),
+                    'datetime' => NOW(),
+                );
+                foreach ($item as $key => $value) {
+                    # code...
+                    $dx[$key]['kodetagihan']=$this->input->post('kode', TRUE);
+                    $tarif=$this->tarifdb->getviewtarif($value);
+                    $mhs=$this->tagihdb->getmhs($this->input->post('mhs', TRUE));
+                    $dx[$key]['kodetarif']=$tarif['kodetarif'];
+                    $dx[$key]['nim']=$mhs['nim'];
+                    $dx[$key]['tarif']=$tarif['tarif'];
+                    $dx[$key]['datetime']=NOW();
+                    $dx[$key]['istagihan']=1;
+                    $dx[$key]['isactive']=1;
+                }
+                // print_r($dx);
+                if ($this->input->post('ajax')){
                   if ($this->input->post('id')){
                     $this->tagihdb->update($this->input->post('id'));
+                  // }elseif ($this->input->post('kode')){
+                    // $this->tagihdb->updatebykode($this->input->post('kode'));
                   }else{
                     //$this->tagihdb->save();
-                    $this->tagihdb->savedetailbatch($dx);
-                    $this->tagihdb->savetagihanmhs($data);
                     // $this->tagihdb->saveas();
+                    $this->tagihdb->savetagihanmhs($data);
+                    $this->tagihdb->savedetailbatch($dx);
                   }
-              }
-            }
-            echo json_encode(array('st'=>1, 'msg' => 'Data tagihan sukses disimpan'));
+
+                }else{
+                  if ($this->input->post('submit')){
+                      if ($this->input->post('id')){
+                        $this->tagihdb->update($this->input->post('id'));
+                      }else{
+                        //$this->tagihdb->save();
+                        $this->tagihdb->savedetailbatch($dx);
+                        $this->tagihdb->savetagihanmhs($data);
+                        // $this->tagihdb->saveas();
+                      }
+                  }
+                }
+                echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data tagihan berhasil disimpan</h3>'));
+            else:
+                echo json_encode(array('st'=>0, 'msg' => '<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 5 item tarif</h3>'));
+            endif;
         else:
             echo $this->__formvalidation();
         endif;

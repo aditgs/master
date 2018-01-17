@@ -1,7 +1,7 @@
 
 <!-- Rounded switch -->
 <div id="form_input" class="row gutter5">
-    <?php echo form_open(base_url().'tagihan/submit',array('id'=>'addform','role'=>'form','class'=>'form','onsubmit="checkForm(this)"')); ?>
+    <?php echo form_open(base_url().'tagihan/submitval',array('id'=>'addform','role'=>'form','class'=>'form','onsubmit="checkForm(this)"')); ?>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <input type="hidden" value='<?php echo isset($default['id'])?$default['id']:'' ?>' id="id" name="id">
         <div class="form-group">
@@ -36,17 +36,18 @@
                 
             </div>
             <div class="form-group password text-center">
-                <label>Password</label>
-                <div class="password"><input type="text" name="password" id="password" class="text-right input-lg form-control" style="font-size:24px"></div>
+                <label class="label label-warning label-md">Masukkan Password Anda!</label>
+                <div class="password"><input type="text" name="password" id="password" class="text-center input-lg input-warning form-control" style="font-size:24px"></div>
                 
             </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
         <?php (new tagihan)->getmultitem($default['id'],true); ?>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+ 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px">
 
-        <button id="save" name="myButton" type="submit" class="btn btn-block btn-success">
+        <button id="save" name="myButton" type="submit" class="btn btn-block btn-lg btn-warning">
             <icon class="fa fa-check"></icon> Validasi</button>
       
     </div>
