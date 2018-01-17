@@ -14,7 +14,9 @@
                                                        
                                                         <!-- <th>ID</th> -->
                                                         <th>KodeT</th>
+                                                        <th>Jenis Tarif</th>
                                                         <th>Tarif</th>
+                                                        <th>Kelompok</th>
                                                         <th>Keterangan</th>
                                                         <th>Aksi</th>
 
