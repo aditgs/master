@@ -1,7 +1,7 @@
 $(document).ready(function() {
     id = $("#mhs").val();
 
-    $("#mhs,#tahun,#kelompok,#kdsmster").select2({
+    $("#mhs").select2({
         theme: "bootstrap input-md",
         dropdownParent: "#modal-form"
     });
@@ -9,13 +9,8 @@ $(document).ready(function() {
         theme: "bootstrap input-lg",
         
     });
-    $('.dropdown-toggle').click(function (){
-            dropDownFixPosition($('button'),$('.dropdown-menu'));
-        });
-
+    
     $(".modal").modal({ backdrop: 'static', keyboard: false, show: false });
-    $("body .dropdown-toggle").dropdown();
-
     $('select#mhs').change(function() {
         $("#data").DataTable().destroy();
 
@@ -47,6 +42,8 @@ $(document).ready(function() {
     $("#modal-form").on("hidden.bs.modal", function() {
         // tabeltarif.ajax.reload();
         $("#data").DataTable().destroy();
+        $('#reset').trigger('click');
+
     });
     $("#modal-notif").modal({ backdrop: 'static', keyboard: false, show: false });
     $("#modal-notif").on("hidden.bs.modal", function() {
@@ -99,6 +96,7 @@ function handleSubmit(data) {
         // alert(dx.msg);
 
     }
+
 }
 
 
