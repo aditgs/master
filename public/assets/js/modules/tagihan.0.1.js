@@ -5,6 +5,10 @@ $(document).ready(function() {
         theme: "bootstrap input-md",
         dropdownParent: "#modal-form"
     });
+    $("#mahasiswa").select2({
+        theme: "bootstrap input-lg",
+        
+    });
     $('.dropdown-toggle').click(function (){
             dropDownFixPosition($('button'),$('.dropdown-menu'));
         });

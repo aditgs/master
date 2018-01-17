@@ -296,7 +296,7 @@ class Tagihan extends MX_Controller {
 
     public function getdatatables(){
         // if($this->isadmin()==1):
-            $this->datatables->select("id,kode,tanggal,mhs,nimmhs,nmmhs,islunas")
+            $this->datatables->select("id,kode,tanggal,tglvalidasi,mhs,nimmhs,nmmhs,islunas,isvalidasi")
                             ->from('001-view-tagihanmhs');
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
@@ -314,7 +314,7 @@ class Tagihan extends MX_Controller {
                 ."<li> <a data-toggle='tooltip' data-placement='top' title='Hapus' class='delete ' id='$1'><i class='fa fa-remove'></i> Hapus</a></li>"
                 .'</ul>
 </div>' , 'id,base64_encode(id),base64_encode("pdf")');
-            $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,');
+            $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,isvalidasi');
 
         /*else:
             $this->datatables->select('id,kode,tanggal,tgltempo,mhs,kodebank,idpaket,status,dateopen,dateclosed,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
@@ -389,7 +389,7 @@ class Tagihan extends MX_Controller {
         }
         echo $result;
     }
-    function getmultitem($id,$isdetail=FALSE){
+    function getmultitem($id,$isdetail=FALSE,$islunas=FALSE){
         $data=$this->tagihdb->get_one($id);
         if(!empty($data)):
             $multitem=$data['multiitem'];
@@ -405,7 +405,7 @@ class Tagihan extends MX_Controller {
                             // $dx[$k]['kode']=$dt['kodetarif'];
                             // $dx[$k]['ket']=trim(bacatarif($dt['kodetarif']));
                             // $dx[$k]['tarif']=$dt['tarif'];
-                            $dx[$k]="<li>(".$dt['kodetarif'].") ".(trim(bacatarif($dt['kodetarif'])))."</li>";
+                            $dx[$k]="<li class='list-group-item'>(".$dt['kodetarif'].") ".(trim(bacatarif($dt['kodetarif'])))."</li>";
                         }
                         // echo "<ul>".implode("", $dx)."</ul>";
                     else:
@@ -414,13 +414,13 @@ class Tagihan extends MX_Controller {
                             # code...
                             $dt=$this->tagihdb->gettarifbyid($value);
                             
-                            $dx[]="<li>(".$dt['kodetarif'].") ".(trim(bacatarif($dt['kodetarif'])))."<span class='pull-right text-right'> ".rp($dt['tarif'])."</span></li>";
+                            $dx[]="<li class='list-group-item'><strong>(".$dt['kodetarif'].")</strong> ".(trim(bacatarif($dt['kodetarif'])))."<span class='pull-right text-right'> ".rp($dt['tarif'])."</span></li>";
                             
                         }
 
                     endif;
                     $total=$this->getotmultitem($id);
-                        echo "<ul>".implode("", $dx)."<span style='border-top:1px solid #333333' class='pull-right text-right'>".rp($total['total'])."</span></ul>";
+                        echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item pull-right text-right'>".rp($total['total'])."</li></ul>";
                 // }else{
                     // echo $data['multiitem'];
                 }else{
@@ -711,7 +711,6 @@ class Tagihan extends MX_Controller {
         $this->form_validation->set_rules('kode', 'Kode', 'required|trim|xss_clean');
         $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|xss_clean');
         $this->form_validation->set_rules('semester', 'Semester', 'required|trim|xss_clean');
-        $this->form_validation->set_rules('tarif[]','Item Tarif Tagihan ','required|numeric|trim|xss_clean');
         $this->form_validation->set_rules('mhs','Mahasiswa','required|numeric|is_natural_no_zero|trim|xss_clean');
         $this->form_validation->set_rules('total','Total Tagihan','required|numeric|trim|xss_clean');
 

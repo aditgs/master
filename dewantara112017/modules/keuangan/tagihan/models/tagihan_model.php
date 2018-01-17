@@ -413,7 +413,7 @@ class Tagihan_model extends CI_Model {
     function get_dropdown_mhs(){
         $result = array();
         $array_keys_values = $this->db->query('select id,nim,nama from mhsmaster order by id asc');
-        // $result[0]="-- Pilih Urutan id --";
+        $result[0]="-- Pilih Mahasiswa --";
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->nama." (".$row->nim.")" ;
