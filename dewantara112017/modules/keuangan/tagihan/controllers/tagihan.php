@@ -243,26 +243,13 @@ class Tagihan extends MX_Controller {
         }else{
             $kode=0;
         }
-        // }else{
-            // $kode=   
-        // }
             $this->datatables->select('id,kodetarif,kodeket,tarif,kodemhs,kdsmster,tahun,kel')->from('004-view-tarif');
 
-            // $this->datatables->filter(array('kodemhs'=>$kode,'tahun'=>$tahun,'kdsmster'=>$kdsmster,'kel'=>$kel));
             if(isset($kode)||!empty($kode)||$kode!==null||$kode>0):
-                // $this->datatables->filter(array('kodemhs'=>$kode));
+    
                 $this->datatables->where('kodemhs',$kode);
             endif;
-            // $this->datatables->where('kodemhs',$kode);
-            // print_r($mhs);
-            // if(!empty($mhs)||$mhs!==''){
-                
-        // $this->datatables->select('id,kodetarif,tarif,kodemhs,kdsmster,tahun');
-                
-        // }
-        // }else{
-            // $this->datatables->select('id,kodetarif,tarif,kodemhs')->from('004-view-tarif');
-        // }
+
         if(isset($kdsmster)||!empty($kdsmster)||$kdsmster!==0||$kdsmster!==null){
             $this->datatables->where('kdsmster',$kdsmster);
         }
@@ -272,7 +259,7 @@ class Tagihan extends MX_Controller {
         if(isset($kel)||!empty($kel)||$kel!==0||$kel!==null){
             $this->datatables->where('kel',$kel);
         }
-            $this->datatables->edit_column('id','<div class="text-center"><input class="checkbox" type="checkbox" id="tarif" value="$1" name="tarif[]"></div>','id');
+            $this->datatables->edit_column('id','<div class="text-center checkbox i-checks"><label> <input type="checkbox"  id="tarif" value="$1" name="tarif[]"> <i></i> $1 </label></div>','id');
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
             $this->datatables->edit_column('kodeket','<div class="text-left">$1</div>','bacatarif(kodeket)');
          
@@ -626,13 +613,22 @@ class Tagihan extends MX_Controller {
         $data=$this->input->post('data');
         $data=json_decode($data);
         // print_r($data);
-        $total=0;
+        $total=0;$jumlah=0;$st=1;$msg='';
         foreach ($data as $key => $value) {
             $jml=$this->tarifdb->getbyid($value);
             $total=$total+$jml['Tarif'];
+            $jumlah++;
+            if($jumlah>5){
+                $st='0';
+                $msg='<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 5 item tarif</h3>';
+            }else{
+                $st='1';
+                $msg='';
+
+            }
             # code...
         }
-            echo json_encode($total);
+            echo json_encode(array('total'=>$total,'jml'=>$jumlah,'st'=>$st,'msg'=>$msg));
     }
     function __formvalidation(){
         $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
@@ -677,6 +673,7 @@ class Tagihan extends MX_Controller {
     }
     function submitval(){
         if($this->__validationtagihan()===TRUE):
+
              echo json_encode(array('st'=>1, 'msg' => 'Tagihan berhasil di validasi'));
         else:
             echo $this->__validationtagihan();

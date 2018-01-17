@@ -42,7 +42,7 @@ $(document).ready(function() {
     $("#modal-form").on("hidden.bs.modal", function() {
         // tabeltarif.ajax.reload();
         $("#data").DataTable().destroy();
-        $('#reset').trigger('click');
+        
 
     });
     $("#modal-notif").modal({ backdrop: 'static', keyboard: false, show: false });
@@ -129,9 +129,21 @@ function cekbox() {
 function loadjumlah() {
 
     $.post(baseurl + "getjumlah", { data: data }, function(data, status) {
+        // alert(data);
+        dt = JSON.parse(data);
+
+        if(dt.jml>5 && dt.st==0){
+            $('#modal-alert').modal('toggle');
+             $('#modal-alert .modal-body').html(dt.msg);
+            $( "#save" ).prop( "disabled", true );
+
+        }else{
+            $( "#save" ).prop( "disabled",false );
+
+        }
         if (status == "success") {
-            dt = JSON.parse(data);
-            $("#modal-form .modal-body #total").val(dt);
+
+            $("#modal-form .modal-body #total").val(dt.total);
         }
     });
 

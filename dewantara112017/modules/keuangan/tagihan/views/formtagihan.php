@@ -87,7 +87,6 @@
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
         <button id="save_edit" type="submit" class="btn btn-lg btn-primary" style="display:none;">
             <icon class="fa fa-refresh"></icon> Koreksi</button>
-            <input type="reset">
         <button id="reset" type="reset" class="btn btn-lg btn-info">
             <icon class="fa fa-refresh"></icon> Reset</button>
         

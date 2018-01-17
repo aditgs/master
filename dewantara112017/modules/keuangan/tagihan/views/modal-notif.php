@@ -8,14 +8,9 @@
             </div>
             <div class="modal-body panel-body" style="padding:5px;">
                <div class="alert alert-success">
-                        <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> -->
+                       
                         <strong>Berhasil!</strong> Tagihan berhasil disimpan ...
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-               
-                
+                    </div>                
             </div>
             <div class="panel-footer">
                 <div class="text-center">
