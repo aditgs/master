@@ -267,6 +267,7 @@ class Tagihan extends MX_Controller {
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
                 </div>" , 'id');
             $this->datatables->unset_column('kodemhs,tahun,kdsmster,kel');
+        
         echo $this->datatables->generate();
     } 
    public function getvalidation(){
@@ -753,8 +754,13 @@ class Tagihan extends MX_Controller {
     
     public function delete(){
         if(isset($_POST['ajax'])){
-            if(!empty($_POST['id'])){
-                $this->tagihdb->delete($this->input->post('id'));
+            if(!empty($this->input->post('id'))){
+                $row=$this->tagihdb->get_one($this->input->post('id'));
+                $rows=$this->tagihdb->delete($this->input->post('id'));
+
+                if($rows>0){
+                    $this->tagihdb->deldetailbykode($row['kode']);
+                }
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
