@@ -1,6 +1,5 @@
 <div class="modal fade" id="modal-form">
     <div class="modal-dialog modal-fullscreen">
-        <!-- <div class="modal-content"> -->
         <div class="modal-content panel panel-info">
             <div class="modal-header panel-heading navy-bg">
                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -14,8 +13,6 @@
                 $this->load->view('formtagihan');
                 endif;
                 ?>
-               
-                
             </div>
             <div class="panel-footer">
                 <div class="text-center">
@@ -23,7 +20,6 @@
                 </div>
             </div>
         </div>
-        <!-- </div> -->
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->

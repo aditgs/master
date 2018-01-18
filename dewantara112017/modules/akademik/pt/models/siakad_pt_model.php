@@ -103,6 +103,15 @@ class Siakad_pt_model extends CI_Model {
             return array();
         }
     }
+    function getpt() {
+        // $this->db->where('kode_pt');
+        $result = $this->db->get('siakad_pt');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }
     
     function save() {
         $data=$this->__save();

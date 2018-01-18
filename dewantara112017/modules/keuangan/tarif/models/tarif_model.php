@@ -16,6 +16,15 @@ class Tarif_model extends CI_Model {
             return array();
         }
     }
+    function getpakettarif($kode) {
+        $this->db->where('kodepaket',$kode);
+        $result = $this->db->get('006-view-tarifdetail');
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return array();
+        }
+    }
     function bacaprodi($kode){
         $this->db->where('KodeP',$kode);
         $result=$this->db->get('prodi');
@@ -28,6 +37,24 @@ class Tarif_model extends CI_Model {
     function getbyid($id){
         $this->db->where('id',$id);
         $result=$this->db->get('tarif');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }  
+    function getprodibyid($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('prodi');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }  
+    function getkelbyid($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('kelompokmhs');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {

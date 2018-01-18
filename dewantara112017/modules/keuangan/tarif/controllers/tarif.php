@@ -46,6 +46,7 @@ class tarif extends MX_Controller {
         $this->template->add_js('modules/tarif.js');  
         $tahun=array(
             '0'=>'-- Pilih Tahun --',
+            '2013'=>'2013',
             '2014'=>'2014',
             '2015'=>'2015',
             '2016'=>'2016',
@@ -73,6 +74,7 @@ class tarif extends MX_Controller {
         $this->template->add_js('var baseurl="'.base_url().'tarif/";','embed');  
         $tahun=array(
             '0'=>'-- Pilih Tahun --',
+            '2013'=>'2013',
             '2014'=>'2014',
             '2015'=>'2015',
             '2016'=>'2016',
@@ -100,6 +102,7 @@ class tarif extends MX_Controller {
         $this->template->add_js('var baseurl="'.base_url().'tarif/";','embed');  
         $tahun=array(
             '0'=>'-- Pilih Tahun --',
+            '2013'=>'2013',
             '2014'=>'2014',
             '2015'=>'2015',
             '2016'=>'2016',
@@ -174,20 +177,11 @@ class tarif extends MX_Controller {
     
 
     public function getdatatables(){
-        // if($this->isadmin()==1):
-            // $this->datatables->select('id,KodeT,Tarif')
-                            // ->from('tarif');
-           /* $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
-
-               
-                </div>" , 'id');*/
-
-        // else:
-            $this->datatables->select('id,KodeT,Tarif,')
-                            ->from('tarif');
-            $this->datatables->add_column('tambah','$1','bacatarif(KodeT)');
-            $this->datatables->edit_column('Tarif','<div class="text-right">$1</div>','rp(Tarif)');
+        
+            $this->datatables->select('id,kodetarif,nmjenis,tarif,kelompok,kodetarif as ket')
+                            ->from('006-view-tarifdetail');
+            $this->datatables->edit_column('ket','$1','bacatarif(ket)');
+            $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a href='#modal-form'  data-toggle='modal' data-placement='top' title='Edit' class='edite btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a> <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
