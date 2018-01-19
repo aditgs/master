@@ -26,13 +26,9 @@
                     <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
             </div>
         </div>
-      
-      
-    
-         
             <div class="form-group tagihan text-right">
                 <label>Total Tagihan:</label>
-                <div class="total"><input type="text" name="total" id="total" readonly class="text-right input-lg form-control" style="font-size:24px"></div>
+                <div class="total"><input value="<?php echo !empty($default['total'])?($default['total']):0; ?>" type="text" name="total" id="total" readonly class="text-right input-lg form-control" style="font-size:24px"></div>
                 
             </div>
             <div class="form-group password text-center">
