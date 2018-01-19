@@ -1,5 +1,5 @@
+<h3 class="text-center">Data Tagihan Mahasiswa (Belum Tertagih)</h3>
 <div class="table-responsive">
-<h3>Data Tagihan Mahasiswa (Belum Tertagih)</h3>
 <table id="datatarif" class="tabeltarif table table-bordered table-condensed table-striped" style="width:100%">
     <thead class="">
         <tr style="width:100%">
