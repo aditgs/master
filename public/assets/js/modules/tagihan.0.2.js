@@ -37,18 +37,30 @@ $(document).ready(function() {
         loadjumlah(cekbox());
     });
     $("body").on("click", "a.bymhs", function() {
-        // loadjumlah(cekbox());
-          // kodemhs=$(this).data('kodemhs');
-        // nim=$(this).data('mhs');
-        // getalltagihan(kodemhs,nim);
-        // $("#modal-form").on("shown.bs.modal", function() {
-            // if (!$('#modal-id').is(':visible')) {
-            // if($('#modal-id').hasClass('in')){
-                // alert(!$('#modal-id').hasClass('in'));
-                // if modal is not shown/visible then do something
-                // alert('hallo');
-            // }
-        // });
+       /* kode=$(this).data('kodemhs');
+        nim=$(this).data('mhs');
+            $(".modaltarif").DataTable({
+            "ajax": {
+                "url": baseurl + "getalltagihan",
+                "dataType": "json",
+                "data": { kodemhs:kode,nim:nim },
+            },
+
+            "sServerMethod": "POST",
+            "bServerSide": true,
+            "bAutoWidth": true,
+            "bDeferRender": true,
+            "bSortClasses": false,
+            "bscrollCollapse": true,
+            "bStateSave": true,
+            "responsive": true,
+            "scrollX": true,
+            "sScrollX": true,
+            "fixedHeader": true,
+            "iDisplayLength": 10,
+            "language": { "decimal": ",", "thousands": "." },
+            "columnDefs": [{ "orderable": false, "targets": 0 }]
+        });*/
     });
     $("#modal-form").on("shown.bs.modal", function() {
         loadtagihan();
@@ -57,8 +69,13 @@ $(document).ready(function() {
         // tabeltarif.ajax.reload();
         $("#data").DataTable().destroy();
         
+        
 
     });
+    $("#modal-id").on("hidden.bs.modal", function() {
+        $("#datatarif").DataTable().destroy();
+    });
+
     $("#modal-notif").modal({ backdrop: 'static', keyboard: false, show: false });
     $("#modal-notif").on("hidden.bs.modal", function() {
         $(this).data("modal", null);
@@ -194,26 +211,5 @@ function loadtagihan() {
 /*function getalltagihan(kode,nim) {
   
     // alert(kode);
-    $("#data").DataTable({
-        "ajax": {
-            "url": baseurl + "getalltagihan",
-            "dataType": "json",
-            "data": { kodemhs:kode,nim:nim },
-        },
-
-        "sServerMethod": "POST",
-        "bServerSide": true,
-        "bAutoWidth": true,
-        "bDeferRender": true,
-        "bSortClasses": false,
-        "bscrollCollapse": true,
-        "bStateSave": true,
-        "responsive": true,
-        "scrollX": true,
-        "sScrollX": true,
-        "fixedHeader": true,
-        "iDisplayLength": 10,
-        "language": { "decimal": ",", "thousands": "." },
-        "columnDefs": [{ "orderable": false, "targets": 0 }]
-    });
+    
 }*/

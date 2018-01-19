@@ -55,7 +55,7 @@ class Tagihan extends MX_Controller {
         $this->template->add_js('var baseurl="'.base_url().'tagihan/";
              
             ','embed');  
-        $this->template->add_js('modules/tagihan.0.1.js');
+        $this->template->add_js('modules/tagihan.0.2.js');
         $this->template->add_css('forms.css');
            $tahun=array(
             '0'=>'-- Pilih Tahun --',
@@ -122,7 +122,7 @@ class Tagihan extends MX_Controller {
              
          
             ','embed');  
-         $this->template->add_js('modules/tagihan.0.1.js');
+         $this->template->add_js('modules/tagihan.0.2.js');
         $this->template->add_js(" 
             $('input.input-toggle').change(function(){
                 id=$(this).prop('id');
@@ -294,12 +294,12 @@ class Tagihan extends MX_Controller {
 
     public function getdatatables(){
         // if($this->isadmin()==1):
-            $this->datatables->select("id,kode,tanggal,tglvalidasi,mhs,nimmhs,nmmhs,islunas,isvalidasi")
+            $this->datatables->select("id,kode,tanggal,tglvalidasi,mhs,nimmhs,nmmhs,islunas,isvalidasi,kodemhs")
                             ->from('001-view-tagihanmhs');
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
            
-            $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-mhs='$3' class='bymhs btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs");
+            $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-mhs='$3'data-load-remote='".base_url('tagihan/gettabeltarif/$1/$4')."' data-remote-target='#modal-id .modal-body' data-kodemhs='$4' class='bymhs btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs,kodemhs");
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/formval/$2/')."' data-remote-target='#modal-id .modal-body' class='btn btn-success btn-xs'><i class='fa fa-check'></i> </a>" 
@@ -312,7 +312,7 @@ class Tagihan extends MX_Controller {
                 ."<li> <a data-toggle='tooltip' data-placement='top' title='Hapus' class='delete ' id='$1'><i class='fa fa-remove'></i> Hapus</a></li>"
                 .'</ul>
 </div>' , 'id,base64_encode(id),base64_encode("pdf")');
-            $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,isvalidasi');
+            $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,isvalidasi,kodemhs');
 
         /*else:
             $this->datatables->select('id,kode,tanggal,tgltempo,mhs,kodebank,idpaket,status,dateopen,dateclosed,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
@@ -337,13 +337,28 @@ class Tagihan extends MX_Controller {
                <a href="'.base_url('tagihan/cetakpdf/$2').'" target="_blank"><i class="fa fa-print"></i> Print</a></div>' , 'id,base64_encode(id),base64_encode("pdf")');
             $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,isvalidasi');
 
-        /*else:
-            $this->datatables->select('id,kode,tanggal,tgltempo,mhs,kodebank,idpaket,status,dateopen,dateclosed,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
-                            ->from('tagihanmhs');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
-            $this->datatables->unset_column('id');
-        endif;*/
+       
+        echo $this->datatables->generate();
+    }
+    public function getalltagihan(){
+        $kodemhs=$this->input->post('kodemhs');
+        $nim=$this->input->post('nim');
+        // if($this->isadmin()==1):
+            $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
+                            ->from('008-view-tarifisnull');
+            $this->datatables->where('kodemhs',$kodemhs);
+                            // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
+            // $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
+            $this->datatables->edit_column('kodeket','$1',"bacatarif(kodeket)");
+            $this->datatables->edit_column('tarif','<div class="text-right">$1</div>',"rp(tarif)");
+           
+            // $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/gettagihan/$3/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs");
+            // $this->datatables->add_column('edit',"<div class='btn-group' style=''>".
+               // '<a href="'.base_url('tagihan/cetakpdf/$2/$3').'"><i class="fa fa-file-pdf-o"></i> PDF</a>
+               // <a href="'.base_url('tagihan/cetakpdf/$2').'" target="_blank"><i class="fa fa-print"></i> Print</a></div>' , 'id,base64_encode(id),base64_encode("pdf")');
+            $this->datatables->unset_column('idtarif,nim,mhs,kodemhs');
+
+       
         echo $this->datatables->generate();
     }
     function enkrip(){
@@ -400,6 +415,13 @@ class Tagihan extends MX_Controller {
         $this->output->set_output($html);
         // return $html;
     }
+    function gettabeltarif($nim,$kodemhs){
+        // $id=base64_decode($id);
+        // $tagihan=$this->tagihdb->get_one($id);
+        $html=$this->load->view('modaltarif',array('kodemhs'=>$kodemhs,'nim'=>$nim),true);
+        $this->output->set_output($html);
+        // return $html;
+    }
     function validation(){
         $idval=$this->input->post('idval');
         if($this->tagihdb->updvalid($idval)>0){
@@ -410,7 +432,7 @@ class Tagihan extends MX_Controller {
         }
         echo $result;
     }
-    function getmultitem($id,$isdetail=FALSE,$islunas=FALSE){
+    function getmultitem($id,$isdetail=FALSE,$islunas=FALSE,$isprint=FALSE){
         $data=$this->tagihdb->get_one($id);
         if(!empty($data)):
             $multitem=$data['multiitem'];
@@ -442,7 +464,13 @@ class Tagihan extends MX_Controller {
 
                     endif;
                     $total=$this->getotmultitem($id);
-                        echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
+                    if($isprint==FALSE){
+
+                    echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right no-print'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
+                    }else{
+                    echo "<ul class='list-group no-gutter'>".implode("", $dx)."</ul>";
+
+                    }
                 // }else{
                     // echo $data['multiitem'];
                 }else{
