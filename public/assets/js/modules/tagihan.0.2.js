@@ -65,13 +65,17 @@ $(document).ready(function() {
     $("#modal-form").on("shown.bs.modal", function() {
         loadtagihan();
     });
-    $("#modal-form,#modal-id").on("hidden.bs.modal", function() {
+    $("#modal-form").on("hidden.bs.modal", function() {
         // tabeltarif.ajax.reload();
         $("#data").DataTable().destroy();
-        $("#datatarif").DataTable().destroy();
+        
         
 
     });
+    $("#modal-id").on("hidden.bs.modal", function() {
+        $("#datatarif").DataTable().destroy();
+    });
+
     $("#modal-notif").modal({ backdrop: 'static', keyboard: false, show: false });
     $("#modal-notif").on("hidden.bs.modal", function() {
         $(this).data("modal", null);
