@@ -432,7 +432,7 @@ class Tagihan extends MX_Controller {
         }
         echo $result;
     }
-    function getmultitem($id,$isdetail=FALSE,$islunas=FALSE){
+    function getmultitem($id,$isdetail=FALSE,$islunas=FALSE,$isprint=FALSE){
         $data=$this->tagihdb->get_one($id);
         if(!empty($data)):
             $multitem=$data['multiitem'];
@@ -464,7 +464,13 @@ class Tagihan extends MX_Controller {
 
                     endif;
                     $total=$this->getotmultitem($id);
-                        echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
+                    if($isprint==FALSE){
+
+                    echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
+                    }else{
+                    echo "<ul class='list-group no-gutter'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
+
+                    }
                 // }else{
                     // echo $data['multiitem'];
                 }else{

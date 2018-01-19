@@ -101,7 +101,7 @@
                             <div class="rek">242.000.6669</div>
                             <div class="uang"><?php echo rp($total['total']) ?></div>
                             <div class="terbilang"><?php echo rp($total['total']) ?></div>
-                            <div class="bayar"><?php (new tagihan)->getmultitem($data['id']); ?></div>
+                            <div class="bayar"><?php (new tagihan)->getmultitem($data['id'],FALSE,FALSE,TRUE); ?></div>
                             <div class="nama"><?php echo $detail['nmmhs']; ?></div>
                             <div class="nim"><?php echo $detail['nimmhs']; ?></div>
                             <span class="tgl"><?php echo thedate($data['tanggal']); ?></span>
