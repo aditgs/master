@@ -104,6 +104,62 @@ function bacatarif($kode){
 
     }
     } 
+if ( ! function_exists('terbilang')){
+    function terbilang($number){
+        $words = "";
+        $arr_number = array(
+        "",
+        "SATU",
+        "DUA",
+        "TIGA",
+        "EMPAT",
+        "LIMA",
+        "ENAM",
+        "TUJUH",
+        "DELAPAN",
+        "SEMBILAN",
+        "SEPULUH",
+        "SEBELAS");
+
+        if($number<12)
+        {
+            $words = " ".$arr_number[$number];
+        }
+        else if($number<20)
+        {
+            $words = terbilang($number-10)." BELAS";
+        }
+        else if($number<100)
+        {
+            $words = terbilang($number/10)." PULUH ".terbilang($number%10);
+        }
+        else if($number<200)
+        {
+            $words = "SERATUS ".terbilang($number-100);
+        }
+        else if($number<1000)
+        {
+            $words = terbilang($number/100)." RATUS ".terbilang($number%100);
+        }
+        else if($number<2000)
+        {
+            $words = "SERIBU ".terbilang($number-1000);
+        }
+        else if($number<1000000)
+        {
+            $words = terbilang($number/1000)." RIBU ".terbilang($number%1000);
+        }
+        else if($number<1000000000)
+        {
+            $words = terbilang($number/1000000)." JUTA ".terbilang($number%1000000);
+        }
+        else
+        {
+            $words = "undefined";
+        }
+        return $words;
+    }
+}  
 if ( ! function_exists('rp')){
     function rp($data){
         return(number_format($data,2,',','.'));
