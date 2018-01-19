@@ -65,9 +65,10 @@ $(document).ready(function() {
     $("#modal-form").on("shown.bs.modal", function() {
         loadtagihan();
     });
-    $("#modal-form").on("hidden.bs.modal", function() {
+    $("#modal-form,#modal-id").on("hidden.bs.modal", function() {
         // tabeltarif.ajax.reload();
         $("#data").DataTable().destroy();
+        $("#datatarif").DataTable().destroy();
         
 
     });

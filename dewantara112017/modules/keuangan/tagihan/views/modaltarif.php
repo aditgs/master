@@ -1,6 +1,6 @@
 <div class="table-responsive">
-    
-<table id="data" class="tabeltarif table table-bordered table-condensed table-striped" style="width:100%">
+<h3>Data Tagihan Mahasiswa (Belum Tertagih)</h3>
+<table id="datatarif" class="tabeltarif table table-bordered table-condensed table-striped" style="width:100%">
     <thead class="">
         <tr style="width:100%">
             <th style="width:20%" class="text-center">Kode</th>
@@ -16,18 +16,18 @@
     </tbody>
 </table>
 </div>
-<input type="text" name="kodemhs" id="#kodemhstag" value="<?php echo $kodemhs ?>">
-<input type="text" name="nim" id="#nim" value="<?php echo $nim ?>">
+<input type="hidden" name="kodemhs" id="kodemhstag" value="<?php echo $kodemhs ?>">
+<input type="hidden" name="nim" id="nim" value="<?php echo $nim ?>">
 <script type="text/javascript">
-    // $('document').ready(function(){
+    $('document').ready(function(){
 
     // function getalltagihan(kode,nim) {
-    kodemhs=$('input#kodemhstag').val();
-    nim=$('input#nim').val();
-    alert(nim);  
-    alert(kodemhs);
+    var kodemhs=$('input#kodemhstag').val();
+    var nim=$('input#nim').val();
+    // alert(nim);  
+    // alert(kodemhs);
 
-    $(".tabeltarif").DataTable({
+    $("#datatarif").DataTable({
         "ajax": {
             "url": baseurl + "getalltagihan",
             "dataType": "json",
@@ -49,6 +49,6 @@
         "language": { "decimal": ",", "thousands": "." },
         "columnDefs": [{ "orderable": false, "targets": 0 }]
     });
-    // });
+    });
 // }
 </script>

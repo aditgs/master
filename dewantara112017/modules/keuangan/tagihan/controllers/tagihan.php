@@ -344,18 +344,19 @@ class Tagihan extends MX_Controller {
         $kodemhs=$this->input->post('kodemhs');
         $nim=$this->input->post('nim');
         // if($this->isadmin()==1):
-            $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,isvalidated")
+            $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
                             ->from('008-view-tarifisnull');
             $this->datatables->where('kodemhs',$kodemhs);
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             // $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
             $this->datatables->edit_column('kodeket','$1',"bacatarif(kodeket)");
+            $this->datatables->edit_column('tarif','<div class="text-right">$1</div>',"rp(tarif)");
            
             // $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/gettagihan/$3/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs");
             // $this->datatables->add_column('edit',"<div class='btn-group' style=''>".
                // '<a href="'.base_url('tagihan/cetakpdf/$2/$3').'"><i class="fa fa-file-pdf-o"></i> PDF</a>
                // <a href="'.base_url('tagihan/cetakpdf/$2').'" target="_blank"><i class="fa fa-print"></i> Print</a></div>' , 'id,base64_encode(id),base64_encode("pdf")');
-            $this->datatables->unset_column('idtarif,nim,mhs');
+            $this->datatables->unset_column('idtarif,nim,mhs,kodemhs');
 
        
         echo $this->datatables->generate();
