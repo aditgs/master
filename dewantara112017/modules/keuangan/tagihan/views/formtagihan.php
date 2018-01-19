@@ -52,14 +52,14 @@
                 <div class="controls">
                     <?php //print_r($opt_supplier) ?>
                     <?php $kelompok = isset($default['kelompok'])? $default['kelompok'] : '0';  ?>
-                    <?php echo form_dropdown('kelompok',$opt_kelompok,$kelompok,'id="kelompok" class="form-control select2" placeholder="Kelompok"'); ?>
+                    <?php echo form_dropdown('kelompok',$opt_kelompok,$kelompok,'id="kelompok" class="form-control select2" style="width:100%" placeholder="Kelompok"'); ?>
                 </div>
         
         </div>
         <div class="form-group">
             <div class="controls input-group">
             <?php echo form_label('Semester : ','semester',array('class'=>'control-label')); ?>
-                <select name="semester" id="kdsmster" class="input-lg form-control">
+                <select name="semester" id="kdsmster" class="input-lg form-control select2" style="width:100%">
                     <option value="1">Ganjil</option>
                     <option value="2">Genap</option>
                 </select>
@@ -86,10 +86,10 @@
         <button id="save" name="myButton" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
         <button id="save_edit" type="submit" class="btn btn-lg btn-primary" style="display:none;">
-            <icon class="fa fa-refresh"></icon> Perbaiki</button>
+            <icon class="fa fa-refresh"></icon> Koreksi</button>
         <button id="reset" type="reset" class="btn btn-lg btn-info">
             <icon class="fa fa-refresh"></icon> Reset</button>
-        <a href="#" id="cancel_edit" class="btn btn-lg btn-danger batal" style=""><i class="glyphicon glyphicon-remove"></i> Batal</a>
+        
     </div>
     <?php echo form_close();?>
 </div>

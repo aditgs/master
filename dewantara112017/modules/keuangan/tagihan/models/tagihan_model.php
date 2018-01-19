@@ -15,6 +15,15 @@ class Tagihan_model extends CI_Model {
         } else {
             return array();
         }
+    } 
+    function getalltarif() {
+
+        $result = $this->db->get('tarif');
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return array();
+        }
     }
     function getmultipaket($id){
         $this->db->select('id,multipaket')->from('001-view-tagihanmhs')->where('id',$id);
@@ -399,6 +408,7 @@ class Tagihan_model extends CI_Model {
     function delete($id) {
         $this->db->where('id', $id);
         $this->db->delete('tagihanmhs'); 
+        return $this->db->affected_rows();
        
     }
     function delete_detail($id=null) {
@@ -406,14 +416,14 @@ class Tagihan_model extends CI_Model {
         $this->db->delete('tagihan_detail'); 
        
     } 
-    function deletebybukti($bukti=null) {
-        $this->db->where('faktur', $bukti);
+    function deldetailbykode($kode=null) {
+        $this->db->where('kodetagihan', $kode);
         $this->db->delete('tagihan_detail');       
     }
     function get_dropdown_mhs(){
         $result = array();
         $array_keys_values = $this->db->query('select id,nim,nama from mhsmaster order by id asc');
-        // $result[0]="-- Pilih Urutan id --";
+        $result[0]="-- Pilih Mahasiswa --";
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->nama." (".$row->nim.")" ;

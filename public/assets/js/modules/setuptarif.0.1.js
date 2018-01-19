@@ -50,8 +50,19 @@ function gen() {
     data.push({ name: 'id', value: $('#id').val() }, { name: 'smster', value: $('input[name="semester"]:checked').val() });
     // $.post(baseurl+"genkode",{data:JSON.stringify(data)},function(dx,status){
     $.post(baseurl + "genkode", { detail: detail, data: data }, function(dx, status) {
+        // dd=JSON.parse(dx);
+        // alert(dx.kode);
         if (status == "success") {
-            $('.kodetarif').val(dx).trigger('change');
+            if(dx.st==1){
+
+                $('.kodetarif').val(dx.kode).trigger('change');
+                $( "#save" ).prop( "disabled",false );
+            }else{
+                $('#modal-alert').modal('toggle');
+                $('#modal-alert .modal-body').html(dx.msg);
+                $( "#save" ).prop( "disabled", true );
+
+            }
         }
     }, 'json');
     // dx = JSON.stringify(data);

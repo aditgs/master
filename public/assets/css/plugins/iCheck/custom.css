@@ -1,6 +1,6 @@
 /* iCheck plugin Square skin, green
 ----------------------------------- */
-.icheckbox_square-green,
+.icheckbox_square-green,.modal > .modal-body >.icheckbox_square-green,
 .iradio_square-green {
     display: inline-block;
     *display: inline;

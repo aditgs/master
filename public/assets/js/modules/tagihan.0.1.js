@@ -5,9 +5,12 @@ $(document).ready(function() {
         theme: "bootstrap input-md",
         dropdownParent: "#modal-form"
     });
+    $("#mahasiswa").select2({
+        theme: "bootstrap input-lg",
+        
+    });
+    
     $(".modal").modal({ backdrop: 'static', keyboard: false, show: false });
-    $("body .dropdown-toggle").dropdown();
-
     $('select#mhs').change(function() {
         $("#data").DataTable().destroy();
 
@@ -39,6 +42,8 @@ $(document).ready(function() {
     $("#modal-form").on("hidden.bs.modal", function() {
         // tabeltarif.ajax.reload();
         $("#data").DataTable().destroy();
+        
+
     });
     $("#modal-notif").modal({ backdrop: 'static', keyboard: false, show: false });
     $("#modal-notif").on("hidden.bs.modal", function() {
@@ -72,7 +77,11 @@ $(document).ready(function() {
     });
 
 });
-
+function dropDownFixPosition(button,dropdown){
+      var dropDownTop = button.offset().top + button.outerHeight();
+        dropdown.css('top', dropDownTop + "px");
+        dropdown.css('left', button.offset().left + "px");
+}
 function handleSubmit(data) {
     dx = JSON.parse(data);
     if (dx.st == 1) {
@@ -87,7 +96,9 @@ function handleSubmit(data) {
         // alert(dx.msg);
 
     }
+
 }
+
 
 function save(id) {
     var data = $('body form#addform').serializeArray();
@@ -118,9 +129,21 @@ function cekbox() {
 function loadjumlah() {
 
     $.post(baseurl + "getjumlah", { data: data }, function(data, status) {
+        // alert(data);
+        dt = JSON.parse(data);
+
+        if(dt.jml>5 && dt.st==0){
+            $('#modal-alert').modal('toggle');
+             $('#modal-alert .modal-body').html(dt.msg);
+            $( "#save" ).prop( "disabled", true );
+
+        }else{
+            $( "#save" ).prop( "disabled",false );
+
+        }
         if (status == "success") {
-            dt = JSON.parse(data);
-            $("#modal-form .modal-body #total").val(dt);
+
+            $("#modal-form .modal-body #total").val(dt.total);
         }
     });
 
