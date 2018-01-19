@@ -54,11 +54,15 @@ page[size="A5"][layout="portrait"] {
   width: 21cm;
   height: 14.8cm;  
 }
+page[size="kuitansi"] {
+  width: 21.5cm;
+  height: 11cm;  
+}
 @media print {
     .container {width: auto !important;min-width:21cm;}
     @media print and (orientation: portrait) {
         .container {
-            min-width: 29.7cm;
+            min-width: 21.5cm;
         }
     }
 }
@@ -68,7 +72,7 @@ page[size="A5"][layout="portrait"] {
     box-shadow: 0;
 
         max-width: 20cm;
-        max-height: 28cm;
+        max-height: 10cm;
     }
     .printable, .printable > * {
         display: block !important;
@@ -79,7 +83,7 @@ page[size="A5"][layout="portrait"] {
 
 
 
-<body style="text-align:center;width: 21cm;height: 29.7cm;" class="text-center">
+<body style="text-align:center;width: 21cm;height: 11cm;" class="text-center">
 
  
     <!-- <page size="A4" layout="portrait"> -->

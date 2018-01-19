@@ -63,9 +63,9 @@ function buildpdf($html, $filename='', $stream=TRUE)
                    $font, 6, array(0,0,0));*/
 
             // $font = $fontMetrics->getFont("Arial", "bold");
-            $canvas->page_text(8, 298, "STIE PGRI DEWANTARA JOMBANG", $font, 8, array(0, 0, 0));
-            $canvas->page_text(565, 298, "Hal. {PAGE_NUM} / {PAGE_COUNT}", $font, 8, array(0, 0, 0));
-            $canvas->line(8, 293, 600, 293, array(0,0,0), 1);
+            $canvas->page_text(10, 298, "STIE PGRI DEWANTARA JOMBANG", $font, 10, array(0, 0, 0));
+            $canvas->page_text(565, 298, "Hal. {PAGE_NUM} / {PAGE_COUNT}", $font, 10, array(0, 0, 0));
+            $canvas->line(10, 293, 600, 293, array(0,0,0), 1);
 
     if ($stream) {
         $dompdf->stream($filename.".pdf");

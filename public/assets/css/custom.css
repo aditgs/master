@@ -98,6 +98,7 @@ ul.list-group.no-gutter > li.list-group-item{
     padding-bottom: 0px;
     border:none;
     border-bottom: 1px solid #dddddd;
+    /*border-bottom: 1px solid #dddddd;*/
 }
 
 #tabeldata thead th{
