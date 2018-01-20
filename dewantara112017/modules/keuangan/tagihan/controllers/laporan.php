@@ -7,7 +7,9 @@
 class Laporan extends MX_Controller {
 	function __construct(){
 		parent::__construct();
-
+		$this->load->model('tagihan_model','tagihdb',TRUE);
+        $this->load->model('tarif/tarif_model','tarifdb',TRUE);
+        $this->load->model('mhsmaster/mhsmaster_model','mhsdb',TRUE);
 		if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
         endif;
@@ -29,7 +31,23 @@ class Laporan extends MX_Controller {
             });
           ','embed');  
         $this->template->add_js('modules/tagihan.02.js');
+         $tahun=array(
+            '0'=>'-- Pilih Tahun --',
+            '2014'=>'2014',
+            '2015'=>'2015',
+            '2016'=>'2016',
+            '2017'=>'2017',
+            '2018'=>'2018',
+            '2019'=>'2019',
+            '2020'=>'2020',
+            '2021'=>'2021',
+        );
+
         $this->template->load_view('tagihanmhs_view',array(
+        	'opt_mhs'=>$this->tagihdb->get_dropdown_mhs(),
+ 			'opt_prodi'=>$this->tarifdb->dropdown_prodi(),
+            'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
+            'opt_tahun'=>$tahun,
             'view'=>'form_laporan',
             'title'=>'Laporan Tagihan',
             'subtitle'=>'Laporan Tagihan',
