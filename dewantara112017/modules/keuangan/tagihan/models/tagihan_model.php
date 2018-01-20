@@ -15,6 +15,15 @@ class Tagihan_model extends CI_Model {
         } else {
             return array();
         }
+    }  
+    function getalltagihan() {
+
+        $result = $this->db->get('tagihanmhs');
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return array();
+        }
     } 
     function getalltarif() {
 
@@ -166,11 +175,9 @@ class Tagihan_model extends CI_Model {
     //fungsi dibawah ini biasanya digunakan untuk laporan
     //field dan tabel perlu disesuaikan dengan tabel
     function getdetail($data) {
-        $this->db->select('id,Faktur as faktur,Jthtmp as jthtempo,NoBon as nobon,Supplier as kode,total,NmSupplier as nama,NoAccSup as noacc,Tgl as tanggal,IF(LEFT(NoAccSup,5)="1.700","Karyawan",IF(LEFT(NoAccSup,5)="1.250","Customer",IF(LEFT(NoAccSup,5)="2.300","Supplier","-"))) as tipe',FALSE);
+        $this->db->select('*');
         $this->db->from('tagihanmhs');
-        if(!empty($data['kdvendor'])||$data['kdvendor']!==''):
-            $this->db->where('Supplier',((!empty($data['kdvendor'])||($data['kdvendor']>0))?$data['kdvendor']:'0'));
-        endif;
+      
         if(!empty($data['start'])||$data['start']!==''):
             $this->db->where('Tgl >=',!empty($data['start'])?$data['start']:date('Y-m-d'));
         endif;
