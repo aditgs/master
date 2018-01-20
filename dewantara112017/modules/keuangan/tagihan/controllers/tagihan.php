@@ -464,6 +464,7 @@ class Tagihan extends MX_Controller {
                         }
 
                     endif;
+                    if($isprint!==TRUE):
                     $total=$this->getotmultitem($id);
                     if($isprint==FALSE){
 
@@ -472,6 +473,11 @@ class Tagihan extends MX_Controller {
                     echo "<ul class='list-group no-gutter'>".implode("", $dx)."</ul>";
 
                     }
+                        echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
+                    else:
+                    $total=$this->getotmultitem($id);
+                        echo "<ul class='list-group gutter2'>".implode("", $dx);
+                    endif;
                 // }else{
                     // echo $data['multiitem'];
                 }else{

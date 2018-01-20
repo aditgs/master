@@ -100,7 +100,7 @@
                             <?php if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($detail)?>
                             <div class="rek">242.000.6669</div>
                             <div class="uang"><?php echo rp($total['total']) ?></div>
-                            <div class="terbilang"><?php echo rp($total['total']) ?></div>
+                            <div class="terbilang"><b><?php echo terbilang($total['total']) ?></b></div>
                             <div class="bayar"><?php (new tagihan)->getmultitem($data['id'],FALSE,FALSE,TRUE); ?></div>
                             <div class="nama"><?php echo $detail['nmmhs']; ?></div>
                             <div class="nim"><?php echo $detail['nimmhs']; ?></div>
@@ -123,18 +123,18 @@
     <!-- <link href="<?php echo assets_url() ?>css/style.css" rel="stylesheet"> -->
     <link href="<?php echo assets_url() ?>css/custom.css" rel="stylesheet">
     <style type="text/css">
-    @media print{td,th{padding:0}[class*=col-sm-],[class*=col-xs-]{float:left}.col-sm-12,.col-xs-12{width:100%!important}.col-sm-11,.col-xs-11{width:91.66666667%!important}.col-sm-10,.col-xs-10{width:83.33333333%!important}.col-sm-9,.col-xs-9{width:75%!important}.col-sm-8,.col-xs-8{width:66.66666667%!important}.col-sm-7,.col-xs-7{width:58.33333333%!important}.col-sm-6,.col-xs-6{width:50%!important}.col-sm-5,.col-xs-5{width:41.66666667%!important}.col-sm-4,.col-xs-4{width:33.33333333%!important}.col-sm-3,.col-xs-3{width:25%!important}.col-sm-2,.col-xs-2{width:16.66666667%!important}.col-sm-1,.col-xs-1{width:8.33333333%!important}.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9{float:left!important}body{margin:0;padding:0!important;min-width:768px;font-size:10px;font-family:'Open Sans',sans-serif}.container{width:auto;min-width:750px}a[href]:after{content:none}#comments,.btn,.footer,.group-media,.nav,.noprint,div.alert,form,header,ul.action-links,ul.links.list-inline{display:none!important}table{border-collapse:collapse}td{border-bottom:1px solid #ccc}thead{position:fixed;font-weight:700}}}
+    @media print{td,th{padding:0}[class*=col-sm-],[class*=col-xs-]{float:left}.col-sm-12,.col-xs-12{width:100%!important}.col-sm-11,.col-xs-11{width:91.66666667%!important}.col-sm-10,.col-xs-10{width:83.33333333%!important}.col-sm-9,.col-xs-9{width:75%!important}.col-sm-8,.col-xs-8{width:66.66666667%!important}.col-sm-7,.col-xs-7{width:58.33333333%!important}.col-sm-6,.col-xs-6{width:50%!important}.col-sm-5,.col-xs-5{width:41.66666667%!important}.col-sm-4,.col-xs-4{width:33.33333333%!important}.col-sm-3,.col-xs-3{width:25%!important}.col-sm-2,.col-xs-2{width:16.66666667%!important}.col-sm-1,.col-xs-1{width:8.33333333%!important}.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9{float:left!important}body{margin:0;padding:0!important;min-width:768px;font-size:14px;font-family:'Open Sans',sans-serif}.container{width:auto;min-width:750px}a[href]:after{content:none}#comments,.btn,.footer,.group-media,.nav,.noprint,div.alert,form,header,ul.action-links,ul.links.list-inline{display:none!important}table{border-collapse:collapse}td{border-bottom:1px solid #ccc}thead{position:fixed;font-weight:700}}}
     @media print {
         .no-print,.no-print * {display: none !important;}
     }
-    .rek {margin-top: 3cm; margin-left: 6cm;}
-    .uang {margin-left: 6.5cm;}
-    .terbilang {margin-left: 6cm;}
-    .bayar {margin-top: 0.3cm; margin-left: 6cm;}
-    .nama {margin-top: 1.3cm; margin-left: 6cm;}
-    .nim {margin-left: 6cm;}
-    .tgl {float: right; margin-top: 0.1cm margin-right: 1cm;}
-    .prodi {margin-left: 6cm;}
+    .rek {margin-top: 1cm; margin-left: 5.5cm; position: fixed;}
+    .uang {margin-top: 1.6cm; margin-left: 6cm; position: fixed;}
+    .terbilang {margin-top: 2.3cm; margin-left: 5.5cm; position: fixed;}
+    .bayar {margin-top: 3cm; margin-left: 5.1cm; position: fixed;}
+    .nama {margin-top: 6.1cm; margin-left: 5.5cm; position: fixed;}
+    .nim {margin-top: 6.8cm; margin-left: 5.5cm; position: fixed;}
+    .tgl {margin-top: 6.9cm; margin-left: 19.8cm; position: fixed;}
+    .prodi {margin-top: 7.5cm; margin-left: 5.5cm; position: fixed;}
     </style>
     
 </body>
