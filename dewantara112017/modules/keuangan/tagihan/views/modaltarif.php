@@ -1,4 +1,4 @@
-<h3 class="text-center">Data Tagihan Mahasiswa (Belum Tertagih)</h3>
+<h3 class="tagihan text-center">Data Tagihan Mahasiswa (Belum Tertagih)</h3>
 <select name="filter" id="filter" class="form-controls input-lg">
     <option value="0">Belum Tertagih</option>
     <option value="1" data-url="">Tertagih</option>
@@ -29,6 +29,7 @@
             $("#datatarif").DataTable().destroy();
             reloadtagihan();
         });
+        
 
     
     });
@@ -40,12 +41,17 @@
         var istagih=$('#filter').val();
         // alert(nim);  
         // alert(kodemhs);
+        if($('#filter').val()==1){
+            $('h3.tagihan').text('Data Tagihan Mahasiswa (Tertagih)');
+        }else{
+            $('h3.tagihan').text('Data Tagihan Mahasiswa (Belum Tertagih)');
+        }
 
         $("#datatarif").DataTable({
             "ajax": {
-                "url": baseurl + "getalltagihan/"+istagih,
+                "url": baseurl + "getalltagihan",
                 "dataType": "json",
-                "data": { kodemhs:kodemhs,nim:nim },
+                "data": { kodemhs:kodemhs,nim:nim,istagih:istagih},
             },
 
             "sServerMethod": "POST",
