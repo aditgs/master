@@ -2,6 +2,7 @@
 <select name="filter" id="filter" class="form-controls input-lg">
     <option value="0">Belum Tertagih</option>
     <option value="1" data-url="">Tertagih</option>
+    <option value="2" data-url="">Tervalidasi</option>
 </select>
 <div class="table-responsive">
 <table id="datatarif" class="tabeltarif table table-bordered table-condensed table-striped" style="width:100%">
@@ -43,6 +44,8 @@
         // alert(kodemhs);
         if($('#filter').val()==1){
             $('h3.tagihan').text('Data Tagihan Mahasiswa (Tertagih)');
+        }else if($('#filter').val()==2){
+            $('h3.tagihan').text('Data Tagihan Mahasiswa (Valid)');
         }else{
             $('h3.tagihan').text('Data Tagihan Mahasiswa (Belum Tertagih)');
         }

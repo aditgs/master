@@ -351,8 +351,16 @@ class Tagihan extends MX_Controller {
                 $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
                             ->from('008-view-tarifisnull');
             }elseif($istagih==TRUE||$istagih!=null||!empty($istagih)){
-                $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
+                if($istagih==1){
+
+                    $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
                             ->from('008-view-tarifisnotnull');
+                }elseif($istagih==2){
+                    $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
+                            ->from('008-view-tarifisnotnull');
+                    $this->datatables->where('tagvalstat','valid');
+
+                }
             
             }
             $this->datatables->where('kodemhs',$kodemhs);
