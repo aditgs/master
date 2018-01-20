@@ -343,10 +343,28 @@ class Tagihan extends MX_Controller {
     public function getalltagihan(){
         $kodemhs=$this->input->post('kodemhs');
         $nim=$this->input->post('nim');
+        $istagih=$this->input->post('istagih');
+
         // if($this->isadmin()==1):
-            $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
+            if($istagih==FALSE||$istagih==null||empty($istagih)){
+
+                $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
                             ->from('008-view-tarifisnull');
+            }elseif($istagih==TRUE||$istagih!=null||!empty($istagih)){
+                if($istagih==1){
+
+                    $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
+                            ->from('008-view-tarifisnotnull');
+                }elseif($istagih==2){
+                    $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
+                            ->from('008-view-tarifisnotnull');
+                    $this->datatables->where('tagvalstat','valid');
+
+                }
+            
+            }
             $this->datatables->where('kodemhs',$kodemhs);
+            // $this->datatables->filter('nim',$nim);
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             // $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
             $this->datatables->edit_column('kodeket','$1',"bacatarif(kodeket)");
@@ -463,20 +481,16 @@ class Tagihan extends MX_Controller {
                         }
 
                     endif;
-                    if($isprint!==TRUE):
-                    $total=$this->getotmultitem($id);
-                    if($isprint==FALSE){
+                
+                     $total=$this->getotmultitem($id);
+                        if($isprint==FALSE){
 
-                    echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right no-print'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
-                    }else{
-                    echo "<ul class='list-group no-gutter'>".implode("", $dx)."</ul>";
+                        echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right no-print'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
+                        }else{
+                        echo "<ul class='list-group no-gutter'>".implode("", $dx)."</ul>";
 
-                    }
-                        echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
-                    else:
-                    $total=$this->getotmultitem($id);
-                        echo "<ul class='list-group gutter2'>".implode("", $dx);
-                    endif;
+                        }
+                       
                 // }else{
                     // echo $data['multiitem'];
                 }else{
