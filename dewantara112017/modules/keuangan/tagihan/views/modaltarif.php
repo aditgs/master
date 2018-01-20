@@ -11,7 +11,7 @@
             <th style="width:20%" class="text-center">Kode</th>
             <th style="width:40%" class="text-center">Keterangan</th>
             <th  style="width:20%" class="text-center">Tarif</th>
-            <th style="width:10%" class="text-center">Aksi</th>
+            <!-- <th style="width:10%" class="text-center">Aksi</th> -->
         </tr>
     </thead>
     <tbody class="table-bordered">
