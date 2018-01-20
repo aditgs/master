@@ -3,6 +3,7 @@
         <a class="bukaform btn btn-primary btn-lg" data-toggle="modal" href='#modal-form'>Buka Tagihan</a>
        
            <a href="<?php echo base_url('tagihan') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Tagihan Mahasiswa</a>
+           <a href="<?php echo base_url('tagihan/laporan') ?>" class="btn btn-lg btn-success"><i class="fa fa-file-text"></i> Laporan Tagihan</a>
     </div>
     <h2 class="text-center" style="margin:20px 0px 30px">Tabel Data Tagihan Mahasiswa</h2>
     <div class="form-group">
