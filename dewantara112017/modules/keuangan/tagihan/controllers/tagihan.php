@@ -347,6 +347,7 @@ class Tagihan extends MX_Controller {
             $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
                             ->from('008-view-tarifisnull');
             $this->datatables->where('kodemhs',$kodemhs);
+            // $this->datatables->filter('nim',$nim);
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             // $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
             $this->datatables->edit_column('kodeket','$1',"bacatarif(kodeket)");

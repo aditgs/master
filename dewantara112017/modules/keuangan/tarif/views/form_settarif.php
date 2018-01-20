@@ -94,7 +94,7 @@
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
         <button id="save_edit" type="submit" class="btn btn-lg btn-primary" style="display:none;">
             <icon class="fa fa-refresh"></icon> Koreksi</button>
-        <button id="reset" type="reset" class="btn btn-lg btn-info">
+        <button id="resetform" type="reset" class="btn btn-lg btn-info">
             <icon class="fa fa-refresh"></icon> Reset</button>
         <button id="cancel_edit" data-dismiss="modal" class="btn btn-lg btn-danger batal" style=""><i class="glyphicon glyphicon-remove"></i> Batal</button>
     </div>
