@@ -1,4 +1,8 @@
 <h3 class="text-center">Data Tagihan Mahasiswa (Belum Tertagih)</h3>
+<select name="filter" id="filter" class="form-controls input-lg">
+    <option value="0">Belum Tertagih</option>
+    <option value="1" data-url="">Tertagih</option>
+</select>
 <div class="table-responsive">
 <table id="datatarif" class="tabeltarif table table-bordered table-condensed table-striped" style="width:100%">
     <thead class="">
@@ -20,35 +24,45 @@
 <input type="hidden" name="nim" id="nim" value="<?php echo $nim ?>">
 <script type="text/javascript">
     $('document').ready(function(){
+        reloadtagihan()
+        $('body').on('change','#filter',function(){
+            $("#datatarif").DataTable().destroy();
+            reloadtagihan();
+        });
 
-    // function getalltagihan(kode,nim) {
-    var kodemhs=$('input#kodemhstag').val();
-    var nim=$('input#nim').val();
-    // alert(nim);  
-    // alert(kodemhs);
-
-    $("#datatarif").DataTable({
-        "ajax": {
-            "url": baseurl + "getalltagihan",
-            "dataType": "json",
-            "data": { kodemhs:kodemhs,nim:nim },
-        },
-
-        "sServerMethod": "POST",
-        "bServerSide": true,
-        "bAutoWidth": true,
-        "bDeferRender": true,
-        "bSortClasses": false,
-        "bscrollCollapse": true,
-        "bStateSave": true,
-        "responsive": true,
-        "scrollX": true,
-        "sScrollX": true,
-        "fixedHeader": true,
-        "iDisplayLength": 10,
-        "language": { "decimal": ",", "thousands": "." },
-        "columnDefs": [{ "orderable": false, "targets": 0 }]
+    
     });
-    });
+    function reloadtagihan(){
+           // function getalltagihan(kode,nim) {
+
+        var kodemhs=$('input#kodemhstag').val();
+        var nim=$('input#nim').val();
+        var istagih=$('#filter').val();
+        // alert(nim);  
+        // alert(kodemhs);
+
+        $("#datatarif").DataTable({
+            "ajax": {
+                "url": baseurl + "getalltagihan/"+istagih,
+                "dataType": "json",
+                "data": { kodemhs:kodemhs,nim:nim },
+            },
+
+            "sServerMethod": "POST",
+            "bServerSide": true,
+            "bAutoWidth": true,
+            "bDeferRender": true,
+            "bSortClasses": false,
+            "bscrollCollapse": true,
+            "bStateSave": true,
+            "responsive": true,
+            "scrollX": true,
+            "sScrollX": true,
+            "fixedHeader": true,
+            "iDisplayLength": 10,
+            "language": { "decimal": ",", "thousands": "." },
+            "columnDefs": [{ "orderable": false, "targets": 0 }]
+        });
+    }
 // }
 </script>

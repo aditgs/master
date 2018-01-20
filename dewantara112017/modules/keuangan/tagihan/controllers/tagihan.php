@@ -340,12 +340,19 @@ class Tagihan extends MX_Controller {
        
         echo $this->datatables->generate();
     }
-    public function getalltagihan(){
+    public function getalltagihan($istagihan=FALSE){
         $kodemhs=$this->input->post('kodemhs');
         $nim=$this->input->post('nim');
         // if($this->isadmin()==1):
-            $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
+            if($istagihan==FALSE||$istagihan==null||empty($istagihan)){
+
+                $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
                             ->from('008-view-tarifisnull');
+            }elseif($istagihan==TRUE||$istagihan!=null||!empty($istagihan)){
+                $this->datatables->select("idtarif,kodetarif,kodeket,tarif,nim,mhs,kodemhs,tagvalstat")
+                            ->from('008-view-tarifisnotnull');
+            
+            }
             $this->datatables->where('kodemhs',$kodemhs);
             // $this->datatables->filter('nim',$nim);
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
