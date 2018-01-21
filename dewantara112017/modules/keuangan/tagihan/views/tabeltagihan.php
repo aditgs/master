@@ -21,6 +21,11 @@
                     <th class="text-center"><?= isset($value['tglvalidasi'])?'<label class="label label-primary">Valid: '.thedate($value['tglvalidasi']).'</label>':''; ?></th>
                     
                 </tr>
+                <?php if(!empty($isdetail)||$isdetail!=false||$isdetail!=null): ?>
+                    <tr>
+                        <td colspan="6">detail</td>
+                    </tr>
+                <?php endif; ?>
             <?php $i++;endforeach; ?>
         <?php else: ?>
         <tbody class="table-bordered">
