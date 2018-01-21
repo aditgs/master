@@ -7,7 +7,8 @@
 class Laporan extends MX_Controller {
 	function __construct(){
 		parent::__construct();
-		$this->load->model('tagihan_model','tagihdb',TRUE);
+        $this->load->model('tagihan_model','tagihdb',TRUE);
+		$this->load->model('laporan_tagihan_model','lapordb',TRUE);
         $this->load->model('tarif/tarif_model','tarifdb',TRUE);
         $this->load->model('mhsmaster/mhsmaster_model','mhsdb',TRUE);
 		if ( !$this->ion_auth->logged_in()): 
@@ -114,9 +115,9 @@ class Laporan extends MX_Controller {
         return md5($this->session->userdata('lihat').":".userid()."+".date('H:m'));
         // echo $this->session->userdata('tagihanmhs');
     }
-       function get_trx($datax,$judul=null){
+    function get_trx($datax,$judul=null){
         $this->template->set_layout('cetak');
-        $data=$this->tagihdb->getalltagihan($datax);
+        $data=$this->lapordb->getalltagihan($datax);
         $judul='LAPORAN';
         $html=$this->load->view('tabeltagihan',array('data'=>$data,'judul'=>$judul),TRUE);
         return $html;

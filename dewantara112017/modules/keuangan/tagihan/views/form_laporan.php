@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
-                <?php echo form_label('Laporan Penjualan: ','laporan',array('class'=>'control-label')); ?>
+                <?php echo form_label('Laporan: ','laporan',array('class'=>'control-label')); ?>
                 <div class="input-group">
                     <div class="controls">
                         <?php $opt_laporan=array(
@@ -25,7 +25,16 @@
                 </div>
             </div>
         </div>
-       
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label for="">Tanggal: </label>
+                <div class="input-daterange input-group" id="datepicker">
+                    <input id="start" type="text" class="input-lg form-control" name="start" />
+                    <span class="input-group-addon">to</span>
+                    <input id="end" type="text" class="input-lg form-control" name="end" />
+                </div>
+            </div>
+        </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         	 <div class="form-group">
                 <?php echo form_label('Tipe Tagihan: ','tagihan',array('class'=>'control-label')); ?>
@@ -45,16 +54,7 @@
                 </div>
             </div>
         </div>
-         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-            <div class="form-group">
-                <label for="">Tanggal: </label>
-                <div class="input-daterange input-group" id="datepicker">
-                    <input id="start" type="text" class="input-lg form-control" name="start" />
-                    <span class="input-group-addon">to</span>
-                    <input id="end" type="text" class="input-lg form-control" name="end" />
-                </div>
-            </div>
-        </div>
+        
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         	 <div class="form-group sp-dropdown">
 	            <?php echo form_label('Program Studi: ','prodi',array('class'=>'control-label')); ?>
@@ -122,7 +122,7 @@
             <label for=""> </label>
             <br>
             <div class="btn-group">
-                <button id="cek_laporan_po" type="submit" class="btn btn-lg btn-primary"><i class="fa fa-eye"></i> Lihat</button>
+                <button id="ceklaporan" type="submit" class="btn btn-lg btn-primary"><i class="fa fa-eye"></i> Lihat</button>
                 <button id="buildpdf" type="submit" class="btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak PDF</button>
             </div>
         </div>
