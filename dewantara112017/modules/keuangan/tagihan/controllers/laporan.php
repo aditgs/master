@@ -64,18 +64,52 @@ class Laporan extends MX_Controller {
             switch ($lap) {
                 case '1':
                     // print_r($data);
-                    $judul="LAPORAN PER FAKTUR DETAIL ";
+                    $judul="LAPORAN DETAIL TAGIHAN ";
                     $html=$this->get_trx($data,$judul,true);
                 break;
                 case '2':
-                    $judul="LAPORAN PER FAKTUR REKAP";
+                    $judul="LAPORAN REKAP TAGIHAN ";
                     $html=$this->get_trx($data,$judul);
+                break;  
+                case '3':
+                    // print_r($data);
+                    $judul="LAPORAN DETAIL TAGIHAN PER JENIS TARIF ";
+                    $html=$this->get404();
+                    // $html=$this->get_trx($data,$judul,true);
+                break;
+                case '4':
+                    $judul="LAPORAN REKAP TAGIHAN PER JENIS TARIF";
+                    $html=$this->get404();
+                    // $html=$this->get_trx($data,$judul);
+                break; 
+                case '5':
+                    $judul="LAPORAN DETAIL TAGIHAN PER MAHASISWA ";
+                    $html=$this->get_trxmhs($data,$judul,true);
+                break;
+                case '6':
+                    $judul="LAPORAN REKAP TAGIHAN PER MAHASISWA ";
+                    $html=$this->get_trxmhs($data,$judul);
                 break;
                 case '7':
-                    // $judul="LAPORAN KARTU HUTANG";
-                    // $html=$this->getjatuhtempo($data,$judul);
+                    $judul="LAPORAN DETAIL TAGIHAN PER ANGKATAN ";
+                    $html=$this->get404();
+                
+                break;
+                case '8':
+                    $judul="LAPORAN REKAP TAGIHAN PER ANGKATAN ";
+                    $html=$this->get404();
+                
+                break; 
+                case '9':
+                    $judul="LAPORAN DETAIL TAGIHAN PER PROGRAM STUDI ";
                     $html=$this->get404();
                 break;
+                case '10':
+                    $judul="LAPORAN REKAP TAGIHAN PER PROGRAM STUDI ";
+                    $html=$this->get404();
+                
+                break;
+                
                
                 
                 default:
@@ -121,6 +155,14 @@ class Laporan extends MX_Controller {
         
         // print_r($data);
         $html=$this->load->view('tabeltagihan',array('data'=>$data,'judul'=>$judul,'isdetail'=>$isdetail),TRUE);
+        return $html;
+    }
+    function get_trxmhs($datax,$judul=null,$isdetail=null){
+        $this->template->set_layout('cetak');
+        $data=$this->lapordb->getrekappermhs($datax);
+        
+        // print_r($data);
+        $html=$this->load->view('tabeltagihanmhs',array('data'=>$data,'judul'=>$judul,'isdetail'=>$isdetail),TRUE);
         return $html;
     }
     function get_trx_rekap($datax,$judul=null){
