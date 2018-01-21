@@ -65,11 +65,11 @@ class Laporan extends MX_Controller {
                 case '1':
                     // print_r($data);
                     $judul="LAPORAN PER FAKTUR DETAIL ";
-                    $html=$this->get_trx($data,$judul);
+                    $html=$this->get_trx($data,$judul,true);
                 break;
                 case '2':
                     $judul="LAPORAN PER FAKTUR REKAP";
-                    $html=$this->get_trx_rekap($data,$judul);
+                    $html=$this->get_trx($data,$judul);
                 break;
                 case '7':
                     // $judul="LAPORAN KARTU HUTANG";
@@ -115,11 +115,12 @@ class Laporan extends MX_Controller {
         return md5($this->session->userdata('lihat').":".userid()."+".date('H:m'));
         // echo $this->session->userdata('tagihanmhs');
     }
-    function get_trx($datax,$judul=null){
+    function get_trx($datax,$judul=null,$isdetail=null){
         $this->template->set_layout('cetak');
         $data=$this->lapordb->getalltagihan($datax);
-        $judul='LAPORAN';
-        $html=$this->load->view('tabeltagihan',array('data'=>$data,'judul'=>$judul),TRUE);
+        
+        // print_r($data);
+        $html=$this->load->view('tabeltagihan',array('data'=>$data,'judul'=>$judul,'isdetail'=>$isdetail),TRUE);
         return $html;
     }
     function get_trx_rekap($datax,$judul=null){
