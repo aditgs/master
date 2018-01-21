@@ -10,12 +10,14 @@
 					        	'0'=>'-- Pilih Laporan --',
 					        	'1'=>'Detail Tagihan',
 					        	'2'=>'Rekap Tagihan',
-					        	'3'=>'Detail Tagihan Per Prodi',
-					        	'4'=>'Rekap Tagihan Per Prodi',
-					        	'5'=>'Detail Tagihan Per Angkatan',
-					        	'6'=>'Rekap Tagihan Per Angkatan',
-					        	'7'=>'Detail Tagihan Per Mahasiswa',
-					        	'8'=>'Rekap Tagihan Per Mahasiswa',
+					        	'3'=>'Detail Tagihan Per Jenis Tarif',
+					        	'4'=>'Rekap Tagihan Per Jenis Tarif',
+					        	'5'=>'Detail Tagihan Per Mahasiswa',
+					        	'6'=>'Rekap Tagihan Per Mahasiswa',
+					        	'7'=>'Detail Tagihan Per Angkatan',
+					        	'8'=>'Rekap Tagihan Per Angkatan',
+					        	'9'=>'Detail Tagihan Per Prodi',
+					        	'10'=>'Rekap Tagihan Per Prodi',
 
 					        	);
 					        //print_r($opt_supplier) ?>
