@@ -16,6 +16,9 @@ class Laporan_tagihan_model extends CI_Model {
 		if(!empty($data['tahun'])||$data['tahun']!=='0'):
             $this->db->where('th_akad',$data['tahun']);
         endif;
+        if(!empty($data['semester'])||$data['semester']!=='0'):
+            $this->db->where('kdsmster',$data['semester']);
+        endif;
         if(!empty($data['mhs'])||$data['mhs']!=='0'):
             $this->db->where('mhs',$data['mhs']);
         endif;
