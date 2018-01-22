@@ -13,7 +13,10 @@ class Laporan_tagihan_model extends CI_Model {
 		// sql view 001-view-tagihanmhs
 		// $sql="select `a`.`id` AS `id`,`a`.`kode` AS `kode`,`a`.`tanggal` AS `tanggal`,`a`.`tgltempo` AS `tgltempo`,`a`.`mhs` AS `mhs`,`b`.`nim` AS `nimmhs`,left(`b`.`nim`,4) AS `kodemhs`,`b`.`nama` AS `nmmhs`,`a`.`status` AS `status`,if((`a`.`isbayar` = '1'),'oke','belum lunas') AS `islunas`,`a`.`idpaket` AS `idpaket`,`a`.`multipaket` AS `multipaket`,`a`.`isvalidasi` AS `isvalidasi`,`a`.`tglvalidasi` AS `tglvalidasi`,`a`.`isprinted` AS `isprinted`,`a`.`lastprinted` AS `lastprinted`,`a`.`printcount` AS `printcount`,a.total from (`tagihanmhs` `a` left join `mhsmaster` `b` on((`a`.`mhs` = `b`.`id`)))";
 		$this->db->select('*')->from('009-view-tagihandetail a')->join('mhsmaster b','a.mhs=b.id');
-		if(!empty($data['mhs'])||$data['mhs']!=='0'):
+		if(!empty($data['tahun'])||$data['tahun']!=='0'):
+            $this->db->where('th_akad',$data['tahun']);
+        endif;
+        if(!empty($data['mhs'])||$data['mhs']!=='0'):
             $this->db->where('mhs',$data['mhs']);
         endif;
 		if(!empty($data['prodi'])||$data['prodi']!=='0'):

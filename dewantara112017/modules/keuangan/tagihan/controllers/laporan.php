@@ -60,6 +60,7 @@ class Laporan extends MX_Controller {
         $data['start']=$this->input->post('start');
         $data['prodi']=$this->input->post('prodi');
         $data['mhs']=$this->input->post('mhs');
+        $data['tahun']=$this->input->post('tahun');
         $data['kelompok']=$this->input->post('kelompok');
         $data['semester']=$this->input->post('semester');
         $lap=$this->input->post('laporan');
