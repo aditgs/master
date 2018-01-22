@@ -86,7 +86,7 @@
 	    	
 	        <div class="form-group">
 	            <label class="control-label">
-	                Tahun
+	                Tahun Akademik
 	            </label>
 	            <div class="controls input-group">
 	                <?php $tahun = isset($default['tahun'])? $default['tahun'] : '0';  ?>
