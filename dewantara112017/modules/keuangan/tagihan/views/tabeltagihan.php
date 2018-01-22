@@ -47,6 +47,3 @@
         </tbody>
     <?php endif; ?>
     </table>
-<script type="text/javascript">
-    // $('.tabeltagihan').DataTable({});
-</script>
