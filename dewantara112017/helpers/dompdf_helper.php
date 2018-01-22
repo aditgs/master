@@ -75,4 +75,43 @@ function buildpdf($html, $filename='', $stream=TRUE)
     unset($html);
     unset($dompdf); 
 }
+
+function buildpdfbaru($html, $size='A4',$layout='Potrait',$filename='', $stream=TRUE) 
+
+{
+
+    require_once APPPATH.'third_party/dompdf/autoload.inc.php';
+    $options = new Dompdf\Options();
+    $options->setIsPhpEnabled(true);
+    $options->set(array(
+        'pdfBackend'=>'PDFLib',
+        'defaultMediaType'=>'print',
+        'defaultPaperSize'=>$size,
+        // 'defaultPaperSize'=>'A4',
+        'defaultFont'=>'Arial',
+        'enable_html5_parser'=>true,
+        'enable_font_subsetting'=>true
+    ));
+
+
+
+    $dompdf = new Dompdf\Dompdf($options);
+    $dompdf->load_html($html);
+    // $dompdf->setPaper('A4', 'potrait');
+    $dompdf->setPaper($size, $layout);
+    $dompdf->setBasePath(assets_url('css/bootstrap.min.css'));
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();
+            $canvas->page_text(10, 815, "STIE PGRI DEWANTARA JOMBANG", $font, 10, array(0, 0, 0));
+            $canvas->page_text(530, 815, "Hal. {PAGE_NUM} / {PAGE_COUNT}", $font, 10, array(0, 0, 0));
+            $canvas->line(10, 810, 585, 810, array(0,0,0), 1);
+    if ($stream) {
+        $dompdf->stream($filename.".pdf");
+    } else {
+        return $dompdf->output();
+
+    }
+    unset($html);
+    unset($dompdf); 
+}
 ?>
