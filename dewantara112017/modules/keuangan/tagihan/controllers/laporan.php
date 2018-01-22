@@ -58,6 +58,11 @@ class Laporan extends MX_Controller {
 	function get_laporan($pdf=null){
 		$data['end']=$this->input->post('end');
         $data['start']=$this->input->post('start');
+        $data['prodi']=$this->input->post('prodi');
+        $data['mhs']=$this->input->post('mhs');
+        $data['tahun']=$this->input->post('tahun');
+        $data['kelompok']=$this->input->post('kelompok');
+        $data['semester']=$this->input->post('semester');
         $lap=$this->input->post('laporan');
         // print_r($data);
         if(!empty($lap)||$lap>0){
@@ -151,6 +156,7 @@ class Laporan extends MX_Controller {
     }
     function get_trx($datax,$judul=null,$isdetail=null){
         $this->template->set_layout('cetak');
+        // print_r($datax);
         $data=$this->lapordb->getalltagihan($datax);
         
         // print_r($data);

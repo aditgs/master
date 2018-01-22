@@ -9,6 +9,7 @@ $(document).ready(function() {
 });
 
 function get_laporan(data) {
+    // alert(data);
     $.post(baseurl + 'laporan/get_laporan', data, function(datax) {
         $(".laporan").html(datax);
 
