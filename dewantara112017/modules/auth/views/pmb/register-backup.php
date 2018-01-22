@@ -1,24 +1,10 @@
- <div class="container">
-     
-
- 
  <div class="row" style="margin-top:20px;margin-bottom:100px;">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                        <p class="text-center"> </p>
-                    <p class="text-center"><img width="150px" src="<?= assets_url('images/logo.png')?>"> </p>
-                    <h1 class="text-center">SIM PMB </h1>
-                    <h2 class="text-center">STIE PGRI DEWANTARA</h2>
-                </div>
-            </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-4">
-
-        <!--     <div class="middle-box text-center loginscreen  animated fadeInDown">
-                <div> -->
-                    <div class="panel panel-default" style="">
-                    <div class="panel-body">
+        <div style="padding:10px;" class="col-xs-12 col-sm-12 col-md-4 white-bg">
+            <div class="middle-box text-center loginscreen  animated fadeInDown">
+                <div>
                  
                     <h3><?= isset($title)?$title:'' ?></h3>
                     <p><?= isset($desc)?$desc:'' ?></p>
@@ -42,9 +28,16 @@
                             <input type="password" class="form-control" placeholder="Password" name="password" required="">
                         </div>
                      
-                
-                        <!-- <input type="submit" name="submit" class="btn btn-primary block full-width m-b" value"Submit"> -->
-                        <input type="submit" name="submit" class="btn btn-primary btn-block btn-lg" value="submit">
+                        <div class="form-group">
+                            <label>Encryption Key</label>
+                            <div class="checkbox i-checks">
+                                <label> <input id="bit" name="bit" value="128" type="checkbox"><i></i> AES128 </label>
+                                <label> <input id="bit" name="bit" value="192" type="checkbox"><i></i> AES192 </label>
+                                <label> <input id="bit" name="bit" value="256" type="checkbox"><i></i> AES256 </label>
+                            </div>
+                        </div>
+                        <input type="submit" name="submit" class="btn btn-primary block full-width m-b" value"Submit">
+
                         <p class="text-muted text-center"><small>Already have an account?</small></p>
                         <a class="btn btn-sm btn-success btn-block" href="<?php echo !empty($loginurl)?$loginurl:'' ?>">Login</a> 
                     </form>
@@ -64,5 +57,4 @@
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         
         </div>
-</div>
 </div>
