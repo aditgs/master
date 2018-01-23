@@ -421,7 +421,56 @@ class Pmb extends MX_Controller {
             redirect('auth', 'refresh');
         }
     }
+    function registerform($ispost=TRUE,$msg=null){
+        // $token=$this->myauth->gentokenreg32();  //generate token
+        // $this->session->set_userdata(array('token'=>$token)); //set session token to validate token
+        if(isset($ispost)&&$ispost==TRUE){
+            $post=base_url('auth/pmb/register/'); //form register post to url --> http://localhost/!!cisaleem/pmb/register
+        }else{
+            $post='';
+        }
+        // $msg=base64_encode('Silakan daftar terlebih dahulu');
+        $this->template->load_view('pmb/register',array( //load view component 'register.php'
+                'title'=>'<h1>Pendaftaran Calon Mahasiswa</h1>', //send this string to view
+                'post'=>$post,
+                'loginurl'=>base_url('pmb/login'), //login form will be post to this url http://localhost/!!cisaleem/pmb/login
+                // 'token'=>$token,
+                'msg'=>$msg,
+            ));
+    }
     function register(){
+        $this->template->set_layout('home');
+        $submit=$this->input->post('submit');   
+        if(isset($submit)){     //if form have submitted
+            $bit=$this->input->post('bit',TRUE);    //input password
+            $password=$this->input->post('password',TRUE);  //input password
+            $username=$this->input->post('username',TRUE);  //input username
+            // $token=$this->input->post('token',TRUE);        //input token
+            $email=$this->input->post('email',TRUE);        //input token
+            $sestoken=$this->session->userdata('token');    //get real token in session
+
+            $this->form_validation->set_rules('username','Username', 'required|trim|xss_clean');    //validate username input
+            $this->form_validation->set_rules('email','Email', 'required|trim|xss_clean');  //validate username input
+            $this->form_validation->set_rules('password','Password','required|trim|xss_clean');     //validate password input
+            // $this->form_validation->set_rules('token','token','required|trim|xss_clean');           //validate tokenkey
+                /*print($decode64);
+                        print($username);
+                        print($password);
+                        print($sestoken);*/
+            if ($this->form_validation->run() == FALSE){
+                $this->session->set_flashdata(validation_errors());  
+                $msg=base64_encode(validation_errors());
+                // echo "validation failed"; 
+                // echo validation_errors();
+                $this->registerform(TRUE,$msg);
+            }else{
+                
+            }
+        }else{                  //else form not submitted
+            $this->registerform();
+        }
+    }
+    function registerx(){
         $this->create_user();
     }
 
