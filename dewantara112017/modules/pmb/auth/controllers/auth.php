@@ -18,7 +18,7 @@ class Auth extends MX_Controller {
         if (!$this->ion_auth->logged_in())
         {
             //redirect them to the login page
-            redirect('auth/pmb/login', 'refresh');
+            redirect('auth/login', 'refresh');
         }
         elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
         {
@@ -26,7 +26,7 @@ class Auth extends MX_Controller {
             return show_error('You must be an administrator to view this page.');
         }
         else{
-		redirect('../auth/pmb','refresh');
+		redirect('../auth','refresh');
 		}
 	}
 	public function login()
@@ -34,7 +34,7 @@ class Auth extends MX_Controller {
 		redirect('../auth/pmb/login/','refresh');
 	}
 	public function register(){
-		redirect('../auth/pmb/create_user','refresh');
+		redirect('../auth/pmb/register','refresh');
 	}
 }
 
