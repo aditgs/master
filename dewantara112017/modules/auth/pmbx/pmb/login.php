@@ -3,13 +3,12 @@
 
 <div class="row" style="margin-top:40px;">
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-    <div class="panel panel-default">
+    <div class="panel panel-primary">
         <div class="panel-body">
-            <p class="text-center"> </p>
+                <p class="text-center"> </p>
             <p class="text-center"><img width="150px" src="<?= assets_url('images/logo.png')?>"> </p>
-            <h1 class="text-center">SISTEM PENERIMAAN MAHASISWA BARU</h1>
-            <h3 class="text-center">STIE PGRI DEWANTARA JOMBANG</h3>
-            <p class="text-center"><a class="btn btn-lg btn-warning" href="<?php echo base_url('pmb/register') ?>">DAFTAR</a></p>
+            <h1 class="text-center">SIM PMB </h1>
+            <h2 class="text-center">STIE PGRI DEWANTARA</h2>
         </div>
     </div>
 </div>
@@ -17,14 +16,14 @@
     
     <div class="panel panel-default" style="">
         <div class="panel-body">
-            
+        
             <h1><?php echo lang('login_heading');?></h1>
     <p><?php echo lang('login_subheading');?></p>
 
     <div <?php ( ! empty($message)) && print('class="alert alert-info"'); ?> id="infoMessage"><?php echo $message;?></div>
 
           
-    <?php echo form_open("auth/login");?>
+    <?php echo form_open("auth/pmb/login");?>
 
         <p>
             <?php echo lang('login_identity_label', 'identity');?>
@@ -46,7 +45,7 @@
     <?php echo form_close();?>
 
 
-    <p><a href="auth/forgot_password" rel="async" ajaxify="<?php echo site_url('auth/auth_ajax/ion_auth_dialog/forgot_password'); ?>"><?php echo lang('login_forgot_password');?></a></p>
+    <p><a href="auth/pmb/forgot_password" rel="async" ajaxify="<?php echo site_url('auth/auth_ajax/ion_auth_dialog/forgot_password'); ?>"><?php echo lang('login_forgot_password');?></a></p>
         
         </div>
     </div>
