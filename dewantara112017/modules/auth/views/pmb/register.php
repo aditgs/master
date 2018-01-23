@@ -2,13 +2,13 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             
        
-        <h1><?php echo lang('create_user_heading');?></h1>
+        <h1><?php //echo lang('create_user_heading');?>Pendaftaran Calon Mahasiswa</h1>
         <p><?php echo lang('create_user_subheading');?></p>
 
         <div <?php ( ! empty($message)) && print('class="alert alert-info"'); ?> id="infoMessage"><?php echo $message;?></div>
     </div>
 
-    <?php echo form_open("auth/create_user");?>
+    <?php echo form_open("auth/pmb/register");?>
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
         
     
@@ -39,10 +39,7 @@
             <?php echo bs_form_input($last_name);?>
         </p>
         
-            <p>
-            <?php echo lang('create_user_company_label', 'company');?> <br />
-            <?php echo bs_form_input($company);?>
-        </p>
+        
           <p>
             <?php echo lang('create_user_phone_label', 'phone');?> <br />
             <?php echo bs_form_input($phone);?>
@@ -55,7 +52,8 @@
         
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <p><?php echo bs_form_submit('submit', lang('create_user_submit_btn'));?></p>
+        <p><?php //echo bs_form_submit('submit', lang('create_user_submit_btn'));?></p>
+        <p><?php echo bs_form_submit('submit', 'Daftar');?></p>
 
     </div>
 
