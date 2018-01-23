@@ -3,7 +3,7 @@
                 <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Form Calon Mahasiswa</h5>
+                        <h5>Form Biaya Pendaftaran</h5>
                         
                     </div>
                     <div class="ibox-content">
@@ -11,7 +11,7 @@
                         if(!empty($view)):
                             $this->load->view($view);
                         else:
-                            $this->load->view('siakad_mhs_pmb_table');
+                            $this->load->view('siakad_keu_pendaftaran_table');
                         endif;
                     ?>
 
@@ -28,3 +28,4 @@
 <?php $this->load->view('modal-notif'); ?>
 <?php $this->load->view('modal-alert'); ?>
 <?php $this->load->view('modal-form'); ?>
+
