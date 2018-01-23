@@ -487,7 +487,7 @@ class Tagihan extends MX_Controller {
 
                         echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right no-print'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
                         }else{
-                        echo "<ul class='list-group no-gutter'>".implode("", $dx)."</ul>";
+                        echo "<ul class='list-group no-gutter'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right no-print'></li></ul>";
 
                         }
                        
