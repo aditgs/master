@@ -94,8 +94,8 @@ class Prodi_model extends CI_Model {
         endif;
         return ($faktur);
     }
-    function get_one($KodeP) {
-        $this->db->where('KodeP', $KodeP);
+    function get_one($id) {
+        $this->db->where('id', $id);
         $result = $this->db->get('prodi');
         if ($result->num_rows() == 1) {
             return $result->row_array();
