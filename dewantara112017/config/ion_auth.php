@@ -174,7 +174,7 @@ $config['admin_group']                = 'admin';             // Default administ
 
 $config['identity']                   = 'username';             // A database column which is used to login with
 
-$config['min_password_length']        = 8;                   // Minimum Required Length of Password
+$config['min_password_length']        = 8;                   // Minimum Required Length of Passwordlogi
 
 $config['max_password_length']        = 20;                  // Maximum Allowed Length of Password
 
@@ -188,7 +188,7 @@ $config['user_expire']                = 86500;               // How long to reme
 
 $config['user_extend_on_login']       = FALSE;               // Extend the users cookies every time they auto-login
 
-$config['track_login_attempts']       = TRUE;               // Track the number of failed login attempts for each user or ip.
+$config['track_login_attempts']       =FALSE;               // Track the number of failed login attempts for each user or ip.
 
 $config['track_login_ip_address']     = TRUE;                // Track login attempts by IP Address, if FALSE will track based on identity. (Default: TRUE)
 

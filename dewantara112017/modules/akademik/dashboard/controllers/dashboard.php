@@ -44,7 +44,7 @@ class Dashboard extends MX_Controller {
 
     public function index(){
 
-            $this->session->set_userdata("module",'pos');
+            $this->session->set_userdata("module",'sika');
 
            $this->template->add_js('muria.js');
 
