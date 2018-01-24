@@ -1,6 +1,6 @@
 <div class="datatable-ajax-source">
         <div class="btn-group" style="margin:20px 0px 30px">
-                            <a  href="#outside" data-toggle="tab" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Kelompok Mahasiswa Baru </a>
+                            <a  href="#modal-form" data-toggle="modal" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Kelompok Mahasiswa Baru </a>
                             <a href="#inside" data-toggle="tab"  class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Kelompok Mahasiswa</a>
                         </div>
         <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data Kelompok Mahasiswa</h2>
