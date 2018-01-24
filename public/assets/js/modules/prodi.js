@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $("#modal-form").on("hidden.bs.modal", function() {
-        $('#modal-form .modal-body #addform #reset').trigger('click');
+        // $('#modal-form .modal-body #addform #reset').trigger('click');
+        $('.modal-body').find('input').val('');
     });
     $("body").on("click", ".edit_prodi", function(e) {
         e.preventDefault();
