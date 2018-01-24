@@ -1,6 +1,7 @@
 <div class="datatable-ajax-source">
         <div class="btn-group" style="margin:20px 0px 30px">
-                            <a href="#outside" data-toggle="tab" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Prodi Baru </a>
+                            <!-- <a data-toggle='modal' href='#modal-form' data-load-remote='".base_url('prodi/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-lg btn-success'><i class='fa fa-plus'></i> Tambah Prodi </a> -->
+                            <a href="#modal-form" data-toggle="modal" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Prodi Baru </a>
                             <a href="<?php echo base_url('prodi') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Prodi</a>
                         </div>
         <h2 class="text-center" style="margin:20px 0px 30px" >Tabel Data Prodi</h2>

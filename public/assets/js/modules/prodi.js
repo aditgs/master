@@ -2,7 +2,7 @@ $(document).ready(function() {
     $("#modal-form").on("hidden.bs.modal", function() {
         $('#modal-form .modal-body #addform #reset').trigger('click');
     });
-    $("body").on("click", ".edite", function(e) {
+    $("body").on("click", ".edit_prodi", function(e) {
         e.preventDefault();
         var id = $(this).attr("id");
         $(this).ready(function() {
@@ -15,6 +15,7 @@ $(document).ready(function() {
               	success: function(data) {
               		
                     for (var i in data) {
+                        // alert(data);
                         $('body #modal-form .modal-body input[name="' + i + '"]').val(data[i]);
                     }
                     $('#body').val(data.body);
