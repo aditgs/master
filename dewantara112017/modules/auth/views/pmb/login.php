@@ -10,6 +10,18 @@
             <h1 class="text-center">SISTEM PENERIMAAN MAHASISWA BARU</h1>
             <h3 class="text-center">STIE PGRI DEWANTARA JOMBANG</h3>
             <p class="text-center"><a class="btn btn-lg btn-warning" href="<?php echo base_url('pmb/register') ?>">DAFTAR</a></p>
+            <h3>Informasi PMB</h3>
+            <div class="list-group">
+                <a href="#" class="list-group-item active">
+                    <h4 class="list-group-item-heading">List group item heading</h4>
+                    <p class="list-group-item-text">Content goes here</p>
+                </a>
+            </div>
+            <div class="list-group">
+                <a href="#" class="list-group-item active">Pengumuman Penerimaan Mahasiswa Baru<label class="pull-right">11/01/2018</label></a>
+                <a href="#" class="list-group-item">Item 2</a>
+                <a href="#" class="list-group-item">Item 3</a>
+            </div>
         </div>
     </div>
 </div>
