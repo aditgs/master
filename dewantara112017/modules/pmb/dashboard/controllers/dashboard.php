@@ -14,11 +14,13 @@ class Dashboard extends MX_Controller {
 
 		parent::__construct();
 
+	   
+
         $this->lang->load('auth');
 
         if ( !$this->ion_auth->logged_in()): 
 
-            redirect('../auth/pmb/login', 'refresh');
+            redirect('../auth/login', 'refresh');
 
         // else:
 
@@ -26,8 +28,18 @@ class Dashboard extends MX_Controller {
 
         endif;
 
+      
+
+       
+
+      
+
         $this->template->add_js('crud.js');
+
         $this->template->set_layout('dashboard');
+
+
+
        }
 
     public function index(){
@@ -35,6 +47,68 @@ class Dashboard extends MX_Controller {
             $this->session->set_userdata("module",'pos');
 
            $this->template->add_js('muria.js');
+
+
+
+         /*   $this->template->add_js('
+
+                $("body").on("click","[data-load-remote]",function(e) {
+
+        e.preventDefault();
+
+        
+
+        var $this = $(this);
+
+        var remote = $this.data("load-remote");
+
+        var targets= $this.data("remote-target");
+
+        var forms= $this.data("form");
+
+        js="'.assets_url("js/modules/ptrx.01.js").'";
+
+        alert(js);
+
+        if(remote) {
+
+            // $(targets).load(remote);
+
+            $.ajax({
+
+                url:remote,
+
+                dataType:"html",
+
+                beforeSend:function(){
+
+                    $.ajaxSetup({async:true});
+
+                    $.getScript(js);
+
+                },
+
+                success:function(dt,status){
+
+                    $(targets).html(dt);
+
+                },
+
+
+
+            });
+
+           
+
+        }
+
+
+
+
+
+    });','embed');*/
+
+        // $this->ion_auth->get_users_groups($user->id)->result()
 
         if ($this->ion_auth->logged_in()):
 
@@ -72,13 +146,13 @@ class Dashboard extends MX_Controller {
 
         $this->template->load_view('dashboard_view',array(
 
-                        'title'=>'Dashboard Keuangan Mahasiswa',
+                        'title'=>'Dashboard Administrator',
 
-                        'subtitle'=>'Keuangan Mahasiswa',
+                        'subtitle'=>'Administrator',
 
                         'breadcrumb'=>array(
 
-                            'Keuangan Mahasiswa'),
+                            'Administrator'),
 
             ));
 

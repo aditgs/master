@@ -78,22 +78,17 @@ class Pmb extends MX_Controller {
                 //
                 $module=$this->session->userdata('modules');
 
-                if($module=='inv'){
-                    redirect('inv','refresh'); 
-                    if(!empty($lihat)){
-                        redirect('inv/'.$lihat,'refresh');
-                    }
-                }else{
+              
                     if($this->ion_auth->in_group(1,2,3)){
-                        redirect('/', 'refresh');
+                        redirect('/pmb/', 'refresh');
                     // redirect('/'.$lihat, 'refresh');
-                    redirect(base_url('admin/bagian'), 'refresh');
+                        redirect(base_url('admin/bagian'), 'refresh');
                     }elseif($this->ion_auth->in_group(5)){
                         redirect(base_url('frontend'), 'refresh');
                     }else{
-                        redirect('/', 'refresh');
+                        redirect('/pmb/', 'refresh');
                     }
-                }
+               
                 
                 
                                 
@@ -377,7 +372,7 @@ class Pmb extends MX_Controller {
         {
             //redirect them to the auth page
             $this->session->set_flashdata('message', $this->ion_auth->messages());
-            redirect("auth/pmb", 'refresh');
+            redirect("auth", 'refresh');
         }
         else
         {
@@ -423,7 +418,56 @@ class Pmb extends MX_Controller {
             }
 
             //redirect them back to the auth page
-            redirect('auth/pmb', 'refresh');
+            redirect('auth', 'refresh');
+        }
+    }
+    function registerform($ispost=TRUE,$msg=null){
+        // $token=$this->myauth->gentokenreg32();  //generate token
+        // $this->session->set_userdata(array('token'=>$token)); //set session token to validate token
+        if(isset($ispost)&&$ispost==TRUE){
+            $post=base_url('auth/pmb/register/'); //form register post to url --> http://localhost/!!cisaleem/pmb/register
+        }else{
+            $post='';
+        }
+        // $msg=base64_encode('Silakan daftar terlebih dahulu');
+        $this->template->load_view('pmb/register',array( //load view component 'register.php'
+                'title'=>'<h1>Pendaftaran Calon Mahasiswa</h1>', //send this string to view
+                'post'=>$post,
+                'loginurl'=>base_url('pmb/login'), //login form will be post to this url http://localhost/!!cisaleem/pmb/login
+                // 'token'=>$token,
+                'msg'=>$msg,
+            ));
+    }
+    function register(){
+        $this->template->set_layout('home');
+        $submit=$this->input->post('submit');   
+        if(isset($submit)){     //if form have submitted
+            $bit=$this->input->post('bit',TRUE);    //input password
+            $password=$this->input->post('password',TRUE);  //input password
+            $username=$this->input->post('username',TRUE);  //input username
+            // $token=$this->input->post('token',TRUE);        //input token
+            $email=$this->input->post('email',TRUE);        //input token
+            $sestoken=$this->session->userdata('token');    //get real token in session
+
+            $this->form_validation->set_rules('username','Username', 'required|trim|xss_clean');    //validate username input
+            $this->form_validation->set_rules('email','Email', 'required|trim|xss_clean');  //validate username input
+            $this->form_validation->set_rules('password','Password','required|trim|xss_clean');     //validate password input
+            // $this->form_validation->set_rules('token','token','required|trim|xss_clean');           //validate tokenkey
+                /*print($decode64);
+                        print($username);
+                        print($password);
+                        print($sestoken);*/
+            if ($this->form_validation->run() == FALSE){
+                $this->session->set_flashdata(validation_errors());  
+                $msg=base64_encode(validation_errors());
+                // echo "validation failed"; 
+                // echo validation_errors();
+                $this->registerform(TRUE,$msg);
+            }else{
+                
+            }
+        }else{                  //else form not submitted
+            $this->registerform();
         }
     }
     function registerx(){
@@ -437,7 +481,7 @@ class Pmb extends MX_Controller {
 
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
         {
-            redirect('auth/pmb', 'refresh');
+            redirect('auth', 'refresh');
         }
 
         $tables = $this->config->item('tables','ion_auth');
@@ -469,7 +513,7 @@ class Pmb extends MX_Controller {
             //check to see if we are creating the user
             //redirect them back to the admin page
             $this->session->set_flashdata('message', $this->ion_auth->messages());
-            redirect("auth/pmb", 'refresh');
+            redirect("auth", 'refresh');
         }
         else
         {
@@ -525,108 +569,13 @@ class Pmb extends MX_Controller {
             $this->template->load_view('wrapper',$this->data);
             // $this->_render_page('auth/pmb/create_user', $this->data);
         }
-    }//create a new user
-    function register()
-    {
-        $this->data['title'] = "Register_user";
-
-    /*    if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-        {
-            redirect('auth/pmb', 'refresh');
-        }
-*/
-        $tables = $this->config->item('tables','ion_auth');
-
-        //validate form input
-        $this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required|xss_clean');
-        $this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required|xss_clean');
-        $this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
-        $this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required|xss_clean');
-      
-        $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-        $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
-
-        if ($this->form_validation->run() == true)
-        {
-            $username = strtolower($this->input->post('first_name')) . ' ' . strtolower($this->input->post('last_name'));
-            $email    = strtolower($this->input->post('email'));
-            $password = $this->input->post('password');
-
-            $additional_data = array(
-                'first_name' => $this->input->post('first_name'),
-                'last_name'  => $this->input->post('last_name'),
-                'company'    => $this->input->post('company'),
-                'phone'      => $this->input->post('phone'),
-            );
-        }
-        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
-        {
-            //check to see if we are creating the user
-            //redirect them back to the admin page
-            $this->session->set_flashdata('message', $this->ion_auth->messages());
-            redirect("auth/pmb", 'refresh');
-        }
-        else
-        {
-            //display the create user form
-            //set the flash data error message if there is one
-            $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
-
-            $this->data['first_name'] = array(
-                'name'  => 'first_name',
-                'id'    => 'first_name',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('first_name'),
-            );
-            $this->data['last_name'] = array(
-                'name'  => 'last_name',
-                'id'    => 'last_name',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('last_name'),
-            );
-            $this->data['email'] = array(
-                'name'  => 'email',
-                'id'    => 'email',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('email'),
-            );
-            $this->data['company'] = array(
-                'name'  => 'company',
-                'id'    => 'company',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('company'),
-            );
-            $this->data['phone'] = array(
-                'name'  => 'phone',
-                'id'    => 'phone',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('phone'),
-            );
-            $this->data['password'] = array(
-                'name'  => 'password',
-                'id'    => 'password',
-                'type'  => 'password',
-                'value' => $this->form_validation->set_value('password'),
-            );
-            $this->data['password_confirm'] = array(
-                'name'  => 'password_confirm',
-                'id'    => 'password_confirm',
-                'type'  => 'password',
-                'value' => $this->form_validation->set_value('password_confirm'),
-            );
-            $this->template->set_layout('narrow');
-            $this->data['view']='pmb/register';
-            $this->data['title']='Create User';
-            $this->template->load_view('wrapper',$this->data);
-            // $this->_render_page('auth/pmb/create_user', $this->data);
-        }
     }
     function edit_group_user($id){
         $this->data['title'] = "Edit User";
 
         if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
         {
-            redirect('auth/pmb', 'refresh');
+            redirect('auth', 'refresh');
         }
 
         $user = $this->ion_auth->user($id)->row();
@@ -679,7 +628,7 @@ class Pmb extends MX_Controller {
 
         if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
         {
-            redirect('auth/pmb', 'refresh');
+            redirect('auth', 'refresh');
         }
 
         $user = $this->ion_auth->user($id)->row();
@@ -743,7 +692,7 @@ class Pmb extends MX_Controller {
                 $this->session->set_flashdata('message', "User Saved");
                 if ($this->ion_auth->is_admin())
                 {
-                    redirect('auth/pmb', 'refresh');
+                    redirect('auth', 'refresh');
                 }
                 else
                 {
@@ -812,7 +761,7 @@ class Pmb extends MX_Controller {
 
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
         {
-            redirect('auth/pmb', 'refresh');
+            redirect('auth', 'refresh');
         }
 
         //validate form input
@@ -827,7 +776,7 @@ class Pmb extends MX_Controller {
                 // check to see if we are creating the group
                 // redirect them back to the admin page
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect("auth/pmb", 'refresh');
+                redirect("auth", 'refresh');
             }
         }
         else
@@ -862,14 +811,14 @@ class Pmb extends MX_Controller {
         // bail if no group id given
         if(!$id || empty($id))
         {
-            redirect('auth/pmb', 'refresh');
+            redirect('auth', 'refresh');
         }
 
         $this->data['title'] = $this->lang->line('edit_group_title');
 
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
         {
-            redirect('auth/pmb', 'refresh');
+            redirect('auth', 'refresh');
         }
 
         $group = $this->ion_auth->group($id)->row();
@@ -892,7 +841,7 @@ class Pmb extends MX_Controller {
                 {
                     $this->session->set_flashdata('message', $this->ion_auth->errors());
                 }
-                redirect("auth/pmb", 'refresh');
+                redirect("auth", 'refresh');
             }
         }
 
