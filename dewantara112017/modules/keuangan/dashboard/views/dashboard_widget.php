@@ -53,7 +53,7 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>siku/laporan/keuanganmhs" >
+    <a class="" href="<?php echo domain() ?>siku/tagihan/laporan" >
     <div class="widget style1 lazur-bg">
     <div class="row">
         <div class="col-xs-4">
