@@ -15,7 +15,7 @@ class Tagihan extends MX_Controller {
         endif;
 
            
-        
+        // echo $this->session->userdata('module');
         $this->template->add_js('datatables.js');
         $this->template->add_js('muria.js');
         // $this->template->add_js('crud.js');
@@ -84,6 +84,7 @@ class Tagihan extends MX_Controller {
             'breadcrumb'=>array(
             'Tagihanmhs'),
         ));
+        // print_r ($this->session->userdata('module')); 
     }
 
     public function data() {
