@@ -42,9 +42,10 @@ class kelompokmhs extends MX_Controller {
 
     public function index() {
         $this->template->set_title('Kelola Kelompokmhs');
-        $this->template->add_js('var baseurl="'.base_url().'kelompokmhs/";','embed');  
+        $this->template->add_js('var baseurl="'.base_url().'kelompokmhs/";','embed'); 
+        $this->template->add_js('modules/kelompokmhs.js'); 
         $this->template->load_view('kelompokmhs_view',array(
-            'view'=>'',
+            'view'=>'kelompokmhs_data',
             'title'=>'Kelola Data Kelompokmhs',
             'subtitle'=>'Pengelolaan Kelompokmhs',
             'breadcrumb'=>array(
@@ -55,7 +56,7 @@ class kelompokmhs extends MX_Controller {
         $this->template->set_title('Kelola Kelompokmhs');
         $this->template->add_js('var baseurl="'.base_url().'kelompokmhs/";','embed');  
         $this->template->load_view('kelompokmhs_view',array(
-            'view'=>'Kelompokmhs_data',
+            'view'=>'kelompokmhs_data',
             'title'=>'Kelola Data Kelompokmhs',
             'subtitle'=>'Pengelolaan Kelompokmhs',
             'breadcrumb'=>array(
@@ -131,7 +132,7 @@ class kelompokmhs extends MX_Controller {
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('kelompokmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit_kelompokmhs btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
             $this->datatables->unset_column('id');
@@ -163,7 +164,8 @@ class kelompokmhs extends MX_Controller {
            
     }
 
-    public function get($id=null){
+    public function get(){
+        $id = $this->input->post('id');
         if($id!==null){
             echo json_encode($this->keldb->get_one($id));
         }
@@ -203,8 +205,8 @@ class kelompokmhs extends MX_Controller {
 
     public function submit(){
         if ($this->input->post('ajax')){
-          if ($this->input->post('id')){
-            $this->keldb->update($this->input->post('id'));
+          if ($this->input->post('Kodek')){
+            $this->keldb->update($this->input->post('Kodek'));
           }else{
             //$this->keldb->save();
             $this->keldb->saveas();
@@ -212,8 +214,8 @@ class kelompokmhs extends MX_Controller {
 
         }else{
           if ($this->input->post('submit')){
-              if ($this->input->post('id')){
-                $this->keldb->update($this->input->post('id'));
+              if ($this->input->post('Kodek')){
+                $this->keldb->update($this->input->post('Kodek'));
               }else{
                 //$this->keldb->save();
                 $this->keldb->saveas();
