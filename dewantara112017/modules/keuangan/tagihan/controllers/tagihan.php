@@ -398,6 +398,17 @@ class Tagihan extends MX_Controller {
             endif;
         endif;
     }
+    function getuserinfo(){
+        if ($this->ion_auth->logged_in()):
+            $user = $this->ion_auth->user()->row();
+            if (!empty($user)):
+                
+                return $user;
+            else:
+                return array();
+            endif;
+        endif;
+    }
     function forms(){   
 
         // $this->load->view('tagihanmhs_form_inside');
@@ -449,6 +460,50 @@ class Tagihan extends MX_Controller {
         $html=$this->load->view('modaltarif',array('kodemhs'=>$kodemhs,'nim'=>$nim),true);
         $this->output->set_output($html);
         // return $html;
+    }
+    function verval(){
+
+    }
+    function verify()
+    {
+        $this->form_validation->set_rules('id', 'ID', 'required|numeric');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        // print_r($this->getuserinfo());
+
+        if ($this->form_validation->run() == true)
+        {
+            //check to see if the user is logging in
+            //check for "remember me"
+
+            $remember = (bool) $this->input->post('remember');
+            $userinfo=$this->getuserinfo();
+            // print_r($userinfo->username);
+            // if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
+            if ($this->ion_auth->login($userinfo->username, $this->input->post('password'), $remember))
+            {
+                //if the login is successful
+                //redirect them back to the home page
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
+                    $ok=$this->tagihdb->validasitagihan($this->input->post('id'));
+                   /* if($this->ion_auth->in_group(1,2,3)){
+                        redirect('/', 'refresh');
+                    // redirect('/'.$lihat, 'refresh');
+                    redirect(base_url('admin/bagian'), 'refresh');
+                    }elseif($this->ion_auth->in_group(5)){
+                        redirect(base_url('frontend'), 'refresh');
+                    }else{
+                        redirect('/', 'refresh');
+                    }*/
+               
+                    echo json_encode(array('st'=>1,'msg'=>'<div class="alert alert-success">Verifikasi Berhasil:'.$ok.'</div>'));
+            } else {
+
+                echo json_encode(array('st'=>0,'msg'=>'<div class="alert alert-danger">'.$this->ion_auth->errors().'</div>'));
+           }
+        } else {
+                echo json_encode(array('st'=>0,'msg'=>'<div class="alert alert-warning">'.validation_errors().'</div>'));
+            
+        }
     }
     function validation(){
         $idval=$this->input->post('idval');
