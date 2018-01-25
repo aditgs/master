@@ -3,7 +3,7 @@ $(document).ready(function() {
         // $('#modal-form .modal-body #addform #reset').trigger('click');
         $('.modal-body').find('input').val('');
     });
-    $("body").on("click", ".edit_prodi", function(e) {
+    $("body").on("click", ".edit_kelompokmhs", function(e) {
         e.preventDefault();
         var id = $(this).attr("id");
         $(this).ready(function() {
