@@ -12,6 +12,7 @@ class Site extends MX_Controller{
         $this->load->model('site_model','sitedb',TRUE);
         $this->load->library('form_validation');
         $this->load->helper('url','form');
+        $this->session->set_userdata('modules','sika');
         
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
@@ -26,7 +27,12 @@ class Site extends MX_Controller{
 
 	}
     function index(){
-        redirect('dashboard','refresh');
+        if($this->session->userdata('modules')=='sika'){
+
+            redirect('dashboard','refresh');
+        }else{
+            redirect('auth/logout');
+        }
     }
 	function indexx    (){
         // echo frontend_url();
