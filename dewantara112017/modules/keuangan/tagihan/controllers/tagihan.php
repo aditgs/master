@@ -303,7 +303,7 @@ class Tagihan extends MX_Controller {
             $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-mhs='$3'data-load-remote='".base_url('tagihan/gettabeltarif/$1/$4')."' data-remote-target='#modal-id .modal-body' data-kodemhs='$4' class='bymhs btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs,kodemhs");
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/formval/$2/')."' data-remote-target='#modal-id .modal-body' class='btn btn-success btn-xs'><i class='fa fa-check'></i> </a>" 
+                <a data-toggle='modal' href='#modal-validation' data-load-remote='".base_url('tagihan/formval/$2/')."' data-remote-target='#modal-validation .modal-body' class='btn btn-success btn-xs'><i class='fa fa-check'></i> </a>" 
                 ."<a class='edit btn btn-xs btn-warning' data-toggle='modal' href='#modal-form' title='Edit' id='$1'><i class='fa fa-pencil'></i></a>"
                 .'<button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-eye"></i> Aksi <span class="caret"></span></button>'
                 .'<ul class="dropdown-menu" style="position:relative;z-index:10000 !important">
@@ -433,6 +433,15 @@ class Tagihan extends MX_Controller {
         $html=$this->load->view('formval',array('default'=>$tagihan),true);
         $this->output->set_output($html);
         // return $html;
+    }
+    function formvalpass($id){
+        // $id=base64_decode($this->input->post('id'));
+        // $password=base64_decode($this->input->post('password'));
+
+        $tagihan=$this->tagihdb->get_one($id);
+        $html=$this->load->view('formvalpass',array('default'=>$tagihan),true);
+        // $this->output->set_output($html);
+        return $html;
     }
     function gettabeltarif($nim,$kodemhs){
         // $id=base64_decode($id);
@@ -703,10 +712,10 @@ class Tagihan extends MX_Controller {
         // return $status;
     }
     function __validationtagihan(){
-        $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
+        // $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
         $this->form_validation->set_rules('kode', 'Kode', 'required|trim|xss_clean');
         $this->form_validation->set_rules('total','Total Tagihan','required|numeric|trim|xss_clean');
-        $this->form_validation->set_rules('password','Password','required|numeric|trim|xss_clean');
+        // $this->form_validation->set_rules('password','Password','required|numeric|trim|xss_clean');
 
        
 
@@ -721,10 +730,32 @@ class Tagihan extends MX_Controller {
         }
         // return $status;
     }
-    function submitval(){
-        if($this->__validationtagihan()===TRUE):
+    function datacekval(){
+        $data['id']=$this->input->post('id');
+        $data['kode']=$this->input->post('kode');
+        $data['tanggal']=NOW();
+        $data['total']=$this->input->post('total');
+        $valid=$this->tagihdb->get_one($this->input->post('id'));
+        if($data['id']==$valid['id'] && $data['kode']==$valid['kode'] && $data['total']==$valid['total']){
 
-             echo json_encode(array('st'=>1, 'msg' => 'Tagihan berhasil di validasi'));
+            return array('data'=>$valid,'input'=>$data);
+        }else{
+            return array();
+        }
+    }
+    function cekval(){
+        if($this->__validationtagihan()===TRUE):
+            $datavalid=$this->datacekval();
+            if(!empty($datavalid)){
+                // print_r($datavalid);
+                $id=$datavalid['data']['id'];
+                // echo json_encode(array('st'=>1, 'msg' => 'Data Valid','data'=>$datavalid));
+                echo json_encode(array('st'=>1, 'msg' => 'Data Valid','view'=>$this->formvalpass($id)));
+            }else{
+                echo json_encode(array('st'=>0, 'msg' => 'Data Tidak Valid'));
+
+            }
+
         else:
             echo $this->__validationtagihan();
         endif;

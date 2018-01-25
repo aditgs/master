@@ -1,6 +1,6 @@
-<div class="modal fade" id="modal-validation">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content panel panel-success">
+<div class="modal fade" id="modal-password">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content panel panel-warning">
             <div class="modal-header panel-heading navy-bg">
                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h3 class="panel-title"><?= (!empty($title_form)||isset($title_form))?$title_form:'Tagihan';  ?></h3>
@@ -14,11 +14,7 @@
                 endif;
                 ?>
             </div>
-            <div class="panel-footer">
-                <div class="text-center">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+          
         </div>
         <!-- /.modal-content -->
     </div>
