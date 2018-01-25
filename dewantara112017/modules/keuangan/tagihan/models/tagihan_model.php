@@ -344,6 +344,44 @@ class Tagihan_model extends CI_Model {
         $this->db->update('tagihanmhs', $data);
        
     } 
+    function validasitagihan($id=null) {
+        //semua field ini menyesuaikan dengan yang ada pada model dan tabel
+        $data=array(
+             'islocked' => 1,
+             'tglvalidasi' => NOW(),
+             'isvalidasi' => 1,
+             'islocked' => 1,
+             'isactive' => 1,
+             'uservalidated' => userid(),
+             
+
+            );
+        
+        $this->db->where('id', $id);
+        $this->db->update('tagihanmhs', $data);
+        $this->validasidetail($id);
+        return $this->db->affected_rows();
+        
+       
+    } 
+    function validasidetail($id){
+        $tag=$this->get_one($id);
+        $kodetagih=$tag['kode'];
+        $detail=array(
+            // 'kodetagihan'=>$kodetagih,
+             // 'islocked' => 1,
+             'datevalidated' => NOW(),
+             'isvalidated' => 1,
+             // 'islocked' => 1,
+             'isactive' => 1,
+             'uservalidated' => userid(),
+             
+
+            );
+        $this->db->where('kodetagihan', $kodetagih);
+        $this->db->update('tagihan_detail', $detail);
+        return $this->db->affected_rows();
+    }
     function updatebyid($id,$data){
         $this->db->where('id', $id);
         $this->db->update('tagihanmhs', $data);
