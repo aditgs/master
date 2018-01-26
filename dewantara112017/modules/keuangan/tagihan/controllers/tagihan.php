@@ -485,6 +485,7 @@ class Tagihan extends MX_Controller {
                 //redirect them back to the home page
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
                     $ok=$this->tagihdb->validasitagihan($this->input->post('id'));
+                    $tagih=$this->tagihdb->get_one($this->input->post('id'));
                    /* if($this->ion_auth->in_group(1,2,3)){
                         redirect('/', 'refresh');
                     // redirect('/'.$lihat, 'refresh');
@@ -495,7 +496,7 @@ class Tagihan extends MX_Controller {
                         redirect('/', 'refresh');
                     }*/
                
-                    echo json_encode(array('st'=>1,'msg'=>'<div class="alert alert-success">Verifikasi Berhasil:'.$ok.'</div>'));
+                    echo json_encode(array('st'=>1,'msg'=>'<div class="alert alert-success">Verifikasi Berhasil: <strong>'.$tagih['kode'].'</strong></div>'));
             } else {
 
                 echo json_encode(array('st'=>0,'msg'=>'<div class="alert alert-danger">'.$this->ion_auth->errors().'</div>'));
