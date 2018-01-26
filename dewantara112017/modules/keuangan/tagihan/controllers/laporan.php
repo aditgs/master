@@ -176,7 +176,7 @@ class Laporan extends MX_Controller {
         $data=$this->lapordb->getalljenis($datax);
         
         // print_r($data);
-        $html=$this->load->view('tabeltagihanmhs',array('data'=>$data,'judul'=>$judul,'isdetail'=>$isdetail),TRUE);
+        $html=$this->load->view('tabeltagihanjenis',array('data'=>$data,'judul'=>$judul,'isdetail'=>$isdetail),TRUE);
         return $html;
     }
     function get_trx_rekap($datax,$judul=null){
