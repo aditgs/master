@@ -173,7 +173,7 @@ class Laporan extends MX_Controller {
     }  
     function get_trxjenis($datax,$judul=null,$isdetail=null){
         $this->template->set_layout('cetak');
-        $data=$this->lapordb->getalljenis($datax);
+        $data=$this->lapordb->getalltagjenis($datax);
         
         // print_r($data);
         $html=$this->load->view('tabeltagihanjenis',array('data'=>$data,'judul'=>$judul,'isdetail'=>$isdetail),TRUE);

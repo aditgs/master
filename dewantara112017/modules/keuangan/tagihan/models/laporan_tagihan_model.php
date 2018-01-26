@@ -70,7 +70,7 @@ class Laporan_tagihan_model extends CI_Model {
         if(!empty($data['end'])||$data['end']!==''):
             $this->db->where('a.tanggal <=',!empty($data['end'])?$data['end']:date('Y-m-d'));
         endif; 
-        $this->db->group_by('a.kodetagihan');
+        $this->db->group_by('a.kodejenis');
 		// $sql="select * from tagihanmhs";
         // $result = $this->db->query($sql);
         $result = $this->db->get();
