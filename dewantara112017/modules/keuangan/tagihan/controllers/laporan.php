@@ -170,6 +170,14 @@ class Laporan extends MX_Controller {
         // print_r($data);
         $html=$this->load->view('tabeltagihanmhs',array('data'=>$data,'judul'=>$judul,'isdetail'=>$isdetail),TRUE);
         return $html;
+    }  
+    function get_trxjenis($datax,$judul=null,$isdetail=null){
+        $this->template->set_layout('cetak');
+        $data=$this->lapordb->getalltagjenis($datax);
+        
+        // print_r($data);
+        $html=$this->load->view('tabeltagihanjenis',array('data'=>$data,'judul'=>$judul,'isdetail'=>$isdetail),TRUE);
+        return $html;
     }
     function get_trx_rekap($datax,$judul=null){
         $this->template->set_layout('cetak');

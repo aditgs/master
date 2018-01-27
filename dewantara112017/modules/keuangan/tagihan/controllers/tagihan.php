@@ -485,6 +485,7 @@ class Tagihan extends MX_Controller {
                 //redirect them back to the home page
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
                     $ok=$this->tagihdb->validasitagihan($this->input->post('id'));
+                    $tagih=$this->tagihdb->get_one($this->input->post('id'));
                    /* if($this->ion_auth->in_group(1,2,3)){
                         redirect('/', 'refresh');
                     // redirect('/'.$lihat, 'refresh');
@@ -495,7 +496,7 @@ class Tagihan extends MX_Controller {
                         redirect('/', 'refresh');
                     }*/
                
-                    echo json_encode(array('st'=>1,'msg'=>'<div class="alert alert-success">Verifikasi Berhasil:'.$ok.'</div>'));
+                    echo json_encode(array('st'=>1,'msg'=>'<div class="alert alert-success">Verifikasi Berhasil: <strong>'.$tagih['kode'].'</strong></div>'));
             } else {
 
                 echo json_encode(array('st'=>0,'msg'=>'<div class="alert alert-danger">'.$this->ion_auth->errors().'</div>'));
@@ -732,9 +733,9 @@ class Tagihan extends MX_Controller {
             $jml=$this->tarifdb->getbyid($value);
             $total=$total+$jml['Tarif'];
             $jumlah++;
-            if($jumlah>5){
+            if($jumlah>10){
                 $st='0';
-                $msg='<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 5 item tarif</h3>';
+                $msg='<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 10 item tarif</h3>';
             }else{
                 $st='1';
                 $msg='';
@@ -823,7 +824,7 @@ class Tagihan extends MX_Controller {
             $paket=json_encode($item);
             // print_r(count($opt_pakett));
             // print_r(count($item));
-            if(count($item)<=5):
+            if(count($item)<=10):
                 $data = array(
                 
                     'kode' => $this->input->post('kode', TRUE),
@@ -878,7 +879,7 @@ class Tagihan extends MX_Controller {
                 //validasi backend
                 echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data tagihan berhasil disimpan</h3>'));
             else:
-                echo json_encode(array('st'=>0, 'msg' => '<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 5 item tarif</h3>'));
+                echo json_encode(array('st'=>0, 'msg' => '<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 10 item tarif</h3>'));
             endif;
         else:
             echo $this->__formvalidation();
