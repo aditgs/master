@@ -97,8 +97,8 @@ class Auth extends MX_Controller {
                 if($this->ion_auth->in_group(1,2)){ //administrator/pimpinan
                         redirect('/', 'refresh');
                     
-                    }elseif($this->ion_auth->in_group(6)){//administrasi keu/akad/pmb
-                        redirect(base_url('sika/'), 'refresh');
+                    // }elseif($this->ion_auth->in_group(6)){//administrasi keu/akad/pmb
+                        // redirect(base_url('sika/'), 'refresh');
                     }elseif($this->ion_auth->in_group(11)){//administrasi keu/akad/pmb
                         redirect(base_url('siku/'), 'refresh');
                     }elseif($this->ion_auth->in_group(10)){//administrasi keu/akad/pmb
