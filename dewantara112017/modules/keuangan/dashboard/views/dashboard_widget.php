@@ -5,15 +5,15 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" data="#" href="<?php echo domain() ?>siku/tarif/" data-remote-target="#ajax-remote">
+    <a class="" data="#" href="<?php echo domain() ?>siku/tarif/setup" data-remote-target="#ajax-remote">
     <div class="widget style1 yellow-bg">
     <div class="row">
         <div class="col-xs-4">
             <i class="fa fa-gear fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Set Tarif Dasar </span>
-            <h2 class="font-bold">TARIF</h2>
+            <span> Setup Tarif Dasar </span>
+            <h2 class="font-bold">Setup Tarif</h2>
         </div>
     </div>
 </div>
@@ -37,15 +37,15 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>siku/tagihan/validasi" >
+    <a class="" href="<?php echo domain() ?>siku/tarif/" >
     <div class="widget style1 navy-bg">
     <div class="row">
         <div class="col-xs-4">
             <i class="fa fa-check fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Validasi Tagihan </span>
-            <h2 class="font-bold">Validasi</h2>
+            <span> Data Tarif </span>
+            <h2 class="font-bold">DATA TARIF</h2>
         </div>
     </div>
 </div>
