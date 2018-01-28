@@ -1,7 +1,6 @@
 <div class="datatable-ajax-source">
     <div class="btn-group" style="margin:20px 0px 30px">
-        <a class="btn btn-primary btn-lg" data-toggle="modal" href='#modal-id'>Calon Mahasiswa Baru</a>
-        <a href="<?php echo base_url('mhspmb/baru') ?>" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Buka Calon Mahasiswa Baru </a>
+        <a class="btn btn-primary btn-lg" data-toggle="modal" href='#modal-form'>Calon Mahasiswa Baru</a>
         <a href="<?php echo base_url('mhspmb') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Calon Mahasiswa</a>
     </div>
     <h2 class="text-center" style="margin:20px 0px 30px">Tabel Data Calon Mahasiswa</h2>
@@ -9,16 +8,12 @@
         <thead class="">
             <tr>
                 
-                <th>kode_prodi</th>
-                
-                <th>id_siakad_kelas</th>
-                
-                <th>tgl_reg_pmb</th>
-                
-                <th>noreg_pmb</th>
+               <th>noreg_pmb</th>
                 
                 <th>nm_cmhs</th>
                 
+                <th>nik_cmhs</th>
+
                 <th>kelamin_cmhs</th>
                 
                 <th>tmp_cmhs</th>
@@ -28,6 +23,8 @@
                 <th>agama_cmhs</th>
                 
                 <th>almt_cmhs</th>
+
+                <th>nm_ibu_cmhs</th>
                 
                 <th>kota_cmhs</th>
                 
@@ -48,29 +45,7 @@
                 <th>tgl_ijazah_pend</th>
                 
                 <th>nil_ijazah_pend</th>
-                
-                <th>status_pmb</th>
-                
-                <th>id_siakad_keu_rek</th>
-                
-                <th>id_siakad_keu_pendaftaran</th>
-                
-                <th>tgl_transfer</th>
-                
-                <th>nm_transfer</th>
-                
-                <th>img_bukti_transfer</th>
-                
-                <th>img_pasfoto</th>
-                
-                <th>img_ijazah</th>
-                
-                <th>img_transkrip</th>
-                
-                <th>img_pindah</th>
-                
-                <th>status_cmhs</th>
-                
+            
                 <th>Aksi</th>
             </tr>
         </thead>
