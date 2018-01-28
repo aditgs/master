@@ -78,22 +78,44 @@ class Auth extends MX_Controller {
                 //
                 $module=$this->session->userdata('modules');
 
-                if($module=='inv'){
-                    redirect('inv','refresh'); 
-                    if(!empty($lihat)){
-                        redirect('inv/'.$lihat,'refresh');
-                    }
-                }else{
-                    if($this->ion_auth->in_group(1,2,3)){
-                        redirect('/', 'refresh');
+                // if($module=='inv'){
+                //     redirect('inv','refresh'); 
+                //     if(!empty($lihat)){
+                //         redirect('inv/'.$lihat,'refresh');
+                //     }
+                // }else{
+                    // basic pencabangan
+                    /*if($this->ion_auth->in_group(1,2,3)){
                     // redirect('/'.$lihat, 'refresh');
                     redirect(base_url('admin/bagian'), 'refresh');
                     }elseif($this->ion_auth->in_group(5)){
                         redirect(base_url('frontend'), 'refresh');
                     }else{
                         redirect('/', 'refresh');
+                    }*/
+                // }
+                if($this->ion_auth->in_group(1,2)){ //administrator/pimpinan
+                        redirect('/', 'refresh');
+                    
+                    }elseif($this->ion_auth->in_group(6)){//administrasi keu/akad/pmb
+                        redirect(base_url('sika/'), 'refresh');
+                    }elseif($this->ion_auth->in_group(11)){//administrasi keu/akad/pmb
+                        redirect(base_url('siku/'), 'refresh');
+                    }elseif($this->ion_auth->in_group(10)){//administrasi keu/akad/pmb
+                        redirect(base_url('pmb/'), 'refresh');
+                    }elseif($this->ion_auth->in_group(7)){//mahasiswa/calon/pendaftar
+                        redirect(base_url('sika/mhs'), 'refresh');
+                    }elseif($this->ion_auth->in_group(8)){//mahasiswa/calon/pendaftar
+                        redirect(base_url('pmb/cmhs'), 'refresh');
+                    }elseif($this->ion_auth->in_group(9)){//mahasiswa/calon/pendaftar
+                        redirect(base_url('pmb/pendaftar'), 'refresh');
+                    }elseif($this->ion_auth->in_group(3)){//mahasiswa/calon/pendaftar
+                        redirect(base_url('report/'), 'refresh');
+
+                    }else{
+                        redirect('/', 'refresh');
                     }
-                }
+
                 
                 
                                 
