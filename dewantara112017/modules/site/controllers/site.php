@@ -34,13 +34,13 @@ class Site extends MX_Controller{
     function loadmenu(){
         $div="";
         if ($this->ion_auth->logged_in()):
-                        $user = $this->ion_auth->user()->row();
-                            if ( ! empty($user)):
-                                $userid=$user->id;
-                            $usergroup=$this->ion_auth->get_users_groups($user->id)->result();
-                        // $this->ion_auth->get_users_groups($userid)->row()->id
-                        foreach ($usergroup as $k => $v) {
-                            # code...
+            $user = $this->ion_auth->user()->row();
+            if ( ! empty($user)):
+                $userid=$user->id;
+                $usergroup=$this->ion_auth->get_users_groups($user->id)->result();
+                // $this->ion_auth->get_users_groups($userid)->row()->id
+                foreach ($usergroup as $k => $v) {
+                            
                             // print_r($v->id);
                             $group[]=$v->id;
 
