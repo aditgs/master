@@ -68,6 +68,12 @@ class Setup extends MX_Controller {
             'Tarif'),
         ));
     }
+    function getformkodejenis(){
+        $id=$this->input->post('id');
+        $form=$this->tarifdb->getjenisprodi($id);
+        echo json_encode($form);
+
+    }
     function getdata(){
 
     }

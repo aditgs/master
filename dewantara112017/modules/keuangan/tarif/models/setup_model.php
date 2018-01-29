@@ -15,6 +15,7 @@ class Setup_model extends CI_Model {
     function savetarifbatch($data){
         $this->db->insert_batch('tarif',$data);
     }
+   
 }
 
 /* End of file setup_model.php */

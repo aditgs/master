@@ -26,6 +26,7 @@ class Site extends MX_Controller{
 
 	}
     function index(){
+        $this->session->set_userdata("module",'siku');
         redirect('dashboard','refresh');
     }
 	function indexx    (){
