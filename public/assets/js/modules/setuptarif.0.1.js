@@ -16,6 +16,7 @@ $(document).ready(function() {
         gen();
     });
     $('select#prodi').change(function() {
+        getformgen();
         gen();
     });
     $('select#jenis').change(function() {
@@ -67,6 +68,15 @@ function gen() {
     }, 'json');
     // dx = JSON.stringify(data);
     // alert(dx);
+}
+
+function getformgen(){
+    id=$('select#prodi').val();
+    $.post(baseurl+'getformkodejenis',{id:id},function(data,status){
+        if(status=='success'){
+            $('.genkodejenis').html(data);
+        }
+    });
 }
 
 function handleSubmit(data) {

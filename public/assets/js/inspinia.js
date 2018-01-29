@@ -90,11 +90,11 @@ $(document).ready(function () {
 
     });
 
-    // Tooltips demo
+/*    // Tooltips demo
     $('.tooltip-demo').tooltip({
         selector: "[data-toggle=tooltip]",
         container: "body"
-    });
+    });*/
 
     // Move modal to body
     // Fix Bootstrap backdrop issu with animation.css

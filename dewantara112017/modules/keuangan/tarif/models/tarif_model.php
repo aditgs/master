@@ -88,7 +88,24 @@ class Tarif_model extends CI_Model {
             return array();
         }
     }
+    function getjenisprodi($id){
+        if($id=='61'){
+            $this->db->where('is_manajemen','1');
+        }elseif($id=='62'){
+            $this->db->where('is_akuntansi','1');
 
+        }else{
+            $this->db->where('prodi','semua');
+
+        }
+        
+        $result = $this->db->get('jenis');
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return array();
+        }
+    }
     //get data terakhir di generate
     function ceknomornull(){
           // $this->db->select('*'); //Faktur
