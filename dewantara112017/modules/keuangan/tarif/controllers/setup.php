@@ -60,7 +60,7 @@ class Setup extends MX_Controller {
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             // 'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
             'opt_angkatan'=>$tahun,
-            'jenis'=>$this->jenisdb->getall(),
+            // 'jenis'=>$this->jenisdb->getall(),
             'opt_tahun'=>$tahun,
             'title'=>'Setup Tarif Dasar',
             'subtitle'=>'Setup Tarif',
@@ -70,8 +70,11 @@ class Setup extends MX_Controller {
     }
     function getformkodejenis(){
         $id=$this->input->post('id');
-        $form=$this->tarifdb->getjenisprodi($id);
-        echo json_encode($form);
+        $jenis=$this->tarifdb->getjenisprodi($id);
+        $html=$this->load->view('formkodejenis',array('jenis'=>$jenis),TRUE);
+        $this->output->set_output($html);
+        // echo json_encode($jenis);
+        // return $html;
 
     }
     function getdata(){
