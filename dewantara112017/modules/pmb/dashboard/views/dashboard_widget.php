@@ -5,15 +5,15 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" data="#" href="<?php echo domain() ?>admin/" data-remote-target="#ajax-remote">
+    <a class="" data="#" href="<?php echo domain() ?>pmb/mhspmb/" data-remote-target="#ajax-remote">
     <div class="widget style1 yellow-bg">
     <div class="row">
         <div class="col-xs-4">
             <i class="fa fa-user fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Kelola Pengguna </span>
-            <h2 class="font-bold">USERS</h2>
+            <span> Kelola Calon Mahasiswa Baru </span>
+            <h2 class="font-bold">MABA</h2>
         </div>
     </div>
 </div>
@@ -28,8 +28,8 @@
             <i class="fa fa-database fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Kelola Database </span>
-            <h2 class="font-bold">DATABASE</h2>
+            <span> Kelola Jadwal Ujian </span>
+            <h2 class="font-bold">Jadwal Ujian</h2>
         </div>
     </div>
 </div>
@@ -44,8 +44,8 @@
             <i class="fa fa-cogs fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Konfigurasi </span>
-            <h2 class="font-bold">CONFIG</h2>
+            <span> Kelola Gelombang Pendaftaran </span>
+            <h2 class="font-bold">Periode Pendaftaran</h2>
         </div>
     </div>
 </div>
@@ -60,8 +60,8 @@
             <i class="fa fa-file-text fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Laporan </span>
-            <h2 class="font-bold">Laporan</h2>
+            <span> Kelola Pembayaran PMB </span>
+            <h2 class="font-bold">Pembayaran</h2>
         </div>
     </div>
 </div>

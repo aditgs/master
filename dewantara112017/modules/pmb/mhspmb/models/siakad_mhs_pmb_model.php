@@ -200,7 +200,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
            
             'id_siakad_kelas' => $this->input->post('id_siakad_kelas', TRUE),
            
-            'tgl_reg_pmb' => $this->input->post('tgl_reg_pmb', TRUE),
+            'tgl_reg_pmb' => NOW(),
            
             'noreg_pmb' => $this->input->post('noreg_pmb', TRUE),
            
@@ -301,7 +301,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
        
        'id_siakad_kelas' => $this->input->post('id_siakad_kelas', TRUE),
        
-       'tgl_reg_pmb' => $this->input->post('tgl_reg_pmb', TRUE),
+       'tgl_reg_pmb' => NOW(),
        
        'noreg_pmb' => $this->input->post('noreg_pmb', TRUE),
        

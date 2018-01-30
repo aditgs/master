@@ -20,14 +20,14 @@ class Mhspmb extends MX_Controller {
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
-        /*$this->template->add_js('accounting.min.js');
+        $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
-        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');*/
+        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
         
         /*ONLINE CDN*/
         /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
@@ -43,6 +43,8 @@ class Mhspmb extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Calon Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
+        $this->template->add_css('forms.css');
+        $this->template->add_js('modules/mhspmb.js');  
         $this->template->load_view('siakad_mhs_pmb_view',array(
             'view'=>'datacalonmhs',
             'title'=>'Kelola Data Calon Mahasiswa',
@@ -126,15 +128,15 @@ class Mhspmb extends MX_Controller {
 
     public function getdatatables(){
         //if($this->isadmin()==1):
-            $this->datatables->select('id_siakad_mhs_pmb,kode_prodi,id_siakad_kelas,tgl_reg_pmb,noreg_pmb,nik_cmhs,nm_cmhs,kelamin_cmhs,tmp_cmhs,tgl_cmhs,agama_cmhs,almt_cmhs,kota_cmhs,kodepos_cmhs,email_cmhs,hp_cmhs,telp_cmhs,asal_pend,jurusan_pend,no_ijazah_pend,tgl_ijazah_pend,nil_ijazah_pend,nm_ibu_cmhs,status_pmb,id_siakad_keu_rek,id_siakad_keu_pendaftaran,tgl_transfer,nm_transfer,img_bukti_transfer,img_pasfoto,img_ijazah,img_transkrip,img_pindah,status_cmhs,')
+            $this->datatables->select('id_siakad_mhs_pmb,nm_cmhs,kode_prodi,id_siakad_kelas,tgl_reg_pmb,noreg_pmb,nik_cmhs,kelamin_cmhs,tmp_cmhs,tgl_cmhs,agama_cmhs,almt_cmhs,kota_cmhs,kodepos_cmhs,email_cmhs,hp_cmhs,telp_cmhs,asal_pend,jurusan_pend,no_ijazah_pend,tgl_ijazah_pend,nil_ijazah_pend,nm_ibu_cmhs,status_pmb,id_siakad_keu_rek,id_siakad_keu_pendaftaran,tgl_transfer,nm_transfer,img_bukti_transfer,img_pasfoto,img_ijazah,img_transkrip,img_pindah,status_cmhs,')
                             ->from('siakad_mhs_pmb');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('mhspmb/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit_mhspmb btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id_siakad_mhs_pmb');
-            $this->datatables->unset_column('id_siakad_mhs_pmb,kode_prodi,id_siakad_kelas,tgl_reg_pmb,status_pmb,id_siakad_keu_rek,id_siakad_keu_pendaftaran,tgl_transfer,nm_transfer,img_bukti_transfer,img_pasfoto,img_ijazah,img_transkrip,img_pindah,status_cmhs,');
+            $this->datatables->unset_column('id_siakad_mhs_pmb,kode_prodi,id_siakad_kelas,nik_cmhs,kelamin_cmhs,tmp_cmhs,tgl_cmhs,agama_cmhs,almt_cmhs,kota_cmhs,kodepos_cmhs,email_cmhs,hp_cmhs,telp_cmhs,asal_pend,jurusan_pend,no_ijazah_pend,tgl_ijazah_pend,nil_ijazah_pend,nm_ibu_cmhs,id_siakad_keu_rek,id_siakad_keu_pendaftaran,tgl_transfer,nm_transfer,img_bukti_transfer,img_pasfoto,img_ijazah,img_transkrip,img_pindah,status_cmhs');
 
        /* else:
             $this->datatables->select('id_siakad_mhs_pmb,kode_prodi,id_siakad_kelas,tgl_reg_pmb,noreg_pmb,nm_cmhs,kelamin_cmhs,tmp_cmhs,tgl_cmhs,agama_cmhs,almt_cmhs,kota_cmhs,kodepos_cmhs,email_cmhs,hp_cmhs,telp_cmhs,asal_pend,jurusan_pend,no_ijazah_pend,tgl_ijazah_pend,nil_ijazah_pend,status_pmb,id_siakad_keu_rek,id_siakad_keu_pendaftaran,tgl_transfer,nm_transfer,img_bukti_transfer,img_pasfoto,img_ijazah,img_transkrip,img_pindah,status_cmhs,')
@@ -169,9 +171,10 @@ class Mhspmb extends MX_Controller {
            
     }
 
-    public function get($id_siakad_mhs_pmb=null){
-        if($id_siakad_mhs_pmb!==null){
-            echo json_encode($this->mhspmbdb->get_one($id_siakad_mhs_pmb));
+    public function get(){
+        $id = $this->input->post('id');
+        if($id!==null){
+            echo json_encode($this->mhspmbdb->get_one($id));
         }
     }
     function tables(){
