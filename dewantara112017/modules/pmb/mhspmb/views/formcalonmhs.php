@@ -15,28 +15,28 @@
          <div class="form-group">
             <?php echo form_label('Kode Prodi : ','kode_prodi',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('kode_prodi',set_value('kode_prodi', isset($default['kode_prodi']) ? $default['kode_prodi'] : ''),'id="kode_prodi" class="form-control" placeholder="Contoh : 61"'); ?>
+                <?php echo form_input('kode_prodi',set_value('kode_prodi', isset($default['kode_prodi']) ? $default['kode_prodi'] : ''),'id="kode_prodi" class="form-control" placeholder="Masukkan Kode Prodi"'); ?>
             </div>
         </div>
         
         <div class="form-group">
             <?php echo form_label('Nama Lengkap : ','nm_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('nm_cmhs',set_value('nm_cmhs', isset($default['nm_cmhs']) ? $default['nm_cmhs'] : ''),'id="nm_cmhs" class="form-control" placeholder="Contoh : Ahmad Rofiqul Muslikh"'); ?>
+                <?php echo form_input('nm_cmhs',set_value('nm_cmhs', isset($default['nm_cmhs']) ? $default['nm_cmhs'] : ''),'id="nm_cmhs" class="form-control" placeholder="Masukkan Nama"'); ?>
             </div>
         </div>
 
         <div class="form-group">
             <?php echo form_label('NIK : ','nik_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('nik_cmhs',set_value('kodepos_cmhs', isset($default['nik_cmhs']) ? $default['nik_cmhs'] : ''),'id="nik_cmhs" class="form-control" placeholder="Contoh : 01679765443368363"'); ?>
+                <?php echo form_input('nik_cmhs',set_value('kodepos_cmhs', isset($default['nik_cmhs']) ? $default['nik_cmhs'] : ''),'id="nik_cmhs" class="form-control" placeholder="Masukkan NIK"'); ?>
             </div>
         </div>
 
         <div class="form-group">
             <?php echo form_label('Nama Ibu : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Contoh : Sri Umiati"'); ?>
+                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
             </div>
         </div>
         
@@ -53,7 +53,7 @@
         <div class="form-group">
             <?php echo form_label('Tempat Lahir : ','tmp_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('tmp_cmhs',set_value('tmp_cmhs', isset($default['tmp_cmhs']) ? $default['tmp_cmhs'] : ''),'id="tmp_cmhs" class="form-control" placeholder="Contoh : Jombang "'); ?>
+                <?php echo form_input('tmp_cmhs',set_value('tmp_cmhs', isset($default['tmp_cmhs']) ? $default['tmp_cmhs'] : ''),'id="tmp_cmhs" class="form-control" placeholder="Masukkan Tempat Lahir "'); ?>
             </div>
         </div>
 
