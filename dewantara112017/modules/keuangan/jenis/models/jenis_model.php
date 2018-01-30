@@ -45,7 +45,7 @@ class Jenis_model extends CI_Model {
     //untuk generate faktur baru
     function get_last(){
 
-        $this->db->select('*'); //faktur
+        $this->db->select('KodeJ'); //faktur
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 

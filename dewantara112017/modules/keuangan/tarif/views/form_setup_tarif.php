@@ -75,6 +75,7 @@
     
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
         <h2>Jenis Pembayaran</h2>
+       <div class=""><?php //$this->load->view('formkodejenis',$jenis) ?></div>
        <div class="genkodejenis"></div>
 
 
