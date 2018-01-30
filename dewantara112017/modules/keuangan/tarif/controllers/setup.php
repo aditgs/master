@@ -39,8 +39,10 @@ class Setup extends MX_Controller {
 	}
 	public function index() {
         $this->template->set_title('Kelola Tarif');
-        $this->template->add_js('var baseurl="'.base_url().'tarif/setup/";','embed');  
-        $this->template->add_js('modules/setuptarif.0.1.js');  
+        $this->template->add_js('var baseurl="'.base_url().'tarif/setup/";
+            var assetsurl="'.assets_url('js').'/";
+            ','embed');  
+        $this->template->add_js('modules/setuptarif.0.2.js');  
         $tahun=array(
             '0'=>'-- Pilih Tahun --',
 			'2013'=>'2013',
@@ -60,7 +62,7 @@ class Setup extends MX_Controller {
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             // 'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
             'opt_angkatan'=>$tahun,
-            // 'jenis'=>$this->jenisdb->getall(),
+            'jenis'=>$this->jenisdb->getall(),
             'opt_tahun'=>$tahun,
             'title'=>'Setup Tarif Dasar',
             'subtitle'=>'Setup Tarif',

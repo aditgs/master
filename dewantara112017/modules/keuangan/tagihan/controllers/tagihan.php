@@ -244,7 +244,7 @@ class Tagihan extends MX_Controller {
         }else{
             $kode=0;
         }
-            $this->datatables->select('id,kodetarif,kodeket,tarif,kodemhs,kdsmster,tahun,kel')->from('004-view-tarif');
+            $this->datatables->select('id,kodetarif,nmjenis,kodetarif as kodeket,tarif,kodemhs,kdsmster,th_akad as tahun,kel')->from('006-view-tarifdetail');
 
             if(isset($kode)||!empty($kode)||$kode!==null||$kode>0):
     
@@ -255,7 +255,7 @@ class Tagihan extends MX_Controller {
             $this->datatables->where('kdsmster',$kdsmster);
         }
         if(isset($tahun)||!empty($tahun)||$tahun!==0||$tahun!==null){
-            $this->datatables->where('tahun',$tahun);
+            $this->datatables->where('th_akad',$tahun);
         }
         if(isset($kel)||!empty($kel)||$kel!==0||$kel!==null){
             $this->datatables->where('kel',$kel);

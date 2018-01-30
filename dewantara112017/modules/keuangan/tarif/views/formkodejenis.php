@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 
                                 <div class="controls">
-                                    <?php echo form_input('KodeT[]',set_value('KodeT', isset($default['KodeT']) ? $default['KodeT'] : ''),'id="KodeT" style="" data-tarif="'.$value['KodeJ'].'" class="form-control select2 input-md text-center kodetarif" placeholder="'.$value['KodeJ'].'" readonly'); ?>
+                                    <?php echo form_input('KodeT[]',set_value('KodeT', isset($default['KodeT']) ? $default['KodeT'] : ''),'id="KodeT" style="" data-tarif="'.$value['KodeJ'].'" class="form-control select2 input-md text-center kodetarif" placeholder="'.$value['KodeJ'].'" readonly' ); ?>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                             <div class="form-group">
                                 
                                 <div class="controls">
-                                    <?php echo form_input('Tarif[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="Tarif" style="" class="form-control input-md text-right nilaitarif" placeholder="Rp"'); ?>
+                                    <?php echo form_input('Tarif[]',set_value('Tarif', isset($default['Tarif']) ? $default['Tarif'] : ''),'id="Tarif" style="" class="inputs form-control input-md text-right nilaitarif" placeholder="Rp"'); ?>
                                 </div>
                             </div>
                         </div>

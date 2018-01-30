@@ -262,43 +262,18 @@ class jenis extends MX_Controller {
         }
     } 
     private function gen_faktur(){
-        $last=$this->jenisdb->get_last_pt();
+        $last=$this->jenisdb->get_last();
         // print_r($last);
         if(!empty($last)):
-            $first=substr($last['faktur_pt'],0,2);
-            if($first==''||$first==null){
-                $first=' ';
-            }
-            $left=substr($last['faktur_pt'],2,4);
-            $right=substr($last['faktur_pt'],-5);
+        
             $nopt=number_format($right); 
             
             
             $newpo=strval($nopt+1);
-            $newpo2=substr(strval("00000$newpo"),-5);
-
-        $tahun=substr($left,0,2);
-        $bulan=substr($left,2,4);
-        
-            if($tahun<>date('y')):
-                $tahun=date('y');
-                if($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan."00001");
-                elseif($bulan<>date('m')):
-                    $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001");
-                endif;
-            elseif($tahun==date('y')):
-                if(intval($bulan)<>date('m')):
-                    $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001"); 
-                elseif($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan.$newpo2);
-                endif;
-            endif;
+          
         else:
             // $gen="PT151100001";
-            $gen=" ".date('ym')."00001";
+            $gen="01";
         endif;
         return $gen;
     }
