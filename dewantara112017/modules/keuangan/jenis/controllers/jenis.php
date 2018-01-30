@@ -266,10 +266,10 @@ class jenis extends MX_Controller {
         // print_r($last);
         if(!empty($last)):
         
-            $nopt=number_format($right); 
+            $nopt=number_format($last); 
             
             
-            $newpo=strval($nopt+1);
+            $gen=strval($nopt+1);
           
         else:
             // $gen="PT151100001";
@@ -277,7 +277,7 @@ class jenis extends MX_Controller {
         endif;
         return $gen;
     }
-     function get_new_faktur(){
+     function get_new_nomor(){
         echo $this->gen_faktur();
     }
 

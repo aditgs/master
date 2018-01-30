@@ -23,7 +23,7 @@ class Kelompokmhs_model extends CI_Model {
         $this->db->where('datetime',NULL);
         $this->db->where('tanggal',NULL);
         $this->db->where('islocked',NULL);
-        $this->db->order_by('id','ASC');
+        $this->db->order_by('Kodek','ASC');
         $this->db->limit(1);
 
         $result=$this->db->get('kelompokmhs');
@@ -37,7 +37,7 @@ class Kelompokmhs_model extends CI_Model {
     function get_last(){
 
         $this->db->select('*'); //faktur
-        $this->db->order_by('id','DESC');
+        $this->db->order_by('Kodek','DESC');
         $this->db->limit(1);
 
         $result=$this->db->get('kelompokmhs');
@@ -94,8 +94,8 @@ class Kelompokmhs_model extends CI_Model {
         endif;
         return ($faktur);
     }
-    function get_one($id) {
-        $this->db->where('id', $id);
+    function get_one($Kodek) {
+        $this->db->where('Kodek', $Kodek);
         $result = $this->db->get('kelompokmhs');
         if ($result->num_rows() == 1) {
             return $result->row_array();
@@ -122,23 +122,7 @@ class Kelompokmhs_model extends CI_Model {
         //ganti faktur dengan ==> 'Faktur' =>$this->genfaktur(),
        $data = array(
         
-            'Kodek' => $this->input->post('Kodek', TRUE),
-           
             'Kelompok' => $this->input->post('Kelompok', TRUE),
-           
-            't2013' => $this->input->post('t2013', TRUE),
-           
-            't2014' => $this->input->post('t2014', TRUE),
-           
-            't2015' => $this->input->post('t2015', TRUE),
-           
-            'a' => $this->input->post('a', TRUE),
-           
-            'b' => $this->input->post('b', TRUE),
-           
-            'userid' => $this->input->post('userid', TRUE),
-           
-            'datetime' => $this->input->post('datetime', TRUE),
            
         );
         //'isdeleted' => null,
@@ -152,23 +136,7 @@ class Kelompokmhs_model extends CI_Model {
         
        $data = array(
         
-            'Kodek' => $this->input->post('Kodek', TRUE),
-           
             'Kelompok' => $this->input->post('Kelompok', TRUE),
-           
-            't2013' => $this->input->post('t2013', TRUE),
-           
-            't2014' => $this->input->post('t2014', TRUE),
-           
-            't2015' => $this->input->post('t2015', TRUE),
-           
-            'a' => $this->input->post('a', TRUE),
-           
-            'b' => $this->input->post('b', TRUE),
-           
-            'userid' => $this->input->post('userid', TRUE),
-           
-            'datetime' => $this->input->post('datetime', TRUE),
            
         );
         //'isdeleted' => null,
@@ -186,7 +154,7 @@ class Kelompokmhs_model extends CI_Model {
     function save_detail($data){
         $this->db->insert('kelompokmhs_detail',$data);
     }
-    function upddel_detail($id=null) {
+    function upddel_detail($Kodek=null) {
         //semua field ini menyesuaikan dengan yang ada pada model dan tabel
         $data=array(
              'isdeleted' => 1,
@@ -198,43 +166,27 @@ class Kelompokmhs_model extends CI_Model {
 
             );
         
-        $this->db->where('id', $id);
+        $this->db->where('Kodek', $Kodek);
         $this->db->update('kelompokmhs', $data);
        
     } 
-    function updatebyid($id,$data){
-        $this->db->where('id', $id);
+    function updatebyid($Kodek,$data){
+        $this->db->where('Kodek', $Kodek);
         $this->db->update('kelompokmhs', $data);
     }
-    function update($id) {
+    function update($Kodek) {
         $data = array(
-        'id' => $this->input->post('id',TRUE),
-       'Kodek' => $this->input->post('Kodek', TRUE),
-       
+        'Kodek' => $this->input->post('Kodek',TRUE),
        'Kelompok' => $this->input->post('Kelompok', TRUE),
        
-       't2013' => $this->input->post('t2013', TRUE),
-       
-       't2014' => $this->input->post('t2014', TRUE),
-       
-       't2015' => $this->input->post('t2015', TRUE),
-       
-       'a' => $this->input->post('a', TRUE),
-       
-       'b' => $this->input->post('b', TRUE),
-       
-       'userid' => $this->input->post('userid', TRUE),
-       
-       'datetime' => $this->input->post('datetime', TRUE),
-       
         );
-        $this->db->where('id', $id);
+        $this->db->where('Kodek', $Kodek);
         $this->db->update('kelompokmhs', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/
     }
 
-    function delete($id) {
-        $this->db->where('id', $id);
+    function delete($Kodek) {
+        $this->db->where('Kodek', $Kodek);
         $this->db->delete('kelompokmhs'); 
        
     }
@@ -252,11 +204,11 @@ class Kelompokmhs_model extends CI_Model {
     //untuk Array Dropdown
     function get_dropdown_array($value){
         $result = array();
-        $array_keys_values = $this->db->query('select id, '.$value.' from kelompokmhs order by id asc');
-        $result[0]="-- Pilih Urutan id --";
+        $array_keys_values = $this->db->query('select Kodek, '.$value.' from kelompokmhs order by Kodek asc');
+        $result[0]="-- Pilih Urutan Kodek --";
         foreach ($array_keys_values->result() as $row)
         {
-            $result[$row->id]= $row->$value;
+            $result[$row->Kodek]= $row->$value;
         }
         return $result;
     }
@@ -273,6 +225,7 @@ class Kelompokmhs_model extends CI_Model {
         }
         return $result;
     }
+    
     
 }
 ?>
