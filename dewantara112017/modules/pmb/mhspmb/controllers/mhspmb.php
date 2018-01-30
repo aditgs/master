@@ -43,6 +43,7 @@ class Mhspmb extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Calon Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
+        $this->template->add_css('forms.css');
         $this->template->load_view('siakad_mhs_pmb_view',array(
             'view'=>'datacalonmhs',
             'title'=>'Kelola Data Calon Mahasiswa',
