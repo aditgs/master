@@ -24,6 +24,7 @@
           
             
 </div>
-<?php $this->load->view('modal-id'); ?>
-<?php $this->load->view('modal-form'); ?>
+<?php $this->load->view('modal-id') ?>;
+<?php $this->load->view('modal-form') ?>;
 
+               
