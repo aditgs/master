@@ -1,7 +1,7 @@
 <div class="panel panel-info" style="margin-top:30px">
 	  
 	  <div class="panel-body" >
- <p class="text-center"><img style="width:100px;" alt="logo kota malang" class="image img-reponsive" src="<?php echo assets_url('images/pemkot.png'); ?> "> </p>
+ <p class="text-center"><img style="width:100px;" alt="logo STIE PGRI Dewantara" class="image img-reponsive" src="<?php echo assets_url('images/logo.png'); ?> "> </p>
 <h1><?php echo lang('forgot_password_heading');?></h1>
 <p><?php echo sprintf(lang('forgot_password_subheading'), $identity_label);?></p>
 
