@@ -47,6 +47,7 @@ class jenis extends MX_Controller {
         $this->template->load_view('jenis_view',array(
             'view'=>'jenis_data',
             'title'=>'Kelola Data Jenis',
+            'opt_parent'=>$this->jenisdb->getdropjenis(),
             'subtitle'=>'Pengelolaan Jenis',
             'breadcrumb'=>array(
             'Jenis'),
@@ -127,7 +128,7 @@ class jenis extends MX_Controller {
 
     public function getdatatables(){
        
-            $this->datatables->select('id,KodeJ,Jenis,')
+            $this->datatables->select('id,KodeJ,Jenis,prodi,iscicilan')
                             ->from('jenis');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('jenis/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
@@ -202,26 +203,46 @@ class jenis extends MX_Controller {
         }
       
     }
-
+    function __formvalidation(){
+        $this->form_validation->set_rules('Jenis', 'Keterangan Jenis ', 'required|trim|xss_clean');
+        if ($this->form_validation->run() == FALSE)
+            {
+                // $this->session->set_flashdata(validation_errors());             
+                // return json_encode(array('st'=>0, 'msg' => validation_errors()));
+                return json_encode(array('st'=>0, 'msg' => '<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i>'.validation_errors()));
+                // return FALSE;
+            }
+        else{
+            return TRUE;
+        }
+        // return $status;
+    }
     public function submit(){
-        if ($this->input->post('ajax')){
-          if ($this->input->post('id')){
-            $this->jenisdb->update($this->input->post('id'));
-          }else{
-            //$this->jenisdb->save();
-            $this->jenisdb->saveas();
-          }
-
-        }else{
-          if ($this->input->post('submit')){
+        if($this->__formvalidation()===TRUE):
+                   
+            if ($this->input->post('ajax')){
               if ($this->input->post('id')){
                 $this->jenisdb->update($this->input->post('id'));
               }else{
                 //$this->jenisdb->save();
                 $this->jenisdb->saveas();
               }
-          }
-        }
+
+            }else{
+              if ($this->input->post('submit')){
+                  if ($this->input->post('id')){
+                    $this->jenisdb->update($this->input->post('id'));
+                  }else{
+                    //$this->jenisdb->save();
+                    $this->jenisdb->saveas();
+                  }
+              }
+            }
+            echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data tagihan berhasil disimpan</h3>'));
+
+        else:
+            echo $this->__formvalidation();
+        endif;
     }
     
 
@@ -261,18 +282,19 @@ class jenis extends MX_Controller {
             }
         }
     } 
-    private function gen_faktur(){
+    function genkode(){
+        echo $this->jenisdb->genkode();
+    }
+    function gen_faktur(){
         $last=$this->jenisdb->get_last();
-        // print_r($last);
-        if(!empty($last)):
         
-            $nopt=number_format($last); 
+        if(!empty($last['KodeJ'])):
+            $gen=strval($last['KodeJ'])+1;
+            $new="00".$gen;
+            $gen=substr($new,-2);
             
-            
-            $gen=strval($nopt+1);
-          
         else:
-            // $gen="PT151100001";
+            
             $gen="01";
         endif;
         return $gen;

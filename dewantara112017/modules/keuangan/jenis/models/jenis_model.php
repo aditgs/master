@@ -103,6 +103,20 @@ class Jenis_model extends CI_Model {
         endif;
         return ($faktur);
     }
+    function genkode(){
+        $last=$this->get_last();
+        
+        if(!empty($last['KodeJ'])):
+            $gen=strval($last['KodeJ'])+1;
+            $new="00".$gen;
+            $gen=substr($new,-2);
+            
+        else:
+            
+            $gen="01";
+        endif;
+        return $gen;
+    }
     function get_one($id) {
         $this->db->where('id', $id);
         $result = $this->db->get('jenis');
@@ -147,11 +161,25 @@ class Jenis_model extends CI_Model {
         
        $data = array(
         
-            'KodeJ' => $this->input->post('KodeJ', TRUE),
+            'KodeJ' => $this->genkode(),
            
             'Jenis' => $this->input->post('Jenis', TRUE),
+            'prodi' => $this->input->post('prodi', TRUE),
+            'iscicilan' => $this->input->post('iscicilan', TRUE),
+            'parent' => $this->input->post('parent', TRUE),
            
         );
+        if($this->input->post('prodi')=='akuntansi'){
+            $data['is_akuntansi']=1;
+        }elseif($this->input->post('prodi')=='manajemen'){
+            $data['is_manajemen']=1;
+
+        }else{
+            $data['prodi']='semua';
+            $data['is_akuntansi']=1;
+            $data['is_manajemen']=1;
+
+        }
         //'isdeleted' => null,
         //    'datedeleted' => null,
         //    'islocked' =>1,
@@ -224,6 +252,16 @@ class Jenis_model extends CI_Model {
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->$value;
+        }
+        return $result;
+    } 
+    function getdropjenis(){
+        $result = array();
+        $array_keys_values = $this->db->query('select id,KodeJ,Jenis from jenis order by id asc');
+        $result[0]="-- Pilih Induk Jenis --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= "(".$row->KodeJ.") ".$row->Jenis;
         }
         return $result;
     }

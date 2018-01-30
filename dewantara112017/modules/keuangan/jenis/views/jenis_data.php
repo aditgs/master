@@ -11,6 +11,8 @@
                                                        
                                                         <th>KodeJ</th>
                                                         <th>Jenis</th>
+                                                        <th>Prodi</th>
+                                                        <th>Cicilan</th>
                                                         <th>Aksi</th>
 
                                                     </tr>
