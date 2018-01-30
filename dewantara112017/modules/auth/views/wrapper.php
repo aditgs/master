@@ -3,7 +3,7 @@
             <div class="row clearfix">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Form Purchase Order</h5>
+                        <h5>Form Pendaftaran</h5>
                         
                     </div>
                     <div class="ibox-content ">
