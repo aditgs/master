@@ -1,7 +1,7 @@
 
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'siakad_mhs_pmb/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <input type="hidden" value='' id="id_siakad_mhs_pmb" name="id_siakad_mhs_pmb"> 
         
         
@@ -56,7 +56,7 @@
                 <?php echo form_input('tmp_cmhs',set_value('tmp_cmhs', isset($default['tmp_cmhs']) ? $default['tmp_cmhs'] : ''),'id="tmp_cmhs" class="form-control" placeholder="Contoh : Jombang "'); ?>
             </div>
         </div>
-        
+
         <div class="form-group tanggal">
             <?php echo form_label('Tanggal Lahir : ','tgl_cmhs',array('class'=>'control-label')); ?>
             <div class="input-daterange input-group controls" id="datepicker">
@@ -69,7 +69,8 @@
                     <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
             </div>
         </div>
-
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <?php $opt_agama_cmhs = array('Islam',
             'Protestan'=>'Protestan',
             'Katolik'=>'Katolik',
@@ -81,13 +82,13 @@
             <label class="control-label">
                 Agama
             </label>
-            <div class="controls input-group">
+            <div class="controls input-group" style="width: 100%">
                 <?php $agama_cmhs = isset($default['agama_cmhs'])? $default['agama_cmhs'] : '0';  ?>
                 <?php echo form_dropdown('agama_cmhs',$opt_agama_cmhs,$agama_cmhs,'id="agama_cmhs" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Agama"'); ?>
               
             </div>
         </div>
-        
+
         <div class="form-group">
             <?php echo form_label('Alamat : ','almt_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -129,14 +130,16 @@
                 <?php echo form_input('telp_cmhs',set_value('telp_cmhs', isset($default['telp_cmhs']) ? $default['telp_cmhs'] : ''),'id="telp_cmhs" class="form-control" placeholder="Masukkan Telp"'); ?>
             </div>
         </div>
-        
+
         <div class="form-group">
             <?php echo form_label('Asal Pendidikan : ','asal_pend',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('asal_pend',set_value('asal_pend', isset($default['asal_pend']) ? $default['asal_pend'] : ''),'id="asal_pend" class="form-control" placeholder="Masukkan Asal Pendidikan"'); ?>
             </div>
         </div>
-        
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md43 col-lg-4">
         <div class="form-group">
             <?php echo form_label('Jurusan Pendidikan : ','jurusan_pend',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -216,8 +219,13 @@
                 </select>
             </div>     
         </div>
+    </div>    
         
-    </div>
+        
+        
+        
+        
+    
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
