@@ -4,32 +4,32 @@
 
 </div>
 
-<div class="col-lg-6">
-    <a class="" data="#" href="<?php echo domain() ?>siku/tarif/setup" data-remote-target="#ajax-remote">
+<div class="col-lg-3 col-sm-12">
+    <a class="" data="#" href="<?php echo domain() ?>admin/" data-remote-target="#ajax-remote">
     <div class="widget style1 yellow-bg">
     <div class="row">
         <div class="col-xs-4">
-            <i class="fa fa-gear fa-5x"></i>
+            <i class="fa fa-user fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Setup Tarif Dasar </span>
-            <h2 class="font-bold">Setup Tarif</h2>
+            <span> Kelola Pengguna </span>
+            <h2 class="font-bold">USERS</h2>
         </div>
     </div>
 </div>
     </a> 
 </div>
 
-<div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>siku/tagihan/" >
+<div class="col-lg-3">
+    <a class="" href="<?php echo domain() ?>admin/" >
     <div class="widget style1 red-bg">
     <div class="row">
         <div class="col-xs-4">
-            <i class="fa fa-list-ul fa-5x"></i>
+            <i class="fa fa-certificate fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Daftar Tagihan </span>
-            <h2 class="font-bold">TAGIHAN</h2>
+            <span>Jadwal Ujian </span>
+            <h2 class="font-bold">Tes Masuk</h2>
         </div>
     </div>
 </div>
@@ -37,15 +37,15 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>siku/tarif/" >
+    <a class="" href="<?php echo domain() ?>admin/" >
     <div class="widget style1 navy-bg">
     <div class="row">
         <div class="col-xs-4">
-            <i class="fa fa-check fa-5x"></i>
+            <i class="fa fa-cogs fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Data Tarif </span>
-            <h2 class="font-bold">DATA TARIF</h2>
+            <span> Konfigurasi </span>
+            <h2 class="font-bold">CONFIG</h2>
         </div>
     </div>
 </div>
@@ -53,14 +53,14 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>siku/tagihan/laporan" >
+    <a class="" href="<?php echo domain() ?>admin/" >
     <div class="widget style1 lazur-bg">
     <div class="row">
         <div class="col-xs-4">
             <i class="fa fa-file-text fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Laporan Keuangan </span>
+            <span> Laporan </span>
             <h2 class="font-bold">Laporan</h2>
         </div>
     </div>

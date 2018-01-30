@@ -85,6 +85,14 @@ $(document).ready(function() {
     $("body #addform").on("submit", function(e) {
         e.preventDefault();
         save(0);
+    });  
+    $("body ").on('click','#passform #saveval', function(e) {
+        e.preventDefault();
+        cekpass(0);
+    }); 
+    $("body ").on("click","#valform #saveval", function(e) {
+        e.preventDefault();
+        valid(0);
     });
     $("body").on("click", ".delete", function(e) {
         e.preventDefault();
@@ -129,6 +137,41 @@ function handleSubmit(data) {
     }
 
 }
+function handleValidation(data){
+    dx=JSON.parse(data);
+    // alert(data);   
+    // alert(dx);   
+    if (dx.st == 1) {
+
+        $('#modal-validation').modal('toggle');
+        $('#modal-password').modal('toggle');
+        $('#modal-password .modal-body').html(dx.view);
+        // $('#modal-notif').modal('toggle');
+        // $('#modal-notif .modal-body').html(dx.msg);
+    } else {
+        $('#modal-alert').modal('toggle');
+        $('#modal-alert .modal-body').html(dx.msg);
+        $('#modal-validation').modal('toggle');
+    }
+} 
+function handleVerify(data){
+    dx=JSON.parse(data);
+    // alert(data);   
+    // alert(dx);   
+    if (dx.st == 1) {
+
+        // $('#modal-validation').modal('toggle');
+        $('#modal-password').modal('toggle');
+        // $('#modal-password .modal-body').html(dx.view);
+        $('#modal-notif').modal('toggle');
+        $('#modal-notif .modal-body').html(dx.msg);
+    } else {
+        $('#modal-alert').modal('toggle');
+        $('#modal-alert .modal-body').html(dx.msg);
+        $('#modal-password').modal('toggle');
+        // $('#modal-validation').modal('toggle');
+    }
+} 
 
 
 function save(id) {
@@ -144,6 +187,42 @@ function save(id) {
 
             success: function(data, status) {
                 handleSubmit(data);
+            }
+        });
+    });
+}
+function valid(id) {
+    var data = $('body form#valform').serializeArray();
+    data.push({ name: 'ajax', value: 1 });
+
+    $(this).ready(function() {
+        $.ajax({
+            url: baseurl + "cekval",
+            data: data,
+            async: false,
+            type: "POST",
+
+            success: function(data, status) {
+                handleValidation(data);
+                // alert(data);
+            }
+        });
+    });
+}
+function cekpass() {
+    var data = $('body form#passform').serializeArray();
+    data.push({ name: 'ajax', value: 1 });
+
+    $(this).ready(function() {
+        $.ajax({
+            url: baseurl + "verify",
+            data: data,
+            async: false,
+            type: "POST",
+
+            success: function(data, status) {
+                handleVerify(data);
+                // alert(data);
             }
         });
     });

@@ -8,7 +8,7 @@
 
 */
 
-class Dashboard extends MX_Controller {
+class Cmhs extends MX_Controller {
 
 	function __construct(){
 
@@ -28,11 +28,6 @@ class Dashboard extends MX_Controller {
 
         endif;
 
-      
-
-       
-
-      
 
         $this->template->add_js('crud.js');
 
@@ -146,13 +141,13 @@ class Dashboard extends MX_Controller {
 
         $this->template->load_view('dashboard_view',array(
 
-                        'title'=>'Dashboard PMB',
+                        'title'=>'Dashboard Calon Mahasiswa',
 
-                        'subtitle'=>'PMB',
+                        'subtitle'=>'Calon Mahasiswa',
 
                         'breadcrumb'=>array(
 
-                            'PMB'),
+                            'Calon Mahasiswa'),
 
             ));
 

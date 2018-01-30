@@ -303,7 +303,7 @@ class Tagihan extends MX_Controller {
             $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-mhs='$3'data-load-remote='".base_url('tagihan/gettabeltarif/$1/$4')."' data-remote-target='#modal-id .modal-body' data-kodemhs='$4' class='bymhs btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs,kodemhs");
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/formval/$2/')."' data-remote-target='#modal-id .modal-body' class='btn btn-success btn-xs'><i class='fa fa-check'></i> </a>" 
+                <a data-toggle='modal' href='#modal-validation' data-load-remote='".base_url('tagihan/formval/$2/')."' data-remote-target='#modal-validation .modal-body' class='btn btn-success btn-xs'><i class='fa fa-check'></i> </a>" 
                 ."<a class='edit btn btn-xs btn-warning' data-toggle='modal' href='#modal-form' title='Edit' id='$1'><i class='fa fa-pencil'></i></a>"
                 .'<button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-eye"></i> Aksi <span class="caret"></span></button>'
                 .'<ul class="dropdown-menu" style="position:relative;z-index:10000 !important">
@@ -398,6 +398,17 @@ class Tagihan extends MX_Controller {
             endif;
         endif;
     }
+    function getuserinfo(){
+        if ($this->ion_auth->logged_in()):
+            $user = $this->ion_auth->user()->row();
+            if (!empty($user)):
+                
+                return $user;
+            else:
+                return array();
+            endif;
+        endif;
+    }
     function forms(){   
 
         // $this->load->view('tagihanmhs_form_inside');
@@ -434,12 +445,66 @@ class Tagihan extends MX_Controller {
         $this->output->set_output($html);
         // return $html;
     }
+    function formvalpass($id){
+        // $id=base64_decode($this->input->post('id'));
+        // $password=base64_decode($this->input->post('password'));
+
+        $tagihan=$this->tagihdb->get_one($id);
+        $html=$this->load->view('formvalpass',array('default'=>$tagihan),true);
+        // $this->output->set_output($html);
+        return $html;
+    }
     function gettabeltarif($nim,$kodemhs){
         // $id=base64_decode($id);
         // $tagihan=$this->tagihdb->get_one($id);
         $html=$this->load->view('modaltarif',array('kodemhs'=>$kodemhs,'nim'=>$nim),true);
         $this->output->set_output($html);
         // return $html;
+    }
+    function verval(){
+
+    }
+    function verify()
+    {
+        $this->form_validation->set_rules('id', 'ID', 'required|numeric');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        // print_r($this->getuserinfo());
+
+        if ($this->form_validation->run() == true)
+        {
+            //check to see if the user is logging in
+            //check for "remember me"
+
+            $remember = (bool) $this->input->post('remember');
+            $userinfo=$this->getuserinfo();
+            // print_r($userinfo->username);
+            // if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
+            if ($this->ion_auth->login($userinfo->username, $this->input->post('password'), $remember))
+            {
+                //if the login is successful
+                //redirect them back to the home page
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
+                    $ok=$this->tagihdb->validasitagihan($this->input->post('id'));
+                    $tagih=$this->tagihdb->get_one($this->input->post('id'));
+                   /* if($this->ion_auth->in_group(1,2,3)){
+                        redirect('/', 'refresh');
+                    // redirect('/'.$lihat, 'refresh');
+                    redirect(base_url('admin/bagian'), 'refresh');
+                    }elseif($this->ion_auth->in_group(5)){
+                        redirect(base_url('frontend'), 'refresh');
+                    }else{
+                        redirect('/', 'refresh');
+                    }*/
+               
+                    echo json_encode(array('st'=>1,'msg'=>'<div class="alert alert-success">Verifikasi Berhasil: <strong>'.$tagih['kode'].'</strong></div>'));
+            } else {
+
+                echo json_encode(array('st'=>0,'msg'=>'<div class="alert alert-danger">'.$this->ion_auth->errors().'</div>'));
+           }
+        } else {
+                echo json_encode(array('st'=>0,'msg'=>'<div class="alert alert-warning">'.validation_errors().'</div>'));
+            
+        }
     }
     function validation(){
         $idval=$this->input->post('idval');
@@ -668,9 +733,9 @@ class Tagihan extends MX_Controller {
             $jml=$this->tarifdb->getbyid($value);
             $total=$total+$jml['Tarif'];
             $jumlah++;
-            if($jumlah>5){
+            if($jumlah>10){
                 $st='0';
-                $msg='<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 5 item tarif</h3>';
+                $msg='<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 10 item tarif</h3>';
             }else{
                 $st='1';
                 $msg='';
@@ -703,10 +768,10 @@ class Tagihan extends MX_Controller {
         // return $status;
     }
     function __validationtagihan(){
-        $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
+        // $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
         $this->form_validation->set_rules('kode', 'Kode', 'required|trim|xss_clean');
         $this->form_validation->set_rules('total','Total Tagihan','required|numeric|trim|xss_clean');
-        $this->form_validation->set_rules('password','Password','required|numeric|trim|xss_clean');
+        // $this->form_validation->set_rules('password','Password','required|numeric|trim|xss_clean');
 
        
 
@@ -721,10 +786,32 @@ class Tagihan extends MX_Controller {
         }
         // return $status;
     }
-    function submitval(){
-        if($this->__validationtagihan()===TRUE):
+    function datacekval(){
+        $data['id']=$this->input->post('id');
+        $data['kode']=$this->input->post('kode');
+        $data['tanggal']=NOW();
+        $data['total']=$this->input->post('total');
+        $valid=$this->tagihdb->get_one($this->input->post('id'));
+        if($data['id']==$valid['id'] && $data['kode']==$valid['kode'] && $data['total']==$valid['total']){
 
-             echo json_encode(array('st'=>1, 'msg' => 'Tagihan berhasil di validasi'));
+            return array('data'=>$valid,'input'=>$data);
+        }else{
+            return array();
+        }
+    }
+    function cekval(){
+        if($this->__validationtagihan()===TRUE):
+            $datavalid=$this->datacekval();
+            if(!empty($datavalid)){
+                // print_r($datavalid);
+                $id=$datavalid['data']['id'];
+                // echo json_encode(array('st'=>1, 'msg' => 'Data Valid','data'=>$datavalid));
+                echo json_encode(array('st'=>1, 'msg' => 'Data Valid','view'=>$this->formvalpass($id)));
+            }else{
+                echo json_encode(array('st'=>0, 'msg' => 'Data Tidak Valid'));
+
+            }
+
         else:
             echo $this->__validationtagihan();
         endif;
@@ -737,7 +824,7 @@ class Tagihan extends MX_Controller {
             $paket=json_encode($item);
             // print_r(count($opt_pakett));
             // print_r(count($item));
-            if(count($item)<=5):
+            if(count($item)<=10):
                 $data = array(
                 
                     'kode' => $this->input->post('kode', TRUE),
@@ -792,7 +879,7 @@ class Tagihan extends MX_Controller {
                 //validasi backend
                 echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data tagihan berhasil disimpan</h3>'));
             else:
-                echo json_encode(array('st'=>0, 'msg' => '<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 5 item tarif</h3>'));
+                echo json_encode(array('st'=>0, 'msg' => '<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i> Maksimal 10 item tarif</h3>'));
             endif;
         else:
             echo $this->__formvalidation();

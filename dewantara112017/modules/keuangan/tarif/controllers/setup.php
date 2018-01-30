@@ -60,13 +60,22 @@ class Setup extends MX_Controller {
             'opt_kelompok'=>$this->tarifdb->dropdown_kelompok(),
             // 'opt_angkatan'=>$this->tarifdb->dropdown_angkatan(),
             'opt_angkatan'=>$tahun,
-            'jenis'=>$this->jenisdb->getall(),
+            // 'jenis'=>$this->jenisdb->getall(),
             'opt_tahun'=>$tahun,
             'title'=>'Setup Tarif Dasar',
             'subtitle'=>'Setup Tarif',
             'breadcrumb'=>array(
             'Tarif'),
         ));
+    }
+    function getformkodejenis(){
+        $id=$this->input->post('id');
+        $jenis=$this->tarifdb->getjenisprodi($id);
+        $html=$this->load->view('formkodejenis',array('jenis'=>$jenis),TRUE);
+        $this->output->set_output($html);
+        // echo json_encode($jenis);
+        // return $html;
+
     }
     function getdata(){
 

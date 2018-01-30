@@ -28,5 +28,7 @@
 <?php $this->load->view('modal-notif') ?>
 <?php $this->load->view('modal-id') ?>
 <?php $this->load->view('modal-alert') ?>
+<?php $this->load->view('modal-validation') ?>
+<?php $this->load->view('modal-password') ?>
 
 

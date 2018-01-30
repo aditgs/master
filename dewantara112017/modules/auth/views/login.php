@@ -8,7 +8,7 @@
         <div class="panel-body">
             <p class="text-center"> </p>
             <p class="text-center"><img width="200px" src="<?= assets_url('images/logo.png')?>"> </p>
-            <h2 class="text-center">SIKA DEWANTARA</h2>
+            <h2 class="text-center">SIKA PGRI DEWANTARA</h2>
             <h1><?php echo lang('login_heading');?></h1>
     <p><?php echo lang('login_subheading');?></p>
 
