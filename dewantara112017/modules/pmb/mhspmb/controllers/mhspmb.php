@@ -209,7 +209,20 @@ class Mhspmb extends MX_Controller {
         }
       
     }
-
+    function __formvalidation(){
+        $this->form_validation->set_rules('kode_prodi', 'Kode Prodi ', 'required|trim|xss_clean');
+        if ($this->form_validation->run() == FALSE)
+            {
+                // $this->session->set_flashdata(validation_errors());             
+                // return json_encode(array('st'=>0, 'msg' => validation_errors()));
+                return json_encode(array('st'=>0, 'msg' => '<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i>'.validation_errors()));
+                // return FALSE;
+            }
+        else{
+            return TRUE;
+        }
+        // return $status;
+    }
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('id_siakad_mhs_pmb')){
