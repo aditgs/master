@@ -10,6 +10,7 @@
     }
 </style>
 <div id="form_input" class="row gutter5">
+     <a class="ref" href="#">refresh</a>
     <?php echo form_open(base_url().'tarif/setup/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 formtarif">
     <h2>Kriteria</h2>
