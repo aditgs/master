@@ -1,6 +1,7 @@
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'siakad_mhs_pmb/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <h2>Identitas Pendaftar</h2>
         <input type="hidden" value='' id="id_siakad_mhs_pmb" name="id_siakad_mhs_pmb">
         <div class="form-group">
             <?php echo form_label('No Pendaftaran : ','noreg_pmb',array('class'=>'control-label')); ?>
@@ -59,6 +60,8 @@
         
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <h2>Detail Informasi Pendaftar</h2>
+
         <div class="row gutter5">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <?php $opt_agama_cmhs = array('Islam',

@@ -1,13 +1,13 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-class kelompokmhs extends MX_Controller {
+class pmbdetail extends MX_Controller {
 
     function __construct() {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('kelompokmhs_model','keldb',TRUE);
-        $this->session->set_userdata('lihat','kelompokmhs');
+        $this->load->model('pmb_detail_model','pmb_detaildb',TRUE);
+        $this->session->set_userdata('lihat','pmb_detail');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
         endif;
@@ -41,36 +41,36 @@ class kelompokmhs extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Kelompok Mahasiswa');
-        $this->template->add_js('var baseurl="'.base_url().'kelompokmhs/";','embed');  
-        $this->template->load_view('kelompokmhs_view',array(
-            'view'=>'Kelompokmhs_data',
-            'title'=>'Kelola Data Kelompok Mahasiswa',
-            'subtitle'=>'Pengelolaan Kelompok Mahasiswa',
+        $this->template->set_title('Kelola Pmb_detail');
+        $this->template->add_js('var baseurl="'.base_url().'pmb_detail/";','embed');  
+        $this->template->load_view('pmb_detail_view',array(
+            'view'=>'',
+            'title'=>'Kelola Data Pmb_detail',
+            'subtitle'=>'Pengelolaan Pmb_detail',
             'breadcrumb'=>array(
-            'Kelompokmhs'),
+            'Pmb_detail'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Kelompok Mahasiswa');
-        $this->template->add_js('var baseurl="'.base_url().'kelompokmhs/";','embed');  
-        $this->template->load_view('kelompokmhs_view',array(
-            'view'=>'Kelompokmhs_data',
-            'title'=>'Kelola Data Kelompok Mahasiswa',
-            'subtitle'=>'Pengelolaan Kelompok Mahasiswa',
+        $this->template->set_title('Kelola Pmb_detail');
+        $this->template->add_js('var baseurl="'.base_url().'pmb_detail/";','embed');  
+        $this->template->load_view('pmb_detail_view',array(
+            'view'=>'Pmb_detail_data',
+            'title'=>'Kelola Data Pmb_detail',
+            'subtitle'=>'Pengelolaan Pmb_detail',
             'breadcrumb'=>array(
-            'Kelompokmhs'),
+            'Pmb_detail'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Kelompok Mahasiswa');
-        $this->template->add_js('var baseurl="'.base_url().'kelompokmhs/";','embed');  
-        $this->template->load_view('kelompokmhs_view',array(
+        $this->template->set_title('Kelola Pmb_detail');
+        $this->template->add_js('var baseurl="'.base_url().'pmb_detail/";','embed');  
+        $this->template->load_view('pmb_detail_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Kelompok Mahasiswa',
-            'subtitle'=>'Pengelolaan Kelompok Mahasiswa',
+            'title'=>'Kelola Data Pmb_detail',
+            'subtitle'=>'Pengelolaan Pmb_detail',
             'breadcrumb'=>array(
-            'Kelompokmhs'),
+            'Pmb_detail'),
         ));
         
     }
@@ -82,7 +82,7 @@ class kelompokmhs extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->keldb->ceknomornull();
+        $null=$this->pmb_detaildb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +90,7 @@ class kelompokmhs extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->keldb->genfaktur();
+            $faktur=$this->pmb_detaildb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -108,7 +108,7 @@ class kelompokmhs extends MX_Controller {
     }
     function __submitnomor($data){
 
-       $this->db->insert('kelompokmhs',$data);
+       $this->db->insert('pmb_detail',$data);
        return $this->db->insert_id();
     }
      function __updatestatproses($faktur){
@@ -118,30 +118,36 @@ class kelompokmhs extends MX_Controller {
             'islocked'=>1,
             );
         $this->db->where('Faktur',$faktur); //nama field perlu menyesuaikan tabel
-        $this->db->update('kelompokmhs',$data);
+        $this->db->update('pmb_detail',$data);
     }
      
      //<!-- Start Primary Key -->
     
 
     public function getdatatables(){
-     
-            $this->datatables->select('id,Kodek,Kelompok')
-                            ->from('kelompokmhs');
+        if($this->isadmin()==1):
+            $this->datatables->select('id,kodepmb,keterangan,gel_id,jalur_id,date_start,date_end,date_seleksi_start,date_seleksi_end,time_start,time_end,pengawas,ruang_test,kodetarifdaftar,userid,datetime,')
+                            ->from('pmb_detail');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('kelompokmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmb_detail/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#modal-form' data-toggle='modal' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
             $this->datatables->unset_column('id');
 
-       
+        else:
+            $this->datatables->select('id,kodepmb,keterangan,gel_id,jalur_id,date_start,date_end,date_seleksi_start,date_seleksi_end,time_start,time_end,pengawas,ruang_test,kodetarifdaftar,userid,datetime,')
+                            ->from('pmb_detail');
+            $this->datatables->add_column('edit',"<div class='btn-group'>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmb_detail/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
+            $this->datatables->unset_column('id');
+        endif;
         echo $this->datatables->generate();
     }
     function enkrip(){
         return md5($this->session->userdata('lihat').":".$this->getuser()."+".date('H:m'));
-        // echo $this->session->userdata('kelompokmhs');
+        // echo $this->session->userdata('pmb_detail');
     }
     function isadmin(){
        return $this->ion_auth->is_admin();
@@ -159,22 +165,22 @@ class kelompokmhs extends MX_Controller {
     }
     function forms(){   
 
-        $this->load->view('kelompokmhs_form_inside');
+        $this->load->view('pmb_detail_form_inside');
            
     }
 
     public function get($id=null){
         if($id!==null){
-            echo json_encode($this->keldb->get_one($id));
+            echo json_encode($this->pmb_detaildb->get_one($id));
         }
     }
     function tables(){
-        $this->load->view('kelompokmhs_data');
+        $this->load->view('pmb_detail_data');
     }
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->keldb->get_one($id);
+            $data=$this->pmb_detaildb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -204,19 +210,19 @@ class kelompokmhs extends MX_Controller {
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
-            $this->keldb->update($this->input->post('id'));
+            $this->pmb_detaildb->update($this->input->post('id'));
           }else{
-            //$this->keldb->save();
-            $this->keldb->saveas();
+            //$this->pmb_detaildb->save();
+            $this->pmb_detaildb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('id')){
-                $this->keldb->update($this->input->post('id'));
+                $this->pmb_detaildb->update($this->input->post('id'));
               }else{
-                //$this->keldb->save();
-                $this->keldb->saveas();
+                //$this->pmb_detaildb->save();
+                $this->pmb_detaildb->saveas();
               }
           }
         }
@@ -227,7 +233,7 @@ class kelompokmhs extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->keldb->delete($this->input->post('id'));
+                $this->pmb_detaildb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -237,7 +243,7 @@ class kelompokmhs extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->keldb->upddel_detail($this->input->post('id'));
+                $this->pmb_detaildb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -252,7 +258,7 @@ class kelompokmhs extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->keldb->delete_detail($this->input->post('id'));
+                $this->pmb_detaildb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -265,5 +271,5 @@ class kelompokmhs extends MX_Controller {
 
 }
 
-/** Module kelompokmhs Controller **/
+/** Module pmb_detail Controller **/
 /** Build & Development By Syahroni Wahyu - roniwahyu@gmail.com */

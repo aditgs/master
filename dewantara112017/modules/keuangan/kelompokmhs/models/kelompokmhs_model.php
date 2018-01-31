@@ -84,6 +84,20 @@ class Kelompokmhs_model extends CI_Model {
             return array();
         }
     }
+    function genkode(){
+        $last=$this->get_last();
+        
+        if(!empty($last['Kodek'])):
+            $gen=strval($last['Kodek'])+1;
+            // $new="0".$gen;
+            // $gen=substr($new,-1);
+            
+        else:
+            
+            $gen="1";
+        endif;
+        return $gen;
+    }
     function genfaktur(){
         $last=$this->get_last();
         // print_r($last);
@@ -151,10 +165,11 @@ class Kelompokmhs_model extends CI_Model {
     function __saveas(){
         
        $data = array(
-        
-            'Kodek' => $this->input->post('Kodek', TRUE),
-           
+            'Kodek' => $this->genkode(),
             'Kelompok' => $this->input->post('Kelompok', TRUE),
+            'userid'=>userid(),
+            'datetime'=>NOW(),
+           
            
             't2013' => $this->input->post('t2013', TRUE),
            
@@ -166,9 +181,7 @@ class Kelompokmhs_model extends CI_Model {
            
             'b' => $this->input->post('b', TRUE),
            
-            'userid' => $this->input->post('userid', TRUE),
            
-            'datetime' => $this->input->post('datetime', TRUE),
            
         );
         //'isdeleted' => null,
