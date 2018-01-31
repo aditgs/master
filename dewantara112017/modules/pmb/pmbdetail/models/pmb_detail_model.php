@@ -1,7 +1,7 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Jenis_model extends CI_Model {
+class Pmb_detail_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -9,16 +9,7 @@ class Jenis_model extends CI_Model {
     
     function get_all($limit, $uri) {
 
-        $result = $this->db->get('jenis', $limit, $uri);
-        if ($result->num_rows() > 0) {
-            return $result->result_array();
-        } else {
-            return array();
-        }
-    }  
-    function getall() {
-
-        $result = $this->db->get('jenis');
+        $result = $this->db->get('pmb_detail', $limit, $uri);
         if ($result->num_rows() > 0) {
             return $result->result_array();
         } else {
@@ -35,7 +26,7 @@ class Jenis_model extends CI_Model {
         $this->db->order_by('id','ASC');
         $this->db->limit(1);
 
-        $result=$this->db->get('jenis');
+        $result=$this->db->get('pmb_detail');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -45,11 +36,11 @@ class Jenis_model extends CI_Model {
     //untuk generate faktur baru
     function get_last(){
 
-        $this->db->select('KodeJ'); //faktur
+        $this->db->select('*'); //faktur
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
-        $result=$this->db->get('jenis');
+        $result=$this->db->get('pmb_detail');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -58,7 +49,7 @@ class Jenis_model extends CI_Model {
     } 
     function gettotaldetail($faktur){
         $this->db->select('faktur,sum(jumlah) as total'); //field perlu disesuaikan dengan tabel
-        $this->db->from('jenis');
+        $this->db->from('pmb_detail');
         $this->db->where('faktur',$faktur); //field perlu disesuaikan dengan tabel
         $this->db->where('isactive',1);
         $this->db->group_by('faktur'); //field perlu disesuaikan dengan tabel
@@ -74,7 +65,7 @@ class Jenis_model extends CI_Model {
     //field dan tabel perlu disesuaikan dengan tabel
     function getdetail($data) {
         $this->db->select('id,Faktur as faktur,Jthtmp as jthtempo,NoBon as nobon,Supplier as kode,total,NmSupplier as nama,NoAccSup as noacc,Tgl as tanggal,IF(LEFT(NoAccSup,5)="1.700","Karyawan",IF(LEFT(NoAccSup,5)="1.250","Customer",IF(LEFT(NoAccSup,5)="2.300","Supplier","-"))) as tipe',FALSE);
-        $this->db->from('jenis');
+        $this->db->from('pmb_detail');
         if(!empty($data['kdvendor'])||$data['kdvendor']!==''):
             $this->db->where('Supplier',((!empty($data['kdvendor'])||($data['kdvendor']>0))?$data['kdvendor']:'0'));
         endif;
@@ -103,23 +94,9 @@ class Jenis_model extends CI_Model {
         endif;
         return ($faktur);
     }
-    function genkode(){
-        $last=$this->get_last();
-        
-        if(!empty($last['KodeJ'])):
-            $gen=strval($last['KodeJ'])+1;
-            $new="00".$gen;
-            $gen=substr($new,-2);
-            
-        else:
-            
-            $gen="01";
-        endif;
-        return $gen;
-    }
     function get_one($id) {
         $this->db->where('id', $id);
-        $result = $this->db->get('jenis');
+        $result = $this->db->get('pmb_detail');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -129,11 +106,11 @@ class Jenis_model extends CI_Model {
     
     function save() {
         $data=$this->__save();
-        $this->db->insert('jenis', $data);
+        $this->db->insert('pmb_detail', $data);
     }
     function saveas() {
         $data=$this->__saveas();
-        $this->db->insert('jenis', $data);
+        $this->db->insert('pmb_detail', $data);
 
     }
     function __save(){
@@ -145,9 +122,35 @@ class Jenis_model extends CI_Model {
         //ganti faktur dengan ==> 'Faktur' =>$this->genfaktur(),
        $data = array(
         
-            'KodeJ' => $this->input->post('KodeJ', TRUE),
+            'kodepmb' => $this->input->post('kodepmb', TRUE),
            
-            'Jenis' => $this->input->post('Jenis', TRUE),
+            'keterangan' => $this->input->post('keterangan', TRUE),
+           
+            'gel_id' => $this->input->post('gel_id', TRUE),
+           
+            'jalur_id' => $this->input->post('jalur_id', TRUE),
+           
+            'date_start' => $this->input->post('date_start', TRUE),
+           
+            'date_end' => $this->input->post('date_end', TRUE),
+           
+            'date_seleksi_start' => $this->input->post('date_seleksi_start', TRUE),
+           
+            'date_seleksi_end' => $this->input->post('date_seleksi_end', TRUE),
+           
+            'time_start' => $this->input->post('time_start', TRUE),
+           
+            'time_end' => $this->input->post('time_end', TRUE),
+           
+            'pengawas' => $this->input->post('pengawas', TRUE),
+           
+            'ruang_test' => $this->input->post('ruang_test', TRUE),
+           
+            'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
+           
+            'userid' => $this->input->post('userid', TRUE),
+           
+            'datetime' => $this->input->post('datetime', TRUE),
            
         );
         //'isdeleted' => null,
@@ -160,25 +163,38 @@ class Jenis_model extends CI_Model {
     function __saveas(){
         
        $data = array(
-            'KodeJ' => $this->genkode(),
-            'Jenis' => $this->input->post('Jenis', TRUE),
-            'prodi' => $this->input->post('prodi', TRUE),
-            'iscicilan' => $this->input->post('iscicilan', TRUE),
-            'parent' => $this->input->post('parent', TRUE),
-            'userid' =>userid(),
-            'datetime' =>NOW(),
+        
+            'kodepmb' => $this->input->post('kodepmb', TRUE),
+           
+            'keterangan' => $this->input->post('keterangan', TRUE),
+           
+            'gel_id' => $this->input->post('gel_id', TRUE),
+           
+            'jalur_id' => $this->input->post('jalur_id', TRUE),
+           
+            'date_start' => $this->input->post('date_start', TRUE),
+           
+            'date_end' => $this->input->post('date_end', TRUE),
+           
+            'date_seleksi_start' => $this->input->post('date_seleksi_start', TRUE),
+           
+            'date_seleksi_end' => $this->input->post('date_seleksi_end', TRUE),
+           
+            'time_start' => $this->input->post('time_start', TRUE),
+           
+            'time_end' => $this->input->post('time_end', TRUE),
+           
+            'pengawas' => $this->input->post('pengawas', TRUE),
+           
+            'ruang_test' => $this->input->post('ruang_test', TRUE),
+           
+            'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
+           
+            'userid' => $this->input->post('userid', TRUE),
+           
+            'datetime' => $this->input->post('datetime', TRUE),
+           
         );
-        if($this->input->post('prodi')=='akuntansi'){
-            $data['is_akuntansi']=1;
-        }elseif($this->input->post('prodi')=='manajemen'){
-            $data['is_manajemen']=1;
-
-        }else{
-            $data['prodi']='semua';
-            $data['is_akuntansi']=1;
-            $data['is_manajemen']=1;
-
-        }
         //'isdeleted' => null,
         //    'datedeleted' => null,
         //    'islocked' =>1,
@@ -188,11 +204,11 @@ class Jenis_model extends CI_Model {
         //    'Time' => NOW(),
         return $data;
     }
-    function savejenis($data){
-        $this->db->insert('jenis',$data);
+    function savepmb_detail($data){
+        $this->db->insert('pmb_detail',$data);
     }
     function save_detail($data){
-        $this->db->insert('jenis_detail',$data);
+        $this->db->insert('pmb_detail_detail',$data);
     }
     function upddel_detail($id=null) {
         //semua field ini menyesuaikan dengan yang ada pada model dan tabel
@@ -207,60 +223,76 @@ class Jenis_model extends CI_Model {
             );
         
         $this->db->where('id', $id);
-        $this->db->update('jenis', $data);
+        $this->db->update('pmb_detail', $data);
        
     } 
     function updatebyid($id,$data){
         $this->db->where('id', $id);
-        $this->db->update('jenis', $data);
+        $this->db->update('pmb_detail', $data);
     }
     function update($id) {
         $data = array(
         'id' => $this->input->post('id',TRUE),
-       'KodeJ' => $this->input->post('KodeJ', TRUE),
+       'kodepmb' => $this->input->post('kodepmb', TRUE),
        
-       'Jenis' => $this->input->post('Jenis', TRUE),
+       'keterangan' => $this->input->post('keterangan', TRUE),
+       
+       'gel_id' => $this->input->post('gel_id', TRUE),
+       
+       'jalur_id' => $this->input->post('jalur_id', TRUE),
+       
+       'date_start' => $this->input->post('date_start', TRUE),
+       
+       'date_end' => $this->input->post('date_end', TRUE),
+       
+       'date_seleksi_start' => $this->input->post('date_seleksi_start', TRUE),
+       
+       'date_seleksi_end' => $this->input->post('date_seleksi_end', TRUE),
+       
+       'time_start' => $this->input->post('time_start', TRUE),
+       
+       'time_end' => $this->input->post('time_end', TRUE),
+       
+       'pengawas' => $this->input->post('pengawas', TRUE),
+       
+       'ruang_test' => $this->input->post('ruang_test', TRUE),
+       
+       'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
+       
+       'userid' => $this->input->post('userid', TRUE),
+       
+       'datetime' => $this->input->post('datetime', TRUE),
        
         );
         $this->db->where('id', $id);
-        $this->db->update('jenis', $data);
+        $this->db->update('pmb_detail', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/
     }
 
     function delete($id) {
         $this->db->where('id', $id);
-        $this->db->delete('jenis'); 
+        $this->db->delete('pmb_detail'); 
        
     }
     function delete_detail($id=null) {
         $this->db->where('id_detail', $id);
-        $this->db->delete('jenis_detail'); 
+        $this->db->delete('pmb_detail_detail'); 
        
     } 
     function deletebybukti($bukti=null) {
         $this->db->where('faktur', $bukti);
-        $this->db->delete('jenis_detail');       
+        $this->db->delete('pmb_detail_detail');       
     }
 
     //Update 07122013 SWI
     //untuk Array Dropdown
     function get_dropdown_array($value){
         $result = array();
-        $array_keys_values = $this->db->query('select id, '.$value.' from jenis order by id asc');
+        $array_keys_values = $this->db->query('select id, '.$value.' from pmb_detail order by id asc');
         $result[0]="-- Pilih Urutan id --";
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->$value;
-        }
-        return $result;
-    } 
-    function getdropjenis(){
-        $result = array();
-        $array_keys_values = $this->db->query('select id,KodeJ,Jenis from jenis order by id asc');
-        $result[0]="-- Pilih Induk Jenis --";
-        foreach ($array_keys_values->result() as $row)
-        {
-            $result[$row->id]= "(".$row->KodeJ.") ".$row->Jenis;
         }
         return $result;
     }
