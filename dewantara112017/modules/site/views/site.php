@@ -16,7 +16,7 @@ a.ahover:hover {
                 <div class="row gutter5">
                     <h1>SIKA PGRI DEWANTARA</h1>
                     <h2>SISTEM INFORMASI AKADEMIK STIE PGRI DEWANTARA JOMBANG</h2>
-
+                    <?php if($this->ion_auth->in_group(11)): ?>
                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
                         <div class="widget style1 navy-bg">
@@ -53,7 +53,8 @@ a.ahover:hover {
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <?php endif; ?>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="widget style1 blue-bg">
                             <a class="ahover" style="" href="<?php echo base_url('pos') ?>" data-load="<?php echo base_url('pos') ?>" data-table="<?php echo base_url('pos') ?>" data-remote-target="#ajax-remote">
                                 <div class="row">
@@ -78,7 +79,8 @@ a.ahover:hover {
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <?php if($this->ion_auth->in_group(10)): ?>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="widget style1 yellow-bg">
                             <a class="ahover" style="" href="<?php echo base_url('pos') ?>" data-load="<?php echo base_url('pos') ?>" data-table="<?php echo base_url('pos') ?>" data-remote-target="#ajax-remote">
                                 <div class="row">
@@ -102,6 +104,7 @@ a.ahover:hover {
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <!-- <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"> -->
                     <!-- </div> -->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

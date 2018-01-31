@@ -7,6 +7,7 @@ $(document).ready(function() {
         gen();
     });
     $('select#angkatan').change(function() {
+        getformgen();
         gen();
     });
     $('select#smster').change(function() {
@@ -16,6 +17,7 @@ $(document).ready(function() {
         gen();
     });
     $('select#prodi').change(function() {
+        getformgen();
         gen();
     });
     $('select#jenis').change(function() {
@@ -25,13 +27,20 @@ $(document).ready(function() {
         gen();
     });
     $('.kodetarif').change(function() {
+        alert($(this).val());
         var x = $(this).val();
+        // console.log(x);
         var y = $(this).data("tarif");
+        // console.log(y);
+        // alert(y);
         var l = x.substr(0, 4);
+        // console.log(l);
         var r = x.substr(6, 6);
+        // console.log(r);
         var z = x + y;
+        // console.log(z);
         $(this).val(l + y + r);
-    });
+    })
     $(".modal").modal({ backdrop: 'static', keyboard: false, show: false });
     $("body .dropdown-toggle").dropdown();
 
@@ -41,6 +50,20 @@ $(document).ready(function() {
         window.location = baseurl;
         // $('#datatables').DataTable().ajax.reload();
     });
+    /*$('.inputs').keydown(function (e) {
+            alert('keydown');
+         if (e.which === 13) {
+             var index = $('.inputs').index(this) + 1;
+             $('.inputs').eq(index).focus();
+         }
+     });
+    $('#addform').on('keyup keypress', function(e) {
+          var keyCode = e.keyCode || e.which;
+          if (keyCode === 13) { 
+            e.preventDefault();
+            return false;
+        }
+    });*/
 });
 
 function gen() {
@@ -51,7 +74,7 @@ function gen() {
     // $.post(baseurl+"genkode",{data:JSON.stringify(data)},function(dx,status){
     $.post(baseurl + "genkode", { detail: detail, data: data }, function(dx, status) {
         // dd=JSON.parse(dx);
-        // alert(dx.kode);
+        // alert($('.kodetarif').val());
         if (status == "success") {
             if(dx.st==1){
 
@@ -67,6 +90,55 @@ function gen() {
     }, 'json');
     // dx = JSON.stringify(data);
     // alert(dx);
+}
+function genkodetarif(){
+
+        // alert('change');
+        var x = $(this).val();
+        // console.log(x);
+        var y = $(this).data("tarif");
+        // console.log(y);
+        // alert(y);
+        var l = x.substr(0, 4);
+        // console.log(l);
+        var r = x.substr(6, 6);
+        // console.log(r);
+        var z = x + y;
+        // console.log(z);
+        return $(this).val(l + y + r);
+    
+}
+function getformgen(){
+    id=$('select#prodi').val();
+    $.post(baseurl+'getformkodejenis',{id:id},function(data,status){
+        if(status=='success'){
+            $('.genkodejenis').html(data);
+
+            enterev();
+            $('.kodetarif').trigger('change');
+
+        }
+    });
+    
+}
+function enterev(){
+    // alert('de');
+  /*  $.getScript( assetsurl+"modules/enterevent.js" )
+      .done(function( script, textStatus ) {
+        console.log( textStatus );
+      })
+      .fail(function( jqxhr, settings, exception ) {
+        // $( "div.log" ).text( "Triggered ajaxError handler." );
+        alert('triiger');
+    });*/
+    $.ajax({
+      url: assetsurl+'modules/enterevent.js',
+      dataType: "script",
+      type:"post",
+      success:function(success){
+        // console.log('successs');
+      }
+    });
 }
 
 function handleSubmit(data) {
