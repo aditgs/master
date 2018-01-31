@@ -1,6 +1,7 @@
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'siakad_mhs_pmb/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <h2>Identitas Pendaftar</h2>
         <input type="hidden" value='' id="id_siakad_mhs_pmb" name="id_siakad_mhs_pmb">
         <div class="form-group">
             <?php echo form_label('No Pendaftaran : ','noreg_pmb',array('class'=>'control-label')); ?>
@@ -9,14 +10,18 @@
             </div>
         </div>
         <div class="form-group">
-                    <div class="controls input-group">
-                        <?php echo form_label('Jurusan : ','kode_prodi',array('class'=>'control-label')); ?>
-                        <select name="kode_prodi" id="kode_prodi" class=" form-control select2" style="width: 100%">
-                            <option value="61201">S1 - Manajemen</option>
-                            <option value="62201">S1 - Akuntansi</option>
-                        </select>
-                    </div>
-                </div>
+
+            <?php echo form_label('Kode Prodi : ','kode_prodi',array('class'=>'control-label')); ?>
+            <?php $opt_prodi = array('61'=>'S-1 Manajemen','62'=>'S-1 Akuntansi',);?>
+            <!-- <div class="controls">
+                <?php echo form_input('kode_prodi',set_value('kode_prodi', isset($default['kode_prodi']) ? $default['kode_prodi'] : ''),'id="kode_prodi" class="form-control" placeholder="Masukkan Kode Prodi"'); ?>
+            </div> -->
+            <div class="controls input-group" style="width: 100%">
+                <?php $prodi_cmhs = isset($default['prodi_cmhs'])? $default['prodi_cmhs'] : '0';  ?>
+                <?php echo form_dropdown('prodi_cmhs',$opt_prodi,$prodi_cmhs,'id="prodi_cmhs" class="rekening form-control select2 " style="width:100%" placeholder="Prodi"'); ?>
+            </div>
+        </div>
+
         <div class="form-group">
             <?php echo form_label('Nama Lengkap : ','nm_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -59,7 +64,20 @@
                 </div>
             </div>
         </div>
-         <div class="row gutter5">
+
+        <div class="form-group">
+            <?php echo form_label('Nama Ibu : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <h2>Detail Informasi Pendaftar</h2>
+
+        <div class="row gutter5">
+
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <?php $opt_agama_cmhs = array('Islam',
             'Protestan'=>'Protestan',

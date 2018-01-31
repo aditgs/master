@@ -294,6 +294,36 @@ class Siakad_mhs_pmb_model extends CI_Model {
         $this->db->where('id_siakad_mhs_pmb', $id_siakad_mhs_pmb);
         $this->db->update('siakad_mhs_pmb', $data);
     }
+    function updcetak($id){
+        $cetak=$this->get_one($id);
+        if(!empty($cetak)){
+            if(isset($cetak['printcount'])||$cetak['printcount']>0){
+                $numcetak=$cetak['printcount']+1;
+            }else{
+                $numcetak=1;
+            }
+        }else{
+            $numcetak=1;
+        }
+        $data=array(
+            'isprinted'=>1,
+            'lastprinted'=>NOW(),
+            'printcount'=>$numcetak,
+            'userprinted'=>userid(),
+        );
+        $this->db->where('id', $id);
+
+        $this->db->update('mhspmb', $data);
+    }
+    function gettagihan($id){
+        $this->db->select('*')->from('001-view-tagihanmhs')->where('id',$id);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }
+    }
     function update($id_siakad_mhs_pmb) {
         $data = array(
         'id_siakad_mhs_pmb' => $this->input->post('id_siakad_mhs_pmb',TRUE),

@@ -1,13 +1,13 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Mhspmb extends MX_Controller {
+class pmbjalur extends MX_Controller {
 
     function __construct() {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('siakad_mhs_pmb_model','mhspmbdb',TRUE);
-        $this->session->set_userdata('lihat','siakad_mhs_pmb');
+        $this->load->model('pmb_jalur_model','pmb_jalurdb',TRUE);
+        $this->session->set_userdata('lihat','pmb_jalur');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
         endif;
@@ -20,14 +20,14 @@ class Mhspmb extends MX_Controller {
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
-        $this->template->add_js('accounting.min.js');
+        /*$this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
-        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
+        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');*/
         
         /*ONLINE CDN*/
         /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
@@ -41,68 +41,40 @@ class Mhspmb extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Calon Mahasiswa');
-        $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
-        $this->template->add_css('forms.css');
-        $this->template->add_js('modules/mhspmb.js');  
-        $this->template->load_view('siakad_mhs_pmb_view',array(
-            'view'=>'datacalonmhs',
-            'title'=>'Kelola Data Calon Mahasiswa',
-            'subtitle'=>'Pengelolaan Calon Mahasiswa',
+        $this->template->set_title('Kelola Pmb_jalur');
+        $this->template->add_js('var baseurl="'.base_url().'pmbjalur/";','embed');  
+        $this->template->add_js('modules/pmbjalur.js');
+        $this->template->load_view('pmb_jalur_view',array(
+            'view'=>'pmb_jalur_data',
+            'title'=>'Kelola Data Pmb_jalur',
+            'subtitle'=>'Pengelolaan Pmb_jalur',
             'breadcrumb'=>array(
-            'Calon Mahasiswa'),
+            'Pmb_jalur'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Calon Mahasiswa');
-        $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
-        $this->template->load_view('siakad_mhs_pmb_view',array(
-            'view'=>'Siakad_mhs_pmb_data',
-            'title'=>'Kelola Data Calon Mahasiswa',
-            'subtitle'=>'Pengelolaan Calon Mahasiswa',
+        $this->template->set_title('Kelola Pmb_jalur');
+        $this->template->add_js('var baseurl="'.base_url().'pmbjalur/";','embed');  
+        $this->template->load_view('pmb_jalur_view',array(
+            'view'=>'pmb_jalur_data',
+            'title'=>'Kelola Data Pmb_jalur',
+            'subtitle'=>'Pengelolaan Pmb_jalur',
             'breadcrumb'=>array(
-            'Calon Mahasiswa'),
+            'Pmb_jalur'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Calon Mahasiswa');
-        $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
-        $this->template->load_view('siakad_mhs_pmb_view',array(
+        $this->template->set_title('Kelola Pmb_jalur');
+        $this->template->add_js('var baseurl="'.base_url().'pmbjalur/";','embed');  
+        $this->template->load_view('pmb_jalur_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Calon Mahasiswa',
-            'subtitle'=>'Pengelolaan Calon Mahasiswa',
+            'title'=>'Kelola Data Pmb_jalur',
+            'subtitle'=>'Pengelolaan Pmb_jalur',
             'breadcrumb'=>array(
-            'Calon Mahasiswa'),
+            'Pmb_jalur'),
         ));
         
     }
-
-    function cetak(){
-        $id=$this->input->post('id');
-        $this->mhspmbdb->updcetak($id);
-
-    }
-    function cetakpdf($id,$pdf=true){
-
-        $id=base64_decode($id);
-        $pdf=base64_decode($pdf);
-
-        if($id!=null){
-            $data=$this->mhspmbdb->get_one($id);
-            $this->template->set_layout('cetak');
-           
-            $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'baseurl'=>base_url(),'total'=>$this->getotmultitem($id)),TRUE);
-            if(!empty($pdf)||$pdf!=null){
-                $this->load->helper(array('dompdf', 'file'));
-                $inv=$data['kode'];
-                // savepdf($html1, 'laporan-pembelian-'.date('d-m-Y-H-m-s'));
-                kuitansipmb($html, $inv."-".date('d-m-Y-Hms'),TRUE);
-            }else{          
-                echo ($html);
-            }
-        }
-    }
-
 
     function getnewfaktur(){
         // echo base64_encode($this->genfaktur());
@@ -111,7 +83,7 @@ class Mhspmb extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->mhspmbdb->ceknomornull();
+        $null=$this->pmb_jalurdb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -119,7 +91,7 @@ class Mhspmb extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->mhspmbdb->genfaktur();
+            $faktur=$this->pmb_jalurdb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -137,7 +109,7 @@ class Mhspmb extends MX_Controller {
     }
     function __submitnomor($data){
 
-       $this->db->insert('siakad_mhs_pmb',$data);
+       $this->db->insert('pmb_jalur',$data);
        return $this->db->insert_id();
     }
      function __updatestatproses($faktur){
@@ -147,38 +119,36 @@ class Mhspmb extends MX_Controller {
             'islocked'=>1,
             );
         $this->db->where('Faktur',$faktur); //nama field perlu menyesuaikan tabel
-        $this->db->update('siakad_mhs_pmb',$data);
+        $this->db->update('pmb_jalur',$data);
     }
      
      //<!-- Start Primary Key -->
     
 
     public function getdatatables(){
-        //if($this->isadmin()==1):
-            $this->datatables->select('id_siakad_mhs_pmb,noreg_pmb,tgl_reg_pmb,nm_cmhs,kode_prodi,status_pmb,')
-                            ->from('siakad_mhs_pmb');
-            $this->datatables->edit_column('tgl_reg_pmb',"<div class='text-center'>$1</div>",'thedate(tgl_reg_pmb)');
+        // if($this->isadmin()==1):
+            $this->datatables->select('id,kodejalur,keterangan,kodetarifdaftar,syaratketentuan,file,userid,datetime,')
+                            ->from('pmb_jalur');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('mhspmb/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmbjalur/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit_mhspmb btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit_pmbjalur btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
-                <a data-placement='top' title='Cetak' class='btn btn-xs btn-info' href=".base_url('mhspmb/cetakpdf/$1')." target='_blank'><i class='fa fa-print'></i></a>
-                </div>" , 'id_siakad_mhs_pmb');
-            $this->datatables->unset_column('id_siakad_mhs_pmb');
+                </div>" , 'id');
+            $this->datatables->unset_column('id');
 
-       /* else:
-            $this->datatables->select('id_siakad_mhs_pmb,kode_prodi,id_siakad_kelas,tgl_reg_pmb,noreg_pmb,nm_cmhs,kelamin_cmhs,tmp_cmhs,tgl_cmhs,agama_cmhs,almt_cmhs,kota_cmhs,kodepos_cmhs,email_cmhs,hp_cmhs,telp_cmhs,asal_pend,jurusan_pend,no_ijazah_pend,tgl_ijazah_pend,nil_ijazah_pend,status_pmb,id_siakad_keu_rek,id_siakad_keu_pendaftaran,tgl_transfer,nm_transfer,img_bukti_transfer,img_pasfoto,img_ijazah,img_transkrip,img_pindah,status_cmhs,')
-                            ->from('siakad_mhs_pmb');
+        /*else:
+            $this->datatables->select('id,kodejalur,keterangan,kodetarifdaftar,syaratketentuan,file,userid,datetime,')
+                            ->from('pmb_jalur');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('mhspmb/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id_siakad_mhs_pmb');
-            $this->datatables->unset_column('id_siakad_mhs_pmb');
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmb_jalur/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
+            $this->datatables->unset_column('id');
         endif;*/
         echo $this->datatables->generate();
     }
     function enkrip(){
         return md5($this->session->userdata('lihat').":".$this->getuser()."+".date('H:m'));
-        // echo $this->session->userdata('siakad_mhs_pmb');
+        // echo $this->session->userdata('pmb_jalur');
     }
     function isadmin(){
        return $this->ion_auth->is_admin();
@@ -196,23 +166,23 @@ class Mhspmb extends MX_Controller {
     }
     function forms(){   
 
-        $this->load->view('siakad_mhs_pmb_form_inside');
+        $this->load->view('pmb_jalur_form_inside');
            
     }
 
     public function get(){
         $id = $this->input->post('id');
         if($id!==null){
-            echo json_encode($this->mhspmbdb->get_one($id));
+            echo json_encode($this->pmb_jalurdb->get_one($id));
         }
     }
     function tables(){
-        $this->load->view('siakad_mhs_pmb_data');
+        $this->load->view('pmb_jalur_data');
     }
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->mhspmbdb->get_one($id);
+            $data=$this->pmb_jalurdb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -238,46 +208,26 @@ class Mhspmb extends MX_Controller {
         }
       
     }
-    function __formvalidation(){
 
-        $this->form_validation->set_rules('kode_prodi', 'Kode Prodi ', 'required|trim|xss_clean');
-
-       
-        if ($this->form_validation->run() == FALSE)
-            {
-                // $this->session->set_flashdata(validation_errors());             
-                // return json_encode(array('st'=>0, 'msg' => validation_errors()));
-                return json_encode(array('st'=>0, 'msg' => '<h3 class="text-center alert-danger alert"><i class="fa fa-warning fa2x" ></i>'.validation_errors()));
-                // return FALSE;
-            }
-        else{
-            return TRUE;
-        }
-        // return $status;
-    }
     public function submit(){
-        if($this->__formvalidation()===TRUE):
-            if ($this->input->post('ajax')){
-              if ($this->input->post('id_siakad_mhs_pmb')){
-                $this->mhspmbdb->update($this->input->post('id_siakad_mhs_pmb'));
-              }else{
-                //$this->mhspmbdb->save();
-                $this->mhspmbdb->saveas();
-              }
+        if ($this->input->post('ajax')){
+          if ($this->input->post('id')){
+            $this->pmb_jalurdb->update($this->input->post('id'));
+          }else{
+            //$this->pmb_jalurdb->save();
+            $this->pmb_jalurdb->saveas();
+          }
 
-            }else{
-              if ($this->input->post('submit')){
-                  if ($this->input->post('id_siakad_mhs_pmb')){
-                    $this->mhspmbdb->update($this->input->post('id_siakad_mhs_pmb'));
-                  }else{
-                    //$this->mhspmbdb->save();
-                    $this->mhspmbdb->saveas();
-                  }
+        }else{
+          if ($this->input->post('submit')){
+              if ($this->input->post('id')){
+                $this->pmb_jalurdb->update($this->input->post('id'));
+              }else{
+                //$this->pmb_jalurdb->save();
+                $this->pmb_jalurdb->saveas();
               }
-            }
-        else:
-             echo $this->__formvalidation();
-        endif;
+          }
+        }
     }
     
 
@@ -285,7 +235,7 @@ class Mhspmb extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->mhspmbdb->delete($this->input->post('id'));
+                $this->pmb_jalurdb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -294,8 +244,8 @@ class Mhspmb extends MX_Controller {
     }
     public function delete_detail(){
         if(isset($_POST['ajax'])){
-            if(!empty($_POST['id_siakad_mhs_pmb'])){
-                $this->mhspmbdb->upddel_detail($this->input->post('id_siakad_mhs_pmb'));
+            if(!empty($_POST['id'])){
+                $this->pmb_jalurdb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -309,8 +259,8 @@ class Mhspmb extends MX_Controller {
     } 
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
-            if(!empty($_POST['id_siakad_mhs_pmb'])){
-                $this->mhspmbdb->delete_detail($this->input->post('id_siakad_mhs_pmb'));
+            if(!empty($_POST['id'])){
+                $this->pmb_jalurdb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -323,5 +273,5 @@ class Mhspmb extends MX_Controller {
 
 }
 
-/** Module siakad_mhs_pmb Controller **/
+/** Module pmb_jalur Controller **/
 /** Build & Development By Syahroni Wahyu - roniwahyu@gmail.com */

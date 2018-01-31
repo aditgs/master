@@ -1,7 +1,7 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Kelompokmhs_model extends CI_Model {
+class Pmb_jalur_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -9,7 +9,7 @@ class Kelompokmhs_model extends CI_Model {
     
     function get_all($limit, $uri) {
 
-        $result = $this->db->get('kelompokmhs', $limit, $uri);
+        $result = $this->db->get('pmb_jalur', $limit, $uri);
         if ($result->num_rows() > 0) {
             return $result->result_array();
         } else {
@@ -23,10 +23,10 @@ class Kelompokmhs_model extends CI_Model {
         $this->db->where('datetime',NULL);
         $this->db->where('tanggal',NULL);
         $this->db->where('islocked',NULL);
-        $this->db->order_by('Kodek','ASC');
+        $this->db->order_by('id','ASC');
         $this->db->limit(1);
 
-        $result=$this->db->get('kelompokmhs');
+        $result=$this->db->get('pmb_jalur');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -37,10 +37,10 @@ class Kelompokmhs_model extends CI_Model {
     function get_last(){
 
         $this->db->select('*'); //faktur
-        $this->db->order_by('Kodek','DESC');
+        $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
-        $result=$this->db->get('kelompokmhs');
+        $result=$this->db->get('pmb_jalur');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -49,7 +49,7 @@ class Kelompokmhs_model extends CI_Model {
     } 
     function gettotaldetail($faktur){
         $this->db->select('faktur,sum(jumlah) as total'); //field perlu disesuaikan dengan tabel
-        $this->db->from('kelompokmhs');
+        $this->db->from('pmb_jalur');
         $this->db->where('faktur',$faktur); //field perlu disesuaikan dengan tabel
         $this->db->where('isactive',1);
         $this->db->group_by('faktur'); //field perlu disesuaikan dengan tabel
@@ -65,7 +65,7 @@ class Kelompokmhs_model extends CI_Model {
     //field dan tabel perlu disesuaikan dengan tabel
     function getdetail($data) {
         $this->db->select('id,Faktur as faktur,Jthtmp as jthtempo,NoBon as nobon,Supplier as kode,total,NmSupplier as nama,NoAccSup as noacc,Tgl as tanggal,IF(LEFT(NoAccSup,5)="1.700","Karyawan",IF(LEFT(NoAccSup,5)="1.250","Customer",IF(LEFT(NoAccSup,5)="2.300","Supplier","-"))) as tipe',FALSE);
-        $this->db->from('kelompokmhs');
+        $this->db->from('pmb_jalur');
         if(!empty($data['kdvendor'])||$data['kdvendor']!==''):
             $this->db->where('Supplier',((!empty($data['kdvendor'])||($data['kdvendor']>0))?$data['kdvendor']:'0'));
         endif;
@@ -94,9 +94,9 @@ class Kelompokmhs_model extends CI_Model {
         endif;
         return ($faktur);
     }
-    function get_one($Kodek) {
-        $this->db->where('Kodek', $Kodek);
-        $result = $this->db->get('kelompokmhs');
+    function get_one($id) {
+        $this->db->where('id', $id);
+        $result = $this->db->get('pmb_jalur');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -106,11 +106,11 @@ class Kelompokmhs_model extends CI_Model {
     
     function save() {
         $data=$this->__save();
-        $this->db->insert('kelompokmhs', $data);
+        $this->db->insert('pmb_jalur', $data);
     }
     function saveas() {
         $data=$this->__saveas();
-        $this->db->insert('kelompokmhs', $data);
+        $this->db->insert('pmb_jalur', $data);
 
     }
     function __save(){
@@ -122,7 +122,19 @@ class Kelompokmhs_model extends CI_Model {
         //ganti faktur dengan ==> 'Faktur' =>$this->genfaktur(),
        $data = array(
         
-            'Kelompok' => $this->input->post('Kelompok', TRUE),
+            'kodejalur' => $this->input->post('kodejalur', TRUE),
+           
+            'keterangan' => $this->input->post('keterangan', TRUE),
+           
+            'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
+           
+            'syaratketentuan' => $this->input->post('syaratketentuan', TRUE),
+           
+            'file' => $this->input->post('file', TRUE),
+           
+            'userid' => $this->input->post('userid', TRUE),
+           
+            'datetime' => NOW(),
            
         );
         //'isdeleted' => null,
@@ -136,7 +148,19 @@ class Kelompokmhs_model extends CI_Model {
         
        $data = array(
         
-            'Kelompok' => $this->input->post('Kelompok', TRUE),
+            'kodejalur' => $this->input->post('kodejalur', TRUE),
+           
+            'keterangan' => $this->input->post('keterangan', TRUE),
+           
+            'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
+           
+            'syaratketentuan' => $this->input->post('syaratketentuan', TRUE),
+           
+            'file' => $this->input->post('file', TRUE),
+           
+            'userid' => $this->input->post('userid', TRUE),
+           
+            'datetime' => NOW(),
            
         );
         //'isdeleted' => null,
@@ -148,13 +172,13 @@ class Kelompokmhs_model extends CI_Model {
         //    'Time' => NOW(),
         return $data;
     }
-    function savekelompokmhs($data){
-        $this->db->insert('kelompokmhs',$data);
+    function savepmb_jalur($data){
+        $this->db->insert('pmb_jalur',$data);
     }
     function save_detail($data){
-        $this->db->insert('kelompokmhs_detail',$data);
+        $this->db->insert('pmb_jalur_detail',$data);
     }
-    function upddel_detail($Kodek=null) {
+    function upddel_detail($id=null) {
         //semua field ini menyesuaikan dengan yang ada pada model dan tabel
         $data=array(
              'isdeleted' => 1,
@@ -166,49 +190,61 @@ class Kelompokmhs_model extends CI_Model {
 
             );
         
-        $this->db->where('Kodek', $Kodek);
-        $this->db->update('kelompokmhs', $data);
+        $this->db->where('id', $id);
+        $this->db->update('pmb_jalur', $data);
        
     } 
-    function updatebyid($Kodek,$data){
-        $this->db->where('Kodek', $Kodek);
-        $this->db->update('kelompokmhs', $data);
+    function updatebyid($id,$data){
+        $this->db->where('id', $id);
+        $this->db->update('pmb_jalur', $data);
     }
-    function update($Kodek) {
+    function update($id) {
         $data = array(
-        'Kodek' => $this->input->post('Kodek',TRUE),
-       'Kelompok' => $this->input->post('Kelompok', TRUE),
+        'id' => $this->input->post('id',TRUE),
+       'kodejalur' => $this->input->post('kodejalur', TRUE),
+       
+       'keterangan' => $this->input->post('keterangan', TRUE),
+       
+       'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
+       
+       'syaratketentuan' => $this->input->post('syaratketentuan', TRUE),
+       
+       'file' => $this->input->post('file', TRUE),
+       
+       'userid' => $this->input->post('userid', TRUE),
+       
+       'datetime' => NOW(),
        
         );
-        $this->db->where('Kodek', $Kodek);
-        $this->db->update('kelompokmhs', $data);
+        $this->db->where('id', $id);
+        $this->db->update('pmb_jalur', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/
     }
 
-    function delete($Kodek) {
-        $this->db->where('Kodek', $Kodek);
-        $this->db->delete('kelompokmhs'); 
+    function delete($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('pmb_jalur'); 
        
     }
     function delete_detail($id=null) {
         $this->db->where('id_detail', $id);
-        $this->db->delete('kelompokmhs_detail'); 
+        $this->db->delete('pmb_jalur_detail'); 
        
     } 
     function deletebybukti($bukti=null) {
         $this->db->where('faktur', $bukti);
-        $this->db->delete('kelompokmhs_detail');       
+        $this->db->delete('pmb_jalur_detail');       
     }
 
     //Update 07122013 SWI
     //untuk Array Dropdown
     function get_dropdown_array($value){
         $result = array();
-        $array_keys_values = $this->db->query('select Kodek, '.$value.' from kelompokmhs order by Kodek asc');
-        $result[0]="-- Pilih Urutan Kodek --";
+        $array_keys_values = $this->db->query('select id, '.$value.' from pmb_jalur order by id asc');
+        $result[0]="-- Pilih Urutan id --";
         foreach ($array_keys_values->result() as $row)
         {
-            $result[$row->Kodek]= $row->$value;
+            $result[$row->id]= $row->$value;
         }
         return $result;
     }
@@ -225,7 +261,6 @@ class Kelompokmhs_model extends CI_Model {
         }
         return $result;
     }
-    
     
 }
 ?>

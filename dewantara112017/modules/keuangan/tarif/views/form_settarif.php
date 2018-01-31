@@ -1,4 +1,5 @@
 <div id="form_input" class="row gutter5">
+    <a class="ref" href="#">refresh</a>
     <?php echo form_open(base_url().'tarif/submit_settarif',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <input type="hidden" value='' id="id" name="id">
@@ -86,6 +87,7 @@
             </div>
         </div>
     </div>
+
     <?php if(isset($default)){
         print_r($default);
     } ?>

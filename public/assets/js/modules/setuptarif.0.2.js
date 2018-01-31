@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    getformgen();
     $("body #addform").on("submit", function(e) {
         e.preventDefault();
         save(0);
@@ -7,7 +8,7 @@ $(document).ready(function() {
         gen();
     });
     $('select#angkatan').change(function() {
-        getformgen();
+        // getformgen();
         gen();
     });
     $('select#smster').change(function() {
@@ -17,7 +18,7 @@ $(document).ready(function() {
         gen();
     });
     $('select#prodi').change(function() {
-        getformgen();
+        // getformgen();
         gen();
     });
     $('select#jenis').change(function() {
@@ -26,7 +27,11 @@ $(document).ready(function() {
     $('input[name="semester"]').change(function() {
         gen();
     });
+    $('body').on('click','.ref',function(e){
+       alert($('.kodetarif').data('tarif'));
+    });
     $('.kodetarif').change(function() {
+        alert($(this).val());
         var x = $(this).val();
         // console.log(x);
         var y = $(this).data("tarif");
@@ -77,8 +82,8 @@ function gen() {
         if (status == "success") {
             if(dx.st==1){
 
-                // $('.kodetarif').val(dx.kode).trigger('change');
-                $('.kodetarif').val(dx.kode).change();
+                $('.kodetarif').val(dx.kode).trigger('change');
+                // $('.kodetarif').val(dx.kode).change();
                 $( "#save" ).prop( "disabled",false );
             }else{
                 $('#modal-alert').modal('toggle');
@@ -115,7 +120,7 @@ function getformgen(){
             $('.genkodejenis').html(data);
 
             enterev();
-            $('.kodetarif').trigger('change');
+            // $('.kodetarif').trigger('change');
 
         }
     });
