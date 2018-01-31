@@ -134,7 +134,7 @@ class Pmb_jalur_model extends CI_Model {
            
             'userid' => $this->input->post('userid', TRUE),
            
-            'datetime' => $this->input->post('datetime', TRUE),
+            'datetime' => NOW(),
            
         );
         //'isdeleted' => null,
@@ -160,7 +160,7 @@ class Pmb_jalur_model extends CI_Model {
            
             'userid' => $this->input->post('userid', TRUE),
            
-            'datetime' => $this->input->post('datetime', TRUE),
+            'datetime' => NOW(),
            
         );
         //'isdeleted' => null,
@@ -213,7 +213,7 @@ class Pmb_jalur_model extends CI_Model {
        
        'userid' => $this->input->post('userid', TRUE),
        
-       'datetime' => $this->input->post('datetime', TRUE),
+       'datetime' => NOW(),
        
         );
         $this->db->where('id', $id);

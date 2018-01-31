@@ -42,9 +42,10 @@ class pmbjalur extends MX_Controller {
 
     public function index() {
         $this->template->set_title('Kelola Pmb_jalur');
-        $this->template->add_js('var baseurl="'.base_url().'pmb_jalur/";','embed');  
+        $this->template->add_js('var baseurl="'.base_url().'pmbjalur/";','embed');  
+        $this->template->add_js('modules/pmbjalur.js');
         $this->template->load_view('pmb_jalur_view',array(
-            'view'=>'',
+            'view'=>'pmb_jalur_data',
             'title'=>'Kelola Data Pmb_jalur',
             'subtitle'=>'Pengelolaan Pmb_jalur',
             'breadcrumb'=>array(
@@ -53,9 +54,9 @@ class pmbjalur extends MX_Controller {
     }
     public function data() {
         $this->template->set_title('Kelola Pmb_jalur');
-        $this->template->add_js('var baseurl="'.base_url().'pmb_jalur/";','embed');  
+        $this->template->add_js('var baseurl="'.base_url().'pmbjalur/";','embed');  
         $this->template->load_view('pmb_jalur_view',array(
-            'view'=>'Pmb_jalur_data',
+            'view'=>'pmb_jalur_data',
             'title'=>'Kelola Data Pmb_jalur',
             'subtitle'=>'Pengelolaan Pmb_jalur',
             'breadcrumb'=>array(
@@ -64,7 +65,7 @@ class pmbjalur extends MX_Controller {
     }
      public function baru() {
         $this->template->set_title('Kelola Pmb_jalur');
-        $this->template->add_js('var baseurl="'.base_url().'pmb_jalur/";','embed');  
+        $this->template->add_js('var baseurl="'.base_url().'pmbjalur/";','embed');  
         $this->template->load_view('pmb_jalur_view',array(
             'view'=>'',
             'title'=>'Kelola Data Pmb_jalur',
@@ -125,24 +126,24 @@ class pmbjalur extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
+        // if($this->isadmin()==1):
             $this->datatables->select('id,kodejalur,keterangan,kodetarifdaftar,syaratketentuan,file,userid,datetime,')
                             ->from('pmb_jalur');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmb_jalur/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmbjalur/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit_pmbjalur btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
             $this->datatables->unset_column('id');
 
-        else:
+        /*else:
             $this->datatables->select('id,kodejalur,keterangan,kodetarifdaftar,syaratketentuan,file,userid,datetime,')
                             ->from('pmb_jalur');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmb_jalur/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
             $this->datatables->unset_column('id');
-        endif;
+        endif;*/
         echo $this->datatables->generate();
     }
     function enkrip(){
@@ -169,7 +170,8 @@ class pmbjalur extends MX_Controller {
            
     }
 
-    public function get($id=null){
+    public function get(){
+        $id = $this->input->post('id');
         if($id!==null){
             echo json_encode($this->pmb_jalurdb->get_one($id));
         }
