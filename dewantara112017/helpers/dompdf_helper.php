@@ -112,7 +112,7 @@ function buildpdflaporan($html, $filename='', $stream=TRUE)
     unset($html);
     unset($dompdf); 
 }
-function cetakpmb($html, $filename='', $stream=TRUE) 
+function kuitansipmb($html, $filename='', $stream=TRUE) 
 {
     require_once APPPATH.'third_party/dompdf/autoload.inc.php';
     
