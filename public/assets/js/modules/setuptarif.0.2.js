@@ -27,7 +27,6 @@ $(document).ready(function() {
         gen();
     });
     $('.kodetarif').change(function() {
-        alert($(this).val());
         var x = $(this).val();
         // console.log(x);
         var y = $(this).data("tarif");
@@ -78,7 +77,8 @@ function gen() {
         if (status == "success") {
             if(dx.st==1){
 
-                $('.kodetarif').val(dx.kode).trigger('change');
+                // $('.kodetarif').val(dx.kode).trigger('change');
+                $('.kodetarif').val(dx.kode).change();
                 $( "#save" ).prop( "disabled",false );
             }else{
                 $('#modal-alert').modal('toggle');

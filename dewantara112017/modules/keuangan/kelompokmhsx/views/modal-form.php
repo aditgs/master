@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-form">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-fullscreen">
         <!-- <div class="modal-content"> -->
         <div class="modal-content panel panel-info">
             <div class="modal-header panel-heading navy-bg">
@@ -11,7 +11,7 @@
                     $this->load->view($form_view);
                 else: ?>
                 <?php 
-                $this->load->view('jenis_form_inside');
+                $this->load->view('kelompokmhs_form_inside');
                 endif;
                 ?>
                

@@ -4,48 +4,79 @@
         <a href="<?php echo base_url('mhspmb') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data Calon Mahasiswa</a>
     </div>
     <h2 class="text-center" style="margin:20px 0px 30px">Tabel Data Calon Mahasiswa</h2>
-    <table id="datatables" class="table table-bordered table-condensed table-striped" style="">
+    <table id="datatables" class="table table-bordered table-condensed table-striped" style="width: 100%">
         <thead class="">
             <tr>
                 
-               <th>noreg_pmb</th>
-                
-                <th>nm_cmhs</th>
-                
-                <th>nik_cmhs</th>
+               <th>Nama Pendaftar</th>
 
-                <th>kelamin_cmhs</th>
-                
-                <th>tmp_cmhs</th>
-                
-                <th>tgl_cmhs</th>
-                
-                <th>agama_cmhs</th>
-                
-                <th>almt_cmhs</th>
+               <!-- <th>id_siakad_mhs_pmb</th> -->
 
-                <th>nm_ibu_cmhs</th>
-                
-                <th>kota_cmhs</th>
-                
-                <th>kodepos_cmhs</th>
-                
-                <th>email_cmhs</th>
-                
-                <th>hp_cmhs</th>
-                
-                <th>telp_cmhs</th>
-                
-                <th>asal_pend</th>
-                
-                <th>jurusan_pend</th>
-                
-                <th>no_ijazah_pend</th>
-                
-                <th>tgl_ijazah_pend</th>
-                
-                <th>nil_ijazah_pend</th>
+               <!-- <th>kode_prodi</th> -->
+
+               <!-- <th>id_siakad_kelas</th> -->
+
+               <th>Tgl Register</th>
+
+               <th>No Register PMB</th>
+
+               <!-- <th>nik_cmhs</th> -->
             
+            
+                <!-- <th>kelamin_cmhs</th> -->
+                
+                <!-- <th>tmp_cmhs</th> -->
+                
+                <!-- <th>tgl_cmhs</th> -->
+                
+                <!-- <th>agama_cmhs</th> -->
+                
+                <!-- <th>almt_cmhs</th> -->
+
+                <!-- <th>kota_cmhs</th> -->
+
+                <!-- <th>kodepos_cmhs</th> -->
+
+                <!-- <th>email_cmhs</th> -->
+
+                <!-- <th>hp_cmhs</th> -->
+
+                <!-- <th>telp_cmhs</th> -->
+
+                <!-- <th>asal_pend</th> -->
+
+                <!-- <th>jurusan_pend</th> -->
+
+                <!-- <th>no_ijazah_pend</th> -->
+
+                <!-- <th>tgl_ijazah_pend</th> -->
+
+                <!-- <th>nil_ijazah_pend</th> -->
+
+                <!-- <th>nm_ibu_cmhs</th> -->
+
+                <th>Status PMB</th>
+
+                <!-- <th>id_siakad_keu_rek</th> -->
+
+                <!-- <th>id_siakad_keu_pendaftaran</th> -->
+
+                <!-- <th>tgl_transfer</th> -->
+
+                <!-- <th>nm_transfer</th> -->
+
+                <!-- <th>img_bukti_transfer</th> -->
+
+                <!-- <th>img_pasfoto</th> -->
+
+                <!-- <th>img_ijazah</th> -->
+
+                <!-- <th>img_transkrip</th> -->
+
+                <!-- <th>img_pindah</th> -->
+
+                <!-- <th>Status Pendaftar</th> -->
+
                 <th>Aksi</th>
             </tr>
         </thead>

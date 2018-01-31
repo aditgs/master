@@ -225,6 +225,7 @@ class Set_tarif extends MX_Controller {
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
                 $this->setup_tarifdb->delete($this->input->post('id'));
+                
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');

@@ -1,7 +1,7 @@
 
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'siakad_mhs_pmb/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <input type="hidden" value='' id="id_siakad_mhs_pmb" name="id_siakad_mhs_pmb"> 
         
         
@@ -11,25 +11,32 @@
                 <?php echo form_input('noreg_pmb',set_value('noreg_pmb', isset($default['noreg_pmb']) ? $default['noreg_pmb'] : ''),'id="noreg_pmb" class="form-control" placeholder="Masukkan No Pendaftaran"'); ?>
             </div>
         </div>
+
+         <div class="form-group">
+            <?php echo form_label('Kode Prodi : ','kode_prodi',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('kode_prodi',set_value('kode_prodi', isset($default['kode_prodi']) ? $default['kode_prodi'] : ''),'id="kode_prodi" class="form-control" placeholder="Masukkan Kode Prodi"'); ?>
+            </div>
+        </div>
         
         <div class="form-group">
             <?php echo form_label('Nama Lengkap : ','nm_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('nm_cmhs',set_value('nm_cmhs', isset($default['nm_cmhs']) ? $default['nm_cmhs'] : ''),'id="nm_cmhs" class="form-control" placeholder="Contoh : Ahmad Rofiqul Muslikh"'); ?>
+                <?php echo form_input('nm_cmhs',set_value('nm_cmhs', isset($default['nm_cmhs']) ? $default['nm_cmhs'] : ''),'id="nm_cmhs" class="form-control" placeholder="Masukkan Nama"'); ?>
             </div>
         </div>
 
         <div class="form-group">
             <?php echo form_label('NIK : ','nik_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('nik_cmhs',set_value('kodepos_cmhs', isset($default['nik_cmhs']) ? $default['nik_cmhs'] : ''),'id="nik_cmhs" class="form-control" placeholder="Contoh : 01679765443368363"'); ?>
+                <?php echo form_input('nik_cmhs',set_value('kodepos_cmhs', isset($default['nik_cmhs']) ? $default['nik_cmhs'] : ''),'id="nik_cmhs" class="form-control" placeholder="Masukkan NIK"'); ?>
             </div>
         </div>
 
         <div class="form-group">
             <?php echo form_label('Nama Ibu : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Contoh : Sri Umiati"'); ?>
+                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
             </div>
         </div>
         
@@ -37,8 +44,8 @@
             <div class="controls input-group">
                 <?php echo form_label('Jenis Kelamin : ','kelamin_cmhs',array('class'=>'control-label')); ?>
                 <select name="kelamin_cmhs" id="kelamin_cmhs" class="input-lg form-control select2" style="width: 100%">
-                    <option value="1">Laki - laki</option>
-                    <option value="2">Perempuan</option>
+                    <option value="Laki-laki">Laki - laki</option>
+                    <option value="Perempuan">Perempuan</option>
                 </select>
             </div>     
         </div>
@@ -46,30 +53,42 @@
         <div class="form-group">
             <?php echo form_label('Tempat Lahir : ','tmp_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('tmp_cmhs',set_value('tmp_cmhs', isset($default['tmp_cmhs']) ? $default['tmp_cmhs'] : ''),'id="tmp_cmhs" class="form-control" placeholder="Contoh : Jombang "'); ?>
+                <?php echo form_input('tmp_cmhs',set_value('tmp_cmhs', isset($default['tmp_cmhs']) ? $default['tmp_cmhs'] : ''),'id="tmp_cmhs" class="form-control" placeholder="Masukkan Tempat Lahir "'); ?>
             </div>
         </div>
-        
+
         <div class="form-group tanggal">
-            <?php echo form_label('Tanggal Lahir : ','tanggal',array('class'=>'control-label')); ?>
+            <?php echo form_label('Tanggal Lahir : ','tgl_cmhs',array('class'=>'control-label')); ?>
             <div class="input-daterange input-group controls" id="datepicker">
-                <?php if (!empty($default['tanggal'])): ?>
-                <input id="tanggal" value="<?php echo $default['tanggal']; ?>" type="text" onchange="" class="input-md form-control" name="tanggal" required />
+                <?php if (!empty($default['tgl_cmhs'])): ?>
+                <input id="tgl_cmhs" value="<?php echo $default['tgl_cmhs']; ?>" type="text" onchange="" class="input-md form-control" name="tgl_cmhs" required />
                 <?php else: ?>
-                <input id="tanggal" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tanggal" required />
+                <input id="tgl_cmhs" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgl_cmhs" required />
                 <?php endif; ?>
                 <span class="input-group-btn">
                     <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
             </div>
         </div>
-        
-        <div class="form-group">
-            <?php echo form_label('Agama : ','agama_cmhs',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('agama_cmhs',set_value('agama_cmhs', isset($default['agama_cmhs']) ? $default['agama_cmhs'] : ''),'id="agama_cmhs" class="form-control" placeholder="Masukkan Agama"'); ?>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <?php $opt_agama_cmhs = array('Islam',
+            'Protestan'=>'Protestan',
+            'Katolik'=>'Katolik',
+            'Hindu'=>'Hindu',
+            'Budha'=>'Budha',
+            'Konghucu'=>'Konghucu',);?>
+
+       <div class="form-group">
+            <label class="control-label">
+                Agama
+            </label>
+            <div class="controls input-group" style="width: 100%">
+                <?php $agama_cmhs = isset($default['agama_cmhs'])? $default['agama_cmhs'] : '0';  ?>
+                <?php echo form_dropdown('agama_cmhs',$opt_agama_cmhs,$agama_cmhs,'id="agama_cmhs" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Agama"'); ?>
+              
             </div>
         </div>
-        
+
         <div class="form-group">
             <?php echo form_label('Alamat : ','almt_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -111,14 +130,16 @@
                 <?php echo form_input('telp_cmhs',set_value('telp_cmhs', isset($default['telp_cmhs']) ? $default['telp_cmhs'] : ''),'id="telp_cmhs" class="form-control" placeholder="Masukkan Telp"'); ?>
             </div>
         </div>
-        
+
         <div class="form-group">
             <?php echo form_label('Asal Pendidikan : ','asal_pend',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('asal_pend',set_value('asal_pend', isset($default['asal_pend']) ? $default['asal_pend'] : ''),'id="asal_pend" class="form-control" placeholder="Masukkan Asal Pendidikan"'); ?>
             </div>
         </div>
-        
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md43 col-lg-4">
         <div class="form-group">
             <?php echo form_label('Jurusan Pendidikan : ','jurusan_pend',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -133,10 +154,16 @@
             </div>
         </div>
         
-        <div class="form-group">
+        <div class="form-group tanggal">
             <?php echo form_label('Tanggal Ijazah : ','tgl_ijazah_pend',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('tgl_ijazah_pend',set_value('tgl_ijazah_pend', isset($default['tgl_ijazah_pend']) ? $default['tgl_ijazah_pend'] : ''),'id="tgl_ijazah_pend" class="form-control" placeholder="Masukkan Tanggal Ijazah"'); ?>
+            <div class="input-daterange input-group controls" id="datepicker">
+                <?php if (!empty($default['tgl_ijazah_pend'])): ?>
+                <input id="tgl_ijazah_pend" value="<?php echo $default['tgl_ijazah_pend']; ?>" type="text" onchange="" class="input-md form-control" name="tgl_ijazah_pend" required />
+                <?php else: ?>
+                <input id="tgl_ijazah_pend" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgl_ijazah_pend" required />
+                <?php endif; ?>
+                <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
             </div>
         </div>
         
@@ -144,6 +171,19 @@
             <?php echo form_label('Nilai Ijazah : ','nil_ijazah_pend',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('nil_ijazah_pend',set_value('nil_ijazah_pend', isset($default['nil_ijazah_pend']) ? $default['nil_ijazah_pend'] : ''),'id="nil_ijazah_pend" class="form-control" placeholder="Masukkan Nilai Ijazah"'); ?>
+            </div>
+        </div>
+
+        <div class="form-group tanggal">
+            <?php echo form_label('Tanggal Tansfer : ','tgl_transfer',array('class'=>'control-label')); ?>
+            <div class="input-daterange input-group controls" id="datepicker">
+                <?php if (!empty($default['tgl_transfer'])): ?>
+                <input id="tgl_transfer" value="<?php echo $default['tgl_transfer']; ?>" type="text" onchange="" class="input-md form-control" name="tgl_transfer" required />
+                <?php else: ?>
+                <input id="tgl_transfer" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgl_transfer" required />
+                <?php endif; ?>
+                <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
             </div>
         </div>
         
@@ -154,9 +194,38 @@
             </div>
         </div>
         
+        <?php $opt_status_pmb = array('Terima',
+        'Baru' => 'Baru',
+        'Online' => 'Online',
+        'Tolak' => 'Tolak',);?>
+
+       <div class="form-group">
+            <label class="control-label">
+                Status PMB
+            </label>
+            <div class="controls input-group">
+                <?php $status_pmb = isset($default['status_pmb'])? $default['status_pmb'] : '0';  ?>
+                <?php echo form_dropdown('status_pmb',$opt_status_pmb,$status_pmb,'id="status_pmb" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Status PMB"'); ?>
+              
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="controls input-group">
+                <?php echo form_label('Status Calon Mahasiswa : ','status_cmhs',array('class'=>'control-label')); ?>
+                <select name="status_cmhs" id="status_cmhs" class="input-lg form-control select2" style="width: 100%">
+                    <option value="Baru">Baru</option>
+                    <option value="Pindah">Pindah</option>
+                </select>
+            </div>     
+        </div>
+    </div>    
         
         
-    </div>
+        
+        
+        
+    
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
@@ -166,3 +235,16 @@
     </div>
     <?php echo form_close();?>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.getScript( assetsurl+"datepicker.js" ) 
+      .done(function( script, textStatus ) { 
+        console.log( textStatus ); 
+      }) 
+      .fail(function( jqxhr, settings, exception ) { 
+        // $( "div.log" ).text( "Triggered ajaxError handler." ); 
+        alert('triiger'); 
+    
+    })
+     
+</script>
