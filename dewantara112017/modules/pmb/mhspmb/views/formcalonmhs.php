@@ -9,11 +9,14 @@
             </div>
         </div>
         <div class="form-group">
-            <?php echo form_label('Kode Prodi : ','kode_prodi',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('kode_prodi',set_value('kode_prodi', isset($default['kode_prodi']) ? $default['kode_prodi'] : ''),'id="kode_prodi" class="form-control" placeholder="Masukkan Kode Prodi"'); ?>
-            </div>
-        </div>
+                    <div class="controls input-group">
+                        <?php echo form_label('Jurusan : ','kode_prodi',array('class'=>'control-label')); ?>
+                        <select name="kode_prodi" id="kode_prodi" class=" form-control select2" style="width: 100%">
+                            <option value="61201">S1 - Manajemen</option>
+                            <option value="62201">S1 - Akuntansi</option>
+                        </select>
+                    </div>
+                </div>
         <div class="form-group">
             <?php echo form_label('Nama Lengkap : ','nm_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -24,6 +27,12 @@
             <?php echo form_label('NIK : ','nik_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('nik_cmhs',set_value('kodepos_cmhs', isset($default['nik_cmhs']) ? $default['nik_cmhs'] : ''),'id="nik_cmhs" class="form-control" placeholder="Masukkan NIK"'); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo form_label('Nama Ibu : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
             </div>
         </div>
         <div class="row gutter5">
@@ -50,16 +59,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <?php echo form_label('Nama Ibu : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
-            </div>
-        </div>
-        
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="row gutter5">
+         <div class="row gutter5">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <?php $opt_agama_cmhs = array('Islam',
             'Protestan'=>'Protestan',
@@ -89,6 +89,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+       
         <div class="form-group">
             <?php echo form_label('Alamat : ','almt_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -143,9 +146,7 @@
                 <?php echo form_input('asal_pend',set_value('asal_pend', isset($default['asal_pend']) ? $default['asal_pend'] : ''),'id="asal_pend" class="form-control" placeholder="Masukkan Asal Pendidikan"'); ?>
             </div>
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md43 col-lg-4">
-        <div class="form-group">
+         <div class="form-group">
             <?php echo form_label('Jurusan Pendidikan : ','jurusan_pend',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('jurusan_pend',set_value('jurusan_pend', isset($default['jurusan_pend']) ? $default['jurusan_pend'] : ''),'id="jurusan_pend" class="form-control" placeholder="Masukkan Jurusan Pendidikan"'); ?>
@@ -157,6 +158,10 @@
                 <?php echo form_input('no_ijazah_pend',set_value('no_ijazah_pend', isset($default['no_ijazah_pend']) ? $default['no_ijazah_pend'] : ''),'id="no_ijazah_pend" class="form-control" placeholder="Masukkan No Ijazah"'); ?>
             </div>
         </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md43 col-lg-4">
+       
+        
         <div class="row gutter5">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group tanggal">
