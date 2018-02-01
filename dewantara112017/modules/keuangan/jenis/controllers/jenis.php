@@ -218,7 +218,7 @@ class jenis extends MX_Controller {
         // return $status;
     }
     public function submit(){
-        if($this->__formvalidation()===TRUE):
+        // if($this->__formvalidation()===TRUE):
                    
             if ($this->input->post('ajax')){
               if ($this->input->post('id')){
@@ -240,9 +240,9 @@ class jenis extends MX_Controller {
             }
             echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data tagihan berhasil disimpan</h3>'));
 
-        else:
-            echo $this->__formvalidation();
-        endif;
+        // else:
+            // echo $this->__formvalidation();
+        // endif;
     }
     
 
