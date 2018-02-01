@@ -164,6 +164,9 @@ class Jenis_model extends CI_Model {
             'Jenis' => $this->input->post('Jenis', TRUE),
             'prodi' => $this->input->post('prodi', TRUE),
             'iscicilan' => $this->input->post('iscicilan', TRUE),
+            'ishereg' => $this->input->post('ishereg', TRUE),
+            'ispmb' => $this->input->post('ispmb', TRUE),
+            'isactive' => 1,
             'parent' => $this->input->post('parent', TRUE),
             'userid' =>userid(),
             'datetime' =>NOW(),
@@ -217,11 +220,25 @@ class Jenis_model extends CI_Model {
     function update($id) {
         $data = array(
         'id' => $this->input->post('id',TRUE),
-       'KodeJ' => $this->input->post('KodeJ', TRUE),
-       
-       'Jenis' => $this->input->post('Jenis', TRUE),
-       
+        'KodeJ' => $this->input->post('KodeJ', TRUE),
+        'Jenis' => $this->input->post('Jenis', TRUE),
+            'prodi' => $this->input->post('prodi', TRUE),
+            'iscicilan' => $this->input->post('iscicilan', TRUE),
+            'ishereg' => $this->input->post('ishereg', TRUE),
+            'ispmb' => $this->input->post('ispmb', TRUE),
+            'parent' => $this->input->post('parent', TRUE),       
         );
+        if($this->input->post('prodi')=='akuntansi'){
+            $data['is_akuntansi']=1;
+        }elseif($this->input->post('prodi')=='manajemen'){
+            $data['is_manajemen']=1;
+
+        }else{
+            $data['prodi']='semua';
+            $data['is_akuntansi']=1;
+            $data['is_manajemen']=1;
+
+        }
         $this->db->where('id', $id);
         $this->db->update('jenis', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/

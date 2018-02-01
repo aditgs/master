@@ -52,7 +52,9 @@ class Tagihan extends MX_Controller {
 
     public function index() {
         $this->template->set_title('Kelola Tagihanmhs');
-        $this->template->add_js('var baseurl="'.base_url().'tagihan/";
+        $this->template->add_js('
+            var baseurl="'.base_url().'tagihan/";
+            var assetsurl="'.assets_url().'/";
              
             ','embed');  
         $this->template->add_js('modules/tagihan.0.2.js');

@@ -53,6 +53,16 @@
             <label style="padding-left: 0px"> <input type="checkbox" value="1" name="iscicilan" id="iscicilan"> <i></i> Cicilan </label>
         </div>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="checkbox i-checks">
+            <label style="padding-left: 0px"> <input type="checkbox" value="1" name="ispmb" id="ispmb"> <i></i> Registrasi </label>
+        </div>
+    </div> 
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="checkbox i-checks">
+            <label style="padding-left: 0px"> <input type="checkbox" value="1" name="ishereg" id="ishereg"> <i></i> Daftar Ulang </label>
+        </div>
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>

@@ -184,7 +184,7 @@ class tarif extends MX_Controller {
             $this->datatables->edit_column('tarif','<div class="text-right">$1</div>','rp(tarif)');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a href='#modal-form'  data-toggle='modal' data-placement='top' title='Edit' class='edite btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a> <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tarif/getonetarif/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a> <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
             $this->datatables->unset_column('id');
             // $this->datatables->unset_column('id');
@@ -283,6 +283,13 @@ class tarif extends MX_Controller {
       
         }
       
+    }
+    function getonetarif($id=null){
+        if($id!==null||!empty($id)||$id>0){
+            $data=$this->tarifdb->get_one($id);
+            $html=$this->load->view('tabeldetailtarif',array('data'=>$data),true);
+            $this->output->set_output($html);
+        }
     }
     function bacatarif($kode){
         echo bacatarif($kode);
