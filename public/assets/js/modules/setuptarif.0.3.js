@@ -8,7 +8,7 @@ $(document).ready(function() {
         gen();
     });
     $('select#angkatan').change(function() {
-        // getformgen();
+        
         gen();
     });
     $('select#smster').change(function() {
@@ -18,7 +18,7 @@ $(document).ready(function() {
         gen();
     });
     $('select#prodi').change(function() {
-        // getformgen();
+       
         gen();
     });
     $('select#jenis').change(function() {
@@ -40,20 +40,7 @@ $(document).ready(function() {
         window.location = baseurl;
         // $('#datatables').DataTable().ajax.reload();
     });
-    /*$('.inputs').keydown(function (e) {
-            alert('keydown');
-         if (e.which === 13) {
-             var index = $('.inputs').index(this) + 1;
-             $('.inputs').eq(index).focus();
-         }
-     });
-    $('#addform').on('keyup keypress', function(e) {
-          var keyCode = e.keyCode || e.which;
-          if (keyCode === 13) { 
-            e.preventDefault();
-            return false;
-        }
-    });*/
+ 
 });
 
 function gen() {
@@ -104,24 +91,13 @@ function getformgen(){
     $.post(baseurl+'getformkodejenis',{id:id},function(data,status){
         if(status=='success'){
             $('.genkodejenis').html(data);
-
             enterev();
-            // $('.kodetarif').trigger('change');
 
         }
     });
     
 }
 function enterev(){
-    // alert('de');
-  /*  $.getScript( assetsurl+"modules/enterevent.js" )
-      .done(function( script, textStatus ) {
-        console.log( textStatus );
-      })
-      .fail(function( jqxhr, settings, exception ) {
-        // $( "div.log" ).text( "Triggered ajaxError handler." );
-        alert('triiger');
-    });*/
     $.ajax({
       url: assetsurl+'modules/enterevent.js',
       dataType: "script",
@@ -179,41 +155,3 @@ function save(id) {
     });
 }
 
-
-/*function save(id){
-    var data={};
-    var data=$('body form#addform').serializeArray();
-    data.ajax=1;
-    $.post(baseurl+'submit',{data:data},function(dx,status){
-        if(status=='success'){
-            alert(dx);
-            
-        }
-    },'json');
-}*/
-/*function save(id) {
-    var data = $('body form#addform').serializeArray();
-    data.push({ name: 'ajax', value: 1 });
-
-    $(this).ready(function() {
-        $.ajax({
-            url: baseurl + "submit",
-            data: data,
-            async: false,
-            type: "POST",
-
-            success: function(data, status) {
-                handleSubmit(data);
-            }
-        });
-    });
-}*/
-
-/*
-$("button").click(function(){
-    var x = $("form").serializeArray();
-    $.each(x, function(i, field){
-        $("#results").append(field.name + ":" + field.value + " ");
-    });
-});
-*/

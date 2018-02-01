@@ -57,3 +57,25 @@
             <?php endif;?>
 
         </div>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                  $('.kodetarif').change(function() {
+                    // alert($(this).val());
+                    var x = $(this).val();
+                    // console.log(x);
+                    var y = $(this).data("tarif");
+                    // console.log(y);
+                    // alert(y);
+                    var l = x.substr(0, 4);
+                    // console.log(l);
+                    var r = x.substr(6, 6);
+                    // console.log(r);
+                    var z = x + y;
+                    // console.log(z);
+                    $(this).val(l + y + r);
+                })
+            });
+
+
+        </script>
