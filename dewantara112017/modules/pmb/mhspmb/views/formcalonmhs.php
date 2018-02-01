@@ -13,12 +13,10 @@
 
             <?php echo form_label('Kode Prodi : ','kode_prodi',array('class'=>'control-label')); ?>
             <?php $opt_prodi = array('61201'=>'S-1 Manajemen','62201'=>'S-1 Akuntansi',);?>
-            <!-- <div class="controls">
-                <?php echo form_input('kode_prodi',set_value('kode_prodi', isset($default['kode_prodi']) ? $default['kode_prodi'] : ''),'id="kode_prodi" class="form-control" placeholder="Masukkan Kode Prodi"'); ?>
-            </div> -->
+           
             <div class="controls input-group" style="width: 100%">
-                <?php $prodi_cmhs = isset($default['prodi_cmhs'])? $default['prodi_cmhs'] : '0';  ?>
-                <?php echo form_dropdown('prodi_cmhs',$opt_prodi,$prodi_cmhs,'id="prodi_cmhs" class="rekening form-control select2 " style="width:100%" placeholder="Prodi"'); ?>
+                <?php $kode_prodi = isset($default['kode_prodi'])? $default['kode_prodi'] : '0';  ?>
+                <?php echo form_dropdown('kode_prodi',$opt_prodi,$kode_prodi,'id="kode_prodi" class="rekening form-control select2 " style="width:100%" placeholder="Prodi"'); ?>
             </div>
         </div>
 

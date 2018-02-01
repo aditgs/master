@@ -33,6 +33,62 @@
         </div>
         
         <div class="form-group">
+            <?php echo form_label('date_start : ','date_start',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('date_start',set_value('date_start', isset($default['date_start']) ? $default['date_start'] : ''),'id="date_start" class="form-control" placeholder="Masukkan date_start"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?php echo form_label('date_end : ','date_end',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('date_end',set_value('date_end', isset($default['date_end']) ? $default['date_end'] : ''),'id="date_end" class="form-control" placeholder="Masukkan date_end"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?php echo form_label('kodetarifdaftar : ','kodetarifdaftar',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('kodetarifdaftar',set_value('kodetarifdaftar', isset($default['kodetarifdaftar']) ? $default['kodetarifdaftar'] : ''),'id="kodetarifdaftar" class="form-control" placeholder="Masukkan kodetarifdaftar"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?php echo form_label('date_seleksi_start : ','date_seleksi_start',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('date_seleksi_start',set_value('date_seleksi_start', isset($default['date_seleksi_start']) ? $default['date_seleksi_start'] : ''),'id="date_seleksi_start" class="form-control" placeholder="Masukkan date_seleksi_start"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?php echo form_label('date_seleksi_end : ','date_seleksi_end',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('date_seleksi_end',set_value('date_seleksi_end', isset($default['date_seleksi_end']) ? $default['date_seleksi_end'] : ''),'id="date_seleksi_end" class="form-control" placeholder="Masukkan date_seleksi_end"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?php echo form_label('date_her_start : ','date_her_start',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('date_her_start',set_value('date_her_start', isset($default['date_her_start']) ? $default['date_her_start'] : ''),'id="date_her_start" class="form-control" placeholder="Masukkan date_her_start"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?php echo form_label('date_her_end : ','date_her_end',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('date_her_end',set_value('date_her_end', isset($default['date_her_end']) ? $default['date_her_end'] : ''),'id="date_her_end" class="form-control" placeholder="Masukkan date_her_end"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?php echo form_label('date_pengumuman : ','date_pengumuman',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('date_pengumuman',set_value('date_pengumuman', isset($default['date_pengumuman']) ? $default['date_pengumuman'] : ''),'id="date_pengumuman" class="form-control" placeholder="Masukkan date_pengumuman"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
             <?php echo form_label('userid : ','userid',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('userid',set_value('userid', isset($default['userid']) ? $default['userid'] : ''),'id="userid" class="form-control" placeholder="Masukkan userid"'); ?>

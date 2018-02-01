@@ -41,34 +41,34 @@ class pmb extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Pmb');
+        $this->template->set_title('Kelola PMB');
         $this->template->add_js('var baseurl="'.base_url().'pmb/";','embed');  
         $this->template->load_view('pmb_view',array(
-            'view'=>'',
-            'title'=>'Kelola Data Pmb',
-            'subtitle'=>'Pengelolaan Pmb',
+            'view'=>'pmb_data',
+            'title'=>'Kelola Data PMB',
+            'subtitle'=>'Pengelolaan PMB',
             'breadcrumb'=>array(
             'Pmb'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Pmb');
+        $this->template->set_title('Kelola PMB');
         $this->template->add_js('var baseurl="'.base_url().'pmb/";','embed');  
         $this->template->load_view('pmb_view',array(
             'view'=>'Pmb_data',
-            'title'=>'Kelola Data Pmb',
-            'subtitle'=>'Pengelolaan Pmb',
+            'title'=>'Kelola Data PMB',
+            'subtitle'=>'Pengelolaan PMB',
             'breadcrumb'=>array(
             'Pmb'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Pmb');
+        $this->template->set_title('Kelola PMB');
         $this->template->add_js('var baseurl="'.base_url().'pmb/";','embed');  
         $this->template->load_view('pmb_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Pmb',
-            'subtitle'=>'Pengelolaan Pmb',
+            'title'=>'Kelola Data PMB',
+            'subtitle'=>'Pengelolaan PMB',
             'breadcrumb'=>array(
             'Pmb'),
         ));
@@ -125,8 +125,8 @@ class pmb extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
-            $this->datatables->select('id,kodepmb,keterangan,th_akad,date_start,date_end,kuota,kodetarifdaftar,date_seleksi_start,date_seleksi_end,userid,datetime,')
+       
+            $this->datatables->select('id,kodepmb,keterangan,th_akad')
                             ->from('pmb');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmb/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
@@ -136,13 +136,7 @@ class pmb extends MX_Controller {
                 </div>" , 'id');
             $this->datatables->unset_column('id');
 
-        else:
-            $this->datatables->select('id,kodepmb,keterangan,th_akad,date_start,date_end,kuota,kodetarifdaftar,date_seleksi_start,date_seleksi_end,userid,datetime,')
-                            ->from('pmb');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmb/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
-            $this->datatables->unset_column('id');
-        endif;
+       
         echo $this->datatables->generate();
     }
     function enkrip(){
