@@ -122,6 +122,8 @@ class Pmb_jalur_model extends CI_Model {
         //ganti faktur dengan ==> 'Faktur' =>$this->genfaktur(),
        $data = array(
         
+            'gelid' => $this->input->post('gelid', TRUE),
+           
             'kodejalur' => $this->input->post('kodejalur', TRUE),
            
             'keterangan' => $this->input->post('keterangan', TRUE),
@@ -148,6 +150,8 @@ class Pmb_jalur_model extends CI_Model {
         
        $data = array(
         
+            'gelid' => $this->input->post('gelid', TRUE),
+           
             'kodejalur' => $this->input->post('kodejalur', TRUE),
            
             'keterangan' => $this->input->post('keterangan', TRUE),
@@ -201,6 +205,8 @@ class Pmb_jalur_model extends CI_Model {
     function update($id) {
         $data = array(
         'id' => $this->input->post('id',TRUE),
+       'gelid' => $this->input->post('gelid', TRUE),
+       
        'kodejalur' => $this->input->post('kodejalur', TRUE),
        
        'keterangan' => $this->input->post('keterangan', TRUE),

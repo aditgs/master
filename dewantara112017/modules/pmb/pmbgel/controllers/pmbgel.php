@@ -6,8 +6,9 @@ class pmbgel extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('pmb_gelombang_model','pmb_gelombangdb',TRUE);
+        $this->load->model('pmb_gelombang_model','geldb',TRUE);
         $this->session->set_userdata('lihat','pmb_gelombang');
+        $this->session->set_userdata('module','pmb');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
         endif;
@@ -41,34 +42,34 @@ class pmbgel extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Pmb_gelombang');
-        $this->template->add_js('var baseurl="'.base_url().'pmb_gelombang/";','embed');  
+        $this->template->set_title('Kelola Gelombang PMB');
+        $this->template->add_js('var baseurl="'.base_url().'pmbgel/";','embed');  
         $this->template->load_view('pmb_gelombang_view',array(
-            'view'=>'',
-            'title'=>'Kelola Data Pmb_gelombang',
-            'subtitle'=>'Pengelolaan Pmb_gelombang',
+            'view'=>'pmb_gelombang_data',
+            'title'=>'Kelola Data Gelombang PMB',
+            'subtitle'=>'Pengelolaan Gelombang PMB',
             'breadcrumb'=>array(
             'Pmb_gelombang'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Pmb_gelombang');
-        $this->template->add_js('var baseurl="'.base_url().'pmb_gelombang/";','embed');  
+        $this->template->set_title('Kelola Gelombang PMB');
+        $this->template->add_js('var baseurl="'.base_url().'pmbgel/";','embed');  
         $this->template->load_view('pmb_gelombang_view',array(
             'view'=>'Pmb_gelombang_data',
-            'title'=>'Kelola Data Pmb_gelombang',
-            'subtitle'=>'Pengelolaan Pmb_gelombang',
+            'title'=>'Kelola Data Gelombang PMB',
+            'subtitle'=>'Pengelolaan Gelombang PMB',
             'breadcrumb'=>array(
             'Pmb_gelombang'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Pmb_gelombang');
-        $this->template->add_js('var baseurl="'.base_url().'pmb_gelombang/";','embed');  
+        $this->template->set_title('Kelola Gelombang PMB');
+        $this->template->add_js('var baseurl="'.base_url().'pmbgel/";','embed');  
         $this->template->load_view('pmb_gelombang_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Pmb_gelombang',
-            'subtitle'=>'Pengelolaan Pmb_gelombang',
+            'title'=>'Kelola Data Gelombang PMB',
+            'subtitle'=>'Pengelolaan Gelombang PMB',
             'breadcrumb'=>array(
             'Pmb_gelombang'),
         ));
@@ -82,7 +83,7 @@ class pmbgel extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->pmb_gelombangdb->ceknomornull();
+        $null=$this->geldb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -90,7 +91,7 @@ class pmbgel extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->pmb_gelombangdb->genfaktur();
+            $faktur=$this->geldb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -125,24 +126,18 @@ class pmbgel extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
-            $this->datatables->select('id,kodegel,keterangan,userid,datetime,')
+        
+            $this->datatables->select('id,kodegel,th_akad,keterangan')
                             ->from('pmb_gelombang');
             $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmb_gelombang/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmbgel/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#modal-form' data-toggle='modal' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
             $this->datatables->unset_column('id');
 
-        else:
-            $this->datatables->select('id,kodegel,keterangan,userid,datetime,')
-                            ->from('pmb_gelombang');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmb_gelombang/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
-            $this->datatables->unset_column('id');
-        endif;
+        
         echo $this->datatables->generate();
     }
     function enkrip(){
@@ -171,7 +166,7 @@ class pmbgel extends MX_Controller {
 
     public function get($id=null){
         if($id!==null){
-            echo json_encode($this->pmb_gelombangdb->get_one($id));
+            echo json_encode($this->geldb->get_one($id));
         }
     }
     function tables(){
@@ -180,7 +175,7 @@ class pmbgel extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->pmb_gelombangdb->get_one($id);
+            $data=$this->geldb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -210,19 +205,19 @@ class pmbgel extends MX_Controller {
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
-            $this->pmb_gelombangdb->update($this->input->post('id'));
+            $this->geldb->update($this->input->post('id'));
           }else{
-            //$this->pmb_gelombangdb->save();
-            $this->pmb_gelombangdb->saveas();
+            //$this->geldb->save();
+            $this->geldb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('id')){
-                $this->pmb_gelombangdb->update($this->input->post('id'));
+                $this->geldb->update($this->input->post('id'));
               }else{
-                //$this->pmb_gelombangdb->save();
-                $this->pmb_gelombangdb->saveas();
+                //$this->geldb->save();
+                $this->geldb->saveas();
               }
           }
         }
@@ -233,7 +228,7 @@ class pmbgel extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->pmb_gelombangdb->delete($this->input->post('id'));
+                $this->geldb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -243,7 +238,7 @@ class pmbgel extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->pmb_gelombangdb->upddel_detail($this->input->post('id'));
+                $this->geldb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -258,7 +253,7 @@ class pmbgel extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->pmb_gelombangdb->delete_detail($this->input->post('id'));
+                $this->geldb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');

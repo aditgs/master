@@ -18,7 +18,8 @@ $(document).ready(function() {
         gen();
     });
     $('select#prodi').change(function() {
-       
+        getformgen();
+
         gen();
     });
     $('select#jenis').change(function() {

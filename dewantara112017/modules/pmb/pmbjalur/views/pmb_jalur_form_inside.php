@@ -5,6 +5,13 @@
         <input type="hidden" value='' id="id" name="id"> 
         
         <div class="form-group">
+            <?php echo form_label('gelid : ','gelid',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('gelid',set_value('gelid', isset($default['gelid']) ? $default['gelid'] : ''),'id="gelid" class="form-control" placeholder="Masukkan gelid"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
             <?php echo form_label('kodejalur : ','kodejalur',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('kodejalur',set_value('kodejalur', isset($default['kodejalur']) ? $default['kodejalur'] : ''),'id="kodejalur" class="form-control" placeholder="Masukkan kodejalur"'); ?>

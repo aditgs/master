@@ -3,7 +3,7 @@
                 <div class="col-md-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Form Pmb_gelombang</h5>
+                        <h5>Form Gelombang PMB</h5>
                         
                     </div>
                     <div class="ibox-content">
@@ -25,4 +25,5 @@
             
 </div>
 <?php $this->load->view('modal-id'); ?>
+<?php $this->load->view('modal-form'); ?>
 

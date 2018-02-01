@@ -126,8 +126,10 @@ class pmbjalur extends MX_Controller {
     
 
     public function getdatatables(){
-        // if($this->isadmin()==1):
-            $this->datatables->select('id,kodejalur,keterangan,kodetarifdaftar,syaratketentuan,file,userid,datetime,')
+
+        //if($this->isadmin()==1):
+            $this->datatables->select('id,gelid,kodejalur,keterangan,kodetarifdaftar,syaratketentuan,file,userid,datetime,')
+
                             ->from('pmb_jalur');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmbjalur/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
@@ -137,8 +139,10 @@ class pmbjalur extends MX_Controller {
                 </div>" , 'id');
             $this->datatables->unset_column('id');
 
+
         /*else:
             $this->datatables->select('id,kodejalur,keterangan,kodetarifdaftar,syaratketentuan,file,userid,datetime,')
+
                             ->from('pmb_jalur');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmb_jalur/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');

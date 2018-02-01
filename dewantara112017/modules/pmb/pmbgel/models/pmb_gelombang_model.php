@@ -84,15 +84,19 @@ class Pmb_gelombang_model extends CI_Model {
             return array();
         }
     }
-    function genfaktur(){
+    function genkode($tahun){
         $last=$this->get_last();
         // print_r($last);
         if(!empty($last)):
-            $faktur=genfaktur($last['faktur'],"PL");//diganti sesuai faktur/kode transaksi
+            $x=$last['kodegel'];
+            $y=substr($x,-1);
+            $z=strval($y)+1;
+            $gen=$tahun.$z;
+
         else:
-            $faktur="PL".date('ym')."00001";//diganti sesuai faktur/kode transaksi
+           $gen=$tahun."1";
         endif;
-        return ($faktur);
+        return $gen;
     }
     function get_one($id) {
         $this->db->where('id', $id);
@@ -122,6 +126,10 @@ class Pmb_gelombang_model extends CI_Model {
         //ganti faktur dengan ==> 'Faktur' =>$this->genfaktur(),
        $data = array(
         
+            'pmbid' => $this->input->post('pmbid', TRUE),
+           
+            'th_akad' => $this->input->post('th_akad', TRUE),
+           
             'kodegel' => $this->input->post('kodegel', TRUE),
            
             'keterangan' => $this->input->post('keterangan', TRUE),
@@ -142,6 +150,10 @@ class Pmb_gelombang_model extends CI_Model {
         
        $data = array(
         
+            'pmbid' => $this->input->post('pmbid', TRUE),
+           
+            'th_akad' => $this->input->post('th_akad', TRUE),
+           
             'kodegel' => $this->input->post('kodegel', TRUE),
            
             'keterangan' => $this->input->post('keterangan', TRUE),
@@ -189,6 +201,10 @@ class Pmb_gelombang_model extends CI_Model {
     function update($id) {
         $data = array(
         'id' => $this->input->post('id',TRUE),
+       'pmbid' => $this->input->post('pmbid', TRUE),
+       
+       'th_akad' => $this->input->post('th_akad', TRUE),
+       
        'kodegel' => $this->input->post('kodegel', TRUE),
        
        'keterangan' => $this->input->post('keterangan', TRUE),

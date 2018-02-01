@@ -9,6 +9,8 @@
         <thead class="">
             <tr>
                 
+                <th>gelid</th>
+                
                 <th>kodejalur</th>
                 
                 <th>keterangan</th>
@@ -28,7 +30,7 @@
         </thead>
         <tbody class="table-bordered">
             <tr>
-                <td colspan="8" class="text-center dataTables_empty"><img src="<?php echo assets_url('images/loader.gif');  ?>" title="Loading" alt="Loading">&nbsp;&nbsp; Loading data, please wait....</td>
+                <td colspan="9" class="text-center dataTables_empty"><img src="<?php echo assets_url('images/loader.gif');  ?>" title="Loading" alt="Loading">&nbsp;&nbsp; Loading data, please wait....</td>
             </tr>
         </tbody>
     </table>

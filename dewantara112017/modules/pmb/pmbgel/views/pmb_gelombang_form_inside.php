@@ -5,6 +5,20 @@
         <input type="hidden" value='' id="id" name="id"> 
         
         <div class="form-group">
+            <?php echo form_label('pmbid : ','pmbid',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('pmbid',set_value('pmbid', isset($default['pmbid']) ? $default['pmbid'] : ''),'id="pmbid" class="form-control" placeholder="Masukkan pmbid"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?php echo form_label('th_akad : ','th_akad',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('th_akad',set_value('th_akad', isset($default['th_akad']) ? $default['th_akad'] : ''),'id="th_akad" class="form-control" placeholder="Masukkan th_akad"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
             <?php echo form_label('kodegel : ','kodegel',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('kodegel',set_value('kodegel', isset($default['kodegel']) ? $default['kodegel'] : ''),'id="kodegel" class="form-control" placeholder="Masukkan kodegel"'); ?>
