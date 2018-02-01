@@ -154,13 +154,13 @@ class Pmb_gelombang_model extends CI_Model {
            
             'th_akad' => $this->input->post('th_akad', TRUE),
            
-            'kodegel' => $this->input->post('kodegel', TRUE),
+            'kodegel' =>$this->genkode($this->input->post('th_akad', TRUE)),
            
             'keterangan' => $this->input->post('keterangan', TRUE),
            
-            'userid' => $this->input->post('userid', TRUE),
+            'userid' => userid(),
            
-            'datetime' => $this->input->post('datetime', TRUE),
+            'datetime' => NOW(),
            
         );
         //'isdeleted' => null,
