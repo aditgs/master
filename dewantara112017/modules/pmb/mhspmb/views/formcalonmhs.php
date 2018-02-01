@@ -12,7 +12,7 @@
         <div class="form-group">
 
             <?php echo form_label('Kode Prodi : ','kode_prodi',array('class'=>'control-label')); ?>
-            <?php $opt_prodi = array('61'=>'S-1 Manajemen','62'=>'S-1 Akuntansi',);?>
+            <?php $opt_prodi = array('61201'=>'S-1 Manajemen','62201'=>'S-1 Akuntansi',);?>
             <!-- <div class="controls">
                 <?php echo form_input('kode_prodi',set_value('kode_prodi', isset($default['kode_prodi']) ? $default['kode_prodi'] : ''),'id="kode_prodi" class="form-control" placeholder="Masukkan Kode Prodi"'); ?>
             </div> -->
@@ -34,12 +34,7 @@
                 <?php echo form_input('nik_cmhs',set_value('kodepos_cmhs', isset($default['nik_cmhs']) ? $default['nik_cmhs'] : ''),'id="nik_cmhs" class="form-control" placeholder="Masukkan NIK"'); ?>
             </div>
         </div>
-        <div class="form-group">
-            <?php echo form_label('Nama Ibu : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
-            </div>
-        </div>
+       
         <div class="row gutter5">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
@@ -64,19 +59,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <?php echo form_label('Nama Ibu : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
-            </div>
-        </div>
-        
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                <h2>Detail Informasi Pendaftar</h2>
-
-        <div class="row gutter5">
+          <div class="row gutter5" style="padding:0px 10px">
 
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <?php $opt_agama_cmhs = array('Islam',
@@ -107,16 +90,22 @@
                 </div>
             </div>
         </div>
+        
+      
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <h2>Detail Informasi Pendaftar</h2>
+
+        
+   
        
         <div class="form-group">
             <?php echo form_label('Alamat : ','almt_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('almt_cmhs',set_value('almt_cmhs', isset($default['almt_cmhs']) ? $default['almt_cmhs'] : ''),'id="almt_cmhs" class="form-control" placeholder="Masukkan Alamat"'); ?>
+                <?php echo form_textarea('almt_cmhs',set_value('almt_cmhs', isset($default['almt_cmhs']) ? $default['almt_cmhs'] : ''),'id="almt_cmhs" class="form-control" placeholder="Masukkan Alamat" style="height:96px"'); ?>
             </div>
         </div>
-        <div class="row gutter5">
+        <div class="row gutter5" style="padding:10px 10px 0px 10px">
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                 <div class="form-group">
                     <?php echo form_label('Kota : ','kota_cmhs',array('class'=>'control-label')); ?>
@@ -134,7 +123,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" >
             <?php echo form_label('Email : ','email_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('email_cmhs',set_value('email_cmhs', isset($default['email_cmhs']) ? $default['email_cmhs'] : ''),'id="email_cmhs" class="form-control" placeholder="Masukkan Email"'); ?>
@@ -158,6 +147,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-group">
+            <?php echo form_label('Nama Ibu : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <h2>Informasi Pendidikan</h2>
         <div class="form-group">
             <?php echo form_label('Asal Pendidikan : ','asal_pend',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -177,7 +176,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md43 col-lg-4">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
        
         
         <div class="row gutter5">
@@ -226,24 +225,34 @@
         'Baru' => 'Baru',
         'Online' => 'Online',
         'Tolak' => 'Tolak',);?>
-        <div class="form-group">
-            <label class="control-label">
-                Status PMB
-            </label>
-            <div class="controls input-group">
-                <?php $status_pmb = isset($default['status_pmb'])? $default['status_pmb'] : '0';  ?>
-                <?php echo form_dropdown('status_pmb',$opt_status_pmb,$status_pmb,'id="status_pmb" class="rekening input-lg form-control select2 input-md" style="width:100%" placeholder="Status PMB"'); ?>
+        <div class="row gutter5">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                
+                <div class="form-group">
+                    <div class="controls input-group">
+                        <?php echo form_label('Status Calon Mahasiswa : ','status_cmhs',array('class'=>'control-label')); ?>
+                        <select name="status_cmhs" id="status_cmhs" class="input-md form-control" style="width: 100%">
+                            <option value="Baru">Baru</option>
+                            <option value="Pindah">Pindah</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="controls input-group">
-                <?php echo form_label('Status Calon Mahasiswa : ','status_cmhs',array('class'=>'control-label')); ?>
-                <select name="status_cmhs" id="status_cmhs" class="input-lg form-control select2" style="width: 100%">
-                    <option value="Baru">Baru</option>
-                    <option value="Pindah">Pindah</option>
-                </select>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                
+                <div class="form-group">
+                    <label class="control-label">
+                        Status PMB
+                    </label>
+                    <div class="controls input-group">
+                        <?php $status_pmb = isset($default['status_pmb'])? $default['status_pmb'] : '0';  ?>
+                        <?php echo form_dropdown('status_pmb',$opt_status_pmb,$status_pmb,'id="status_pmb" class="rekening form-control input-block input-md" style="width:100%" placeholder="Status PMB"'); ?>
+                    </div>
+                </div>
             </div>
+            
         </div>
+     
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
@@ -262,7 +271,7 @@ $(document).ready(function() {
                 })
                 .fail(function(jqxhr, settings, exception) {
                     // $( "div.log" ).text( "Triggered ajaxError handler." ); 
-                    alert('triiger');
+                    // alert('triiger');
 
                 })
 </script>
