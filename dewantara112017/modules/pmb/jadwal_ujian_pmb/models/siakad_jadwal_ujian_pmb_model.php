@@ -1,7 +1,7 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Pmb_jalur_model extends CI_Model {
+class Siakad_jadwal_ujian_pmb_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -9,7 +9,7 @@ class Pmb_jalur_model extends CI_Model {
     
     function get_all($limit, $uri) {
 
-        $result = $this->db->get('pmb_jalur', $limit, $uri);
+        $result = $this->db->get('siakad_jadwal_ujian_pmb', $limit, $uri);
         if ($result->num_rows() > 0) {
             return $result->result_array();
         } else {
@@ -23,10 +23,10 @@ class Pmb_jalur_model extends CI_Model {
         $this->db->where('datetime',NULL);
         $this->db->where('tanggal',NULL);
         $this->db->where('islocked',NULL);
-        $this->db->order_by('id','ASC');
+        $this->db->order_by('id_siakad_jadwal_ujian_pmb','ASC');
         $this->db->limit(1);
 
-        $result=$this->db->get('pmb_jalur');
+        $result=$this->db->get('siakad_jadwal_ujian_pmb');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -37,10 +37,10 @@ class Pmb_jalur_model extends CI_Model {
     function get_last(){
 
         $this->db->select('*'); //faktur
-        $this->db->order_by('id','DESC');
+        $this->db->order_by('id_siakad_jadwal_ujian_pmb','DESC');
         $this->db->limit(1);
 
-        $result=$this->db->get('pmb_jalur');
+        $result=$this->db->get('siakad_jadwal_ujian_pmb');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -49,7 +49,7 @@ class Pmb_jalur_model extends CI_Model {
     } 
     function gettotaldetail($faktur){
         $this->db->select('faktur,sum(jumlah) as total'); //field perlu disesuaikan dengan tabel
-        $this->db->from('pmb_jalur');
+        $this->db->from('siakad_jadwal_ujian_pmb');
         $this->db->where('faktur',$faktur); //field perlu disesuaikan dengan tabel
         $this->db->where('isactive',1);
         $this->db->group_by('faktur'); //field perlu disesuaikan dengan tabel
@@ -65,7 +65,7 @@ class Pmb_jalur_model extends CI_Model {
     //field dan tabel perlu disesuaikan dengan tabel
     function getdetail($data) {
         $this->db->select('id,Faktur as faktur,Jthtmp as jthtempo,NoBon as nobon,Supplier as kode,total,NmSupplier as nama,NoAccSup as noacc,Tgl as tanggal,IF(LEFT(NoAccSup,5)="1.700","Karyawan",IF(LEFT(NoAccSup,5)="1.250","Customer",IF(LEFT(NoAccSup,5)="2.300","Supplier","-"))) as tipe',FALSE);
-        $this->db->from('pmb_jalur');
+        $this->db->from('siakad_jadwal_ujian_pmb');
         if(!empty($data['kdvendor'])||$data['kdvendor']!==''):
             $this->db->where('Supplier',((!empty($data['kdvendor'])||($data['kdvendor']>0))?$data['kdvendor']:'0'));
         endif;
@@ -94,9 +94,9 @@ class Pmb_jalur_model extends CI_Model {
         endif;
         return ($faktur);
     }
-    function get_one($id) {
-        $this->db->where('id', $id);
-        $result = $this->db->get('pmb_jalur');
+    function get_one($id_siakad_jadwal_ujian_pmb) {
+        $this->db->where('id_siakad_jadwal_ujian_pmb', $id_siakad_jadwal_ujian_pmb);
+        $result = $this->db->get('siakad_jadwal_ujian_pmb');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -106,11 +106,11 @@ class Pmb_jalur_model extends CI_Model {
     
     function save() {
         $data=$this->__save();
-        $this->db->insert('pmb_jalur', $data);
+        $this->db->insert('siakad_jadwal_ujian_pmb', $data);
     }
     function saveas() {
         $data=$this->__saveas();
-        $this->db->insert('pmb_jalur', $data);
+        $this->db->insert('siakad_jadwal_ujian_pmb', $data);
 
     }
     function __save(){
@@ -122,21 +122,21 @@ class Pmb_jalur_model extends CI_Model {
         //ganti faktur dengan ==> 'Faktur' =>$this->genfaktur(),
        $data = array(
         
-            'gelid' => $this->input->post('gelid', TRUE),
+            'kode_prodi' => $this->input->post('kode_prodi', TRUE),
            
-            'kodejalur' => $this->input->post('kodejalur', TRUE),
+            'id_siakad_jadwal' => $this->input->post('id_siakad_jadwal', TRUE),
            
-            'keterangan' => $this->input->post('keterangan', TRUE),
+            'jenis_ujian' => $this->input->post('jenis_ujian', TRUE),
            
-            'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
+            'tgl_ujian' => $this->input->post('tgl_ujian', TRUE),
            
-            'syaratketentuan' => $this->input->post('syaratketentuan', TRUE),
+            'ujian_mulai' => $this->input->post('ujian_mulai', TRUE),
            
-            'file' => $this->input->post('file', TRUE),
+            'ujian_selesai' => $this->input->post('ujian_selesai', TRUE),
            
-            'userid' => $this->input->post('userid', TRUE),
+            'id_siakad_ruang' => $this->input->post('id_siakad_ruang', TRUE),
            
-            'datetime' => NOW(),
+            'nip_dosen' => $this->input->post('nip_dosen', TRUE),
            
         );
         //'isdeleted' => null,
@@ -150,21 +150,21 @@ class Pmb_jalur_model extends CI_Model {
         
        $data = array(
         
-            'gelid' => $this->input->post('gelid', TRUE),
+            'kode_prodi' => $this->input->post('kode_prodi', TRUE),
            
-            'kodejalur' => $this->input->post('kodejalur', TRUE),
+            'id_siakad_jadwal' => $this->input->post('id_siakad_jadwal', TRUE),
            
-            'keterangan' => $this->input->post('keterangan', TRUE),
+            'jenis_ujian' => $this->input->post('jenis_ujian', TRUE),
            
-            'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
+            'tgl_ujian' => $this->input->post('tgl_ujian', TRUE),
            
-            'syaratketentuan' => $this->input->post('syaratketentuan', TRUE),
+            'ujian_mulai' => $this->input->post('ujian_mulai', TRUE),
            
-            'file' => $this->input->post('file', TRUE),
+            'ujian_selesai' => $this->input->post('ujian_selesai', TRUE),
            
-            'userid' => $this->input->post('userid', TRUE),
+            'id_siakad_ruang' => $this->input->post('id_siakad_ruang', TRUE),
            
-            'datetime' => NOW(),
+            'nip_dosen' => $this->input->post('nip_dosen', TRUE),
            
         );
         //'isdeleted' => null,
@@ -176,13 +176,13 @@ class Pmb_jalur_model extends CI_Model {
         //    'Time' => NOW(),
         return $data;
     }
-    function savepmb_jalur($data){
-        $this->db->insert('pmb_jalur',$data);
+    function savesiakad_jadwal_ujian_pmb($data){
+        $this->db->insert('siakad_jadwal_ujian_pmb',$data);
     }
     function save_detail($data){
-        $this->db->insert('pmb_jalur_detail',$data);
+        $this->db->insert('siakad_jadwal_ujian_pmb_detail',$data);
     }
-    function upddel_detail($id=null) {
+    function upddel_detail($id_siakad_jadwal_ujian_pmb=null) {
         //semua field ini menyesuaikan dengan yang ada pada model dan tabel
         $data=array(
              'isdeleted' => 1,
@@ -194,63 +194,63 @@ class Pmb_jalur_model extends CI_Model {
 
             );
         
-        $this->db->where('id', $id);
-        $this->db->update('pmb_jalur', $data);
+        $this->db->where('id_siakad_jadwal_ujian_pmb', $id_siakad_jadwal_ujian_pmb);
+        $this->db->update('siakad_jadwal_ujian_pmb', $data);
        
     } 
-    function updatebyid($id,$data){
-        $this->db->where('id', $id);
-        $this->db->update('pmb_jalur', $data);
+    function updatebyid($id_siakad_jadwal_ujian_pmb,$data){
+        $this->db->where('id_siakad_jadwal_ujian_pmb', $id_siakad_jadwal_ujian_pmb);
+        $this->db->update('siakad_jadwal_ujian_pmb', $data);
     }
-    function update($id) {
+    function update($id_siakad_jadwal_ujian_pmb) {
         $data = array(
-        'id' => $this->input->post('id',TRUE),
-       'gelid' => $this->input->post('gelid', TRUE),
+        'id_siakad_jadwal_ujian_pmb' => $this->input->post('id_siakad_jadwal_ujian_pmb',TRUE),
+       'kode_prodi' => $this->input->post('kode_prodi', TRUE),
        
-       'kodejalur' => $this->input->post('kodejalur', TRUE),
+       'id_siakad_jadwal' => $this->input->post('id_siakad_jadwal', TRUE),
        
-       'keterangan' => $this->input->post('keterangan', TRUE),
+       'jenis_ujian' => $this->input->post('jenis_ujian', TRUE),
        
-       'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
+       'tgl_ujian' => $this->input->post('tgl_ujian', TRUE),
        
-       'syaratketentuan' => $this->input->post('syaratketentuan', TRUE),
+       'ujian_mulai' => $this->input->post('ujian_mulai', TRUE),
        
-       'file' => $this->input->post('file', TRUE),
+       'ujian_selesai' => $this->input->post('ujian_selesai', TRUE),
        
-       'userid' => $this->input->post('userid', TRUE),
+       'id_siakad_ruang' => $this->input->post('id_siakad_ruang', TRUE),
        
-       'datetime' => NOW(),
+       'nip_dosen' => $this->input->post('nip_dosen', TRUE),
        
         );
-        $this->db->where('id', $id);
-        $this->db->update('pmb_jalur', $data);
+        $this->db->where('id_siakad_jadwal_ujian_pmb', $id_siakad_jadwal_ujian_pmb);
+        $this->db->update('siakad_jadwal_ujian_pmb', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/
     }
 
-    function delete($id) {
-        $this->db->where('id', $id);
-        $this->db->delete('pmb_jalur'); 
+    function delete($id_siakad_jadwal_ujian_pmb) {
+        $this->db->where('id_siakad_jadwal_ujian_pmb', $id_siakad_jadwal_ujian_pmb);
+        $this->db->delete('siakad_jadwal_ujian_pmb'); 
        
     }
     function delete_detail($id=null) {
         $this->db->where('id_detail', $id);
-        $this->db->delete('pmb_jalur_detail'); 
+        $this->db->delete('siakad_jadwal_ujian_pmb_detail'); 
        
     } 
     function deletebybukti($bukti=null) {
         $this->db->where('faktur', $bukti);
-        $this->db->delete('pmb_jalur_detail');       
+        $this->db->delete('siakad_jadwal_ujian_pmb_detail');       
     }
 
     //Update 07122013 SWI
     //untuk Array Dropdown
     function get_dropdown_array($value){
         $result = array();
-        $array_keys_values = $this->db->query('select id, '.$value.' from pmb_jalur order by id asc');
-        $result[0]="-- Pilih Urutan id --";
+        $array_keys_values = $this->db->query('select id_siakad_jadwal_ujian_pmb, '.$value.' from siakad_jadwal_ujian_pmb order by id_siakad_jadwal_ujian_pmb asc');
+        $result[0]="-- Pilih Urutan id_siakad_jadwal_ujian_pmb --";
         foreach ($array_keys_values->result() as $row)
         {
-            $result[$row->id]= $row->$value;
+            $result[$row->id_siakad_jadwal_ujian_pmb]= $row->$value;
         }
         return $result;
     }

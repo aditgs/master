@@ -77,6 +77,33 @@ class Mhspmb extends MX_Controller {
         
     }
 
+    function cetak(){
+        $id=$this->input->post('id');
+        $this->mhspmbdb->updcetak($id);
+
+    }
+    function cetakpdf($id,$pdf=true){
+
+        $id=base64_decode($id);
+        $pdf=base64_decode($pdf);
+
+        if($id!=null){
+            $data=$this->mhspmbdb->get_one($id);
+            $this->template->set_layout('cetak');
+           
+            $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'baseurl'=>base_url(),'total'=>$this->getotmultitem($id)),TRUE);
+            if(!empty($pdf)||$pdf!=null){
+                $this->load->helper(array('dompdf', 'file'));
+                $inv=$data['kode'];
+                // savepdf($html1, 'laporan-pembelian-'.date('d-m-Y-H-m-s'));
+                kuitansipmb($html, $inv."-".date('d-m-Y-Hms'),TRUE);
+            }else{          
+                echo ($html);
+            }
+        }
+    }
+
+
     function getnewfaktur(){
         // echo base64_encode($this->genfaktur());
         echo $this->__getnewfaktur();
@@ -136,6 +163,7 @@ class Mhspmb extends MX_Controller {
 
                 <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit_mhspmb btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                <a data-placement='top' title='Cetak' class='btn btn-xs btn-info' href=".base_url('mhspmb/cetakpdf/$1')." target='_blank'><i class='fa fa-print'></i></a>
                 </div>" , 'id_siakad_mhs_pmb');
             $this->datatables->unset_column('id_siakad_mhs_pmb');
 
@@ -211,7 +239,10 @@ class Mhspmb extends MX_Controller {
       
     }
     function __formvalidation(){
-        $this->form_validation->set_rules('Jenis', 'Keterangan Jenis ', 'required|trim|xss_clean');
+
+        $this->form_validation->set_rules('kode_prodi', 'Kode Prodi ', 'required|trim|xss_clean');
+
+       
         if ($this->form_validation->run() == FALSE)
             {
                 // $this->session->set_flashdata(validation_errors());             

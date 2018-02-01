@@ -1,11 +1,11 @@
 <div class="datatable-ajax-source">
     <div class="btn-group" style="margin:20px 0px 30px">
-        <a class="btn btn-primary btn-lg" data-toggle="modal" href='#modal-id'>pmb_jalur Baru</a>
+        <a class="btn btn-primary btn-lg" data-toggle="modal" href='#modal-form'>pmb_jalur Baru</a>
         <a href="<?php echo base_url('pmb_jalur/baru') ?>" class="btn btn-lg btn-success"><i class="fa fa-plus"></i> Buka pmb_jalur Baru </a>
         <a href="<?php echo base_url('pmb_jalur') ?>" class="btn btn-lg btn-info"><i class="fa fa-database"></i> Data pmb_jalur</a>
     </div>
     <h2 class="text-center" style="margin:20px 0px 30px">Tabel Data pmb_jalur</h2>
-    <table id="datatables" class="table table-bordered table-condensed table-striped" style="">
+    <table id="datatables" class="table table-bordered table-condensed table-striped" style="width: 100%">
         <thead class="">
             <tr>
                 
