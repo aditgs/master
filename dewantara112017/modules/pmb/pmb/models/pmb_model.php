@@ -128,17 +128,7 @@ class Pmb_model extends CI_Model {
            
             'th_akad' => $this->input->post('th_akad', TRUE),
            
-            'date_start' => $this->input->post('date_start', TRUE),
-           
-            'date_end' => $this->input->post('date_end', TRUE),
-           
             'kuota' => $this->input->post('kuota', TRUE),
-           
-            'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
-           
-            'date_seleksi_start' => $this->input->post('date_seleksi_start', TRUE),
-           
-            'date_seleksi_end' => $this->input->post('date_seleksi_end', TRUE),
            
             'userid' => $this->input->post('userid', TRUE),
            
@@ -162,17 +152,7 @@ class Pmb_model extends CI_Model {
            
             'th_akad' => $this->input->post('th_akad', TRUE),
            
-            'date_start' => $this->input->post('date_start', TRUE),
-           
-            'date_end' => $this->input->post('date_end', TRUE),
-           
             'kuota' => $this->input->post('kuota', TRUE),
-           
-            'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
-           
-            'date_seleksi_start' => $this->input->post('date_seleksi_start', TRUE),
-           
-            'date_seleksi_end' => $this->input->post('date_seleksi_end', TRUE),
            
             'userid' => $this->input->post('userid', TRUE),
            
@@ -223,17 +203,7 @@ class Pmb_model extends CI_Model {
        
        'th_akad' => $this->input->post('th_akad', TRUE),
        
-       'date_start' => $this->input->post('date_start', TRUE),
-       
-       'date_end' => $this->input->post('date_end', TRUE),
-       
        'kuota' => $this->input->post('kuota', TRUE),
-       
-       'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
-       
-       'date_seleksi_start' => $this->input->post('date_seleksi_start', TRUE),
-       
-       'date_seleksi_end' => $this->input->post('date_seleksi_end', TRUE),
        
        'userid' => $this->input->post('userid', TRUE),
        

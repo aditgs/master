@@ -7,6 +7,7 @@ class Mhspmb extends MX_Controller {
           
         //Load IgnitedDatatables Library
         $this->load->model('siakad_mhs_pmb_model','mhspmbdb',TRUE);
+        $this->load->model('tarif_model','tarifdb',TRUE);
         $this->session->set_userdata('lihat','siakad_mhs_pmb');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
@@ -91,7 +92,7 @@ class Mhspmb extends MX_Controller {
             $data=$this->mhspmbdb->get_one($id);
             $this->template->set_layout('cetak');
            
-            $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'baseurl'=>base_url(),'total'=>$this->getotmultitem($id)),TRUE);
+            $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
                 $inv=$data['kode'];
@@ -135,6 +136,9 @@ class Mhspmb extends MX_Controller {
         // return base64_encode(json_encode($nopo));
         // echo base64_encode(json_encode($nopo));
     }
+    function bacatarif($kode){
+        echo bacatarif($kode);
+    }
     function __submitnomor($data){
 
        $this->db->insert('siakad_mhs_pmb',$data);
@@ -161,10 +165,10 @@ class Mhspmb extends MX_Controller {
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('mhspmb/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit_mhspmb btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
-                <a data-placement='top' title='Cetak' class='btn btn-xs btn-info' href=".base_url('mhspmb/cetakpdf/$1')." target='_blank'><i class='fa fa-print'></i></a>
-                </div>" , 'id_siakad_mhs_pmb');
+                <a data-placement='top' title='Cetak' class='btn btn-xs btn-info' href=".base_url('mhspmb/cetakpdf/$2')." target='_blank'><i class='fa fa-print'></i></a>
+                </div>" , 'id_siakad_mhs_pmb,base64_encode(id_siakad_mhs_pmb)');
             $this->datatables->unset_column('id_siakad_mhs_pmb');
 
        /* else:
@@ -200,8 +204,8 @@ class Mhspmb extends MX_Controller {
            
     }
 
-    public function get(){
-        $id = $this->input->post('id');
+    public function get($id){
+        // $id = $this->input->post('id');
         if($id!==null){
             echo json_encode($this->mhspmbdb->get_one($id));
         }

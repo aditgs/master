@@ -588,8 +588,10 @@ class Tagihan extends MX_Controller {
             }
         }*/
     }
-   
     function bacatarif($kode){
+        return bacatarif($kode);
+    }
+    function bacatarifx($kode){
         
         $angkatan=substr($kode,0,2);
         $prodi=substr($kode,2,2);

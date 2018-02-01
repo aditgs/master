@@ -6,9 +6,8 @@ class pmbgel extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('pmb_gelombang_model','geldb',TRUE);
+        $this->load->model('pmb_gelombang_model','pmbgeldb',TRUE);
         $this->session->set_userdata('lihat','pmb_gelombang');
-        $this->session->set_userdata('module','pmb');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
         endif;
@@ -83,7 +82,7 @@ class pmbgel extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->geldb->ceknomornull();
+        $null=$this->pmbgeldb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -91,7 +90,7 @@ class pmbgel extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->geldb->genfaktur();
+            $faktur=$this->pmbgeldb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -126,18 +125,24 @@ class pmbgel extends MX_Controller {
     
 
     public function getdatatables(){
-        
-            $this->datatables->select('id,kodegel,th_akad,keterangan')
+        if($this->isadmin()==1):
+            $this->datatables->select('id,pmbid,th_akad,kodegel,keterangan,date_start,date_end,kodetarifdaftar,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,date_pengumuman,userid,datetime,')
                             ->from('pmb_gelombang');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmbgel/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#modal-form' data-toggle='modal' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
             $this->datatables->unset_column('id');
 
-        
+        else:
+            $this->datatables->select('id,pmbid,th_akad,kodegel,keterangan,date_start,date_end,kodetarifdaftar,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,date_pengumuman,userid,datetime,')
+                            ->from('pmb_gelombang');
+            $this->datatables->add_column('edit',"<div class='btn-group'>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmbgel/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
+            $this->datatables->unset_column('id');
+        endif;
         echo $this->datatables->generate();
     }
     function enkrip(){
@@ -166,7 +171,7 @@ class pmbgel extends MX_Controller {
 
     public function get($id=null){
         if($id!==null){
-            echo json_encode($this->geldb->get_one($id));
+            echo json_encode($this->pmbgeldb->get_one($id));
         }
     }
     function tables(){
@@ -175,7 +180,7 @@ class pmbgel extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->geldb->get_one($id);
+            $data=$this->pmbgeldb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -205,19 +210,19 @@ class pmbgel extends MX_Controller {
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
-            $this->geldb->update($this->input->post('id'));
+            $this->pmbgeldb->update($this->input->post('id'));
           }else{
-            //$this->geldb->save();
-            $this->geldb->saveas();
+            //$this->pmbgeldb->save();
+            $this->pmbgeldb->saveas();
           }
 
         }else{
           if ($this->input->post('submit')){
               if ($this->input->post('id')){
-                $this->geldb->update($this->input->post('id'));
+                $this->pmbgeldb->update($this->input->post('id'));
               }else{
-                //$this->geldb->save();
-                $this->geldb->saveas();
+                //$this->pmbgeldb->save();
+                $this->pmbgeldb->saveas();
               }
           }
         }
@@ -228,7 +233,7 @@ class pmbgel extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->geldb->delete($this->input->post('id'));
+                $this->pmbgeldb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -238,7 +243,7 @@ class pmbgel extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->geldb->upddel_detail($this->input->post('id'));
+                $this->pmbgeldb->upddel_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -253,7 +258,7 @@ class pmbgel extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->geldb->delete_detail($this->input->post('id'));
+                $this->pmbgeldb->delete_detail($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');

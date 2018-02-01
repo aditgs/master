@@ -1,7 +1,7 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Pmb_gelombang_model extends CI_Model {
+class Tarif_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -9,14 +9,103 @@ class Pmb_gelombang_model extends CI_Model {
     
     function get_all($limit, $uri) {
 
-        $result = $this->db->get('pmb_gelombang', $limit, $uri);
+        $result = $this->db->get('tarif', $limit, $uri);
         if ($result->num_rows() > 0) {
             return $result->result_array();
         } else {
             return array();
         }
     }
-    
+    function getpakettarif($kode) {
+        $this->db->where('kodepaket',$kode);
+        $result = $this->db->get('006-view-tarifdetail');
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return array();
+        }
+    }
+    function bacaprodi($kode){
+        $this->db->where('KodeP',$kode);
+        $result=$this->db->get('prodi');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }
+    function getbyid($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('tarif');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }  
+    function getprodibyid($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('prodi');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }  
+    function getkelbyid($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('kelompokmhs');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    } 
+    function getviewtarif($id){
+        $this->db->where('id',$id);
+        $result=$this->db->get('004-view-tarif');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    } 
+    function bacajenis($kode){
+        $this->db->where('KodeJ',$kode);
+        $result=$this->db->get('jenis');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }
+    function bacakelompokmhs($kode){
+        $this->db->where('Kodek',$kode);
+        $result=$this->db->get('kelompokmhs');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }
+    function getjenisprodi($id){
+        if($id=='61'){
+            $this->db->where('is_manajemen','1');
+        }elseif($id=='62'){
+            $this->db->where('is_akuntansi','1');
+
+        }else{
+            $this->db->where('prodi','semua');
+
+        }
+        
+        $result = $this->db->get('jenis');
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return array();
+        }
+    }
     //get data terakhir di generate
     function ceknomornull(){
           // $this->db->select('*'); //Faktur
@@ -26,7 +115,7 @@ class Pmb_gelombang_model extends CI_Model {
         $this->db->order_by('id','ASC');
         $this->db->limit(1);
 
-        $result=$this->db->get('pmb_gelombang');
+        $result=$this->db->get('tarif');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -40,7 +129,7 @@ class Pmb_gelombang_model extends CI_Model {
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
-        $result=$this->db->get('pmb_gelombang');
+        $result=$this->db->get('tarif');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -49,7 +138,7 @@ class Pmb_gelombang_model extends CI_Model {
     } 
     function gettotaldetail($faktur){
         $this->db->select('faktur,sum(jumlah) as total'); //field perlu disesuaikan dengan tabel
-        $this->db->from('pmb_gelombang');
+        $this->db->from('tarif');
         $this->db->where('faktur',$faktur); //field perlu disesuaikan dengan tabel
         $this->db->where('isactive',1);
         $this->db->group_by('faktur'); //field perlu disesuaikan dengan tabel
@@ -65,7 +154,7 @@ class Pmb_gelombang_model extends CI_Model {
     //field dan tabel perlu disesuaikan dengan tabel
     function getdetail($data) {
         $this->db->select('id,Faktur as faktur,Jthtmp as jthtempo,NoBon as nobon,Supplier as kode,total,NmSupplier as nama,NoAccSup as noacc,Tgl as tanggal,IF(LEFT(NoAccSup,5)="1.700","Karyawan",IF(LEFT(NoAccSup,5)="1.250","Customer",IF(LEFT(NoAccSup,5)="2.300","Supplier","-"))) as tipe',FALSE);
-        $this->db->from('pmb_gelombang');
+        $this->db->from('tarif');
         if(!empty($data['kdvendor'])||$data['kdvendor']!==''):
             $this->db->where('Supplier',((!empty($data['kdvendor'])||($data['kdvendor']>0))?$data['kdvendor']:'0'));
         endif;
@@ -96,7 +185,7 @@ class Pmb_gelombang_model extends CI_Model {
     }
     function get_one($id) {
         $this->db->where('id', $id);
-        $result = $this->db->get('pmb_gelombang');
+        $result = $this->db->get('tarif');
         if ($result->num_rows() == 1) {
             return $result->row_array();
         } else {
@@ -106,11 +195,11 @@ class Pmb_gelombang_model extends CI_Model {
     
     function save() {
         $data=$this->__save();
-        $this->db->insert('pmb_gelombang', $data);
+        $this->db->insert('tarif', $data);
     }
     function saveas() {
         $data=$this->__saveas();
-        $this->db->insert('pmb_gelombang', $data);
+        $this->db->insert('tarif', $data);
 
     }
     function __save(){
@@ -122,33 +211,9 @@ class Pmb_gelombang_model extends CI_Model {
         //ganti faktur dengan ==> 'Faktur' =>$this->genfaktur(),
        $data = array(
         
-            'pmbid' => $this->input->post('pmbid', TRUE),
+            'KodeT' => $this->input->post('KodeT', TRUE),
            
-            'th_akad' => $this->input->post('th_akad', TRUE),
-           
-            'kodegel' => $this->input->post('kodegel', TRUE),
-           
-            'keterangan' => $this->input->post('keterangan', TRUE),
-           
-            'date_start' => $this->input->post('date_start', TRUE),
-           
-            'date_end' => $this->input->post('date_end', TRUE),
-           
-            'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
-           
-            'date_seleksi_start' => $this->input->post('date_seleksi_start', TRUE),
-           
-            'date_seleksi_end' => $this->input->post('date_seleksi_end', TRUE),
-           
-            'date_her_start' => $this->input->post('date_her_start', TRUE),
-           
-            'date_her_end' => $this->input->post('date_her_end', TRUE),
-           
-            'date_pengumuman' => $this->input->post('date_pengumuman', TRUE),
-           
-            'userid' => $this->input->post('userid', TRUE),
-           
-            'datetime' => $this->input->post('datetime', TRUE),
+            'Tarif' => $this->input->post('Tarif', TRUE),
            
         );
         //'isdeleted' => null,
@@ -162,33 +227,9 @@ class Pmb_gelombang_model extends CI_Model {
         
        $data = array(
         
-            'pmbid' => $this->input->post('pmbid', TRUE),
+            'KodeT' => $this->input->post('KodeT', TRUE),
            
-            'th_akad' => $this->input->post('th_akad', TRUE),
-           
-            'kodegel' => $this->input->post('kodegel', TRUE),
-           
-            'keterangan' => $this->input->post('keterangan', TRUE),
-           
-            'date_start' => $this->input->post('date_start', TRUE),
-           
-            'date_end' => $this->input->post('date_end', TRUE),
-           
-            'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
-           
-            'date_seleksi_start' => $this->input->post('date_seleksi_start', TRUE),
-           
-            'date_seleksi_end' => $this->input->post('date_seleksi_end', TRUE),
-           
-            'date_her_start' => $this->input->post('date_her_start', TRUE),
-           
-            'date_her_end' => $this->input->post('date_her_end', TRUE),
-           
-            'date_pengumuman' => $this->input->post('date_pengumuman', TRUE),
-           
-            'userid' => $this->input->post('userid', TRUE),
-           
-            'datetime' => $this->input->post('datetime', TRUE),
+            'Tarif' => $this->input->post('Tarif', TRUE),
            
         );
         //'isdeleted' => null,
@@ -200,11 +241,11 @@ class Pmb_gelombang_model extends CI_Model {
         //    'Time' => NOW(),
         return $data;
     }
-    function savepmb_gelombang($data){
-        $this->db->insert('pmb_gelombang',$data);
+    function savetarif($data){
+        $this->db->insert('tarif',$data);
     }
     function save_detail($data){
-        $this->db->insert('pmb_gelombang_detail',$data);
+        $this->db->insert('tarif_detail',$data);
     }
     function upddel_detail($id=null) {
         //semua field ini menyesuaikan dengan yang ada pada model dan tabel
@@ -219,70 +260,107 @@ class Pmb_gelombang_model extends CI_Model {
             );
         
         $this->db->where('id', $id);
-        $this->db->update('pmb_gelombang', $data);
+        $this->db->update('tarif', $data);
        
     } 
     function updatebyid($id,$data){
         $this->db->where('id', $id);
-        $this->db->update('pmb_gelombang', $data);
+        $this->db->update('tarif', $data);
     }
     function update($id) {
         $data = array(
         'id' => $this->input->post('id',TRUE),
-       'pmbid' => $this->input->post('pmbid', TRUE),
+       'KodeT' => $this->input->post('KodeT', TRUE),
        
-       'th_akad' => $this->input->post('th_akad', TRUE),
-       
-       'kodegel' => $this->input->post('kodegel', TRUE),
-       
-       'keterangan' => $this->input->post('keterangan', TRUE),
-       
-       'date_start' => $this->input->post('date_start', TRUE),
-       
-       'date_end' => $this->input->post('date_end', TRUE),
-       
-       'kodetarifdaftar' => $this->input->post('kodetarifdaftar', TRUE),
-       
-       'date_seleksi_start' => $this->input->post('date_seleksi_start', TRUE),
-       
-       'date_seleksi_end' => $this->input->post('date_seleksi_end', TRUE),
-       
-       'date_her_start' => $this->input->post('date_her_start', TRUE),
-       
-       'date_her_end' => $this->input->post('date_her_end', TRUE),
-       
-       'date_pengumuman' => $this->input->post('date_pengumuman', TRUE),
-       
-       'userid' => $this->input->post('userid', TRUE),
-       
-       'datetime' => $this->input->post('datetime', TRUE),
+       'Tarif' => $this->input->post('Tarif', TRUE),
        
         );
         $this->db->where('id', $id);
-        $this->db->update('pmb_gelombang', $data);
+        $this->db->update('tarif', $data);
+        /*'datetime' => date('Y-m-d H:i:s'),*/
+    }  
+    function updatetarif($data) {
+        $this->db->where('id', $data['id']);
+        $this->db->update('tarif', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/
     }
 
     function delete($id) {
         $this->db->where('id', $id);
-        $this->db->delete('pmb_gelombang'); 
+        $this->db->delete('tarif'); 
        
     }
     function delete_detail($id=null) {
         $this->db->where('id_detail', $id);
-        $this->db->delete('pmb_gelombang_detail'); 
+        $this->db->delete('tarif_detail'); 
        
     } 
     function deletebybukti($bukti=null) {
         $this->db->where('faktur', $bukti);
-        $this->db->delete('pmb_gelombang_detail');       
+        $this->db->delete('tarif_detail');       
     }
-
+    function dropdown_jenis(){
+        $result = array();
+            $array_keys_values = $this->db->query('select id,KodeJ,Jenis from jenis order by id asc');
+  
+        $result[0]="-- Pilih Jenis --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->KodeJ]= $row->Jenis;
+        }
+        return $result;
+    } 
+    function dropdown_angkatan(){
+        $result = array();
+            $array_keys_values = $this->db->query('select concat("20",left(nim,2)) as angkatan from mhsmaster group by(left(nim,2)) order by (left(nim,2)) asc');
+  
+        $result[0]="-- Pilih Angkatan--";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->angkatan]= $row->angkatan;
+        }
+        return $result;
+    } 
+    function dropdowntahun(){
+        $result = array('');
+            // $array_keys_values = $this->db->query('select concat("20",left(nim,2)) as angkatan from mhsmaster group by(left(nim,2)) order by (left(nim,2)) asc');
+  
+        // $result[0]="-- Pilih Angkatan--";
+        // $result['']="-- Pilih Angkatan--";
+        // foreach ($array_keys_values->result() as $row)
+        foreach ($result as $row)
+        {
+            $result[$row->angkatan]= $row->angkatan;
+        }
+        return $result;
+    } 
+    function dropdown_prodi(){
+        $result = array();
+            $array_keys_values = $this->db->query('select id,KodeP,Prodi from prodi order by id asc');
+  
+        $result[0]="-- Pilih Prodi --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->KodeP]= $row->Prodi;
+        }
+        return $result;
+    } 
+    function dropdown_kelompok(){
+        $result = array();
+            $array_keys_values = $this->db->query('select id,Kodek,Kelompok from kelompokmhs order by id asc');
+  
+        $result[0]="-- Pilih Kelompok --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->Kodek]= $row->Kelompok;
+        }
+        return $result;
+    } 
     //Update 07122013 SWI
     //untuk Array Dropdown
     function get_dropdown_array($value){
         $result = array();
-        $array_keys_values = $this->db->query('select id, '.$value.' from pmb_gelombang order by id asc');
+        $array_keys_values = $this->db->query('select id, '.$value.' from tarif order by id asc');
         $result[0]="-- Pilih Urutan id --";
         foreach ($array_keys_values->result() as $row)
         {
