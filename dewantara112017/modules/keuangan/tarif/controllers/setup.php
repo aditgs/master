@@ -42,7 +42,7 @@ class Setup extends MX_Controller {
         $this->template->add_js('var baseurl="'.base_url().'tarif/setup/";
             var assetsurl="'.assets_url('js').'/";
             ','embed');  
-        $this->template->add_js('modules/setuptarif.0.2.js');  
+        $this->template->add_js('modules/setuptarif.0.3.js');  
         $tahun=array(
             '0'=>'-- Pilih Tahun --',
 			'2013'=>'2013',
