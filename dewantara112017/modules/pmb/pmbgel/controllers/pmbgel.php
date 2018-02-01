@@ -20,14 +20,14 @@ class pmbgel extends MX_Controller {
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
-        /*$this->template->add_js('accounting.min.js');
+        $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
-        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');*/
+        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
         
         /*ONLINE CDN*/
         /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
@@ -43,6 +43,7 @@ class pmbgel extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Gelombang PMB');
         $this->template->add_js('var baseurl="'.base_url().'pmbgel/";','embed');  
+        $this->template->add_css('forms.css');
         $this->template->load_view('pmb_gelombang_view',array(
             'view'=>'pmb_gelombang_data',
             'title'=>'Kelola Data Gelombang PMB',
