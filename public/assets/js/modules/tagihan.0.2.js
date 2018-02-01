@@ -1,10 +1,10 @@
 $(document).ready(function() {
     id = $("#mhs").val();
-
-    $("#mhs").select2({
-        theme: "bootstrap input-md",
-        dropdownParent: "#modal-form"
-    });
+     $("#mhs").select2({
+                theme: "bootstrap input-md",
+                dropdownParent: "#modal-form"
+            });
+  
     $("#mahasiswa").select2({
         theme: "bootstrap input-lg",
         
@@ -64,6 +64,7 @@ $(document).ready(function() {
     });
     $("#modal-form").on("shown.bs.modal", function() {
         loadtagihan();
+        loadselect2();
     });
     $("#modal-form").on("hidden.bs.modal", function() {
         // tabeltarif.ajax.reload();
@@ -285,6 +286,25 @@ function loadtagihan() {
         "iDisplayLength": 10,
         "language": { "decimal": ",", "thousands": "." },
         "columnDefs": [{ "orderable": false, "targets": 0 }]
+    });
+}
+function loadselect2(){
+    // alert('de');
+  /*  $.getScript( assetsurl+"modules/enterevent.js" )
+      .done(function( script, textStatus ) {
+        console.log( textStatus );
+      })
+      .fail(function( jqxhr, settings, exception ) {
+        // $( "div.log" ).text( "Triggered ajaxError handler." );
+        alert('triiger');
+    });*/
+    $.ajax({
+      url: assetsurl+'js/modules/loadselect2.js',
+      dataType: "script",
+      type:"post",
+      success:function(success){
+        // console.log('successs');
+      }
     });
 }
 /*function getalltagihan(kode,nim) {
