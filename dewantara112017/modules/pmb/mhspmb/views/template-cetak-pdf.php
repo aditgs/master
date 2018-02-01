@@ -14,7 +14,7 @@
          $('button.print').click(function() {
             var id=$(this).data('id');
 
-            $.post('<?php echo $baseurl.'tagihan/cetak'; ?>',{id:id},function(data,status){
+            $.post('<?php echo $baseurl.'mhspmb/cetak'; ?>',{id:id},function(data,status){
                 if(status=="success"){
                     window.print();
                 }
@@ -97,7 +97,7 @@
                 <div class="col-lg-12">
                     <div class="wrapper wrapper-content animated fadeInRight">
                         <div class="ibox-content p-xl table-responsive m-t">
-                            <?php if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($detail)?>
+                            <?php if(isset($data)){ $detail=$this->mhspmbdb->gettagihan($data['id']); //print_r($detail)?>
                             <div class="rek">242.000.6669</div>
                             <div class="uang"><?php echo rp($total['total']) ?></div>
                             <div class="terbilang"><b><?php echo terbilang($total['total']) ?> RUPIAH</b></div>
