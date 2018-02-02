@@ -84,6 +84,21 @@ class Pmb_gelombang_model extends CI_Model {
             return array();
         }
     }
+    function genkode($tahun){
+        $last=$this->get_last();
+        // print_r($last);
+        if(!empty($last)):
+            $x=$last['kodegel'];
+            $y=substr($x,-1);
+            $z=strval($y)+1;
+            $gen=$tahun.$z;
+
+        else:
+           $gen=$tahun."1";
+        endif;
+        return $gen;
+    }
+
     function genfaktur(){
         $last=$this->get_last();
         // print_r($last);
@@ -126,8 +141,7 @@ class Pmb_gelombang_model extends CI_Model {
            
             'th_akad' => $this->input->post('th_akad', TRUE),
            
-            'kodegel' => $this->input->post('kodegel', TRUE),
-           
+            'kodegel' =>$this->genkode($this->input->post('th_akad', TRUE)),
             'keterangan' => $this->input->post('keterangan', TRUE),
            
             'date_start' => $this->input->post('date_start', TRUE),
@@ -146,7 +160,7 @@ class Pmb_gelombang_model extends CI_Model {
            
             'date_pengumuman' => $this->input->post('date_pengumuman', TRUE),
            
-            'userid' => $this->input->post('userid', TRUE),
+            'userid' => userid(),
            
             'datetime' => NOW(),
            
@@ -166,8 +180,7 @@ class Pmb_gelombang_model extends CI_Model {
            
             'th_akad' => $this->input->post('th_akad', TRUE),
            
-            'kodegel' => $this->input->post('kodegel', TRUE),
-           
+            'kodegel' =>$this->genkode($this->input->post('th_akad', TRUE)),           
             'keterangan' => $this->input->post('keterangan', TRUE),
            
             'date_start' => $this->input->post('date_start', TRUE),
@@ -186,7 +199,7 @@ class Pmb_gelombang_model extends CI_Model {
            
             'date_pengumuman' => $this->input->post('date_pengumuman', TRUE),
            
-            'userid' => $this->input->post('userid', TRUE),
+            'userid' => userid(),
            
             'datetime' => NOW(),
            
@@ -233,8 +246,7 @@ class Pmb_gelombang_model extends CI_Model {
        
        'th_akad' => $this->input->post('th_akad', TRUE),
        
-       'kodegel' => $this->input->post('kodegel', TRUE),
-       
+        'kodegel' =>$this->genkode($this->input->post('th_akad', TRUE)),       
        'keterangan' => $this->input->post('keterangan', TRUE),
        
        'date_start' => $this->input->post('date_start', TRUE),
@@ -253,7 +265,7 @@ class Pmb_gelombang_model extends CI_Model {
        
        'date_pengumuman' => $this->input->post('date_pengumuman', TRUE),
        
-       'userid' => $this->input->post('userid', TRUE),
+       'userid' => userid(),
        
        'datetime' => NOW(),
        
