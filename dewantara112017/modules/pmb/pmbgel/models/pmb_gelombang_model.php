@@ -246,7 +246,7 @@ class Pmb_gelombang_model extends CI_Model {
        
        'th_akad' => $this->input->post('th_akad', TRUE),
        
-        'kodegel' =>$this->genkode($this->input->post('th_akad', TRUE)),       
+        'kodegel' =>$this->input->post('kodegel', TRUE),       
        'keterangan' => $this->input->post('keterangan', TRUE),
        
        'date_start' => $this->input->post('date_start', TRUE),

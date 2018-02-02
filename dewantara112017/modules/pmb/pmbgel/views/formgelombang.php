@@ -9,7 +9,7 @@
                  <div class="form-group">
                     <?php echo form_label('Kode: ','kodegel',array('class'=>'control-label')); ?>
                     <div class="controls">
-                        <?php echo form_input('kodegel',set_value('kodegel', isset($default['kodegel']) ? $default['kodegel'] : ''),'id="kodegel" class="form-control text-center" placeholder="AUTO" readonly disabled'); ?>
+                        <?php echo form_input('kodegel',set_value('kodegel', isset($default['kodegel']) ? $default['kodegel'] : ''),'id="kodegel" class="form-control text-center" placeholder="AUTO" readonly'); ?>
                     </div>
                 </div>
             </div>
@@ -163,8 +163,8 @@
         <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
         <button id="save_edit" type="submit" class="btn btn-lg btn-primary" style="display:none;">
-            <icon class="fa fa-refresh"></icon> Perbaiki</button>
-        <a href="#" id="cancel_edit" class="btn btn-lg btn-danger batal" style=""><i class="glyphicon glyphicon-remove"></i> Batal</a>
+            <icon class="fa fa-refresh"></icon> Koreksi</button>
+        <a href="#" id="cancel_edit" data-dismiss="modal" class="btn btn-lg btn-danger batal" style=""><i class="glyphicon glyphicon-remove"></i> Batal</a>
     </div>
     <?php echo form_close();?>
 </div>
