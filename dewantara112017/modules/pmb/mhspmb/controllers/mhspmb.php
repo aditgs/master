@@ -6,7 +6,7 @@ class Mhspmb extends MX_Controller {
         parent::__construct();
           
         //Load IgnitedDatatables Library
-        $this->load->model('siakad_mhs_pmb_model','pmbdb',TRUE);
+        $this->load->model('siakad_mhs_pmb_model','mhspmbdb',TRUE);
         $this->load->model('tarif_model','tarifdb',TRUE);
         $this->session->set_userdata('lihat','siakad_mhs_pmb');
         if ( !$this->ion_auth->logged_in()): 
@@ -77,13 +77,10 @@ class Mhspmb extends MX_Controller {
         ));
         
     }
-    function genkode($prodi){
-        $data=$this->pmbdb->genkode($prodi);
-        print_r($data);
-    }
+
     function cetak(){
         $id=$this->input->post('id');
-        $this->pmbdb->updcetak($id);
+        $this->mhspmbdb->updcetak($id);
 
     }
     function cetakpdf($id,$pdf=true){
@@ -92,7 +89,7 @@ class Mhspmb extends MX_Controller {
         $pdf=base64_decode($pdf);
 
         if($id!=null){
-            $data=$this->pmbdb->get_one($id);
+            $data=$this->mhspmbdb->get_one($id);
             $this->template->set_layout('cetak');
            
             $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'baseurl'=>base_url()),TRUE);
@@ -115,7 +112,7 @@ class Mhspmb extends MX_Controller {
     function __getnewfaktur(){
         // cek jika ada po yang belum tersimpan atau tidak terjadi pembatalan, gunakan nomor ponya
         // jika tidak ada, gunakan genfaktur_po
-        $null=$this->pmbdb->ceknomornull();
+        $null=$this->mhspmbdb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
             $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
@@ -123,7 +120,7 @@ class Mhspmb extends MX_Controller {
             $this->__updatestatproses($faktur);
         }else{
 
-            $faktur=$this->pmbdb->genfaktur();
+            $faktur=$this->mhspmbdb->genfaktur();
             $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
@@ -210,7 +207,7 @@ class Mhspmb extends MX_Controller {
     public function get($id){
         // $id = $this->input->post('id');
         if($id!==null){
-            echo json_encode($this->pmbdb->get_one($id));
+            echo json_encode($this->mhspmbdb->get_one($id));
         }
     }
     function tables(){
@@ -219,7 +216,7 @@ class Mhspmb extends MX_Controller {
 
     function getone($id=null){
         if($id!==null){
-            $data=$this->pmbdb->get_one($id);
+            $data=$this->mhspmbdb->get_one($id);
             $jml=count($data);
             // print_r($jml);
             // print_r($data);
@@ -266,19 +263,19 @@ class Mhspmb extends MX_Controller {
         if($this->__formvalidation()===TRUE):
             if ($this->input->post('ajax')){
               if ($this->input->post('id_siakad_mhs_pmb')){
-                $this->pmbdb->update($this->input->post('id_siakad_mhs_pmb'));
+                $this->mhspmbdb->update($this->input->post('id_siakad_mhs_pmb'));
               }else{
-                //$this->pmbdb->save();
-                $this->pmbdb->saveas();
+                //$this->mhspmbdb->save();
+                $this->mhspmbdb->saveas();
               }
 
             }else{
               if ($this->input->post('submit')){
                   if ($this->input->post('id_siakad_mhs_pmb')){
-                    $this->pmbdb->update($this->input->post('id_siakad_mhs_pmb'));
+                    $this->mhspmbdb->update($this->input->post('id_siakad_mhs_pmb'));
                   }else{
-                    //$this->pmbdb->save();
-                    $this->pmbdb->saveas();
+                    //$this->mhspmbdb->save();
+                    $this->mhspmbdb->saveas();
                   }
               }
             }
@@ -293,7 +290,7 @@ class Mhspmb extends MX_Controller {
     public function delete(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id'])){
-                $this->pmbdb->delete($this->input->post('id'));
+                $this->mhspmbdb->delete($this->input->post('id'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');
@@ -303,7 +300,7 @@ class Mhspmb extends MX_Controller {
     public function delete_detail(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id_siakad_mhs_pmb'])){
-                $this->pmbdb->upddel_detail($this->input->post('id_siakad_mhs_pmb'));
+                $this->mhspmbdb->upddel_detail($this->input->post('id_siakad_mhs_pmb'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             echo'<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -318,7 +315,7 @@ class Mhspmb extends MX_Controller {
      public function delete_detailxx(){
         if(isset($_POST['ajax'])){
             if(!empty($_POST['id_siakad_mhs_pmb'])){
-                $this->pmbdb->delete_detail($this->input->post('id_siakad_mhs_pmb'));
+                $this->mhspmbdb->delete_detail($this->input->post('id_siakad_mhs_pmb'));
                 $this->session->set_flashdata('notif','Succeed, Data Has Deleted');
             }else {
                 $this->session->set_flashdata('notif', 'Failed! No Data Deleted');

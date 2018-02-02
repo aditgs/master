@@ -34,11 +34,9 @@ class Siakad_mhs_pmb_model extends CI_Model {
         }
     }
     //untuk generate faktur baru
-    function get_last($prodi){
+    function get_last(){
 
-        $this->db->select('noreg_pmb'); //faktur
-        $x=substr($prodi,0,2);
-        $this->db->like('noreg_pmb',$x); //faktur
+        $this->db->select('*'); //faktur
         $this->db->order_by('id_siakad_mhs_pmb','DESC');
         $this->db->limit(1);
 
@@ -85,49 +83,6 @@ class Siakad_mhs_pmb_model extends CI_Model {
             // return array('sql'=>$this->db->last_query());
             return array();
         }
-    }
-    function genkode($prodi){
-        $last=$this->get_last($prodi);
-        // print_r($last);
-            // if(!empty($tahun)){
-            //     $numth=strlen($tahun);
-
-            //     if($numth=4){
-            //         $tahun=substr($tahun,-2);
-            //     }elseif($numth=2){
-            //         $tahun=$tahun;
-            //     }else{
-            //         $tahun='00';
-            //     }
-            // }else{
-            $tahun=date("y");
-            //     $th=$date;
-            // }
-            if(!empty($prodi)){
-                $num=strlen($prodi);
-                // echo $num;
-                if($num=5){
-                    $pro=substr($prodi,0,2);
-                }elseif($num=2){
-                    $pro;
-                }else{
-                    $pro='00';
-                }
-            }else{
-                $pro='00';
-            }
-        if(!empty($last)):
-            $x=$last['noreg_pmb'];
-            $y=substr($x,-4);
-            $z=strval($y)+1;
-            $a="0000".$z;
-            $b=substr($a,-4);
-            $gen=$pro.$tahun.$b;
-
-        else:
-           $gen=$pro.$tahun."0001";
-        endif;
-        return $gen;
     }
     function genfaktur(){
         $last=$this->get_last();
@@ -247,7 +202,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
            
             'tgl_reg_pmb' => NOW(),
            
-            'noreg_pmb' => $this->genkode($this->input->post('kode_prodi', TRUE)),
+            'noreg_pmb' => $this->input->post('noreg_pmb', TRUE),
            
             'nm_cmhs' => $this->input->post('nm_cmhs', TRUE),
            
