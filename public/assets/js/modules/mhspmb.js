@@ -23,9 +23,6 @@ $(document).ready(function() {
         };
         // }
     });
-    $('body #outside a[data-toggle="tab"]').on('click', function (e) {
-   $('.form-group input[type="text"]').val('');
-});
     $("body").on("click", ".edit_mhspmb", function(e) {
         e.preventDefault();
         var id = $(this).attr("id");
