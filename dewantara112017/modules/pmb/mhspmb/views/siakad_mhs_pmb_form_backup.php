@@ -10,16 +10,9 @@
             </div> 
         </div>
         <div class="panel-body">
-            <div class="">
-                    <?php if(isset($form_view)&&!empty($form_view)):
-                    $this->load->view($form_view);
-                else: ?>
-                    <?php
-                $this->load->view('siakad_mhs_pmb_form_inside');
-                endif;
-                ?> 
-                
-               
+            <div class="row clearfix">
+                <?php $this->load->view('siakad_mhs_pmb_form_inside') ?>
+
                 
             </div>
         </div>
