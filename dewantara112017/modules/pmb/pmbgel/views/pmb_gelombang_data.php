@@ -9,31 +9,13 @@
         <thead class="">
             <tr>
                 
-                <!-- <th>pmbid</th> -->
-
-                <th>kodegel</th>
-                
-                <th>th_akad</th>
-                
-                <th>keterangan</th>
-                
-                <!-- <th>date_start</th> -->
-                
-                <!-- <th>date_end</th> -->
-                
-                <!-- <th>kodetarifdaftar</th> -->
-                
-                <!-- <th>date_seleksi_start</th> -->
-                
-                <!-- <th>date_seleksi_end</th> -->
-                
-                <!-- <th>date_her_start</th> -->
-                
-                <!-- <th>date_her_end</th> -->
-                
-                <th>date_pengumuman</th>
+              
+                <th style="width:10%">Kode</th>
+                <th style="width:10%">Tahun</th>
+                <th style="width:30%">Nama Gelombang</th>
+                <th style="width:30%">Tanggal</th>
              
-                <th>Aksi</th>
+                <th style="width:10%">Aksi</th>
             </tr>
         </thead>
         <tbody class="table-bordered">
