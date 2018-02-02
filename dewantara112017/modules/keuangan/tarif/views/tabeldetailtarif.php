@@ -7,8 +7,11 @@
 	</thead>
 	<?php if(isset($data)||!empty($data)): ?>
 	<tbody>
-		 <tr><th>Kode Tarif</th><td><?php echo $data['KodeT'];?></td></tr>
-            <tr><th>Keterangan</th><td><?php echo bacatarif($data['KodeT']);?></td></tr>
+		 <tr>
+		 	<th>Kode Tarif</th><td><?php echo $data['KodeT'];?></td>
+		 </tr>
+            <tr>
+            	<th>Keterangan</th><td><?php echo bacatarif($data['KodeT']);?></td></tr>
             <tr><th>Tarif</th><td><?php echo rp($data['Tarif']);?></td></tr>
 	</tbody>
 	<?php else: ?>

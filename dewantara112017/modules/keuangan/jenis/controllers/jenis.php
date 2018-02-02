@@ -128,8 +128,8 @@ class jenis extends MX_Controller {
 
     public function getdatatables(){
        
-            $this->datatables->select('id,KodeJ,Jenis,prodi,iscicilan')
-                            ->from('jenis');
+            $this->datatables->select('id,KodeJ,Jenis,prodi,cicilan,pmb,hereg')
+                            ->from('001-view-jenis');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('jenis/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
