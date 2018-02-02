@@ -45,9 +45,9 @@ class Mhspmb extends MX_Controller {
         $this->template->set_title('Kelola Calon Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
         $this->template->add_css('forms.css');
-        $this->template->add_js('modules/mhspmb.js');  
+        // $this->template->add_js('modules/mhspmb.js');  
         $this->template->load_view('siakad_mhs_pmb_view',array(
-            'view'=>'datacalonmhs',
+            'view'=>'',
             'title'=>'Kelola Data Calon Mahasiswa',
             'subtitle'=>'Pengelolaan Calon Mahasiswa',
             'breadcrumb'=>array(
@@ -168,7 +168,7 @@ class Mhspmb extends MX_Controller {
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('mhspmb/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#outside' data-toggle='tab' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 <a data-placement='top' title='Cetak' class='btn btn-xs btn-info' href=".base_url('mhspmb/cetakpdf/$2')." target='_blank'><i class='fa fa-print'></i></a>
                 </div>" , 'id_siakad_mhs_pmb,base64_encode(id_siakad_mhs_pmb)');
@@ -247,7 +247,7 @@ class Mhspmb extends MX_Controller {
     }
     function __formvalidation(){
 
-        $this->form_validation->set_rules('kode_prodi', 'Kode Prodi ', 'required|trim|xss_clean');
+        // $this->form_validation->set_rules('kode_prodi', 'Kode Prodi ', 'required|trim|xss_clean');
 
        
         if ($this->form_validation->run() == FALSE)
@@ -263,7 +263,7 @@ class Mhspmb extends MX_Controller {
         // return $status;
     }
     public function submit(){
-        if($this->__formvalidation()===TRUE):
+        // if($this->__formvalidation()===TRUE):
             if ($this->input->post('ajax')){
               if ($this->input->post('id_siakad_mhs_pmb')){
                 $this->pmbdb->update($this->input->post('id_siakad_mhs_pmb'));
@@ -283,9 +283,9 @@ class Mhspmb extends MX_Controller {
               }
             }
               echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data Calon Mahasiswa berhasil disimpan</h3>'));
-        else:
-             echo $this->__formvalidation();
-        endif;
+        // else:
+             // echo $this->__formvalidation();
+        // endif;
     }
     
 
