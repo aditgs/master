@@ -43,7 +43,7 @@ class jenis extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Jenis');
         $this->template->add_js('var baseurl="'.base_url().'jenis/";','embed');  
-        $this->template->add_js('modules/jenistarif.js');
+        // $this->template->add_js('modules/jenistarif.js');
         $this->template->load_view('jenis_view',array(
             'view'=>'jenis_data',
             'title'=>'Kelola Data Jenis',
@@ -133,7 +133,7 @@ class jenis extends MX_Controller {
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('jenis/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit_jenis_tarif btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
             $this->datatables->unset_column('id');
@@ -165,8 +165,8 @@ class jenis extends MX_Controller {
            
     }
 
-    public function get(){
-        $id = $this->input->post('id');
+    public function get($id){
+        // $id = $this->input->post('id');
         if($id!==null){
             echo json_encode($this->jenisdb->get_one($id));
         }
@@ -240,9 +240,9 @@ class jenis extends MX_Controller {
             }
             echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data tagihan berhasil disimpan</h3>'));
 
-        // else:
-            // echo $this->__formvalidation();
-        // endif;
+        else:
+            echo $this->__formvalidation();
+        endif;
     }
     
 

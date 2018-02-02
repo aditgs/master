@@ -282,6 +282,7 @@ class Mhspmb extends MX_Controller {
                   }
               }
             }
+              echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data Calon Mahasiswa berhasil disimpan</h3>'));
         else:
              echo $this->__formvalidation();
         endif;
