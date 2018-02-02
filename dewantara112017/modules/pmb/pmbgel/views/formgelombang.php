@@ -11,7 +11,21 @@
             </div>
         </div>
 
-        <?php echo form_hidden('pmbid',set_value('pmbid', isset($default['pmbid']) ? $default['pmbid'] : ''),'id="pmbid" class="form-control" placeholder="Masukkan pmbid"'); ?>
+        <div class="form-group">
+            <?php echo form_label('PMb ID :', 'pmbid', array('class'=>'control-label')); ?>
+            <div class="controls">
+                
+            <?php echo form_input('pmbid',set_value('pmbid', isset($default['pmbid']) ? $default['pmbid'] : ''),'id="pmbid" class="form-control" placeholder="Masukkan pmbid" readonly disabled'); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo form_label('DateTime', 'datetime', array('class'=>'control-label'));?>
+                <div class="controls">
+                    <?php echo form_input('datetime', set_value('datetime', isset($default['datetime']) ? $default['datetime'] : ''), ' id="datetime" class="form-control" placeholder="AUTO" readonly disabled'); ?>
+                </div>
+        </div>
+
 
         <?php $opt_th_akad = array('2018' => '2018',
             '2019' => '2019',
@@ -92,7 +106,7 @@
                                             <?php if (!empty($default['date_seleksi_start'])): ?>
                                                 <input id="date_seleksi_start" value="<?php echo $default['date_seleksi_start']; ?>" type="text" onchange="" class="input-md form-control" name="date_seleksi_start" required />
                                                 <?php else: ?>
-                                                    <input id="date_seleksi_start" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="date_end" required />
+                                                    <input id="date_seleksi_start" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="date_seleksi_start" required />
                                                 <?php endif; ?>
                                                 <span class="input-group-btn">
                                                     <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
@@ -105,10 +119,10 @@
                                             <div class="form-group">
                                                 <?php echo form_label('Tanggal Berakhir Seleksi : ','date_seleksi_end',array('class'=>'control-label')); ?>
                                                 <div class="input-daterange input-group controls" id="datepicker">
-                                                    <?php if (!empty($default['date_end'])): ?>
+                                                    <?php if (!empty($default['date_seleksi_end'])): ?>
                                                         <input id="date_seleksi_end" value="<?php echo $default['date_seleksi_end']; ?>" type="text" onchange="" class="input-md form-control" name="date_seleksi_end" required />
                                                         <?php else: ?>
-                                                            <input id="date_seleksi_end" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="date_end" required />
+                                                            <input id="date_seleksi_end" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="date_seleksi_end" required />
                                                         <?php endif; ?>
                                                         <span class="input-group-btn">
                                                             <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
@@ -120,7 +134,7 @@
                                                     <div class="form-group">
                                                         <?php echo form_label('Tanggal Mulai Her Registrasi : ','date_her_start',array('class'=>'control-label')); ?>
                                                         <div class="input-daterange input-group controls">
-                                                            <?php if (!empty($default['date_end'])): ?>
+                                                            <?php if (!empty($default['date_her_start'])): ?>
                                                                 <input id="date_her_start" value="<?php echo $default['date_her_start']; ?>" type="text" onchange="" class="input-md form-control" name="date_her_start" required />
                                                                 <?php else: ?>
                                                                     <input id="date_her_start" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="date_her_start" required />
@@ -135,7 +149,7 @@
                                                             <div class="form-group">
                                                                 <?php echo form_label('Tanggal Akhir Her Registrasi : ','date_her_end',array('class'=>'control-label')); ?>
                                                                 <div class="input-daterange input-group controls">
-                                                                    <?php if (!empty($default['date_end'])): ?>
+                                                                    <?php if (!empty($default['date_her_end'])): ?>
                                                                         <input id="date_her_end" value="<?php echo $default['date_her_end']; ?>" type="text" onchange="" class="input-md form-control" name="date_her_end" required />
                                                                         <?php else: ?>
                                                                             <input id="date_her_end" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="date_her_end" required />
@@ -147,8 +161,14 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <?php echo form_label('Tanggal Pengumuman : ','date_pengumuman',array('class'=>'control-label')); ?>
-                                                                    <div class="controls">
-                                                                        <?php echo form_input('date_pengumuman',set_value('date_pengumuman', isset($default['date_pengumuman']) ? $default['date_pengumuman'] : ''),'id="date_pengumuman" class="form-control" placeholder="Masukkan Tanggal Pengumuman"'); ?>
+                                                                    <div class="input-daterange input-group controls" id="datepicker">
+                                                                        <?php if (!empty($default['date_pengumuman'])): ?>
+                                                                        <input id="date_pengumuman" value="<?php echo $default['date_pengumuman']; ?>" type="text" onchange="" class="input-md form-control" name="date_pengumuman" required />
+                                                                        <?php else: ?>
+                                                                            <input id="date_pengumuman" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="date_pengumuman" required />
+                                                                        <?php endif; ?>
+                                                                        <span class="input-group-btn">
+                                                                            <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
                                                                     </div>
                                                                 </div>   
                                                             </div>
