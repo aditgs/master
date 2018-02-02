@@ -1,5 +1,5 @@
 <div id="form_input" class="row gutter5">
-    <?php echo form_open(base_url().'siakad_mhs_pmb/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
+    <?php echo form_open(base_url().'siakad_mhs_pmb/submit',array('id'=>'addcmhs','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <h2>Identitas Pendaftar</h2>
         <input type="hidden" value='' id="id_siakad_mhs_pmb" name="id_siakad_mhs_pmb">

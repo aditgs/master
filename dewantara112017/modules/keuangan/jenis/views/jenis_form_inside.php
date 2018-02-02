@@ -1,7 +1,7 @@
 <div id="form_input" class="">
     <?php echo form_open(base_url().'jenis/submit',array('id'=>'addjenis','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <input type="hidden" value='' id="id" name="id">
+        <input type="text" value='' id="id" name="id">
         <div class="form-group">
             <?php echo form_label('KodeJ : ','KodeJ',array('class'=>'control-label')); ?>
             <div class="controls">

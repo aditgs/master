@@ -3,9 +3,16 @@ $(document).ready(function() {
         // $('#modal-form .modal-body #addform #reset').trigger('click');
         $('.modal-body').find('input').val('');
     });
+      $("body").on("click","#save_edit",function(e){
+            e.preventDefault();
+                var id=$('#modal-form .modal-body #id').val();
+                alert(id);
+                saveas(id);
+
+        });   
     $("body #addjenis").on("submit", function(e) {
         e.preventDefault();
-        save(0);
+        saveas(0);
     }); 
     $("body").on("click", ".edit_jenis_tarif", function(e) {
         e.preventDefault();
@@ -41,18 +48,16 @@ function handleSubmit(data) {
         // alert("Sukses"+dx.msg);
         $('#modal-notif').modal('toggle');
         $('#modal-form').modal('toggle');
-
-    } else {
+    } else { //status st=0
         $('#modal-alert').modal('toggle');
         $('#modal-alert .modal-body').html(dx.msg);
         $('#modal-form').modal('toggle');
         // alert(dx.msg);
-
     }
-
 }
-function save(id) {
+function saveas(id) {
     var data = $('body form#addjenis').serializeArray();
+    alert(JSON.parse(data));
     data.push({ name: 'ajax', value: 1 });
 
     $(this).ready(function() {
