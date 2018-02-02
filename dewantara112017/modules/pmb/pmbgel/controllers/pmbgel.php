@@ -128,15 +128,16 @@ class pmbgel extends MX_Controller {
 
     public function getdatatables(){
         
-            $this->datatables->select('id,pmbid,kodegel,th_akad,keterangan,date_start,date_end,kodetarifdaftar,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,date_pengumuman,userid,datetime,')
+            $this->datatables->select('id,kodegel,th_akad,keterangan,date_start,kodetarifdaftar,date_end,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,date_pengumuman')
                             ->from('pmb_gelombang');
+            $this->datatables->edit_column('date_start','<label class="badge badge-success">Periode: $1 - $2 </label></br> <label class="badge badge-primary">Seleksi: $3 - $4 </label></br> <label class="badge badge-info">Pengumuman: $7</label><label class="badge badge-warning">Daftar Ulang: $5 - $6 </label> ','thedate(date_start),thedate(date_end),thedate(date_seleksi_start),thedate(date_seleksi_end),thedate(date_her_start),thedate(date_her_end),thedate(date_pengumuman)');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmbgel/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
                 <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
-            $this->datatables->unset_column('id,pmbid,date_start,date_end,kodetarifdaftar,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,userid,datetime');
+            $this->datatables->unset_column('id,date_end,kodetarifdaftar,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,date_pengumuman');
         echo $this->datatables->generate();
     }
     function enkrip(){
