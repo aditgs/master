@@ -20,14 +20,14 @@ class pmbgel extends MX_Controller {
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
-        /*$this->template->add_js('accounting.min.js');
+        $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('datepicker.js'); //tanggal
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
-        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');*/
+        $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
         
         /*ONLINE CDN*/
         /*$this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
@@ -43,6 +43,8 @@ class pmbgel extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Gelombang PMB');
         $this->template->add_js('var baseurl="'.base_url().'pmbgel/";','embed');  
+        $this->template->add_js('modules/pmbgel.js');
+        $this->template->add_css('forms.css');
         $this->template->load_view('pmb_gelombang_view',array(
             'view'=>'pmb_gelombang_data',
             'title'=>'Kelola Data Gelombang PMB',
@@ -125,24 +127,16 @@ class pmbgel extends MX_Controller {
     
 
     public function getdatatables(){
-        if($this->isadmin()==1):
-            $this->datatables->select('id,pmbid,th_akad,kodegel,keterangan,date_start,date_end,kodetarifdaftar,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,date_pengumuman,userid,datetime,')
+        
+            $this->datatables->select('id,pmbid,kodegel,th_akad,keterangan,date_start,date_end,kodetarifdaftar,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,date_pengumuman,userid,datetime,')
                             ->from('pmb_gelombang');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmbgel/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#outside' data-toggle='tooltip' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit_pmbgel btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
-            $this->datatables->unset_column('id');
-
-        else:
-            $this->datatables->select('id,pmbid,th_akad,kodegel,keterangan,date_start,date_end,kodetarifdaftar,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,date_pengumuman,userid,datetime,')
-                            ->from('pmb_gelombang');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmbgel/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
-            $this->datatables->unset_column('id');
-        endif;
+            $this->datatables->unset_column('id,pmbid,date_start,date_end,kodetarifdaftar,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,userid,datetime');
         echo $this->datatables->generate();
     }
     function enkrip(){

@@ -9,27 +9,27 @@
         <thead class="">
             <tr>
                 
-                <th>pmbid</th>
+                <!-- <th>pmbid</th> -->
+
+                <th>kodegel</th>
                 
                 <th>th_akad</th>
                 
-                <th>kodegel</th>
-                
                 <th>keterangan</th>
                 
-                <th>date_start</th>
+                <!-- <th>date_start</th> -->
                 
-                <th>date_end</th>
+                <!-- <th>date_end</th> -->
                 
-                <th>kodetarifdaftar</th>
+                <!-- <th>kodetarifdaftar</th> -->
                 
-                <th>date_seleksi_start</th>
+                <!-- <th>date_seleksi_start</th> -->
                 
-                <th>date_seleksi_end</th>
+                <!-- <th>date_seleksi_end</th> -->
                 
-                <th>date_her_start</th>
+                <!-- <th>date_her_start</th> -->
                 
-                <th>date_her_end</th>
+                <!-- <th>date_her_end</th> -->
                 
                 <th>date_pengumuman</th>
              
@@ -38,7 +38,7 @@
         </thead>
         <tbody class="table-bordered">
             <tr>
-                <td colspan="13" class="text-center dataTables_empty"><img src="<?php echo assets_url('images/loader.gif');  ?>" title="Loading" alt="Loading">&nbsp;&nbsp; Loading data, please wait....</td>
+                <td colspan="6" class="text-center dataTables_empty"><img src="<?php echo assets_url('images/loader.gif');  ?>" title="Loading" alt="Loading">&nbsp;&nbsp; Loading data, please wait....</td>
             </tr>
         </tbody>
     </table>
