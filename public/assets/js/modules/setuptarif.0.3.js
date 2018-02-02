@@ -8,7 +8,6 @@ $(document).ready(function() {
         gen();
     });
     $('select#angkatan').change(function() {
-        
         gen();
     });
     $('select#smster').change(function() {
@@ -19,7 +18,6 @@ $(document).ready(function() {
     });
     $('select#prodi').change(function() {
         getformgen();
-
         gen();
     });
     $('select#jenis').change(function() {
@@ -71,7 +69,6 @@ function gen() {
     // alert(dx);
 }
 function genkodetarif(){
-
         // alert('change');
         var x = $(this).val();
         // console.log(x);
