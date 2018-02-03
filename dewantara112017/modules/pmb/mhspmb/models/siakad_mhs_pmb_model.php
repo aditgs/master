@@ -36,10 +36,8 @@ class Siakad_mhs_pmb_model extends CI_Model {
     //untuk generate faktur baru
     function get_last(){
 
-        $this->db->select('noreg_pmb'); //faktur
-        $x=substr($prodi,0,2);
-        $this->db->like('noreg_pmb',$x); //faktur
-        $this->db->order_by('id_siakad_mhs_pmb','DESC');
+        $this->db->select('*'); //faktur
+        $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
         $result=$this->db->get('siakad_mhs_pmb');
@@ -88,18 +86,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
     }
     function genkode($prodi){
         $last=$this->get_last($prodi);
-        // print_r($last);
-            // if(!empty($tahun)){
-            //     $numth=strlen($tahun);
-
-            //     if($numth=4){
-            //         $tahun=substr($tahun,-2);
-            //     }elseif($numth=2){
-            //         $tahun=$tahun;
-            //     }else{
-            //         $tahun='00';
-            //     }
-            // }else{
+       
             $tahun=date("y");
             //     $th=$date;
             // }
@@ -217,67 +204,42 @@ class Siakad_mhs_pmb_model extends CI_Model {
        $data = array(
         
             'kode_prodi' => $this->input->post('kode_prodi', TRUE),
-           
-            'id_siakad_kelas' => $this->input->post('id_siakad_kelas', TRUE),
-           
-            'tgl_reg_pmb' => NOW(),
-           
-            'noreg_pmb' => $this->genkode($this->input->post('kode_prodi', TRUE)),
-           
-            'nm_cmhs' => $this->input->post('nm_cmhs', TRUE),
-           
-            'kelamin_cmhs' => $this->input->post('kelamin_cmhs', TRUE),
-           
-            'tmp_cmhs' => $this->input->post('tmp_cmhs', TRUE),
-           
-            'tgl_cmhs' => $this->input->post('tgl_cmhs', TRUE),
-           
-            'agama_cmhs' => $this->input->post('agama_cmhs', TRUE),
-           
-            'almt_cmhs' => $this->input->post('almt_cmhs', TRUE),
-           
-            'kota_cmhs' => $this->input->post('kota_cmhs', TRUE),
-           
-            'kodepos_cmhs' => $this->input->post('kodepos_cmhs', TRUE),
-           
-            'email_cmhs' => $this->input->post('email_cmhs', TRUE),
-           
-            'hp_cmhs' => $this->input->post('hp_cmhs', TRUE),
-           
-            'telp_cmhs' => $this->input->post('telp_cmhs', TRUE),
-           
-            'asal_pend' => $this->input->post('asal_pend', TRUE),
-           
-            'jurusan_pend' => $this->input->post('jurusan_pend', TRUE),
-           
-            'no_ijazah_pend' => $this->input->post('no_ijazah_pend', TRUE),
-           
-            'tgl_ijazah_pend' => $this->input->post('tgl_ijazah_pend', TRUE),
-           
-            'nil_ijazah_pend' => $this->input->post('nil_ijazah_pend', TRUE),
-           
-            'status_pmb' => $this->input->post('status_pmb', TRUE),
-           
-            'id_siakad_keu_rek' => $this->input->post('id_siakad_keu_rek', TRUE),
-           
-            'id_siakad_keu_pendaftaran' => $this->input->post('id_siakad_keu_pendaftaran', TRUE),
-           
-            'tgl_transfer' => $this->input->post('tgl_transfer', TRUE),
-           
-            'nm_transfer' => $this->input->post('nm_transfer', TRUE),
-           
-            'img_bukti_transfer' => $this->input->post('img_bukti_transfer', TRUE),
-           
-            'img_pasfoto' => $this->input->post('img_pasfoto', TRUE),
-           
-            'img_ijazah' => $this->input->post('img_ijazah', TRUE),
-           
-            'img_transkrip' => $this->input->post('img_transkrip', TRUE),
-           
-            'img_pindah' => $this->input->post('img_pindah', TRUE),
-           
-            'status_cmhs' => $this->input->post('status_cmhs', TRUE),
-           
+             'id_siakad_kelas' => $this->input->post('id_siakad_kelas', TRUE),
+             'tgl_reg_pmb' =>NOW(),
+             'noreg_pmb' => $this->genkode($this->input->post('kode_prodi', TRUE)),
+             'nik_cmhs' => $this->input->post('nik_cmhs', TRUE),
+             'nm_cmhs' => $this->input->post('nm_cmhs', TRUE),
+             'kelamin_cmhs' => $this->input->post('kelamin_cmhs', TRUE),
+             'tmp_cmhs' => $this->input->post('tmp_cmhs', TRUE),
+             'tgl_cmhs' => $this->input->post('tgl_cmhs', TRUE),
+             'agama_cmhs' => $this->input->post('agama_cmhs', TRUE),
+             'almt_cmhs' => $this->input->post('almt_cmhs', TRUE),
+             'kota_cmhs' => $this->input->post('kota_cmhs', TRUE),
+             'kodepos_cmhs' => $this->input->post('kodepos_cmhs', TRUE),
+             'email_cmhs' => $this->input->post('email_cmhs', TRUE),
+             'hp_cmhs' => $this->input->post('hp_cmhs', TRUE),
+             'telp_cmhs' => $this->input->post('telp_cmhs', TRUE),
+             'asal_pend' => $this->input->post('asal_pend', TRUE),
+             'jurusan_pend' => $this->input->post('jurusan_pend', TRUE),
+             'no_ijazah_pend' => $this->input->post('no_ijazah_pend', TRUE),
+             'tgl_ijazah_pend' => $this->input->post('tgl_ijazah_pend', TRUE),
+             'nil_ijazah_pend' => $this->input->post('nil_ijazah_pend', TRUE),
+             'nm_ibu_cmhs' => $this->input->post('nm_ibu_cmhs', TRUE),
+             'status_pmb' => 'Baru',
+             'id_siakad_keu_rek' => $this->input->post('id_siakad_keu_rek', TRUE),
+             'id_siakad_keu_pendaftaran' => $this->input->post('id_siakad_keu_pendaftaran', TRUE),
+             'tgl_transfer' => $this->input->post('tgl_transfer', TRUE),
+             'nm_transfer' => $this->input->post('nm_transfer', TRUE),
+             'img_bukti_transfer' => $this->input->post('img_bukti_transfer', TRUE),
+             'img_pasfoto' => $this->input->post('img_pasfoto', TRUE),
+             'img_ijazah' => $this->input->post('img_ijazah', TRUE),
+             'img_transkrip' => $this->input->post('img_transkrip', TRUE),
+             'img_pindah' => $this->input->post('img_pindah', TRUE),
+             'status_cmhs' => $this->input->post('status_cmhs', TRUE),
+             'memo' => $this->input->post('memo', TRUE),
+             'gelid' => $this->input->post('gelid', TRUE),
+             'userid' =>userid(),
+
         );
       
         return $data;
@@ -308,37 +270,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->update('siakad_mhs_pmb', $data);
     }
-    function updcetak($id){
-        $cetak=$this->get_one($id);
-        if(!empty($cetak)){
-            if(isset($cetak['printcount'])||$cetak['printcount']>0){
-                $numcetak=$cetak['printcount']+1;
-            }else{
-                $numcetak=1;
-            }
-        }else{
-            $numcetak=1;
-        }
-        $data=array(
-            'isprinted'=>1,
-            'lastprinted'=>NOW(),
-            'printcount'=>$numcetak,
-            'userprinted'=>userid(),
-        );
-        $this->db->where('id', $id);
-
-        $this->db->update('mhspmb', $data);
-    }
-    function gettagihan($id){
-        $this->db->select('*')->from('001-view-tagihanmhs')->where('id',$id);
-        $result=$this->db->get();
-        if($result->num_rows()==1){
-            return $result->row_array();
-        }else{
-            return array();
-        }
-    }
-    function update($id_siakad_mhs_pmb) {
+    function update($id) {
         $data = array(
    
        'kode_prodi' => $this->input->post('kode_prodi', TRUE),
@@ -432,7 +364,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
         return $result;
     }
 
-    //Update 30222014 SWI
+    //Update 30122014 SWI
     //untuk Array Dropdown dari database yang lain
     function get_drop_array($db,$key,$value){
         $result = array();
