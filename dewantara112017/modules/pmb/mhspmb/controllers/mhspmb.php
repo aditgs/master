@@ -7,6 +7,7 @@ class mhspmb extends MX_Controller {
           
         //Load IgnitedDatatables Library
         $this->load->model('siakad_mhs_pmb_model','pmbdb',TRUE);
+        $this->load->model('tarif_model','tarifdb',TRUE);
         $this->session->set_userdata('lihat','siakad_mhs_pmb');
         if ( !$this->ion_auth->logged_in()): 
             redirect('auth/login', 'refresh');
