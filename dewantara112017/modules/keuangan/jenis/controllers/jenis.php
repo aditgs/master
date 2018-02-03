@@ -216,9 +216,9 @@ class jenis extends MX_Controller {
             return TRUE;
         }
         // return $status;
-    }
+    }   
     public function submit(){
-        // if($this->__formvalidation()===TRUE):
+        if($this->__formvalidation()===TRUE):
                    
             if ($this->input->post('ajax')){
               if ($this->input->post('id')){

@@ -1,4 +1,4 @@
-<div id="form_input" class="">
+<div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'mhspmb/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -14,20 +14,12 @@
         </div>
         <div class="form-group">
 
-            <?php echo form_label('Kode Prodi : ','gelid',array('class'=>'control-label')); ?>
-            <div class="controls input-group" style="width: 100%">
-                <?php $gelid = isset($default['gelid'])? $default['gelid'] : '0';  ?>
-                <?php echo form_dropdown('gelid',$opt_gel,$gelid,'id="gelid" class="form-control select2 " style="width:100%" placeholder="Prodi"'); ?>
-            </div>
-        </div>
-        <div class="form-group">
-
             <?php echo form_label('Kode Prodi : ','kode_prodi',array('class'=>'control-label')); ?>
             <?php $opt_prodi = array('61201'=>'S-1 Manajemen','62201'=>'S-1 Akuntansi',);?>
            
             <div class="controls input-group" style="width: 100%">
                 <?php $kode_prodi = isset($default['kode_prodi'])? $default['kode_prodi'] : '0';  ?>
-                <?php echo form_dropdown('kode_prodi',$opt_prodi,$kode_prodi,'id="kode_prodi" class="form-control select2 " style="width:100%" placeholder="Prodi"'); ?>
+                <?php echo form_dropdown('kode_prodi',$opt_prodi,$kode_prodi,'id="kode_prodi" class="rekening form-control select2 " style="width:100%" placeholder="Prodi"'); ?>
             </div>
         </div>
         <div class="form-group">
@@ -36,7 +28,7 @@
                     </label>
                     <div class="controls input-group" style="width: 100%">
                         <?php $kelas = isset($default['id_siakad_kelas'])? $default['id_siakad_kelas'] : '0';  ?>
-                        <?php echo form_dropdown('id_siakad_kelas',$opt_kelas,$kelas,'id="id_siakad_kelas" class="form-control select2 " style="width:100%" placeholder="Agama"'); ?>
+                        <?php echo form_dropdown('id_siakad_kelas',$opt_kelas,$kelas,'id="id_siakad_kelas" class="rekening form-control select2 " style="width:100%" placeholder="Agama"'); ?>
                     </div>
                 </div>
         <div class="form-group">
@@ -91,7 +83,7 @@
                     </label>
                     <div class="controls input-group" style="width: 100%">
                         <?php $agama_cmhs = isset($default['agama_cmhs'])? $default['agama_cmhs'] : '0';  ?>
-                        <?php echo form_dropdown('agama_cmhs',$opt_agama_cmhs,$agama_cmhs,'id="agama_cmhs" class="form-control select2 " style="width:100%" placeholder="Agama"'); ?>
+                        <?php echo form_dropdown('agama_cmhs',$opt_agama_cmhs,$agama_cmhs,'id="agama_cmhs" class="rekening form-control select2 " style="width:100%" placeholder="Agama"'); ?>
                     </div>
                 </div>
             </div>
@@ -169,12 +161,6 @@
             <?php echo form_label('Nama Ibu : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <?php echo form_label('Rekomendasi/Memo: ','memo',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('memo',set_value('memo', isset($default['memo']) ? $default['memo'] : ''),'id="memo" class="form-control" placeholder="Rekomendasi/Memo"'); ?>
             </div>
         </div>
     </div>
@@ -261,7 +247,18 @@
                     </div>
                 </div>
             </div>
-           
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                
+                <div class="form-group">
+                    <label class="control-label">
+                        Status PMB
+                    </label>
+                    <div class="controls input-group">
+                        <?php $status_pmb = isset($default['status_pmb'])? $default['status_pmb'] : '0';  ?>
+                        <?php echo form_dropdown('status_pmb',$opt_status_pmb,$status_pmb,'id="status_pmb" class="rekening form-control input-block input-md" style="width:100%" placeholder="Status PMB"'); ?>
+                    </div>
+                </div>
+            </div>
             
         </div>
      

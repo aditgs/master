@@ -61,7 +61,8 @@ $(document).ready(function () {
      
         $("body").on("click","#save_edit",function(e){
             e.preventDefault();
-                var id=$(this).attr("id");
+                var id=$('#id').val();
+                // var id=$(this).attr("id");
                 // alert ($(this).attr("id"));
                 save(id);
 
