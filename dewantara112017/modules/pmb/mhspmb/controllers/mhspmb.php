@@ -205,6 +205,7 @@ class mhspmb extends MX_Controller {
       
     }
 
+    // disable validation
     public function submit(){
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
