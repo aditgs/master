@@ -147,6 +147,8 @@ class Dashboard extends MX_Controller {
         $this->template->load_view('dashboard_view',array(
 
                         'title'=>'Dashboard PMB',
+                        'stat'=>$this->getstat(),
+                        'lastpmb'=>$this->getlastpmb(),
 
                         'subtitle'=>'PMB',
 
@@ -161,6 +163,24 @@ class Dashboard extends MX_Controller {
 
 
 	}
+    function getstat(){
+        // $this->load->datatabase();
+        $result=$this->db->get('001-view-stat-pmb');
+        return $this->__resultdb($result);
+    }
+    function getlastpmb(){
+        $this->db->select('id,nm_cmhs,tgl_reg_pmb,memo')->from('siakad_mhs_pmb');
+        $result=$this->db->get();
+        return $this->__resultdb($result);
+        
+    }
+    function __resultdb($result){
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else{
+            return array();
+        }
+    }
 
     
 

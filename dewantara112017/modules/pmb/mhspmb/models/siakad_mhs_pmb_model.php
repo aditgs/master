@@ -34,9 +34,11 @@ class Siakad_mhs_pmb_model extends CI_Model {
         }
     }
     //untuk generate faktur baru
-    function get_last(){
+   function get_last($prodi){
 
-        $this->db->select('*'); //faktur
+        $this->db->select('noreg_pmb'); //faktur
+        $x=substr($prodi,0,2);
+        $this->db->like('noreg_pmb',$x); //faktur
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
@@ -356,7 +358,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
     function getdropgel(){
         $result = array();
         $array_keys_values = $this->db->query('select id,kodegel,keterangan,date_start,date_end from `001-view-gelpmbaktif` where isactive=1 order by id asc ');
-        $result[0]="-- Pilih Gelombang --";
+        // $result[0]="-- Pilih Gelombang --";
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->keterangan." <label class='label label-success'>(".$row->date_start." s/d ".$row->date_end.")</label>";
