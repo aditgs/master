@@ -14,7 +14,7 @@
         </div>
         <div class="form-group">
 
-            <?php echo form_label('Kode Prodi : ','gelid',array('class'=>'control-label')); ?>
+            <?php echo form_label('Gelombang : ','gelid',array('class'=>'control-label')); ?>
             <div class="controls input-group" style="width: 100%">
                 <?php $gelid = isset($default['gelid'])? $default['gelid'] : '0';  ?>
                 <?php echo form_dropdown('gelid',$opt_gel,$gelid,'id="gelid" class="form-control select2 " style="width:100%" placeholder="Prodi"'); ?>
