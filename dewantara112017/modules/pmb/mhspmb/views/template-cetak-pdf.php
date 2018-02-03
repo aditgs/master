@@ -93,20 +93,50 @@
                     <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
                 </div>
             </div>
-            <div class="row" style="width: 21.5cm; height: 11cm; background: url('<?= assets_url('images/kuitansi.jpg') ?>'); background-size: 100% 100%;" >
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="wrapper wrapper-content animated fadeInRight">
                         <div class="ibox-content p-xl table-responsive m-t">
-                            <?php if(isset($data)){ $detail=$this->mhspmbdb->gettagihan($data['id']); //print_r($detail)?>
-                            <div class="rek">242.000.6669</div>
-                            <div class="uang"><?php echo rp($total['total']) ?></div>
-                            <div class="terbilang"><b><?php echo terbilang($total['total']) ?> RUPIAH</b></div>
-                            <div class="bayar"><?php //(new tagihan)->getmultitem($data['id'],FALSE,FALSE,TRUE); ?></div>
-                            <div class="nama"><?php echo $detail['nmmhs']; ?></div>
-                            <div class="nim"><?php echo $detail['nimmhs']; ?></div>
-                            <span class="tgl"><?php echo thedate($data['tanggal']); ?></span>
-                            <div class="prodi"><?php echo (new tagihan)->bacatarif($detail['nimmhs']); ?></div>
-                            
+                            <?php if(isset($data)){ $detail=$this->pmbdb->gettagihan($data['id_siakad_mhs_pmb']); //print_r($detail)?>
+                                <table class="table table-striped table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <!-- <td><img alt="image" style="width:100px;" class="img-circle" src="<?= assets_url('images/logo.png') ?>" /></td>
+                                            <td>STIE PGRI DEWANTARA JOMBANG</td> -->
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>No. Kwitansi</th>
+                                            <td>#
+                                                <?php echo $data['id_siakad_mhs_pmb'] ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Terima dari</th>
+                                            <td>
+                                                <?php echo $data['nm_cmhs'] ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Terbilang</th>
+                                            <td>
+                                                <?php echo terbilang($data['noreg_pmb']) ?> RUPIAH</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Untuk Pembayaran</th>
+                                            <td>
+                                                <b>PENDAFTARAN MAHASISWA BARU</b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="" rowspan="" headers=""></td>
+                                            <th>Jombang, <?php echo thedate($data['tgl_reg_pmb']) ?></th>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             <?php
 
 }else{

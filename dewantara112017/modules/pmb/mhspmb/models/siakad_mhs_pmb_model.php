@@ -339,8 +339,8 @@ class Siakad_mhs_pmb_model extends CI_Model {
         $this->db->where('id_siakad_mhs_pmb', $id_siakad_mhs_pmb);
         $this->db->update('siakad_mhs_pmb', $data);
     }
-    function updcetak($id){
-        $cetak=$this->get_one($id);
+    function updcetak($id_siakad_mhs_pmb){
+        $cetak=$this->get_one($id_siakad_mhs_pmb);
         if(!empty($cetak)){
             if(isset($cetak['printcount'])||$cetak['printcount']>0){
                 $numcetak=$cetak['printcount']+1;
@@ -356,12 +356,12 @@ class Siakad_mhs_pmb_model extends CI_Model {
             'printcount'=>$numcetak,
             'userprinted'=>userid(),
         );
-        $this->db->where('id', $id);
+        $this->db->where('id_siakad_mhs_pmb', $id_siakad_mhs_pmb);
 
         $this->db->update('mhspmb', $data);
     }
     function gettagihan($id){
-        $this->db->select('*')->from('001-view-tagihanmhs')->where('id',$id);
+        $this->db->select('*')->from('siakad_mhs_pmb')->where('id_siakad_mhs_pmb',$id);
         $result=$this->db->get();
         if($result->num_rows()==1){
             return $result->row_array();
