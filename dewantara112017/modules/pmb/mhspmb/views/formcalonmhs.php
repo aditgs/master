@@ -17,7 +17,7 @@
             <?php echo form_label('Gelombang : ','gelid',array('class'=>'control-label')); ?>
             <div class="controls input-group" style="width: 100%">
                 <?php $gelid = isset($default['gelid'])? $default['gelid'] : '0';  ?>
-                <?php echo form_dropdown('gelid',$opt_gel,$gelid,'id="gelid" class="form-control select2 " style="width:100%" placeholder="Prodi"'); ?>
+                <?php echo form_dropdown('gelid',$opt_gel,$gelid,'id="gelid" class="form-control select2 " style="width:100%" placeholder="Gelombang"'); ?>
             </div>
         </div>
         <div class="form-group">
@@ -27,7 +27,7 @@
            
             <div class="controls input-group" style="width: 100%">
                 <?php $kode_prodi = isset($default['kode_prodi'])? $default['kode_prodi'] : '0';  ?>
-                <?php echo form_dropdown('kode_prodi',$opt_prodi,$kode_prodi,'id="kode_prodi" class="form-control select2 " style="width:100%" placeholder="Prodi"'); ?>
+                <?php echo form_dropdown('kode_prodi',$opt_prodi,$kode_prodi,'id="kode_prodi" class="form-control select2 " style="width:100%" placeholder="Prodi" required="true"'); ?>
             </div>
         </div>
         <div class="form-group">
@@ -42,7 +42,7 @@
         <div class="form-group">
             <?php echo form_label('Nama Lengkap : ','nm_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('nm_cmhs',set_value('nm_cmhs', isset($default['nm_cmhs']) ? $default['nm_cmhs'] : ''),'id="nm_cmhs" class="form-control" placeholder="Masukkan Nama"'); ?>
+                <?php echo form_input('nm_cmhs',set_value('nm_cmhs', isset($default['nm_cmhs']) ? $default['nm_cmhs'] : ''),'id="nm_cmhs" class="form-control" placeholder="Masukkan Nama" required="trus"'); ?>
             </div>
         </div>
         <div class="form-group">
@@ -79,7 +79,7 @@
           <div class="row gutter5" style="padding:0px 10px">
 
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <?php $opt_agama_cmhs = array('Islam',
+                <?php $opt_agama_cmhs = array('Islam' => 'Islam',
             'Protestan'=>'Protestan',
             'Katolik'=>'Katolik',
             'Hindu'=>'Hindu',
@@ -91,7 +91,7 @@
                     </label>
                     <div class="controls input-group" style="width: 100%">
                         <?php $agama_cmhs = isset($default['agama_cmhs'])? $default['agama_cmhs'] : '0';  ?>
-                        <?php echo form_dropdown('agama_cmhs',$opt_agama_cmhs,$agama_cmhs,'id="agama_cmhs" class="form-control select2 " style="width:100%" placeholder="Agama"'); ?>
+                        <?php echo form_dropdown('agama_cmhs',$opt_agama_cmhs,$agama_cmhs,'id="agama_cmhs" class="form-control select2" style="width:100%" placeholder="Agama" required="true"'); ?>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@
                 <div class="form-group">
                     <div class="controls input-group">
                         <?php echo form_label('Jenis Kelamin : ','kelamin_cmhs',array('class'=>'control-label')); ?>
-                        <select name="kelamin_cmhs" id="kelamin_cmhs" class=" form-control select2" style="width: 100%">
+                        <select name="kelamin_cmhs" id="kelamin_cmhs" class=" form-control select2" style="width: 100%" required>
                             <option value="Laki-laki">Laki - laki</option>
                             <option value="Perempuan">Perempuan</option>
                         </select>
@@ -208,9 +208,9 @@
                     <?php echo form_label('Tanggal Ijazah : ','tgl_ijazah_pend',array('class'=>'control-label')); ?>
                     <div class="input-daterange input-group controls" id="datepicker">
                         <?php if (!empty($default['tgl_ijazah_pend'])): ?>
-                        <input id="tgl_ijazah_pend" value="<?php echo $default['tgl_ijazah_pend']; ?>" type="text" onchange="" class="input-md form-control" name="tgl_ijazah_pend" required />
+                        <input id="tgl_ijazah_pend" value="<?php echo $default['tgl_ijazah_pend']; ?>" type="text" onchange="" class="input-md form-control" name="tgl_ijazah_pend" />
                         <?php else: ?>
-                        <input id="tgl_ijazah_pend" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgl_ijazah_pend" required />
+                        <input id="tgl_ijazah_pend" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgl_ijazah_pend" />
                         <?php endif; ?>
                         <span class="input-group-btn">
                     <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
@@ -230,9 +230,9 @@
             <?php echo form_label('Tanggal Tansfer : ','tgl_transfer',array('class'=>'control-label')); ?>
             <div class="input-daterange input-group controls" id="datepicker">
                 <?php if (!empty($default['tgl_transfer'])): ?>
-                <input id="tgl_transfer" value="<?php echo $default['tgl_transfer']; ?>" type="text" onchange="" class="input-md form-control" name="tgl_transfer" required />
+                <input id="tgl_transfer" value="<?php echo $default['tgl_transfer']; ?>" type="text" onchange="" class="input-md form-control" name="tgl_transfer" />
                 <?php else: ?>
-                <input id="tgl_transfer" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgl_transfer" required />
+                <input id="tgl_transfer" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgl_transfer" />
                 <?php endif; ?>
                 <span class="input-group-btn">
                     <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
@@ -254,7 +254,7 @@
                 <div class="form-group">
                     <div class="controls input-group">
                         <?php echo form_label('Status Calon Mahasiswa : ','status_cmhs',array('class'=>'control-label')); ?>
-                        <select name="status_cmhs" id="status_cmhs" class="input-md form-control" style="width: 100%">
+                        <select name="status_cmhs" id="status_cmhs" class="input-md form-control" style="width: 100%" required>
                             <option value="Baru">Baru</option>
                             <option value="Pindah">Pindah</option>
                         </select>
