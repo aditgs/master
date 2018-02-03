@@ -79,9 +79,8 @@ class Mhspmb extends MX_Controller {
     }
 
     function cetak(){
-        $id=$this->input->post('id');
-        $this->mhspmbdb->updcetak($id);
-
+        $id=$this->input->post('id_siakad_mhs_pmb');
+        $this->pmbdb->updcetak($id);
     }
     function cetakpdf($id,$pdf=true){
 
@@ -95,7 +94,7 @@ class Mhspmb extends MX_Controller {
             $html=$this->load->view('template-cetak-pdf',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                $inv=$data['kode'];
+                $inv=$data['id_siakad_mhs_pmb'];
                 // savepdf($html1, 'laporan-pembelian-'.date('d-m-Y-H-m-s'));
                 kuitansipmb($html, $inv."-".date('d-m-Y-Hms'),TRUE);
             }else{          
