@@ -1,3 +1,4 @@
+    <?php //print_r($stat) ?>
 <div class="col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -6,7 +7,7 @@
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">
-                    <?php echo (!empty($stat['jmltotal'])||isset($stat['jmltotal']))?$stat['jmltotal']:'0';?> Orang
+                    <?php echo (!empty($stat[0]['jmltotal'])||isset($stat[0]['jmltotal']))?$stat[0]['jmltotal']:'0';?> Orang
                     </h1>
                     <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
                     <small>Total Calon Mahasiswa</small>
@@ -21,9 +22,9 @@
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">
-                    <?php echo (!empty($stat['prodi_ak'])||isset($stat['prodi_ak']))?$stat['prodi_ak']:'0';?> Orang
+                    <?php echo (!empty($stat[0]['prodi_ak'])||isset($stat[0]['prodi_ak']))?$stat[0]['prodi_ak']:'0';?> Orang
                     </h1>
-                   <div class="stat-percent font-bold text-navy"><?php echo (!empty($stat['pmb_ak_prosen'])||isset($stat['pmb_ak_prosen']))?$stat['pmb_ak_prosen']:'0';?>% <i class="fa fa-level-up"></i></div>
+                   <div class="stat-percent font-bold text-navy"><?php echo (!empty($stat[0]['pmb_ak_prosen'])||isset($stat[0]['pmb_ak_prosen']))?$stat[0]['pmb_ak_prosen']:'0';?>% <i class="fa fa-level-up"></i></div>
                      <small>Calon Mahasiswa</small>
                 </div>
             </div>
@@ -36,9 +37,9 @@
                 </div>
                 <div class="ibox-content">
                 <h1 class="no-margins">
-                    <?php echo (!empty($stat['prodi_man'])||isset($stat['prodi_man']))?$stat['prodi_man']:'0';?> Orang
+                    <?php echo (!empty($stat[0]['prodi_man'])||isset($stat[0]['prodi_man']))?$stat[0]['prodi_man']:'0';?> Orang
                     </h1>                    
-                    <div class="stat-percent font-bold text-navy"><?php echo (!empty($stat['pmb_man_prosen'])||isset($stat['pmb_man_prosen']))?$stat['pmb_man_prosen']:'0';?>% <i class="fa fa-level-up"></i></div>
+                    <div class="stat-percent font-bold text-navy"><?php echo (!empty($stat[0]['pmb_man_prosen'])||isset($stat[0]['pmb_man_prosen']))?$stat[0]['pmb_man_prosen']:'0';?>% <i class="fa fa-level-up"></i></div>
                      <small>Calon Mahasiswa</small>
                 </div>
             </div>
