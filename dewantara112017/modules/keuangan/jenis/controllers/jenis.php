@@ -217,7 +217,7 @@ class jenis extends MX_Controller {
         }
         // return $status;
     }
-    // Diable validation
+    // Disable validation
     public function submit(){
         // if($this->__formvalidation()===TRUE):
                    
