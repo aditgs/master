@@ -205,8 +205,25 @@ class mhspmb extends MX_Controller {
       
     }
 
+function __formvalidation(){
+        $this->form_validation->set_rules('kode_prodi', 'Kode Prodi', 'required|trim|xss_clean');
+        
 
+       
+
+        if ($this->form_validation->run() == FALSE)
+            {
+                // $this->session->set_flashdata(validation_errors());             
+                return json_encode(array('st'=>0, 'msg' => validation_errors()));
+                // return FALSE;
+            }
+        else{
+            return TRUE;
+        }
+        // return $status;
+    }
     public function submit(){
+        if($this->__formvalidation()===TRUE):
         if ($this->input->post('ajax')){
           if ($this->input->post('id')){
             $this->pmbdb->update($this->input->post('id'));
@@ -225,6 +242,10 @@ class mhspmb extends MX_Controller {
               }
           }
         }
+        echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data tagihan berhasil disimpan</h3>'));
+        else:
+            echo $this->__formvalidation();
+        endif;
     }
     
 
