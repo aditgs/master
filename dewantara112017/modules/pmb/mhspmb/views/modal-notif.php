@@ -4,12 +4,12 @@
         <div class="modal-content panel panel-success">
             <div class="modal-header panel-heading navy-bg">
                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="panel-title"><?= (!empty($title_form)||isset($title_form))?$title_form:'Tagihan';  ?></h3>
+                <h3 class="panel-title"><?= (!empty($title_form)||isset($title_form))?$title_form:'Data Calon Mahasiswa';  ?></h3>
             </div>
             <div class="modal-body panel-body" style="padding:5px;">
                <div class="alert alert-success">
                        
-                        <strong>Berhasil!</strong> Tagihan berhasil disimpan ...
+                        <strong>Berhasil!</strong> Data Calon Mahasiswa berhasil disimpan ...
                     </div>                
             </div>
             <div class="panel-footer">

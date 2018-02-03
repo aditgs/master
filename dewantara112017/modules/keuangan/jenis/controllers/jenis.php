@@ -43,7 +43,7 @@ class jenis extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Jenis');
         $this->template->add_js('var baseurl="'.base_url().'jenis/";','embed');  
-        // $this->template->add_js('modules/jenistarif.js');
+        $this->template->add_js('modules/jenistarif.js');
         $this->template->load_view('jenis_view',array(
             'view'=>'jenis_data',
             'title'=>'Kelola Data Jenis',
@@ -217,6 +217,7 @@ class jenis extends MX_Controller {
         }
         // return $status;
     }
+    // Disable validation
     public function submit(){
         // if($this->__formvalidation()===TRUE):
                    
@@ -240,9 +241,9 @@ class jenis extends MX_Controller {
             }
             echo json_encode(array('st'=>1, 'msg' => '<h3 class="text-center alert-success alert"><i class="fa fa-check fa2x" ></i> Data tagihan berhasil disimpan</h3>'));
 
-        else:
+      /*  else:
             echo $this->__formvalidation();
-        endif;
+        endif;*/
     }
     
 
