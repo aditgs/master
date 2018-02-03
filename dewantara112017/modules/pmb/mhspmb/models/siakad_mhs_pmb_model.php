@@ -364,7 +364,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
         return $result;
     }
 
-    //Update 30122014 SWI
+    //Update 30222014 SWI
     //untuk Array Dropdown dari database yang lain
     function get_drop_array($db,$key,$value){
         $result = array();
