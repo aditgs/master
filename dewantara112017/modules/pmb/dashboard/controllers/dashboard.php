@@ -147,6 +147,7 @@ class Dashboard extends MX_Controller {
         $this->template->load_view('dashboard_view',array(
 
                         'title'=>'Dashboard PMB',
+                        'stat'=>$this->getstat(),
 
                         'subtitle'=>'PMB',
 
@@ -161,6 +162,20 @@ class Dashboard extends MX_Controller {
 
 
 	}
+    function getstat(){
+        // $this->load->datatabase();
+        $result=$this->db->get('001-view-stat-pmb');
+        return $this->__resultdb($result);
+    }
+    function __resultdb($result){
+        if ($result->num_rows() > 1) {
+            return $result->result_array();
+        } elseif($result->num_rows==1) {
+            return $result->row_array();
+        }else{
+            return array();
+        }
+    }
 
     
 
