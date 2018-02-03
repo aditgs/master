@@ -34,13 +34,10 @@ class Siakad_mhs_pmb_model extends CI_Model {
         }
     }
     //untuk generate faktur baru
-  
-    function get_last($prodi){
+    function get_last(){
 
-        $this->db->select('noreg_pmb'); //faktur
-        $x=substr($prodi,0,2);
-        $this->db->like('noreg_pmb',$x); //faktur
-        $this->db->order_by('id_siakad_mhs_pmb','DESC');
+        $this->db->select('*'); //faktur
+        $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
         $result=$this->db->get('siakad_mhs_pmb');
