@@ -181,7 +181,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
              'status_pmb' => 'Baru',
              'id_siakad_keu_rek' => $this->input->post('id_siakad_keu_rek', TRUE),
              'id_siakad_keu_pendaftaran' => $this->input->post('id_siakad_keu_pendaftaran', TRUE),
-             'tgl_transfer' => $this->input->post('tgl_transfer', TRUE), //valid
+             'tgl_transfer' => ($this->input->post('tgl_transfer') != FALSE) ? $this->input->post('tgl_transfer') : NULL, //valid
              'nm_transfer' => $this->input->post('nm_transfer', TRUE),
              'img_bukti_transfer' => $this->input->post('img_bukti_transfer', TRUE),
              'img_pasfoto' => $this->input->post('img_pasfoto', TRUE),
