@@ -156,7 +156,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
         //ganti faktur dengan ==> 'Faktur' =>$this->genfaktur(),
        $data = array(
         
-                'kode_prodi' => $this->input->post('kode_prodi', TRUE), //valid
+            'kode_prodi' => $this->input->post('kode_prodi', TRUE), //valid
              'id_siakad_kelas' => $this->input->post('id_siakad_kelas', TRUE),
              'tgl_reg_pmb' =>NOW(),
              'noreg_pmb' => $this->genkode($this->input->post('kode_prodi', TRUE)),
