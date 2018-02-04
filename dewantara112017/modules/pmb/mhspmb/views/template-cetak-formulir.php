@@ -14,7 +14,7 @@
          $('button.print').click(function() {
             var id=$(this).data('id');
 
-            $.post('<?php echo $baseurl.'mhspmb/cetak'; ?>',{id:id},function(data,status){
+            $.post('<?php echo $baseurl.'mhspmb/cetakformulir'; ?>',{id:id},function(data,status){
                 if(status=="success"){
                     window.print();
                 }
@@ -107,6 +107,8 @@
                                             Website : www.stiedewantara.ac.id<br>
                                             e-mail : info@stiedewantara.ac.id</td>
                                         </tr>
+                                        <tr>FORMULIR PENDAFTARAN MAHASISWA BARU</tr>
+                                        <tr>Tahun Akademik 2018/2019</tr>
                                     </thead>
                                     <tbody>
                                         <tr>
