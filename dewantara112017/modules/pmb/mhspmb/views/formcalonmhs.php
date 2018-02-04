@@ -275,15 +275,4 @@
     </div>
     <?php echo form_close();?>
 </div>
-<!-- <script type="text/javascript">
-$(document).ready(function() {
-            $.getScript(assetsurl + "datepicker.js")
-                .done(function(script, textStatus) {
-                    console.log(textStatus);
-                })
-                .fail(function(jqxhr, settings, exception) {
-                    // $( "div.log" ).text( "Triggered ajaxError handler." ); 
-                    // alert('triiger');
 
-                })
-</script> -->
