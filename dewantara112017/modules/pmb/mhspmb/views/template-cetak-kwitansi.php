@@ -14,7 +14,7 @@
          $('button.print').click(function() {
             var id=$(this).data('id');
 
-            $.post('<?php echo $baseurl.'mhspmb/cetak'; ?>',{id:id},function(data,status){
+            $.post('<?php echo $baseurl.'mhspmb/cetakkwitansi'; ?>',{id:id},function(data,status){
                 if(status=="success"){
                     window.print();
                 }

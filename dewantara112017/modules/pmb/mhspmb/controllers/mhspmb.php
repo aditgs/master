@@ -137,13 +137,78 @@ class mhspmb extends MX_Controller {
 
                 <a href='#outside' data-toggle='tab' data-placement='top' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
                 <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
-                <a data-placement='top' title='Cetak' class='btn btn-xs btn-info' href=".base_url('mhspmb/cetakpdf/$2')." target='_blank'><i class='fa fa-print'></i></a>
+                <button class='btn btn-primary btn-xs dropdown-toggle' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fa fa-print'></i> Cetak <span class='caret'></span></button>'
+                <ul class='dropdown-menu' style='position:relative;z-index:10000 !important'>
+                <li><a href=".base_url('mhspmb/cetakkwitansi/$2')." target='_blank'><i class='fa fa-money'></i>&nbsp; Kwitansi</a></li>
+                <li><a href=".base_url('mhspmb/cetakkartu/$2')." target='_blank'><i class='fa fa-book'></i>&nbsp; Kartu</a></li>
+                <li><a href=".base_url('mhspmb/cetakformulir/$2')." target='_blank'><i class='fa fa-file'></i>&nbsp; Formulir</a></li>
+                
                 </div>" , 'id,base64_encode(id)');
             $this->datatables->unset_column('id');
 
       
         echo $this->datatables->generate();
     }
+    function cetak(){
+        $id=$this->input->post('id');
+        $this->pmbdb->updcetak($id);
+
+    }
+    function cetakkwitansi($id,$pdf=true){
+
+        $id=base64_decode($id);
+        $pdf=base64_decode($pdf);
+
+        if($id!=null){
+            $data=$this->pmbdb->get_one($id);
+            $this->template->set_layout('cetak');
+           
+            $html=$this->load->view('template-cetak-kwitansi',array('data'=>$data,'baseurl'=>base_url()),TRUE);
+            if(!empty($pdf)||$pdf!=null){
+                $this->load->helper(array('dompdf', 'file'));
+                buildpdf($html, date('d-m-Y-Hms'),TRUE);
+            }else{          
+                echo ($html);
+            }
+        }
+    }
+    function cetakkartu($id,$pdf=true){
+
+        $id=base64_decode($id);
+        $pdf=base64_decode($pdf);
+
+        if($id!=null){
+            $data=$this->pmbdb->get_one($id);
+            $this->template->set_layout('cetak');
+           
+            $html=$this->load->view('template-cetak-kartu',array('data'=>$data,'baseurl'=>base_url()),TRUE);
+            if(!empty($pdf)||$pdf!=null){
+                $this->load->helper(array('dompdf', 'file'));
+                buildpdf($html, date('d-m-Y-Hms'),TRUE);
+            }else{          
+                echo ($html);
+            }
+        }
+    }
+    function cetakformulir($id,$pdf=true){
+
+        $id=base64_decode($id);
+        $pdf=base64_decode($pdf);
+
+        if($id!=null){
+            $data=$this->pmbdb->get_one($id);
+            $this->template->set_layout('cetak');
+           
+            $html=$this->load->view('template-cetak-formulir',array('data'=>$data,'baseurl'=>base_url()),TRUE);
+            if(!empty($pdf)||$pdf!=null){
+                $this->load->helper(array('dompdf', 'file'));
+                buildpdf($html, date('d-m-Y-Hms'),TRUE);
+            }else{          
+                echo ($html);
+            }
+        }
+    }
+
     function enkrip(){
         return md5($this->session->userdata('lihat').":".$this->getuser()."+".date('H:m'));
         // echo $this->session->userdata('siakad_mhs_pmb');
