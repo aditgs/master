@@ -5,7 +5,10 @@
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon-table"></i> Form Calon Mahasiswa</h3>
             <div class="btn-group pull-right">
+                <?php if(!isset($default)||empty($default)): ?>
+
                 <button class="btn btn-info reset" type="reset">Reset Form</button>
+                <?php endif; ?>
             </div> 
         </div>
         <div class="panel-body">
