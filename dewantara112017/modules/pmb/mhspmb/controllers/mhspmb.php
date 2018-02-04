@@ -16,7 +16,7 @@ class mhspmb extends MX_Controller {
         
         $this->template->add_js('datatables.js');
         $this->template->add_js('muria.js');
-        $this->template->add_js('crud.js');
+        $this->template->add_js('crud.0.1.js');
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
@@ -43,6 +43,7 @@ class mhspmb extends MX_Controller {
     public function index() {
         $this->template->set_title('Kelola Calon Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
+        // $this->template->add_js('modules/mhspmb.js');  
         $this->template->load_view('siakad_mhs_pmb_view',array(
             'view'=>'',
             'title'=>'Kelola Data Calon Mahasiswa',
@@ -206,16 +207,16 @@ class mhspmb extends MX_Controller {
     }
 
 function __formvalidation(){
+        $this->form_validation->set_rules('kode_prodi', 'Kode Prodi', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('nm_cmhs','Nama Calon Mahasiswa','required|trim|xss_clean');
+        $this->form_validation->set_rules('kelamin_cmhs','Jenis Kelamin Calon Mahasiswa','required|trim|xss_clean'); 
+        $this->form_validation->set_rules('agama_cmhs','Agama Calon Mahasiswa','required|trim|xss_clean');
+        $this->form_validation->set_rules('tgl_ijazah_pend','Tanggal Ijazah','required|trim|xss_clean');
+        $this->form_validation->set_rules('status_cmhs','Status Pendaftaran Calon Mahasiswa','required|trim|xss_clean');
 
-        $this->form_validation->set_rules('kode_prodi','kode_prodi','required|trim|xss_clean');
-        $this->form_validation->set_rules('nm_cmhs','nm_cmhs','required|trim|xss_clean');
-        $this->form_validation->set_rules('kelamin_cmhs','kelamin_cmhs','required|trim|xss_clean');
-        $this->form_validation->set_rules('agama_cmhs','agama_cmhs','required|trim|xss_clean');
-        $this->form_validation->set_rules('tgl_ijazah_pend','tgl_ijazah_pend','required|trim|xss_clean');
 
         // $this->form_validation->set_rules('tgl_transfer','tgl_transfer','required|trim|xss_clean');
-        $this->form_validation->set_rules('status_cmhs','status_cmhs','required|trim|xss_clean');
-        $this->form_validation->set_rules('kode_prodi','kode_prodi','required|trim|xss_clean');
+
 
        
 
