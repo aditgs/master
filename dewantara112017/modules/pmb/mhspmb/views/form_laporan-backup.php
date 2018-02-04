@@ -66,7 +66,19 @@
 	        
 	        </div>
         </div>
-     
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+           
+	        <div class="form-group">
+	            <label class="control-label">
+	                Nama Calon Mahasiswa
+	            </label>
+	            <div class="controls input-group">
+	                <?php $nm_cmhs = isset($default['nm_cmhs'])? $default['nm_cmhs'] : '0';  ?>
+	                <?php echo form_dropdown('nm_cmhs',$opt_nm_cmhs,$nm_cmhs,'id="nm_cmhs" class="form-control select2 input-md" style="width:100%" placeholder="Calon Mahasiswa"'); ?>
+	              
+	            </div>
+	        </div>
+	    </div>
 	    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 	    	
 	        <div class="form-group">
@@ -93,7 +105,18 @@
 	        
 	        </div>   
 	    </div>
-	  
+	    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+	    	
+	        <div class="form-group">
+	            <div class="controls input-group">
+	            <?php echo form_label('Semester : ','semester',array('class'=>'control-label')); ?>
+	                <select name="semester" id="kdsmster" class="input-lg form-control select2" style="width:100%">
+	                    <option value="1">Ganjil</option>
+	                    <option value="2">Genap</option>
+	                </select>
+	            </div>
+	        </div>
+	    </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <label for=""> </label>
             <br>
