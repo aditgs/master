@@ -214,6 +214,10 @@ function __formvalidation(){
         $this->form_validation->set_rules('tgl_ijazah_pend','Tanggal Ijazah','required|trim|xss_clean');
         $this->form_validation->set_rules('status_cmhs','Status Pendaftaran Calon Mahasiswa','required|trim|xss_clean');
 
+
+        // $this->form_validation->set_rules('tgl_transfer','tgl_transfer','required|trim|xss_clean');
+
+
        
 
         if ($this->form_validation->run() == FALSE)
