@@ -166,7 +166,7 @@ class mhspmb extends MX_Controller {
             $html=$this->load->view('template-cetak-kwitansi',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                buildpdf($html, date('d-m-Y-Hms'),TRUE);
+                kwitansipmb($html, date('d-m-Y-Hms'),TRUE);
             }else{          
                 echo ($html);
             }
@@ -184,7 +184,7 @@ class mhspmb extends MX_Controller {
             $html=$this->load->view('template-cetak-kartu',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                buildpdf($html, date('d-m-Y-Hms'),TRUE);
+                kartupmb($html, date('d-m-Y-Hms'),TRUE);
             }else{          
                 echo ($html);
             }
@@ -202,7 +202,7 @@ class mhspmb extends MX_Controller {
             $html=$this->load->view('template-cetak-formulir',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                buildpdf($html, date('d-m-Y-Hms'),TRUE);
+                formulirpmb($html, date('d-m-Y-Hms'),TRUE);
             }else{          
                 echo ($html);
             }

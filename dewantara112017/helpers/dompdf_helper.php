@@ -123,7 +123,7 @@ function kwitansipmb($html, $filename='', $stream=TRUE)
     $options->set(array(
         'pdfBackend'=>'PDFLib',
         'defaultMediaType'=>'print',
-        'defaultPaperSize'=>$size,
+        // 'defaultPaperSize'=>$size,
         // 'defaultPaperSize'=>'A5',
         'defaultFont'=>'Arial',
         'enable_html5_parser'=>true,
@@ -132,25 +132,24 @@ function kwitansipmb($html, $filename='', $stream=TRUE)
 
     $dompdf = new Dompdf\Dompdf($options);
     $dompdf->load_html($html);
-    $dompdf->setPaper($size, $layout);
+    // $dompdf->setPaper($size, $layout);
     $dompdf->setPaper('A5', 'landscape');    
     $dompdf->setBasePath(assets_url('css/bootstrap.min.css'));
     $dompdf->render();
     $canvas = $dompdf->get_canvas();  
     $image = assets_url('images/logo.png');
-      $image = assets_url('images/logo.png');
 
       $canvas->image($image, 25, 20, 85, 80);
       
-      // $canvas->page_text(125, 20, "PANITIA PENERIMAAN MAHASISWA BARU TA. 2018/2019", $fontBold, 12, array(0, 0, 0));
-      // $canvas->page_text(125, 35, "STIE PGRI DEWANTARA JOMBANG", $fontBold, 16, array(0, 0, 0));
-      // $canvas->page_text(125, 55, "Jl. Prof. Moh. Yamin No.77 Telp.(0321) 865180, Fax.(0321) 853807 Jombang, Jawa Timur 61471", $fontBold, 10, array(0, 0, 0));
-      // $canvas->page_text(125, 70, "Website : www.stiedewantara.ac.id", $fontBold, 10, array(0, 0, 0));
-      // $canvas->page_text(125, 85, "e-mail : info@stiedewantara.ac.id", $fontBold, 10, array(0, 0, 0));
-      // $canvas->line(25, 115, 570, 115, array(0, 0, 0), 5);
-      // $canvas->page_text(240, 117, "K W I T A N S I", $fontBold, 16, array(0, 0, 0));
-      // $canvas->line(25, 138, 570, 138, array(0, 0, 0), 5);
-
+      $canvas->page_text(125, 17, "PANITIA PENERIMAAN MAHASISWA BARU TA. 2018/2019", $fontBold, 12, array(0, 0, 0));
+      $canvas->page_text(125, 30, "STIE PGRI DEWANTARA JOMBANG", $fontBold, 16, array(0, 0, 0));
+      $canvas->page_text(125, 53, "Jl. Prof. Moh. Yamin No.77 Telp.0321865180, Fax.0321853807 Jombang, Jawa Timur 61471", $fontBold, 10, array(0, 0, 0));
+      $canvas->page_text(125, 68, "Website : www.stiedewantara.ac.id", $fontBold, 10, array(0, 0, 0));
+      $canvas->page_text(125, 82, "email : info at stiedewantara.ac.id", $fontBold, 10, array(0, 0, 0));
+      $canvas->line(25, 105, 570, 105, array(0, 0, 0), 5);
+      $canvas->page_text(240, 105, "K W I T A N S I", $fontBold, 16, array(0, 0, 0));
+      $canvas->line(25, 135, 570, 135, array(0, 0, 0), 5);
+      
       $canvas->line(10, 397, 580, 397, array(0,0,0), 1);
       $canvas->page_text(10, 400, "STIE PGRI DEWANTARA JOMBANG", $font, 10, array(0, 0, 0));
       $canvas->page_text(540, 400, "Hal. {PAGE_NUM} / {PAGE_COUNT}", $font, 10, array(0, 0, 0));

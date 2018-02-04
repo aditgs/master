@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html moznomarginboxes mozdisallowselectionprint>
 
 <head>
     <meta charset="utf-8">
@@ -23,63 +23,6 @@
         });
     });
     </script>
-    <script>
-    function to_word($number)
-    {
-        $words = "";
-        $arr_number = array(
-        "",
-        "satu",
-        "dua",
-        "tiga",
-        "empat",
-        "lima",
-        "enam",
-        "tujuh",
-        "delapan",
-        "sembilan",
-        "sepuluh",
-        "sebelas");
-
-        if($number<12)
-        {
-            $words = " ".$arr_number[$number];
-        }
-        else if($number<20)
-        {
-            $words = to_word($number-10)." belas";
-        }
-        else if($number<100)
-        {
-            $words = to_word($number/10)." puluh ".to_word($number%10);
-        }
-        else if($number<200)
-        {
-            $words = "seratus ".to_word($number-100);
-        }
-        else if($number<1000)
-        {
-            $words = to_word($number/100)." ratus ".to_word($number%100);
-        }
-        else if($number<2000)
-        {
-            $words = "seribu ".to_word($number-1000);
-        }
-        else if($number<1000000)
-        {
-            $words = to_word($number/1000)." ribu ".to_word($number%1000);
-        }
-        else if($number<1000000000)
-        {
-            $words = to_word($number/1000000)." juta ".to_word($number%1000000);
-        }
-        else
-        {
-            $words = "undefined";
-        }
-        return $words;
-    }
-    </script>
 </head>
 
 <body class="">
@@ -98,45 +41,61 @@
                     <div class="wrapper wrapper-content animated fadeInRight">
                         <div class="ibox-content p-xl table-responsive m-t">
                             <?php if(isset($data)){ $detail=$this->pmbdb->getpmb($data['id']); //print_r($detail)?>
-                                <table class="table table-striped table-hover table-bordered">
-                                    <thead>
+                                <table class="col-xs-12">
+                                    <!-- <thead>
                                         <tr>
                                             <td><img alt="image" style="width:125px;" src="<?= assets_url('images/logo.png') ?>" /></td>
-                                            <td>STIE PGRI DEWANTARA JOMBANG<br>
+                                            <td colspan="4">STIE PGRI DEWANTARA JOMBANG<br>
                                             Jl. Prof. Moh. Yamin No.77 Telp.(0321)865180, Fax.(0321)853807 Jombang, Jawa Timur<br>
                                             Website : www.stiedewantara.ac.id<br>
                                             e-mail : info@stiedewantara.ac.id</td>
                                         </tr>
-                                    </thead>
+                                    </thead> -->
                                     <tbody>
                                         <tr>
-                                            <th>No. Kwitansi</th>
-                                            <td>#
-                                                <?php echo $data['id'] ?>
-                                            </td>
+                                            <td></td>
+                                            <td colspan="2"><br>No. Kwitansi</td>
+                                            <td><br>:</td>
+                                            <td><br># <?php echo $data['id'] ?></td>
                                         </tr>
                                         <tr>
-                                            <th>Terima dari</th>
-                                            <td>
-                                                <?php echo $data['nm_cmhs'] ?>
-                                            </td>
+                                            <td></td>
+                                            <td colspan="2">Terima dari</td>
+                                            <td>:</td>
+                                            <td><?php echo $data['nm_cmhs'] ?></td>
                                         </tr>
                                         <tr>
-                                            <th>Terbilang</th>
-                                            <td>
-                                                <?php echo terbilang($data['noreg_pmb']) ?> RUPIAH</b>
-                                            </td>
+                                            <td></td>
+                                            <td colspan="2">Terbilang</td>
+                                            <td>:</td>
+                                            <td><?php echo terbilang($data['noreg_pmb']) ?></td>
                                         </tr>
                                         <tr>
-                                            <th>Untuk Pembayaran</th>
-                                            <td>
-                                                <b>PENDAFTARAN MAHASISWA BARU</b>
-                                            </td>
+                                            <td></td>
+                                            <td colspan="2">Untuk Pembayaran</td>
+                                            <td>:</td>
+                                            <td>PENDAFTARAN MAHASISWA BARU</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="" rowspan="" headers=""></td>
-                                            <th>Jombang, <?php echo thedate($data['tgl_reg_pmb']) ?></th>
+                                            <td colspan="5"> <br><br> </td>
                                         </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="3"></td>
+                                            <td>Jombang, <?php echo thedate($data['tgl_reg_pmb']) ?><br>
+                                            Penerima,</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="3" style="font-size: 16px; font-weight: bold;">Rp. <?php echo rp($data['noreg_pmb']) ?><br><br></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="3"></td>
+                                            <td>FITRI</td>
+                                          </tr>
                                     </tbody>
                                 </table>
                             <?php
@@ -155,18 +114,132 @@
     <!-- <link href="<?php echo assets_url() ?>css/style.css" rel="stylesheet"> -->
     <link href="<?php echo assets_url() ?>css/custom.css" rel="stylesheet">
     <style type="text/css">
-    @media print{td,th{padding:0}[class*=col-sm-],[class*=col-xs-]{float:left}.col-sm-12,.col-xs-12{width:100%!important}.col-sm-11,.col-xs-11{width:91.66666667%!important}.col-sm-10,.col-xs-10{width:83.33333333%!important}.col-sm-9,.col-xs-9{width:75%!important}.col-sm-8,.col-xs-8{width:66.66666667%!important}.col-sm-7,.col-xs-7{width:58.33333333%!important}.col-sm-6,.col-xs-6{width:50%!important}.col-sm-5,.col-xs-5{width:41.66666667%!important}.col-sm-4,.col-xs-4{width:33.33333333%!important}.col-sm-3,.col-xs-3{width:25%!important}.col-sm-2,.col-xs-2{width:16.66666667%!important}.col-sm-1,.col-xs-1{width:8.33333333%!important}.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9{float:left!important}body{margin:0;padding:0!important;min-width:768px;font-size:14px;font-family:'Open Sans',sans-serif}.container{width:auto;min-width:750px}a[href]:after{content:none}#comments,.btn,.footer,.group-media,.nav,.noprint,div.alert,form,header,ul.action-links,ul.links.list-inline{display:none!important}table{border-collapse:collapse}td{border-bottom:1px solid #ccc}thead{position:fixed;font-weight:700}}}
+    @media print {
+                    td,
+                    th {
+                        padding: 0
+                    }
+                    [class*=col-sm-],
+                    [class*=col-xs-] {
+                        float: left
+                    }
+                    .col-sm-12,
+                    .col-xs-12 {
+                        width: 100%!important
+                    }
+                    .col-sm-11,
+                    .col-xs-11 {
+                        width: 91.66666667%!important
+                    }
+                    .col-sm-10,
+                    .col-xs-10 {
+                        width: 83.33333333%!important
+                    }
+                    .col-sm-9,
+                    .col-xs-9 {
+                        width: 75%!important
+                    }
+                    .col-sm-8,
+                    .col-xs-8 {
+                        width: 66.66666667%!important
+                    }
+                    .col-sm-7,
+                    .col-xs-7 {
+                        width: 58.33333333%!important
+                    }
+                    .col-sm-6,
+                    .col-xs-6 {
+                        width: 50%!important
+                    }
+                    .col-sm-5,
+                    .col-xs-5 {
+                        width: 41.66666667%!important
+                    }
+                    .col-sm-4,
+                    .col-xs-4 {
+                        width: 33.33333333%!important
+                    }
+                    .col-sm-3,
+                    .col-xs-3 {
+                        width: 25%!important
+                    }
+                    .col-sm-2,
+                    .col-xs-2 {
+                        width: 16.66666667%!important
+                    }
+                    .col-sm-1,
+                    .col-xs-1 {
+                        width: 8.33333333%!important
+                    }
+                    .col-sm-1,
+                    .col-sm-10,
+                    .col-sm-11,
+                    .col-sm-12,
+                    .col-sm-2,
+                    .col-sm-3,
+                    .col-sm-4,
+                    .col-sm-5,
+                    .col-sm-6,
+                    .col-sm-7,
+                    .col-sm-8,
+                    .col-sm-9,
+                    .col-xs-1,
+                    .col-xs-10,
+                    .col-xs-11,
+                    .col-xs-12,
+                    .col-xs-2,
+                    .col-xs-3,
+                    .col-xs-4,
+                    .col-xs-5,
+                    .col-xs-6,
+                    .col-xs-7,
+                    .col-xs-8,
+                    .col-xs-9 {
+                        float: left!important
+                    }
+                    body {
+                        margin: 0;
+                        padding: 0!important;
+                        min-width: 768px;
+                        font-size: 14px;
+                        font-family: 'Open Sans', sans-serif
+                    }
+                    .container {
+                        width: auto;
+                        min-width: 750px
+                    }
+                    a[href]:after {
+                        content: none
+                    }
+                    #comments,
+                    .btn,
+                    .footer,
+                    .group-media,
+                    .nav,
+                    .noprint,
+                    div.alert,
+                    form,
+                    header,
+                    ul.action-links,
+                    ul.links.list-inline {
+                        display: none!important
+                    }
+                    table {
+                        margin-top: 130px;
+                        margin-left: 50px;
+                        border-collapse: collapse
+                    }
+                    thead {
+                        position: fixed;
+                        font-weight: 700
+                    }
+                }
+
+
+                }
     @media print {
         .no-print,.no-print * {display: none !important;}
     }
-    .rek {margin-top: 1cm; margin-left: 5.5cm; position: fixed;}
-    .uang {margin-top: 1.6cm; margin-left: 6cm; position: fixed;}
-    .terbilang {margin-top: 2.3cm; margin-left: 5.5cm; position: fixed;}
-    .bayar {margin-top: 3cm; margin-left: 5.1cm; position: fixed;}
-    .nama {margin-top: 6.1cm; margin-left: 5.5cm; position: fixed;}
-    .nim {margin-top: 6.8cm; margin-left: 5.5cm; position: fixed;}
-    .tgl {margin-top: 6.9cm; margin-left: 19.8cm; position: fixed;}
-    .prodi {margin-top: 7.5cm; margin-left: 5.5cm; position: fixed;}
     </style>
     
 </body>
