@@ -21,7 +21,7 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>admin/" >
+    <a class="" href="<?php echo domain() ?>pmb/" >
     <div class="widget style1 red-bg">
     <div class="row">
         <div class="col-xs-4">
@@ -37,7 +37,7 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>admin/" >
+    <a class="" href="<?php echo domain() ?>pmb/pmbgel" >
     <div class="widget style1 navy-bg">
     <div class="row">
         <div class="col-xs-4">
@@ -53,14 +53,14 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>admin/" >
+    <a class="" href="<?php echo domain() ?>pmb/" >
     <div class="widget style1 lazur-bg">
     <div class="row">
         <div class="col-xs-4">
             <i class="fa fa-file-text fa-5x"></i>
         </div>
         <div class="col-xs-8 text-right">
-            <span> Laporan </span>
+            <span> Kelola Laporan PMB </span>
             <h2 class="font-bold">Laporan</h2>
         </div>
     </div>
