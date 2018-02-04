@@ -156,10 +156,10 @@ class Laporan extends MX_Controller {
     function get_trx($datax,$judul=null,$isdetail=null){
         $this->template->set_layout('cetak');
         // print_r($datax);
-        $data=$this->lapordb->getalltagihan($datax);
+        $data=$this->lapordb->getallpmb($datax);
         
         // print_r($data);
-        $html=$this->load->view('tabeltagihan',array('data'=>$data,'judul'=>$judul,'isdetail'=>$isdetail),TRUE);
+        $html=$this->load->view('tabelcalonmhs',array('data'=>$data,'judul'=>$judul,'isdetail'=>$isdetail),TRUE);
         return $html;
     }
     function get_trxmhs($datax,$judul=null,$isdetail=null){

@@ -53,7 +53,7 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>pmb/" >
+    <a class="" href="<?php echo domain() ?>pmb/mhspmb/laporan" >
     <div class="widget style1 lazur-bg">
     <div class="row">
         <div class="col-xs-4">
