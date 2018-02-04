@@ -7,59 +7,37 @@
                 <a class="close-link"><i class="fa fa-times"></i></a>
             </div>
         </div>
+
         <div class="ibox-content">
             <table class="table table-hover no-margins">
                 <thead>
                     <tr>
-                        <th>Status</th>
+                        <th>Nama</th>
                         <th>Date</th>
-                        <th>User</th>
-                        <th>Value</th>
+                        <th>Memo/Rekom</th>
+                      
                     </tr>
                 </thead>
+                       
+        
                 <tbody>
+                   <?php if(!empty($lastpmb)):foreach ($lastpmb as $key => $value):?>
                     <tr>
-                        <td><small>Pending...</small></td>
-                        <td><i class="fa fa-clock-o"></i> 11:20pm</td>
-                        <td>Samantha</td>
-                        <td class="text-navy"> <i class="fa fa-level-up"></i> 24% </td>
+                        <td><?php echo $value['nm_cmhs'] ?></td>
+                        <td><i class="fa fa-calendar"></i> <?php echo thedate($value['tgl_reg_pmb']) ?></td>
+                        <td><?php echo $value['memo'] ?></td>
+                        
+                        
                     </tr>
-                    <tr>
-                        <td><span class="label label-warning">Canceled</span> </td>
-                        <td><i class="fa fa-clock-o"></i> 10:40am</td>
-                        <td>Monica</td>
-                        <td class="text-navy"> <i class="fa fa-level-up"></i> 66% </td>
-                    </tr>
-                    <tr>
-                        <td><small>Pending...</small> </td>
-                        <td><i class="fa fa-clock-o"></i> 01:30pm</td>
-                        <td>John</td>
-                        <td class="text-navy"> <i class="fa fa-level-up"></i> 54% </td>
-                    </tr>
-                    <tr>
-                        <td><small>Pending...</small> </td>
-                        <td><i class="fa fa-clock-o"></i> 02:20pm</td>
-                        <td>Agnes</td>
-                        <td class="text-navy"> <i class="fa fa-level-up"></i> 12% </td>
-                    </tr>
-                    <tr>
-                        <td><small>Pending...</small> </td>
-                        <td><i class="fa fa-clock-o"></i> 09:40pm</td>
-                        <td>Janet</td>
-                        <td class="text-navy"> <i class="fa fa-level-up"></i> 22% </td>
-                    </tr>
-                    <tr>
-                        <td><span class="label label-primary">Completed</span> </td>
-                        <td><i class="fa fa-clock-o"></i> 04:10am</td>
-                        <td>Amelia</td>
-                        <td class="text-navy"> <i class="fa fa-level-up"></i> 66% </td>
-                    </tr>
-                    <tr>
-                        <td><small>Pending...</small> </td>
-                        <td><i class="fa fa-clock-o"></i> 12:08am</td>
-                        <td>Damian</td>
-                        <td class="text-navy"> <i class="fa fa-level-up"></i> 23% </td>
-                    </tr>
+                   <?php endforeach;?>
+
+               <?php else:?>
+                <tr><td colspan="3" class="text-center">
+                    
+                    <h3>Data belum tersedia</h3>
+                </td></tr>
+               <?php endif;?>
+                   
                 </tbody>
             </table>
         </div>

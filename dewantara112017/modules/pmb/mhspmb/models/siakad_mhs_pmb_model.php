@@ -34,9 +34,11 @@ class Siakad_mhs_pmb_model extends CI_Model {
         }
     }
     //untuk generate faktur baru
-    function get_last(){
+   function get_last($prodi){
 
-        $this->db->select('*'); //faktur
+        $this->db->select('noreg_pmb'); //faktur
+        $x=substr($prodi,0,2);
+        $this->db->like('noreg_pmb',$x); //faktur
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
@@ -154,16 +156,16 @@ class Siakad_mhs_pmb_model extends CI_Model {
         //ganti faktur dengan ==> 'Faktur' =>$this->genfaktur(),
        $data = array(
         
-            'kode_prodi' => $this->input->post('kode_prodi', TRUE),
+                'kode_prodi' => $this->input->post('kode_prodi', TRUE), //valid
              'id_siakad_kelas' => $this->input->post('id_siakad_kelas', TRUE),
              'tgl_reg_pmb' =>NOW(),
              'noreg_pmb' => $this->genkode($this->input->post('kode_prodi', TRUE)),
              'nik_cmhs' => $this->input->post('nik_cmhs', TRUE),
-             'nm_cmhs' => $this->input->post('nm_cmhs', TRUE),
-             'kelamin_cmhs' => $this->input->post('kelamin_cmhs', TRUE),
+             'nm_cmhs' => $this->input->post('nm_cmhs', TRUE), //valid
+             'kelamin_cmhs' => $this->input->post('kelamin_cmhs', TRUE), //valid
              'tmp_cmhs' => $this->input->post('tmp_cmhs', TRUE),
              'tgl_cmhs' => $this->input->post('tgl_cmhs', TRUE),
-             'agama_cmhs' => $this->input->post('agama_cmhs', TRUE),
+             'agama_cmhs' => $this->input->post('agama_cmhs', TRUE), //valid
              'almt_cmhs' => $this->input->post('almt_cmhs', TRUE),
              'kota_cmhs' => $this->input->post('kota_cmhs', TRUE),
              'kodepos_cmhs' => $this->input->post('kodepos_cmhs', TRUE),
@@ -173,20 +175,20 @@ class Siakad_mhs_pmb_model extends CI_Model {
              'asal_pend' => $this->input->post('asal_pend', TRUE),
              'jurusan_pend' => $this->input->post('jurusan_pend', TRUE),
              'no_ijazah_pend' => $this->input->post('no_ijazah_pend', TRUE),
-             'tgl_ijazah_pend' => ($this->input->post('tgl_ijazah_pend') != FALSE) ? $this->input->post('tgl_ijazah_pend') : NULL,
+             'tgl_ijazah_pend' => $this->input->post('tgl_ijazah_pend'), //valid
              'nil_ijazah_pend' => $this->input->post('nil_ijazah_pend', TRUE),
              'nm_ibu_cmhs' => $this->input->post('nm_ibu_cmhs', TRUE),
              'status_pmb' => 'Baru',
              'id_siakad_keu_rek' => $this->input->post('id_siakad_keu_rek', TRUE),
              'id_siakad_keu_pendaftaran' => $this->input->post('id_siakad_keu_pendaftaran', TRUE),
-             'tgl_transfer' => $this->input->post('tgl_transfer', TRUE),
+             'tgl_transfer' => $this->input->post('tgl_transfer', TRUE), //valid
              'nm_transfer' => $this->input->post('nm_transfer', TRUE),
              'img_bukti_transfer' => $this->input->post('img_bukti_transfer', TRUE),
              'img_pasfoto' => $this->input->post('img_pasfoto', TRUE),
              'img_ijazah' => $this->input->post('img_ijazah', TRUE),
              'img_transkrip' => $this->input->post('img_transkrip', TRUE),
              'img_pindah' => $this->input->post('img_pindah', TRUE),
-             'status_cmhs' => $this->input->post('status_cmhs', TRUE),
+             'status_cmhs' => $this->input->post('status_cmhs', TRUE), //valid
              'memo' => $this->input->post('memo', TRUE),
              'gelid' => $this->input->post('gelid', TRUE),
              'userid' =>userid(),
@@ -356,7 +358,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
     function getdropgel(){
         $result = array();
         $array_keys_values = $this->db->query('select id,kodegel,keterangan,date_start,date_end from `001-view-gelpmbaktif` where isactive=1 order by id asc ');
-        $result[0]="-- Pilih Gelombang --";
+        // $result[0]="-- Pilih Gelombang --";
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->keterangan." <label class='label label-success'>(".$row->date_start." s/d ".$row->date_end.")</label>";
