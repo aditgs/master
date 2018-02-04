@@ -230,9 +230,9 @@
             <?php echo form_label('Tanggal Tansfer : ','tgl_transfer',array('class'=>'control-label')); ?>
             <div class="input-daterange input-group controls" id="datepicker">
                 <?php if (!empty($default['tgl_transfer'])): ?>
-                <input id="tgl_transfer" value="<?php echo $default['tgl_transfer']; ?>" type="text" onchange="" class="input-md form-control" required="true" name="tgl_transfer" />
+                <input id="tgl_transfer" value="<?php echo $default['tgl_transfer']; ?>" type="text" onchange="" class="input-md form-control" name="tgl_transfer" />
                 <?php else: ?>
-                <input id="tgl_transfer" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" required="true" name="tgl_transfer" />
+                <input id="tgl_transfer" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgl_transfer" />
                 <?php endif; ?>
                 <span class="input-group-btn">
                     <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>

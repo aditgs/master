@@ -118,6 +118,17 @@ class Siakad_mhs_pmb_model extends CI_Model {
         endif;
         return $gen;
     }
+
+    function getpmb($id){
+        $this->db->select('*')->from('pmb_gelombang')->where('id',$id);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }
+    }
+    
     function genfaktur(){
         $last=$this->get_last();
         // print_r($last);
@@ -181,7 +192,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
              'status_pmb' => 'Baru',
              'id_siakad_keu_rek' => $this->input->post('id_siakad_keu_rek', TRUE),
              'id_siakad_keu_pendaftaran' => $this->input->post('id_siakad_keu_pendaftaran', TRUE),
-             'tgl_transfer' => $this->input->post('tgl_transfer', TRUE), //valid
+             'tgl_transfer' => ($this->input->post('tgl_transfer') != FALSE) ? $this->input->post('tgl_transfer') : NULL, //valid
              'nm_transfer' => $this->input->post('nm_transfer', TRUE),
              'img_bukti_transfer' => $this->input->post('img_bukti_transfer', TRUE),
              'img_pasfoto' => $this->input->post('img_pasfoto', TRUE),
@@ -365,6 +376,41 @@ class Siakad_mhs_pmb_model extends CI_Model {
         }
         return $result;
     }
+
+    function dropdown_prodi(){
+        $result = array();
+            $array_keys_values = $this->db->query('select id,KodeP,Prodi from prodi order by id asc');
+  
+        $result[0]="-- Pilih Prodi --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->KodeP]= $row->Prodi;
+        }
+        return $result;
+    }
+
+    function dropdown_kelompok(){
+        $result = array();
+            $array_keys_values = $this->db->query('select id,Kodek,Kelompok from kelompokmhs order by id asc');
+  
+        $result[0]="-- Pilih Kelompok --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->Kodek]= $row->Kelompok;
+        }
+        return $result;
+    }
+
+    function get_dropdown_calon_mhs(){
+        $result = array();
+        $array_keys_values = $this->db->query('select id,noreg_pmb,nm_cmhs from siakad_mhs_pmb order by id asc');
+        $result[0]="-- Pilih Calon Mahasiswa --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= $row->nm_cmhs." (".$row->noreg_pmb.")" ;
+        }
+        return $result;
+    }  
 
     //Update 30122014 SWI
     //untuk Array Dropdown dari database yang lain
