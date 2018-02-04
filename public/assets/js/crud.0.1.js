@@ -206,7 +206,6 @@ $(document).ready(function() {
             $('#modal-alert .modal-body').html(dx.msg);
             return false;
         }
-
     }
 
     function switchtodata() {

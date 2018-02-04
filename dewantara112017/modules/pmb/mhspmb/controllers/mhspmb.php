@@ -209,7 +209,7 @@ class mhspmb extends MX_Controller {
 function __formvalidation(){
         $this->form_validation->set_rules('kode_prodi', 'Kode Prodi', 'required|trim|xss_clean');
         $this->form_validation->set_rules('nm_cmhs','Nama Calon Mahasiswa','required|trim|xss_clean');
-        $this->form_validation->set_rules('kelamin_cmhs','Jenis Kelamin Calon Mahasiswa','required|trim|xss_clean');
+        $this->form_validation->set_rules('kelamin_cmhs','Jenis Kelamin Calon Mahasiswa','required|trim|xss_clean'); 
         $this->form_validation->set_rules('agama_cmhs','Agama Calon Mahasiswa','required|trim|xss_clean');
         $this->form_validation->set_rules('tgl_ijazah_pend','Tanggal Ijazah','required|trim|xss_clean');
         $this->form_validation->set_rules('status_cmhs','Status Pendaftaran Calon Mahasiswa','required|trim|xss_clean');
