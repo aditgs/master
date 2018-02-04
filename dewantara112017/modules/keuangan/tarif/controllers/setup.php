@@ -39,8 +39,10 @@ class Setup extends MX_Controller {
 	}
 	public function index() {
         $this->template->set_title('Kelola Tarif');
-        $this->template->add_js('var baseurl="'.base_url().'tarif/setup/";','embed');  
-        $this->template->add_js('modules/setuptarif.0.1.js');  
+        $this->template->add_js('var baseurl="'.base_url().'tarif/setup/";
+            var assetsurl="'.assets_url('js').'/";
+            ','embed');  
+        $this->template->add_js('modules/setuptarif.0.3.js');  
         $tahun=array(
             '0'=>'-- Pilih Tahun --',
 			'2013'=>'2013',
@@ -67,6 +69,15 @@ class Setup extends MX_Controller {
             'breadcrumb'=>array(
             'Tarif'),
         ));
+    }
+    function getformkodejenis(){
+        $id=$this->input->post('id');
+        $jenis=$this->tarifdb->getjenisprodi($id);
+        $html=$this->load->view('formkodejenis',array('jenis'=>$jenis),TRUE);
+        $this->output->set_output($html);
+        // echo json_encode($jenis);
+        // return $html;
+
     }
     function getdata(){
 

@@ -45,7 +45,7 @@ class Jenis_model extends CI_Model {
     //untuk generate faktur baru
     function get_last(){
 
-        $this->db->select('*'); //faktur
+        $this->db->select('KodeJ'); //faktur
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
@@ -103,6 +103,20 @@ class Jenis_model extends CI_Model {
         endif;
         return ($faktur);
     }
+    function genkode(){
+        $last=$this->get_last();
+        
+        if(!empty($last['KodeJ'])):
+            $gen=strval($last['KodeJ'])+1;
+            $new="00".$gen;
+            $gen=substr($new,-2);
+            
+        else:
+            
+            $gen="01";
+        endif;
+        return $gen;
+    }
     function get_one($id) {
         $this->db->where('id', $id);
         $result = $this->db->get('jenis');
@@ -146,12 +160,28 @@ class Jenis_model extends CI_Model {
     function __saveas(){
         
        $data = array(
-        
-            'KodeJ' => $this->input->post('KodeJ', TRUE),
-           
+            'KodeJ' => $this->genkode(),
             'Jenis' => $this->input->post('Jenis', TRUE),
-           
+            'prodi' => $this->input->post('prodi', TRUE),
+            'iscicilan' => $this->input->post('iscicilan', TRUE),
+            'ishereg' => $this->input->post('ishereg', TRUE),
+            'ispmb' => $this->input->post('ispmb', TRUE),
+            'isactive' => 1,
+            'parent' => $this->input->post('parent', TRUE),
+            'userid' =>userid(),
+            'datetime' =>NOW(),
         );
+        if($this->input->post('prodi')=='akuntansi'){
+            $data['is_akuntansi']=1;
+        }elseif($this->input->post('prodi')=='manajemen'){
+            $data['is_manajemen']=1;
+
+        }else{
+            $data['prodi']='semua';
+            $data['is_akuntansi']=1;
+            $data['is_manajemen']=1;
+
+        }
         //'isdeleted' => null,
         //    'datedeleted' => null,
         //    'islocked' =>1,
@@ -190,11 +220,25 @@ class Jenis_model extends CI_Model {
     function update($id) {
         $data = array(
         'id' => $this->input->post('id',TRUE),
-       'KodeJ' => $this->input->post('KodeJ', TRUE),
-       
-       'Jenis' => $this->input->post('Jenis', TRUE),
-       
+        'KodeJ' => $this->input->post('KodeJ', TRUE),
+        'Jenis' => $this->input->post('Jenis', TRUE),
+            'prodi' => $this->input->post('prodi', TRUE),
+            'iscicilan' => $this->input->post('iscicilan', TRUE),
+            'ishereg' => $this->input->post('ishereg', TRUE),
+            'ispmb' => $this->input->post('ispmb', TRUE),
+            'parent' => $this->input->post('parent', TRUE),       
         );
+        if($this->input->post('prodi')=='akuntansi'){
+            $data['is_akuntansi']=1;
+        }elseif($this->input->post('prodi')=='manajemen'){
+            $data['is_manajemen']=1;
+
+        }else{
+            $data['prodi']='semua';
+            $data['is_akuntansi']=1;
+            $data['is_manajemen']=1;
+
+        }
         $this->db->where('id', $id);
         $this->db->update('jenis', $data);
         /*'datetime' => date('Y-m-d H:i:s'),*/
@@ -224,6 +268,16 @@ class Jenis_model extends CI_Model {
         foreach ($array_keys_values->result() as $row)
         {
             $result[$row->id]= $row->$value;
+        }
+        return $result;
+    } 
+    function getdropjenis(){
+        $result = array();
+        $array_keys_values = $this->db->query('select id,KodeJ,Jenis from jenis order by id asc');
+        $result[0]="-- Pilih Induk Jenis --";
+        foreach ($array_keys_values->result() as $row)
+        {
+            $result[$row->id]= "(".$row->KodeJ.") ".$row->Jenis;
         }
         return $result;
     }

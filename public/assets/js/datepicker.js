@@ -1,4 +1,4 @@
-$('.input-daterange').datepicker({
+$('.input-daterange,.tglvalidasi').datepicker({
     format: "yyyy-mm-dd",
     todayBtn: "linked",
     language: "id",

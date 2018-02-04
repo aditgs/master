@@ -44,7 +44,7 @@ class Dashboard extends MX_Controller {
 
     public function index(){
 
-            $this->session->set_userdata("module",'pos');
+            $this->session->set_userdata("module",'pmb');
 
            $this->template->add_js('muria.js');
 
@@ -146,13 +146,15 @@ class Dashboard extends MX_Controller {
 
         $this->template->load_view('dashboard_view',array(
 
-                        'title'=>'Dashboard Administrator',
+                        'title'=>'Dashboard PMB',
+                        'stat'=>$this->getstat(),
+                        'lastpmb'=>$this->getlastpmb(),
 
-                        'subtitle'=>'Administrator',
+                        'subtitle'=>'PMB',
 
                         'breadcrumb'=>array(
 
-                            'Administrator'),
+                            'PMB'),
 
             ));
 
@@ -161,6 +163,24 @@ class Dashboard extends MX_Controller {
 
 
 	}
+    function getstat(){
+        // $this->load->datatabase();
+        $result=$this->db->get('001-view-stat-pmb');
+        return $this->__resultdb($result);
+    }
+    function getlastpmb(){
+        $this->db->select('id,nm_cmhs,tgl_reg_pmb,memo')->from('siakad_mhs_pmb');
+        $result=$this->db->get();
+        return $this->__resultdb($result);
+        
+    }
+    function __resultdb($result){
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else{
+            return array();
+        }
+    }
 
     
 

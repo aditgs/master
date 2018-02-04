@@ -236,7 +236,14 @@ class Setup_tarif_model extends CI_Model {
     function delete($id) {
         $this->db->where('id', $id);
         $this->db->delete('setup_tarif'); 
+        $this->deletetarif($id);
+
        
+    }
+    function deletetarif($id){
+        $this->db->where('setupid', $id);
+        $this->db->delete('tarif'); 
+        return $this->db->affected_rows();
     }
     function delete_detail($id=null) {
         $this->db->where('id_detail', $id);

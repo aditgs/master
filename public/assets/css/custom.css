@@ -145,3 +145,16 @@ section#imgoverlay {
 .table-kecil>thead>tr>th, .table-kecil>tbody>tr>th, .table-kecil>tfoot>tr>th, .table-kecil>thead>tr>td, .table-kecil>tbody>tr>td, .table-kecil>tfoot>tr>td{
     padding: 5px;
 }
+
+.form-control > input[type="text"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: pink;
+}
+.form-control > input[type="text"]::-moz-placeholder { /* Firefox 19+ */
+  color: pink;
+}
+.form-control > input[type="text"]:-ms-input-placeholder { /* IE 10+ */
+  color: pink;
+}
+.form-control > input[type="text"]:-moz-placeholder { /* Firefox 18- */
+  color: pink;
+}

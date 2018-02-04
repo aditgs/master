@@ -100,7 +100,7 @@
                             <?php if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($detail)?>
                             <div class="rek">242.000.6669</div>
                             <div class="uang"><?php echo rp($total['total']) ?></div>
-                            <div class="terbilang"><b><?php echo terbilang($total['total']) ?></b></div>
+                            <div class="terbilang"><b><?php echo terbilang($total['total']) ?> RUPIAH</b></div>
                             <div class="bayar"><?php (new tagihan)->getmultitem($data['id'],FALSE,FALSE,TRUE); ?></div>
                             <div class="nama"><?php echo $detail['nmmhs']; ?></div>
                             <div class="nim"><?php echo $detail['nimmhs']; ?></div>

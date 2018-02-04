@@ -2,7 +2,7 @@
 <div id="form_input" class="row gutter5">
     <?php echo form_open(base_url().'siakad_mhs_pmb/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <input type="hidden" value='' id="id_siakad_mhs_pmb" name="id_siakad_mhs_pmb"> 
+        <input type="hidden" value='' id="id" name="id"> 
         
         <div class="form-group">
             <?php echo form_label('kode_prodi : ','kode_prodi',array('class'=>'control-label')); ?>
@@ -29,6 +29,13 @@
             <?php echo form_label('noreg_pmb : ','noreg_pmb',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('noreg_pmb',set_value('noreg_pmb', isset($default['noreg_pmb']) ? $default['noreg_pmb'] : ''),'id="noreg_pmb" class="form-control" placeholder="Masukkan noreg_pmb"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?php echo form_label('nik_cmhs : ','nik_cmhs',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('nik_cmhs',set_value('nik_cmhs', isset($default['nik_cmhs']) ? $default['nik_cmhs'] : ''),'id="nik_cmhs" class="form-control" placeholder="Masukkan nik_cmhs"'); ?>
             </div>
         </div>
         
@@ -141,6 +148,13 @@
             <?php echo form_label('nil_ijazah_pend : ','nil_ijazah_pend',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('nil_ijazah_pend',set_value('nil_ijazah_pend', isset($default['nil_ijazah_pend']) ? $default['nil_ijazah_pend'] : ''),'id="nil_ijazah_pend" class="form-control" placeholder="Masukkan nil_ijazah_pend"'); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?php echo form_label('nm_ibu_cmhs : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan nm_ibu_cmhs"'); ?>
             </div>
         </div>
         

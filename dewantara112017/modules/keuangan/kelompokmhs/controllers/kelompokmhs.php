@@ -41,35 +41,34 @@ class kelompokmhs extends MX_Controller {
     }
 
     public function index() {
-        $this->template->set_title('Kelola Kelompokmhs');
-        $this->template->add_js('var baseurl="'.base_url().'kelompokmhs/";','embed'); 
-        $this->template->add_js('modules/kelompokmhs.js'); 
+        $this->template->set_title('Kelola Kelompok Mahasiswa');
+        $this->template->add_js('var baseurl="'.base_url().'kelompokmhs/";','embed');  
         $this->template->load_view('kelompokmhs_view',array(
-            'view'=>'kelompokmhs_data',
-            'title'=>'Kelola Data Kelompokmhs',
-            'subtitle'=>'Pengelolaan Kelompokmhs',
+            'view'=>'Kelompokmhs_data',
+            'title'=>'Kelola Data Kelompok Mahasiswa',
+            'subtitle'=>'Pengelolaan Kelompok Mahasiswa',
             'breadcrumb'=>array(
             'Kelompokmhs'),
         ));
     }
     public function data() {
-        $this->template->set_title('Kelola Kelompokmhs');
+        $this->template->set_title('Kelola Kelompok Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'kelompokmhs/";','embed');  
         $this->template->load_view('kelompokmhs_view',array(
-            'view'=>'kelompokmhs_data',
-            'title'=>'Kelola Data Kelompokmhs',
-            'subtitle'=>'Pengelolaan Kelompokmhs',
+            'view'=>'Kelompokmhs_data',
+            'title'=>'Kelola Data Kelompok Mahasiswa',
+            'subtitle'=>'Pengelolaan Kelompok Mahasiswa',
             'breadcrumb'=>array(
             'Kelompokmhs'),
         ));
     }
      public function baru() {
-        $this->template->set_title('Kelola Kelompokmhs');
+        $this->template->set_title('Kelola Kelompok Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'kelompokmhs/";','embed');  
         $this->template->load_view('kelompokmhs_view',array(
             'view'=>'',
-            'title'=>'Kelola Data Kelompokmhs',
-            'subtitle'=>'Pengelolaan Kelompokmhs',
+            'title'=>'Kelola Data Kelompok Mahasiswa',
+            'subtitle'=>'Pengelolaan Kelompok Mahasiswa',
             'breadcrumb'=>array(
             'Kelompokmhs'),
         ));
@@ -126,14 +125,14 @@ class kelompokmhs extends MX_Controller {
     
 
     public function getdatatables(){
-      
-            $this->datatables->select('id,Kelompok,')
+     
+            $this->datatables->select('id,Kodek,Kelompok')
                             ->from('kelompokmhs');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('kelompokmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
 
-                <a href='#modal-form' data-toggle='modal' data-placement='top' title='Edit' class='edit_kelompokmhs btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
-                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger'id='$1'><i class='glyphicon glyphicon-remove'></i></button>
+                <a href='#modal-form' data-toggle='modal' title='Edit' class='edit btn btn-xs btn-success' id='$1'><i class='glyphicon glyphicon-edit'></i></a>
+                <button data-toggle='tooltip' data-placement='top' title='Hapus' class='delete btn btn-xs btn-danger' id='$1'><i class='glyphicon glyphicon-remove'></i></button>
                 </div>" , 'id');
             $this->datatables->unset_column('id');
 
@@ -164,8 +163,7 @@ class kelompokmhs extends MX_Controller {
            
     }
 
-    public function get(){
-        $id = $this->input->post('id');
+    public function get($id=null){
         if($id!==null){
             echo json_encode($this->keldb->get_one($id));
         }
@@ -205,8 +203,8 @@ class kelompokmhs extends MX_Controller {
 
     public function submit(){
         if ($this->input->post('ajax')){
-          if ($this->input->post('Kodek')){
-            $this->keldb->update($this->input->post('Kodek'));
+          if ($this->input->post('id')){
+            $this->keldb->update($this->input->post('id'));
           }else{
             //$this->keldb->save();
             $this->keldb->saveas();
@@ -214,8 +212,8 @@ class kelompokmhs extends MX_Controller {
 
         }else{
           if ($this->input->post('submit')){
-              if ($this->input->post('Kodek')){
-                $this->keldb->update($this->input->post('Kodek'));
+              if ($this->input->post('id')){
+                $this->keldb->update($this->input->post('id'));
               }else{
                 //$this->keldb->save();
                 $this->keldb->saveas();
@@ -261,50 +259,7 @@ class kelompokmhs extends MX_Controller {
             }
         }
     } 
-    private function gen_faktur(){
-        $last=$this->keldb->get_last_pt();
-        // print_r($last);
-        if(!empty($last)):
-            $first=substr($last['faktur_pt'],0,2);
-            if($first==''||$first==null){
-                $first=' ';
-            }
-            $left=substr($last['faktur_pt'],2,4);
-            $right=substr($last['faktur_pt'],-5);
-            $nopt=number_format($right); 
-            
-            
-            $newpo=strval($nopt+1);
-            $newpo2=substr(strval("00000$newpo"),-5);
-
-        $tahun=substr($left,0,2);
-        $bulan=substr($left,2,4);
-        
-            if($tahun<>date('y')):
-                $tahun=date('y');
-                if($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan."00001");
-                elseif($bulan<>date('m')):
-                    $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001");
-                endif;
-            elseif($tahun==date('y')):
-                if(intval($bulan)<>date('m')):
-                    $bulan=date('m');
-                    $gen=strval($first.$tahun.$bulan."00001"); 
-                elseif($bulan==date('m')):
-                    $gen=strval($first.$tahun.$bulan.$newpo2);
-                endif;
-            endif;
-        else:
-            // $gen="PT151100001";
-            $gen=" ".date('ym')."00001";
-        endif;
-        return $gen;
-    }
-     function get_new_faktur(){
-        echo $this->gen_faktur();
-    }
+    
 
     
 

@@ -11,6 +11,10 @@
                                                        
                                                         <th>KodeJ</th>
                                                         <th>Jenis</th>
+                                                        <th>Prodi</th>
+                                                        <th>Cicilan</th>
+                                                        <th>PMB</th>
+                                                        <th>Daftar Ulang</th>
                                                         <th>Aksi</th>
 
                                                     </tr>
