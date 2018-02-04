@@ -206,14 +206,16 @@ class mhspmb extends MX_Controller {
     }
 
 function __formvalidation(){
-        $this->form_validation->set_rules('kode_prodi', 'Kode Prodi', 'required|trim|xss_clean');
+
         $this->form_validation->set_rules('kode_prodi','kode_prodi','required|trim|xss_clean');
         $this->form_validation->set_rules('nm_cmhs','nm_cmhs','required|trim|xss_clean');
         $this->form_validation->set_rules('kelamin_cmhs','kelamin_cmhs','required|trim|xss_clean');
         $this->form_validation->set_rules('agama_cmhs','agama_cmhs','required|trim|xss_clean');
         $this->form_validation->set_rules('tgl_ijazah_pend','tgl_ijazah_pend','required|trim|xss_clean');
-        $this->form_validation->set_rules('tgl_transfer','tgl_transfer','required|trim|xss_clean');
+
+        // $this->form_validation->set_rules('tgl_transfer','tgl_transfer','required|trim|xss_clean');
         $this->form_validation->set_rules('status_cmhs','status_cmhs','required|trim|xss_clean');
+        $this->form_validation->set_rules('kode_prodi','kode_prodi','required|trim|xss_clean');
 
        
 
