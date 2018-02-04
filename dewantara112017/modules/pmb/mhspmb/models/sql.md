@@ -1,0 +1,47 @@
+sql.md
+
+SQL ASLI
+CREATE TABLE `siakad_mhs_pmb` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kode_prodi` varchar(10) NOT NULL,
+  `id_siakad_kelas` int(11) NOT NULL,
+  `tgl_reg_pmb` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `noreg_pmb` varchar(20) NOT NULL,
+  `nik_cmhs` varchar(20) DEFAULT NULL,
+  `nm_cmhs` varchar(100) NOT NULL,
+  `kelamin_cmhs` enum('Laki-laki','Perempuan') NOT NULL,
+  `tmp_cmhs` varchar(20) NOT NULL,
+  `tgl_cmhs` date NOT NULL,
+  `agama_cmhs` enum('Islam','Protestan','Katolik','Hindu','Budha','Konghucu') NOT NULL,
+  `almt_cmhs` varchar(100) NOT NULL,
+  `kota_cmhs` varchar(20) NOT NULL,
+  `kodepos_cmhs` varchar(10) NOT NULL,
+  `email_cmhs` varchar(45) NOT NULL,
+  `hp_cmhs` varchar(20) NOT NULL,
+  `telp_cmhs` varchar(20) NOT NULL,
+  `asal_pend` varchar(45) NOT NULL,
+  `jurusan_pend` varchar(45) NOT NULL,
+  `no_ijazah_pend` varchar(20) NOT NULL,
+  `tgl_ijazah_pend` date DEFAULT NULL,
+  `nil_ijazah_pend` varchar(5) NOT NULL,
+  `nm_ibu_cmhs` varchar(255) DEFAULT NULL,
+  `status_pmb` enum('Terima','Baru','Online','Tolak') DEFAULT 'Baru',
+  `id_siakad_keu_rek` int(11) NOT NULL,
+  `id_siakad_keu_pendaftaran` int(11) NOT NULL,
+  `tgl_transfer` date DEFAULT NULL,
+  `nm_transfer` varchar(45) NOT NULL,
+  `img_bukti_transfer` varchar(100) NOT NULL,
+  `img_pasfoto` varchar(100) NOT NULL,
+  `img_ijazah` varchar(100) NOT NULL,
+  `img_transkrip` varchar(100) NOT NULL,
+  `img_pindah` varchar(100) NOT NULL,
+  `status_cmhs` enum('Baru','Pindah') NOT NULL DEFAULT 'Baru',
+  `memo` varchar(255) DEFAULT NULL,
+  `gelid` int(11) DEFAULT NULL,
+  `userid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `kode_prodi` (`kode_prodi`) USING BTREE,
+  CONSTRAINT `siakad_mhs_pmb_ibfk_1` FOREIGN KEY (`kode_prodi`) REFERENCES `siakad_prodi` (`kode_prodi`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
+
+
