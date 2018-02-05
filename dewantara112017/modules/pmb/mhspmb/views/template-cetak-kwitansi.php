@@ -6,14 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cetak Kwitansi</title>
-    <!-- Extra metadata -->
-    <!-- / -->
-    <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" src="<?php //echo assets_url('js/jquery-1.11.3.min.js') ?>"></script> -->
     <script type="text/javascript">
-    $(document).ready(function() {
+     $(document).ready(function() {
         $('button.print').click(function() {
-            var baseurl = '<?php  echo base_url('
-            mhspmb ')?>';
+            window.print();
+            return false;
+        });
+    });    
+    /*$(document).ready(function() {
+        $('button .print').click(function() {
+            var baseurl = '<?php  //echo base_url('mhspmb')?>';
             var id = $(this).data('id');
 
             $.post(baseurl + '/cetakkwitansi', { id: id },
@@ -24,7 +32,7 @@
                 });
             return false;
         });
-    });
+    });*/
     </script>
 </head>
 
@@ -124,8 +132,8 @@
             </div>
         </div>
     </div>
-    <link href="<?php echo assets_url() ?>css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="<?php echo assets_url() ?>css/style.css" rel="stylesheet"> -->
+    <!-- <link href="<?php //echo assets_url() ?>css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link href="<?php //echo assets_url() ?>css/style.css" rel="stylesheet"> -->
     <link href="<?php echo assets_url() ?>css/custom.css" rel="stylesheet">
     <style type="text/css">
 @media print {
