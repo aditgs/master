@@ -3,174 +3,249 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cetak Kwitansi</title>
-    <!-- Extra metadata -->
-    <!-- / -->
-    <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-         $('button.print').click(function() {
-            var id=$(this).data('id');
-
-            $.post('<?php echo $baseurl.'mhspmb/cetakformulir'; ?>',{id:id},function(data,status){
-                if(status=="success"){
-                    window.print();
-                }
-            });
-            return false;
-        });
-    });
-    </script>
-    <script>
-    function to_word($number)
-    {
-        $words = "";
-        $arr_number = array(
-        "",
-        "satu",
-        "dua",
-        "tiga",
-        "empat",
-        "lima",
-        "enam",
-        "tujuh",
-        "delapan",
-        "sembilan",
-        "sepuluh",
-        "sebelas");
-
-        if($number<12)
-        {
-            $words = " ".$arr_number[$number];
-        }
-        else if($number<20)
-        {
-            $words = to_word($number-10)." belas";
-        }
-        else if($number<100)
-        {
-            $words = to_word($number/10)." puluh ".to_word($number%10);
-        }
-        else if($number<200)
-        {
-            $words = "seratus ".to_word($number-100);
-        }
-        else if($number<1000)
-        {
-            $words = to_word($number/100)." ratus ".to_word($number%100);
-        }
-        else if($number<2000)
-        {
-            $words = "seribu ".to_word($number-1000);
-        }
-        else if($number<1000000)
-        {
-            $words = to_word($number/1000)." ribu ".to_word($number%1000);
-        }
-        else if($number<1000000000)
-        {
-            $words = to_word($number/1000000)." juta ".to_word($number%1000000);
-        }
-        else
-        {
-            $words = "undefined";
-        }
-        return $words;
-    }
-    </script>
-</head>
-
-<body class="">
-    
-    <div id="wrapper">
-        <!-- <div id="page-wrapper" class="gray-bg" > -->
-        <div class="wrapper wrapper-content gray-bg">
-            <div class="text-center">
-                <div class="btn-group" style="">
-                    <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf ");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
-                    <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="wrapper wrapper-content animated fadeInRight">
-                        <div class="ibox-content p-xl table-responsive m-t">
-                            <?php if(isset($data)){ $detail=$this->pmbdb->getpmb($data['id']); //print_r($detail)?>
-                                <table class="table table-striped table-hover table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <td><img alt="image" style="width:125px;" src="<?= assets_url('images/logo.png') ?>" /></td>
-                                            <td>STIE PGRI DEWANTARA JOMBANG<br>
-                                            Jl. Prof. Moh. Yamin No.77 Telp.(0321)865180, Fax.(0321)853807 Jombang, Jawa Timur<br>
-                                            Website : www.stiedewantara.ac.id<br>
-                                            e-mail : info@stiedewantara.ac.id</td>
-                                        </tr>
-                                        <tr>FORMULIR PENDAFTARAN MAHASISWA BARU</tr>
-                                        <tr>Tahun Akademik 2018/2019</tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>No. Kwitansi</th>
-                                            <td>#
-                                                <?php echo $data['id'] ?>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Terima dari</th>
-                                            <td>
-                                                <?php echo $data['nm_cmhs'] ?>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Terbilang</th>
-                                            <td>
-                                                <?php echo terbilang($data['noreg_pmb']) ?> RUPIAH</b>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Untuk Pembayaran</th>
-                                            <td>
-                                                <b>PENDAFTARAN MAHASISWA BARU</b>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="" rowspan="" headers=""></td>
-                                            <th>Jombang, <?php echo thedate($data['tgl_reg_pmb']) ?></th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            <?php
-
-}else{
-    echo "<h1>Data tidak ditemukan</h1>";
-}
-?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <title>A4 potrait</title>
     <link href="<?php echo assets_url() ?>css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="<?php echo assets_url() ?>css/style.css" rel="stylesheet"> -->
-    <link href="<?php echo assets_url() ?>css/custom.css" rel="stylesheet">
-    <style type="text/css">
-    @media print{td,th{padding:0}[class*=col-sm-],[class*=col-xs-]{float:left}.col-sm-12,.col-xs-12{width:100%!important}.col-sm-11,.col-xs-11{width:91.66666667%!important}.col-sm-10,.col-xs-10{width:83.33333333%!important}.col-sm-9,.col-xs-9{width:75%!important}.col-sm-8,.col-xs-8{width:66.66666667%!important}.col-sm-7,.col-xs-7{width:58.33333333%!important}.col-sm-6,.col-xs-6{width:50%!important}.col-sm-5,.col-xs-5{width:41.66666667%!important}.col-sm-4,.col-xs-4{width:33.33333333%!important}.col-sm-3,.col-xs-3{width:25%!important}.col-sm-2,.col-xs-2{width:16.66666667%!important}.col-sm-1,.col-xs-1{width:8.33333333%!important}.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9{float:left!important}body{margin:0;padding:0!important;min-width:768px;font-size:14px;font-family:'Open Sans',sans-serif}.container{width:auto;min-width:750px}a[href]:after{content:none}#comments,.btn,.footer,.group-media,.nav,.noprint,div.alert,form,header,ul.action-links,ul.links.list-inline{display:none!important}table{border-collapse:collapse}td{border-bottom:1px solid #ccc}thead{position:fixed;font-weight:700}}}
-    @media print {
-        .no-print,.no-print * {display: none !important;}
+    <!-- Normalize or reset CSS with your favorite library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <!-- Load paper.css for happy printing -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <!-- Set page size here: A5, A4 or A3 -->
+    <!-- Set also "landscape" if you need -->
+    <style>
+    @page {
+        size: A4 
     }
-    .rek {margin-top: 1cm; margin-left: 5.5cm; position: fixed;}
-    .uang {margin-top: 1.6cm; margin-left: 6cm; position: fixed;}
-    .terbilang {margin-top: 2.3cm; margin-left: 5.5cm; position: fixed;}
-    .bayar {margin-top: 3cm; margin-left: 5.1cm; position: fixed;}
-    .nama {margin-top: 6.1cm; margin-left: 5.5cm; position: fixed;}
-    .nim {margin-top: 6.8cm; margin-left: 5.5cm; position: fixed;}
-    .tgl {margin-top: 6.9cm; margin-left: 19.8cm; position: fixed;}
-    .prodi {margin-top: 7.5cm; margin-left: 5.5cm; position: fixed;}
     </style>
-    
+</head>
+<!-- Set "A5", "A4" or "A3" for class name -->
+<!-- Set also "landscape" if you need -->
+
+
+<body class="A4">
+    <!-- Each sheet element should have the class "sheet" -->
+    <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+    <section class="sheet padding-10mm">
+        <!-- Write HTML just like a web page -->
+        <article>
+            <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmb($data['gelid'])?>
+            <table class="col-xs-12">
+                <thead>
+                    <tr>
+                        <td class="margin-right:50px"><img alt="image" style="width:125px;" src="<?= assets_url('images/logo.png') ?>" /></td>
+                        <td colspan="4">
+                            <h1>STIE PGRI DEWANTARA JOMBANG</h1> Jl. Prof. Moh. Yamin No.77 Telp.(0321)865180, Fax.(0321)853807 Jombang, Jawa Timur
+                            <br> Website : www.stiedewantara.ac.id
+                            <br> e-mail : info@stiedewantara.ac.id</td>
+                    </tr>
+                </thead>
+            </table>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <strong>No Pendaftaran</strong>
+                </div>
+
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['noreg_pmb'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <strong>DATA PRIBADI</strong>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Nama Calon Mahasiswa
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['nm_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    NIK
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['nik_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Jenis Kelamin
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['kelamin_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Pilihan Kelas
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['id_siakad_kelas'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Tempat Lahir
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['tmp_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Agama
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['agama_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Alamat
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['almt_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Nama Ibu
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['nm_ibu_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Kode Pos
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['kodepos_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Kota
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['kota_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    No Telp Rumah
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['telp_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    No HP
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['hp_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Email
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['email_cmhs'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <strong>Data Pendidikan</strong>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Asal SMU / PT
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['asal_pend'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Program / Jurusan
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['jurusan_pend'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    No Ijazah
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['no_ijazah_pend'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Tanggal Lulus
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['tgl_ijazah_pend'] ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    Nilai Ijazah
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <?php echo $data['nil_ijazah_pend'] ?>
+                </div>
+            </div>
+                
+
+            <?php else: ?>
+            <h2>Data tidak ditemukan</h2>
+            <?php endif; ?>
+        </article>
+    </section>
+    <style type="text/css">
+    /*https://gist.github.com/donnierayjones/6fd9802d992b2d8d6cfd*/
+@media print{.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9{float:left}.col-sm-12{width:100%}.col-sm-11{width:91.66666667%}.col-sm-10{width:83.33333333%}.col-sm-9{width:75%}.col-sm-8{width:66.66666667%}.col-sm-7{width:58.33333333%}.col-sm-6{width:50%}.col-sm-5{width:41.66666667%}.col-sm-4{width:33.33333333%}.col-sm-3{width:25%}.col-sm-2{width:16.66666667%}.col-sm-1{width:8.33333333%}.col-sm-pull-12{right:100%}.col-sm-pull-11{right:91.66666667%}.col-sm-pull-10{right:83.33333333%}.col-sm-pull-9{right:75%}.col-sm-pull-8{right:66.66666667%}.col-sm-pull-7{right:58.33333333%}.col-sm-pull-6{right:50%}.col-sm-pull-5{right:41.66666667%}.col-sm-pull-4{right:33.33333333%}.col-sm-pull-3{right:25%}.col-sm-pull-2{right:16.66666667%}.col-sm-pull-1{right:8.33333333%}.col-sm-pull-0{right:auto}.col-sm-push-12{left:100%}.col-sm-push-11{left:91.66666667%}.col-sm-push-10{left:83.33333333%}.col-sm-push-9{left:75%}.col-sm-push-8{left:66.66666667%}.col-sm-push-7{left:58.33333333%}.col-sm-push-6{left:50%}.col-sm-push-5{left:41.66666667%}.col-sm-push-4{left:33.33333333%}.col-sm-push-3{left:25%}.col-sm-push-2{left:16.66666667%}.col-sm-push-1{left:8.33333333%}.col-sm-push-0{left:auto}.col-sm-offset-12{margin-left:100%}.col-sm-offset-11{margin-left:91.66666667%}.col-sm-offset-10{margin-left:83.33333333%}.col-sm-offset-9{margin-left:75%}.col-sm-offset-8{margin-left:66.66666667%}.col-sm-offset-7{margin-left:58.33333333%}.col-sm-offset-6{margin-left:50%}.col-sm-offset-5{margin-left:41.66666667%}.col-sm-offset-4{margin-left:33.33333333%}.col-sm-offset-3{margin-left:25%}.col-sm-offset-2{margin-left:16.66666667%}.col-sm-offset-1{margin-left:8.33333333%}.col-sm-offset-0{margin-left:0}.visible-xs{display:none!important}.hidden-xs{display:block!important}table.hidden-xs{display:table}tr.hidden-xs{display:table-row!important}td.hidden-xs,th.hidden-xs{display:table-cell!important}.hidden-sm,.hidden-xs.hidden-print{display:none!important}.visible-sm{display:block!important}table.visible-sm{display:table}tr.visible-sm{display:table-row!important}td.visible-sm,th.visible-sm{display:table-cell!important}}
+    </style>
+    <style type="text/css">
+    @media print {
+        .no-print,
+        .no-print * {
+            display: none !important;
+        }
+        thead {
+            font-weight: 700;
+        }
+    }
+    </style>
 </body>
 
 </html>
