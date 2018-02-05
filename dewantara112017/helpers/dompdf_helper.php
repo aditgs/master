@@ -162,8 +162,58 @@ function kwitansipmb($html, $filename='', $stream=TRUE)
     unset($html);
     unset($dompdf); 
 }
-
 function kartupmb($html, $filename='', $stream=TRUE) 
+{
+    require_once APPPATH.'third_party/dompdf/autoload.inc.php';
+    
+    $options = new Dompdf\Options();
+    // $fontMetrics = new Dompdf\FontMetrics();
+    $options->setIsPhpEnabled(true);
+    $options->set(array(
+        'pdfBackend'=>'PDFLib',
+        'defaultMediaType'=>'print',
+        // 'defaultPaperSize'=>$size,
+        'defaultPaperSize'=>'A6',
+        'defaultFont'=>'Helvetica',
+        'enable_html5_parser'=>true,
+        'enable_font_subsetting'=>true
+    ));
+
+    $dompdf = new Dompdf\Dompdf($options);
+    $dompdf->load_html($html);
+    // $dompdf->setPaper($size, $layout);
+    $dompdf->setPaper('A6', 'portrait');    
+    $dompdf->setBasePath(assets_url('css/bootstrap.min.css'));
+    $dompdf->render();
+    $canvas = $dompdf->get_canvas();  
+    $image = assets_url('images/logo.png');
+
+      // $canvas->image($image, 25, 20, 85, 80);
+      $canvas->image($image, 15, 15, 75, 70);
+      
+      $canvas->page_text(125, 17, "PANITIA PENERIMAAN MAHASISWA BARU TA. 2018/2019", $fontBold, 12, array(0, 0, 0));
+      $canvas->page_text(125, 30, "STIE PGRI DEWANTARA JOMBANG", $fontBold, 16, array(0, 0, 0));
+      $canvas->page_text(125, 53, "Jl. Prof. Moh. Yamin No.77 Telp.0321865180, Fax.0321853807 Jombang, Jawa Timur 61471", $fontBold, 10, array(0, 0, 0));
+      $canvas->page_text(125, 68, "Website : www.stiedewantara.ac.id", $fontBold, 10, array(0, 0, 0));
+      $canvas->page_text(125, 82, "email : info at stiedewantara.ac.id", $fontBold, 10, array(0, 0, 0));
+      $canvas->line(25, 105, 570, 105, array(0, 0, 0), 5);
+      $canvas->page_text(240, 105, "K W I T A N S I", $fontBold, 16, array(0, 0, 0));
+      $canvas->line(25, 135, 570, 135, array(0, 0, 0), 5);
+      
+      $canvas->line(10, 397, 580, 397, array(0,0,0), 1);
+      $canvas->page_text(10, 400, "STIE PGRI DEWANTARA JOMBANG", $font, 10, array(0, 0, 0));
+      $canvas->page_text(540, 400, "Hal. {PAGE_NUM} / {PAGE_COUNT}", $font, 10, array(0, 0, 0));
+
+    if ($stream) {
+        $dompdf->stream($filename.".pdf");
+    } else {
+        return $dompdf->output();
+    }
+    unset($html);
+    unset($dompdf); 
+}
+
+/*function kartupmb($html, $filename='', $stream=TRUE) 
 {
     require_once APPPATH.'third_party/dompdf/autoload.inc.php';
 
@@ -181,7 +231,7 @@ function kartupmb($html, $filename='', $stream=TRUE)
       $dompdf->loadHtml($html);
 
       // (Optional) Setup the paper size and orientation
-      $dompdf->setPaper('A5', 'Portrait');
+      $dompdf->setPaper('A6', 'Portrait');
 
       // Render the HTML as PDF
       $dompdf->render();
@@ -189,7 +239,7 @@ function kartupmb($html, $filename='', $stream=TRUE)
       // Output the generated PDF (1 = download and 0 = preview)
       $dompdf->stream("codex",array("Attachment"=>1));
     
-}
+}*/
 
 function formulirpmb($html, $filename='', $stream=TRUE) 
 {
