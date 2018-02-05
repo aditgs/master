@@ -103,7 +103,16 @@
                     <tr>
                         <td></td>
                         <td colspan="3"></td>
-                        <td>FITRI</td>
+                        <td><?php 
+                      $user = $this->ion_auth->user()->row(); 
+            if (!empty($user)):
+                $userid=$user->id;
+                $username=$user->username; //untuk field $User
+                $first=$user->first_name; //untuk field $User
+                echo $first;
+            endif;
+
+                     ?></td>
                     </tr>
                 </tbody>
             </table>
