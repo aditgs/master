@@ -99,7 +99,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <p align="center" style="font-size: 18px">FORMULIR PENDAFTARAN MAHASISWA BARU <br>
-                        Tahun Akademik 2017/2018
+                        Tahun Akademik 2018/2019
                     </p>
                     <br>
                     
