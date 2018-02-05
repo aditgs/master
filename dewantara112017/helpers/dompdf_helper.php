@@ -124,8 +124,8 @@ function kwitansipmb($html, $filename='', $stream=TRUE)
         'pdfBackend'=>'PDFLib',
         'defaultMediaType'=>'print',
         // 'defaultPaperSize'=>$size,
-        // 'defaultPaperSize'=>'A5',
-        'defaultFont'=>'Arial',
+        'defaultPaperSize'=>'A5',
+        'defaultFont'=>'Helvetica',
         'enable_html5_parser'=>true,
         'enable_font_subsetting'=>true
     ));

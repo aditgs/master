@@ -54,6 +54,15 @@
                             <table class="col-xs-12">
                                 <tbody>
                                     <tr>
+                                        <th><img alt="image" style="width:110px;" src="<?= assets_url('images/logo.png') ?>" /></th>
+                                        <th colspan="4">PANITIA PENERIMAAN MAHASISWA BARU TA. 2018/2019<br>
+                                                        STIE PGRI DEWANTARA JOMBANG<br>
+                                                        Jl. Prof. Moh. Yamin No.77 Telp.(0321)865180, Fax.(0321)853807 Jombang, Jawa Timur 61471<br>
+                                                        Website : www.stiedewantara.ac.id<br>
+                                                        email : info@stiedewantara.ac.id<br>
+                                                    </th>
+                                      </tr>
+                                    <tr>
                                         <td></td>
                                         <td colspan="2">
                                             <br>No. Kwitansi</td>
