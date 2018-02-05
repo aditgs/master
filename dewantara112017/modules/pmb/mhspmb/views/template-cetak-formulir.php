@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>A4 potrait</title>
+    <title>Cetak Formulir</title>
     <link href="<?php echo assets_url() ?>css/bootstrap.min.css" rel="stylesheet">
     <!-- Normalize or reset CSS with your favorite library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
@@ -15,6 +15,35 @@
     @page {
         size: A4 
     }
+
+    hr.style-eight {
+    overflow: visible;
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+    margin-top: 10px;
+}
+    .row-m-t{
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+    .row-m-t-1{
+        margin-top: 5px;
+        margin-left: 10px;
+    }
+    .outer {
+    /*background-color:red;*/
+    margin: auto;
+    position:relative
+}
+    .inner {
+    height: 150px;
+    width:125px;
+    border:1px solid black;
+    position:absolute; right:0
+}
     </style>
     <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
     <script type="text/javascript">
@@ -42,201 +71,251 @@
     <section class="sheet padding-10mm">
         <!-- Write HTML just like a web page -->
         <article>
-            <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmb($data['id'])?>
-            <table class="col-xs-12">
-                <thead>
-                    <tr>
-                        <td class="margin-right:50px"><img alt="image" style="width:125px;" src="<?= assets_url('images/logo.png') ?>" /></td>
-                        <td colspan="4">
-                            <h1>STIE PGRI DEWANTARA JOMBANG</h1> Jl. Prof. Moh. Yamin No.77 Telp.(0321)865180, Fax.(0321)853807 Jombang, Jawa Timur
-                            <br> Website : www.stiedewantara.ac.id
-                            <br> e-mail : info@stiedewantara.ac.id</td>
-                    </tr>
-                </thead>
-            </table>
+            <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmbgel($data['gelid'])?>
+            <header>
+                <div style="clear: left;">
+                    <p style="float: left;"><img src="<?= assets_url('images/logo.png') ?>" height="125px" width="125px" border="1px"></p>
+                    <h1 align="center">STIE PGRI DEWANTARA JOMBANG</h1>
+                    <h5 align="center">Jl. Prof. Moh. Yamin No.77 Telp.(0321)865180, Fax.(0321)853807 Jombang, Jawa Timur</h5>
+                    <h5 align="center"> Website : www.stiedewantara.ac.id </h5>
+                    <h5 align="center"> e-mail : info@stiedewantara.ac.id</h5>
+                </div>
+            </header>
+            <!-- <table class="col-xs-12"> -->
+                <!-- <thead> -->
+                    <!-- <tr> -->
+                        <!-- <td class="margin-right:50px"><img alt="image" style="width:125px;" src="<?= assets_url('images/logo.png') ?>" /></td> -->
+                        <!-- <td colspan="4"> -->
+                            <!-- <h1>STIE PGRI DEWANTARA JOMBANG</h1> Jl. Prof. Moh. Yamin No.77 Telp.(0321)865180, Fax.(0321)853807 Jombang, Jawa Timur -->
+                            <!-- <br> Website : www.stiedewantara.ac.id -->
+                            <!-- <br> e-mail : info@stiedewantara.ac.id</td> -->
+                    <!-- </tr> -->
+                <!-- </thead> -->
+
+            <!-- </table> -->
+            <br>
+            <hr class="style-eight">
 
             <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <p align="center" style="font-size: 18px">FORMULIR PENDAFTARAN MAHASISWA BARU <br>
+                        Tahun Akademik 2018/2019
+                    </p>
+                    <br>
+                    
+                </div>
+            </div>
+
+
+            <div class="row row-m-t outer" style="margin-left: 10px">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <strong>No Pendaftaran</strong>
                 </div>
 
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['noreg_pmb'] ?>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin-left: 5px">
+                    : <?php echo $data['noreg_pmb'] ?>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 inner">
+                    <p align="center">Pas Foto</p>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <strong>DATA PRIBADI</strong>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Nama Calon Mahasiswa
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['nm_cmhs'] ?>
+                    : <?php echo $data['nm_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     NIK
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['nik_cmhs'] ?>
+                    : <?php echo $data['nik_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Jenis Kelamin
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['kelamin_cmhs'] ?>
+                    : <?php echo $data['kelamin_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Pilihan Kelas
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['id_siakad_kelas'] ?>
+                    : <?php echo $data['id_siakad_kelas'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Tempat Lahir
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['tmp_cmhs'] ?>
+                    : <?php echo $data['tmp_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Agama
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['agama_cmhs'] ?>
+                    : <?php echo $data['agama_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Alamat
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['almt_cmhs'] ?>
+                    : <?php echo $data['almt_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Nama Ibu
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['nm_ibu_cmhs'] ?>
+                    : <?php echo $data['nm_ibu_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Kode Pos
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['kodepos_cmhs'] ?>
+                    : <?php echo $data['kodepos_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Kota
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['kota_cmhs'] ?>
+                    : <?php echo $data['kota_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     No Telp Rumah
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['telp_cmhs'] ?>
+                    : <?php echo $data['telp_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     No HP
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['hp_cmhs'] ?>
+                    : <?php echo $data['hp_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Email
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['email_cmhs'] ?>
+                    : <?php echo $data['email_cmhs'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <strong>Data Pendidikan</strong>
+                    <strong>DATA PENDIDIKAN</strong>
                 </div>
             </div>
 
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Asal SMU / PT
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['asal_pend'] ?>
+                    : <?php echo $data['asal_pend'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Program / Jurusan
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['jurusan_pend'] ?>
+                    : <?php echo $data['jurusan_pend'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     No Ijazah
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['no_ijazah_pend'] ?>
+                    : <?php echo $data['no_ijazah_pend'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Tanggal Lulus
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['tgl_ijazah_pend'] ?>
+                    : <?php echo $data['tgl_ijazah_pend'] ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     Nilai Ijazah
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo $data['nil_ijazah_pend'] ?>
+                    : <?php echo $data['nil_ijazah_pend'] ?>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 50px; margin-left:100px">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <p>Panitia PMB</p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <p>Jombang, <?php echo thedate($data['tgl_reg_pmb'])?><br>
+                    Calon Mahasiswa</p>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 80px; margin-left: 100px">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <p><?php $user = $this->ion_auth->user()->row(); 
+            if (!empty($user)):
+                $userid=$user->id;
+                $username=$user->username; //untuk field $User
+                $first=$user->first_name; //untuk field $User
+                echo $first;
+            endif;?></p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <?php echo $data['nm_cmhs'] ?>
                 </div>
             </div>
                 
