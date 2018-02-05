@@ -12,8 +12,7 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $('button.print').click(function() {
-            var baseurl = '<?php  echo base_url('
-            mhspmb ')?>';
+            var baseurl = '<?php  echo base_url('mhspmb')?>';
             var id = $(this).data('id');
 
             $.post(baseurl + '/cetakkwitansi', { id: id },
