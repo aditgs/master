@@ -186,7 +186,7 @@ class mhspmb extends MX_Controller {
             $html=$this->load->view('template-cetak-kartu',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                kartupmb($html, date('d-m-Y-Hms'),TRUE);
+                kartupmb($html, 'ID#'.$id.date('d-m-Y-Hms'),TRUE);
             }else{          
                 echo ($html);
             }
