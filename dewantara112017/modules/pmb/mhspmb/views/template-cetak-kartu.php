@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>A5</title>
+    <link href="<?php echo assets_url() ?>css/bootstrap.min.css" rel="stylesheet">
     <!-- Normalize or reset CSS with your favorite library -->
     <!-- <link href="<?php echo assets_url() ?>css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
@@ -37,11 +38,28 @@
     .sheet.padding-20mm { padding: 20mm }
     .sheet.padding-25mm { padding: 25mm }
     </style>
+    <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('button.print').click(function() { 
+            window.print(); 
+            return false; 
+        }); 
+    });
+    </script>
 </head>
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 
 <body class="A6">
+    <section>
+        <div class="text-center">
+                <div class="btn-group" style="">
+                    <a class="print no-print btn btn-lg btn-primary" href="<?php echo base_url('mhspmb/cetakkartu/'.base64_encode('pdf')) ?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
+                    <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
+                </div>
+            </div>
+    </section>
     <!-- Each sheet element should have the class "sheet" -->
     <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
     <section class="sheet padding-5mm">
