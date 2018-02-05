@@ -176,12 +176,12 @@ function kartupmb($html, $filename='', $stream=TRUE)
       $dompdf = new Dompdf\Dompdf($options);
 
       //to put other html file
-      $html = file_get_contents(base_url('mhspmb/cetakkartu'));
+      // $html = file_get_contents(base_url('mhspmb/cetakkartu'));
       // $html .= '<style type="text/css">.hideforpdf { display: none; }</style>';
       $dompdf->loadHtml($html);
 
       // (Optional) Setup the paper size and orientation
-      $dompdf->setPaper('A5', 'Landscape');
+      $dompdf->setPaper('A5', 'Portrait');
 
       // Render the HTML as PDF
       $dompdf->render();

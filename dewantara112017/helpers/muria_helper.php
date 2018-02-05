@@ -152,6 +152,9 @@ if ( ! function_exists('terbilang')){
         else if($number<1000000000)
         {
             $words = terbilang($number/1000000)." JUTA ".terbilang($number%1000000);
+        }else if($number>=1000000000)
+        {
+            $words = terbilang($number/1000000000)." MILYAR ".terbilang($number%1000000000);
         }
         else
         {

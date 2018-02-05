@@ -155,7 +155,9 @@ class mhspmb extends MX_Controller {
 
     }
     function cetakkwitansi($id,$pdf=true){
-
+        if(empty($id)||!isset($id)){
+            $id=$this->input->post('id');
+        }
         $id=base64_decode($id);
         $pdf=base64_decode($pdf);
 
@@ -166,7 +168,7 @@ class mhspmb extends MX_Controller {
             $html=$this->load->view('template-cetak-kwitansi',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                kwitansipmb($html, date('d-m-Y-Hms'),TRUE);
+                kwitansipmb($html, 'INV#'.$id."-".date('d-m-Y-Hms'),TRUE);
             }else{          
                 echo ($html);
             }
