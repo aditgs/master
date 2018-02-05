@@ -118,7 +118,15 @@ class Siakad_mhs_pmb_model extends CI_Model {
         endif;
         return $gen;
     }
-
+    function getpmbgel($id){
+         $this->db->select('*')->from('pmb_gelombang')->where('id',$id);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }
+    }
     function getpmb($id){
         $this->db->select('*')->from('pmb_gelombang')->where('id',$id);
         $result=$this->db->get();

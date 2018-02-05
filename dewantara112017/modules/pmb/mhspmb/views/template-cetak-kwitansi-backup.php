@@ -12,11 +12,10 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $('button.print').click(function() {
-            var baseurl = '<?php  echo base_url('
-            mhspmb ')?>';
+            var baseurl='<?php  echo base_url('mhspmb')?>';
             var id = $(this).data('id');
 
-            $.post(baseurl + '/cetakkwitansi', { id: id },
+            $.post(baseurl+'/cetakkwitansi',{id:id},
                 function(data, status) {
                     if (status == "success") {
                         window.print();
@@ -34,7 +33,7 @@
         <div class="wrapper wrapper-content gray-bg">
             <div class="text-center">
                 <div class="btn-group" style="">
-                    <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
+                    <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf ");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
                     <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
                 </div>
             </div>
@@ -42,8 +41,17 @@
                 <div class="col-lg-12">
                     <div class="wrapper wrapper-content animated fadeInRight">
                         <div class="ibox-content p-xl table-responsive m-t">
-                            <?php if(isset($data)||!empty($data)):$gel=$this->pmbdb->getpmbgel($data['gelid'])?>
+                            <?php if(isset($data)){ $detail=$this->pmbdb->getpmb($data['id']); //print_r($detail)?>
                             <table class="col-xs-12">
+                                <thead>
+                                        <tr>
+                                            <td><img alt="image" style="width:125px;" src="<?= assets_url('images/logo.png') ?>" /></td>
+                                            <td colspan="4">STIE PGRI DEWANTARA JOMBANG<br>
+                                            Jl. Prof. Moh. Yamin No.77 Telp.(0321)865180, Fax.(0321)853807 Jombang, Jawa Timur<br>
+                                            Website : www.stiedewantara.ac.id<br>
+                                            e-mail : info@stiedewantara.ac.id</td>
+                                        </tr>
+                                    </thead>
                                 <tbody>
                                     <tr>
                                         <td></td>
@@ -52,13 +60,8 @@
                                         <td>
                                             <br>:</td>
                                         <td>
-                                            <br>
-                                            <?php 
-                                            $date=date("ymd");
-                                            $no="0000".$data['id'];
-                                            $right=substr($no,-4);
-                                            echo "#RCP".$date.$right;
-                                             ?>
+                                            <br>#
+                                            <?php echo $data['id'] ?>
                                         </td>
                                     </tr>
                                     <tr>
@@ -66,7 +69,7 @@
                                         <td colspan="2">Terima dari</td>
                                         <td>:</td>
                                         <td>
-                                            <?php echo "(".$data['noreg_pmb'].") ".$data['nm_cmhs'] ?>
+                                            <?php echo $data['nm_cmhs'] ?>
                                         </td>
                                     </tr>
                                     <tr>
@@ -74,7 +77,7 @@
                                         <td colspan="2">Terbilang</td>
                                         <td>:</td>
                                         <td>
-                                            <?php echo terbilang($gel['kodetarifdaftar'])." RUPIAH" ?>
+                                            <?php echo terbilang($data['noreg_pmb']) ?>
                                         </td>
                                     </tr>
                                     <tr>
@@ -99,9 +102,7 @@
                                     <tr>
                                         <td></td>
                                         <td colspan="3" style="font-size: 16px; font-weight: bold;">Rp.
-                                            <?php 
-                                            
-                                            echo rp($gel['kodetarifdaftar']) ?>
+                                            <?php echo rp($data['noreg_pmb']) ?>
                                             <br>
                                             <br>
                                         </td>
@@ -115,9 +116,12 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <?php else: ?>
-                                <h2>Data tidak ditemukan</h2>
-                            <?php endif; ?>
+                            <?php
+
+}else{
+    echo "<h1>Data tidak ditemukan</h1>";
+}
+?>
                         </div>
                     </div>
                 </div>
