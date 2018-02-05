@@ -16,18 +16,33 @@
         size: A4 
     }
     </style>
+    <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('button.print').click(function() { 
+            window.print(); 
+            return false; 
+        }); 
+    });
+    </script>
 </head>
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
-
-
 <body class="A4">
     <!-- Each sheet element should have the class "sheet" -->
     <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+    <section>
+        <div class="text-center">
+                <div class="btn-group" style="">
+                    <a class="print no-print btn btn-lg btn-primary" href="<?php echo base_url('mhspmb/cetakformulir/'.base64_encode('pdf')) ?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
+                    <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
+                </div>
+            </div>
+    </section>
     <section class="sheet padding-10mm">
         <!-- Write HTML just like a web page -->
         <article>
-            <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmb($data['gelid'])?>
+            <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmb($data['id'])?>
             <table class="col-xs-12">
                 <thead>
                     <tr>
