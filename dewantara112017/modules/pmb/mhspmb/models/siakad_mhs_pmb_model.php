@@ -126,6 +126,16 @@ class Siakad_mhs_pmb_model extends CI_Model {
         }else{
             return array();
         }
+    } 
+    function getpmbkelas($id){
+        ///ini ambil kelas dari siakad_kelas
+         $this->db->select('*')->from('siakad_kelas')->where('id_siakad_kelas',$id);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }
     }
     function getpmb($id){
         $this->db->select('*')->from('pmb_gelombang')->where('id',$id);
@@ -366,7 +376,7 @@ class Siakad_mhs_pmb_model extends CI_Model {
     } 
     function getdropkelas(){
         $result = array();
-        $array_keys_values = $this->db->query('select id_siakad_kelas,inisial_kelas,nm_kelas from siakad_kelas where thn_akademik="2018" order by id_siakad_kelas asc ');
+        $array_keys_values = $this->db->query('select id_siakad_kelas,inisial_kelas,nm_kelas from siakad_kelas where thn_akademik="'.date('Y').'" order by id_siakad_kelas asc ');
         $result[0]="-- Pilih Kelas --";
         foreach ($array_keys_values->result() as $row)
         {
