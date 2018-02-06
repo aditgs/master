@@ -13,8 +13,8 @@
                 <th style="width:10%">Kode</th>
                 <th style="width:10%">Tahun</th>
                 <th style="width:30%">Nama Gelombang</th>
-                <th style="width:30%">Status</th>
                 <th style="width:30%">Tanggal</th>
+                <th style="width:30%">Status</th>
              
                 <th style="width:10%">Aksi</th>
             </tr>
