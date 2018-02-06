@@ -166,7 +166,7 @@
                     $kelas=$this->pmbdb->getpmbkelas($data['id_siakad_kelas']);
 
                     // echo $data['id_siakad_kelas'] 
-                    echo "(".$kelas['inisial_kelas'].") ".$kelas['nm_kelas'];
+                    echo isset($kelas['inisial_kelas'])?"(".$kelas['inisial_kelas'].") ".$kelas['nm_kelas']:'';
                     ?>
                 </div>
             </div>
