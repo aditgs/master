@@ -22,8 +22,8 @@
 
     body.A6 .sheet {
         width: 105mm;
-        height: 148mm border-height:4px;
-        border-color: #000000;
+        height: 148mm 
+
     }
 
     body.A6.landscape .sheet {
@@ -33,8 +33,7 @@
 
     body.A6 {
         width: 105mm;
-        border-height: 4px;
-        border-color: #000000;
+        
     }
 
     .row-m-t {
