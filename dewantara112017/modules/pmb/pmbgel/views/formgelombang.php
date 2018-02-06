@@ -15,6 +15,7 @@
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                 <div class="form-group">
+                    
                     <?php echo form_label('Nama Gelombang : ','keterangan',array('class'=>'control-label')); ?>
                     <div class="controls">
                         <?php echo form_input('keterangan',set_value('keterangan', isset($default['keterangan']) ? $default['keterangan'] : ''),'id="keterangan" class="form-control" placeholder="Masukkan Nama Gelombang"'); ?>
@@ -115,7 +116,7 @@
                         <input id="date_her_end" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="date_her_end" required />
                         <?php endif; ?>
                         <span class="input-group-btn">
-                                                                            <a href="#" class="btn btn-default disabled" type="button"><i class="fa fa-calendar"></i></a></span>
+                            <a href="#" class="btn btn-default disabled" type="button"><i class="fa fa-calendar"></i></a></span>
                     </div>
                 </div>
             </div>
@@ -137,7 +138,7 @@
                         </div>
                     </div>
                 </div>  
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                         <?php $opt_th_akad = array('2018' => '2018',
                     '2019' => '2019',
                     '2020' => '2020',
@@ -148,11 +149,27 @@
                     '2025' => '2025', );  ?>
                         <div class="form-group">
                             <label class="control-label">
-                                Tahun Akademik
+                                Tahun
                             </label>
                             <div class="controls input-group">
                                 <?php $th_akad = isset($default['th_akad'])? $default['th_akad'] : '0'; ?>
-                                <?php echo form_dropdown('th_akad',$opt_th_akad,$th_akad,'id="th_akad" class="rekening input-block form-control select2 " style="width:100%" placeholder="Tahun Akademik"'); ?>
+                                <?php echo form_dropdown('th_akad',$opt_th_akad,$th_akad,'id="th_akad" class="rekening input-block form-control select2 " style="width:100%" placeholder="Tahun Akademik" require'); ?>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <?php $aktif = array(
+
+                    '0' => 'Tidak Aktif',
+                    '1' => 'Aktif',
+                    );  ?>
+                        <div class="form-group">
+                            <label class="control-label">
+                                Tahun
+                            </label>
+                            <div class="controls input-group">
+                                <?php $isactive = isset($default['isactive'])? $default['isactive'] : '0'; ?>
+                                <?php echo form_dropdown('isactive',$aktif,$isactive,'id="isactive" class="rekening input-block require form-control select2 " style="width:100%" placeholder="Aktif"'); ?>
                             </div>
                         </div>
                 </div>
