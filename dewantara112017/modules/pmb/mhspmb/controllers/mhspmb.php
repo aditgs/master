@@ -141,6 +141,7 @@ class mhspmb extends MX_Controller {
                 <ul class='dropdown-menu' style='position:relative;z-index:10000 !important'>
                 <li><a href=".base_url('mhspmb/cetakkwitansi/$2')." target='_blank'><i class='fa fa-money'></i>&nbsp; Kwitansi</a></li>
                 <li><a href=".base_url('mhspmb/cetakkartu/$2')." target='_blank'><i class='fa fa-book'></i>&nbsp; Kartu</a></li>
+                <li><a href=".base_url('mhspmb/cetakkartu2/$2')." target='_blank'><i class='fa fa-book'></i>&nbsp; Kartu</a></li>
                 <li><a href=".base_url('mhspmb/cetakformulir/$2')." target='_blank'><i class='fa fa-file'></i>&nbsp; Formulir</a></li>
                 
                 </div>" , 'id,base64_encode(id)');
@@ -168,7 +169,7 @@ class mhspmb extends MX_Controller {
             $html=$this->load->view('template-cetak-kwitansi',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                kwitansipmb($html, 'INV#'.$id."-".date('d-m-Y-Hms'),TRUE);
+                kwitansipmb($html, 'INV#'.$id."-".date('d-m-Y-Hms'));
             }else{          
                 echo ($html);
             }
@@ -184,6 +185,24 @@ class mhspmb extends MX_Controller {
             $this->template->set_layout('cetak');
            
             $html=$this->load->view('template-cetak-kartu',array('data'=>$data,'baseurl'=>base_url()),TRUE);
+            if(!empty($pdf)||$pdf!=null){
+                $this->load->helper(array('dompdf', 'file'));
+                kartupmb($html, 'ID#'.$id.date('d-m-Y-Hms'),TRUE);
+            }else{          
+                echo ($html);
+            }
+        }
+    } 
+    function cetakkartu2($id,$pdf=true){
+
+        $id=base64_decode($id);
+        $pdf=base64_decode($pdf);
+
+        if($id!=null){
+            $data=$this->pmbdb->get_one($id);
+            $this->template->set_layout('cetak');
+           
+            $html=$this->load->view('template-cetak-kartu-backup2',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
                 kartupmb($html, 'ID#'.$id.date('d-m-Y-Hms'),TRUE);

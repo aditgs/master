@@ -23,6 +23,7 @@
     body.A6 .sheet {
         width: 105mm;
         height: 148mm 
+        margin-top:0px;
 
     }
 
@@ -76,19 +77,22 @@
     /** Padding area **/
 
     .sheet.padding-3mm {
-        padding: 3mm
+        padding: 3mm;
+        padding-top:0px;
     }
 
     .sheet.padding-5mm {
-        padding: 5mm
+        padding: 5mm;
+        padding-top:0px;
     }
 
     .sheet.padding-7mm {
-        padding: 7mm
+        padding: 7mm;
     }
 
     .sheet.padding-10mm {
-        padding: 10mm
+        padding: 10mm;
+        padding-top:0px;
     }
 
     .sheet.padding-15mm {
@@ -122,7 +126,7 @@
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 
-<body class="A6">
+<body class="A6" >
     <!-- Each sheet element should have the class "sheet" -->
     <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
     <section>
@@ -133,7 +137,7 @@
             </div>
         </div>
     </section>
-    <section class="sheet padding-3mm" style="padding-top: 0px;">
+    <section class="sheet padding-3mm" style="padding-top: 0px;margin-top: 0px;">
         <!-- Write HTML just like a web page -->
         <article>
             <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmbgel($data['gelid'])?>
@@ -227,28 +231,26 @@
             </div>
             <div class="row" style="margin-top: 0px;">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
-                    <p>Panitia PMB</p>
+                   
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
-                    <p>Jombang,
+                    Jombang,
                         <?php echo tanggalindo($data['tgl_reg_pmb'])?>
-                        <br> Calon Mahasiswa</p>
+                         <p>Panitia PMB</p>
                 </div>
             </div>
             <div class="row" style="margin-top:0mm;">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
-                    <p>
-                        <?php $user = $this->ion_auth->user()->row(); 
-            if (!empty($user)):
-                $userid=$user->id;
-                $username=$user->username; //untuk field $User
-                $first=$user->first_name; //untuk field $User
-                echo $first;
-            endif;?>
-                    </p>
+                   
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
-                    <?php echo $data['nm_cmhs'] ?>
+                                <?php $user = $this->ion_auth->user()->row(); 
+                    if (!empty($user)):
+                        $userid=$user->id;
+                        $username=$user->username; //untuk field $User
+                        $first=$user->first_name; //untuk field $User
+                        echo $first;
+                    endif;?>
                 </div>
             </div>
             <?php else: ?>
