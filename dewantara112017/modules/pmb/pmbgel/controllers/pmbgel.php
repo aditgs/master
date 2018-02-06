@@ -128,8 +128,8 @@ class pmbgel extends MX_Controller {
 
     public function getdatatables(){
         
-            $this->datatables->select('id,kodegel,th_akad,keterangan,date_start,kodetarifdaftar,date_end,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,date_pengumuman')
-                            ->from('pmb_gelombang');
+            $this->datatables->select('id,kodegel,th_akad,keterangan,date_start,kodetarifdaftar,date_end,date_seleksi_start,date_seleksi_end,date_her_start,date_her_end,date_pengumuman,statusgel')
+                            ->from('001-view-gelpmb');
             $this->datatables->edit_column('date_start','<label class="badge badge-success">Periode: $1 - $2 </label></br> <label class="badge badge-primary">Seleksi: $3 - $4 </label></br> <label class="badge badge-info">Pengumuman: $7</label><label class="badge badge-warning">Daftar Ulang: $5 - $6 </label> ','thedate(date_start),thedate(date_end),thedate(date_seleksi_start),thedate(date_seleksi_end),thedate(date_her_start),thedate(date_her_end),thedate(date_pengumuman)');
             $this->datatables->add_column('edit',"<div class='btn-group'>
                 <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('pmbgel/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
