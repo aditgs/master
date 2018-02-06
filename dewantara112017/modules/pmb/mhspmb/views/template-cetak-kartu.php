@@ -59,7 +59,7 @@
                 <div style="clear: left;">
                     <p style="float: left;margin-right: 10px;margin-bottom: 10px;display: block;float: left"><img src="<?= assets_url('images/logo.png') ?>" height="75px" width="75px" border="1px"></p>
                     <h1 class="text-left" align="left" style="font-weight: 700;margin-bottom: 0px">KARTU PESERTA</h1>
-                    <h3 class="text-left" align="left" style="font-size:18px;text-transform: uppercase;font-weight: 700">SELEKSI PMB <?php echo isset($detail['keterangan'])?$default['keterangan']:''; ?></h3>
+                    <h3 class="text-left" align="left" style="font-size:18px;text-transform: uppercase;font-weight: 700">SELEKSI PMB <?php echo isset($detail['keterangan'])?$detail['keterangan']:''; ?></h3>
                     <h4 class="text-left" align="left" style="margin-left: 10px;display: block">STIE PGRI DEWANTARA JOMBANG TAHUN AKADEMIK 2018/2019</h4>
                 </div>
             </header>
