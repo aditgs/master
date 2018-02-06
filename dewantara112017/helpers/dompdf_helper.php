@@ -191,7 +191,7 @@ function kartupmb($html, $filename='', $stream=TRUE)
       // $canvas->image($image, 25, 20, 85, 80);
       $canvas->image($image, 15, 15, 75, 70);
       
-      $canvas->page_text(125, 17, "PANITIA PENERIMAAN MAHASISWA BARU TA. 2018/2019", $fontBold, 12, array(0, 0, 0));
+  /*    $canvas->page_text(125, 17, "PANITIA PENERIMAAN MAHASISWA BARU TA. 2018/2019", $fontBold, 12, array(0, 0, 0));
       $canvas->page_text(125, 30, "STIE PGRI DEWANTARA JOMBANG", $fontBold, 16, array(0, 0, 0));
       $canvas->page_text(125, 53, "Jl. Prof. Moh. Yamin No.77 Telp.0321865180, Fax.0321853807 Jombang, Jawa Timur 61471", $fontBold, 10, array(0, 0, 0));
       $canvas->page_text(125, 68, "Website : www.stiedewantara.ac.id", $fontBold, 10, array(0, 0, 0));
@@ -203,7 +203,7 @@ function kartupmb($html, $filename='', $stream=TRUE)
       $canvas->line(10, 397, 580, 397, array(0,0,0), 1);
       $canvas->page_text(10, 400, "STIE PGRI DEWANTARA JOMBANG", $font, 10, array(0, 0, 0));
       $canvas->page_text(540, 400, "Hal. {PAGE_NUM} / {PAGE_COUNT}", $font, 10, array(0, 0, 0));
-
+*/
     if ($stream) {
         $dompdf->stream($filename.".pdf");
     } else {
