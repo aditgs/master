@@ -65,17 +65,30 @@ class mhspmb extends MX_Controller {
             'Siakad_mhs_pmb'),
         ));
     }
-     public function baru() {
+    public function baru() {
         $this->template->set_title('Kelola Calon Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
+        // $this->template->add_js('modules/mhspmb.js');  
+        // $this->template->add_js('var baseurl="'.base_url().'uploader/";','embed');  
+        $this->template->add_js('var filesurl="'.domain().'uploads/files/";','embed');  
+        $this->template->add_js('jquery.ui.widget.js');
+        $this->template->add_js('jquery.fileupload.js');
+        $this->template->add_js('uploader.js');
         $this->template->load_view('siakad_mhs_pmb_view',array(
-            'view'=>'',
+            'view'=>'formcalonmhsupload',
             'title'=>'Kelola Data Calon Mahasiswa',
             'subtitle'=>'Pengelolaan Calon Mahasiswa',
+            'opt_kelas'=>$this->pmbdb->getdropkelas(),
+            'opt_gel'=>$this->pmbdb->getdropgel(),
             'breadcrumb'=>array(
             'Siakad_mhs_pmb'),
+            'uppath'=>UPPATH,
+            'homepath'=>HOMEPATH,
+            'syspath'=>SYSDIR,
+            'basepath'=>BASEPATH,
+            'fcpath'=>FCPATH,
+            'updir'=>UPDIR
         ));
-        
     }
 
     function getnewfaktur(){

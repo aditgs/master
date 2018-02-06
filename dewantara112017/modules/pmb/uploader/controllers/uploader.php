@@ -9,7 +9,7 @@ class Uploader extends MX_Controller {
         // $this->load->library('template');
         // $this->load->library('Ion_auth/Ion_auth');
         $this->load->helper(array('url'));
-        $this->load->model('files/files_model','filesdb',TRUE);
+        $this->load->model('files_model','filesdb',TRUE);
     }
     
 

@@ -48,27 +48,6 @@ class Files_model extends CI_Model {
         $this->db->insert('files', $data);
     }
 
-    function upload($data=null) {
-          /* $data = array(
-        
-            'filename' => $this->input->post('filename', TRUE),
-           
-            'title' => $this->input->post('title', TRUE),
-           
-            'url' => $this->input->post('url', TRUE),
-           
-            'type' => $this->input->post('type', TRUE),
-           
-            'album_id' => $this->input->post('album_id', TRUE),
-           
-            'user_id' => $this->input->post('user_id', TRUE),
-           
-            'timestamp' => $this->input->post('timestamp', TRUE),
-           
-        );*/
-        $this->db->insert('files', $data);
-    }
-
     function update($id) {
         $data = array(
         'id' => $this->input->post('id',TRUE),
@@ -95,6 +74,16 @@ class Files_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->delete('files'); 
        
+    }
+    function deletefile($filename) {
+        $this->db->where('filename', $filename);
+        $this->db->delete('files'); 
+       
+    }
+
+    function upload($data=null) {
+         
+        $this->db->insert('files', $data);
     }
 
     //Update 07122013 SWI
