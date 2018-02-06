@@ -13,12 +13,19 @@
             </div>
         </div>
         <div class="form-group">
-
+            <?php //print_r($opt_gel); ?>
+            <?php if(!empty($opt_gel)): ?>
             <?php echo form_label('Gelombang : ','gelid',array('class'=>'control-label')); ?>
             <div class="controls input-group" style="width: 100%">
                 <?php $gelid = isset($default['gelid'])? $default['gelid'] : '0';  ?>
                 <?php echo form_dropdown('gelid',$opt_gel,$gelid,'id="gelid" class="form-control select2 " style="width:100%" placeholder="Gelombang"'); ?>
             </div>
+        <?php else: ?>
+            <div class="alert alert-warning">
+                
+                <strong><i class="fa fa-warning"></i> Perhatian</strong> Tidak ada Gelombang PMB Aktif
+            </div>
+        <?php endif; ?>
         </div>
         <div class="form-group">
 
@@ -34,10 +41,18 @@
                     <label class="control-label">
                        Kelas
                     </label>
+                    <?php if(!empty($opt_kelas)): ?>
+ 
                     <div class="controls input-group" style="width: 100%">
                         <?php $kelas = isset($default['id_siakad_kelas'])? $default['id_siakad_kelas'] : '0';  ?>
                         <?php echo form_dropdown('id_siakad_kelas',$opt_kelas,$kelas,'id="id_siakad_kelas" class="form-control select2 " style="width:100%" placeholder="Agama"'); ?>
                     </div>
+                    <?php else: ?>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <strong>Perhatian</strong> Data Gelombang PMB aktif tidak ditemukan
+                        </div>
+                    <?php endif; ?>
                 </div>
         <div class="form-group">
             <?php echo form_label('Nama Lengkap : ','nm_cmhs',array('class'=>'control-label')); ?>
