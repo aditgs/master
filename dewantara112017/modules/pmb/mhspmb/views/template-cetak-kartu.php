@@ -11,103 +11,21 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css"> -->
     <link href="<?php echo assets_url() ?>css/style.css" rel="stylesheet">
     <link href="<?php echo assets_url() ?>css/custom.css" rel="stylesheet">
-    <link href="<?php echo assets_url() ?>css/normalize.min.css" rel="stylesheet">
-    <link href="<?php echo assets_url() ?>css/paper.css" rel="stylesheet">
+    <!-- <link href="<?php //echo assets_url() ?>css/normalize.min.css" rel="stylesheet"> -->
+    <!-- <link href="<?php //echo assets_url() ?>css/paper.css" rel="stylesheet"> -->
     <!-- Set page size here: A5, A4 or A3 -->
     <!-- Set also "landscape" if you need -->
+    <style type="text/css">
+        /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}/*# sourceMappingURL=normalize.min.css.map */
+    </style>
+    <style type="text/css">
+    /*PAPER.css*/
+       .sheet,body{margin:0}@page{margin:0}.sheet{overflow:hidden;position:relative;box-sizing:border-box;page-break-after:always}body.A3 .sheet{width:297mm;height:419mm}body.A3.landscape .sheet{width:420mm;height:296mm}body.A4 .sheet{width:210mm;height:296mm}body.A4.landscape .sheet{width:297mm;height:209mm}body.A5 .sheet{width:148mm;height:209mm}body.A5.landscape .sheet{width:210mm;height:147mm}.sheet.padding-10mm{padding:10mm}.sheet.padding-15mm{padding:15mm}.sheet.padding-20mm{padding:20mm}.sheet.padding-25mm{padding:25mm}@media screen{body{background:#e0e0e0}.sheet{background:#fff;box-shadow:0 .5mm 2mm rgba(0,0,0,.3);margin:0 5mm 5mm}}@media print{body.A3.landscape{width:420mm}body.A3,body.A4.landscape{width:297mm}body.A4,body.A5.landscape{width:210mm}body.A5{width:148mm}}
+
+    </style>
     <style>
-    @page {
-        size: A6
-    }
-
-    body.A6 .sheet {
-        width: 105mm;
-        height: 148mm 
-
-    }
-
-    body.A6.landscape .sheet {
-        width: 147mm;
-        height: 104mm
-    }
-
-    body.A6 {
-        width: 105mm;
-        
-    }
-
-    .row-m-t {
-        margin-top: 10px;
-        margin-left: 10px;
-    }
-
-    .row-m-t-1 {
-        margin-top: 5px;
-        margin-left: 10px;
-    }
-
-    .row {
-        line-height: 1.5;
-    }
-
-    .row:after,
-    .row:before {
-        display: table;
-        content: " "
-    }
-
-    .row:after {
-        clear: both
-    }
-
-    .outer {
-        /*background-color:red;*/
-        margin: auto;
-        position: relative
-    }
-
-    .inner {
-        height: 150px;
-        width: 125px;
-        border: 1px solid black;
-        position: absolute;
-        right: 0
-    }
-    /** Padding area **/
-
-    .sheet.padding-3mm {
-        padding: 3mm
-    }
-
-    .sheet.padding-5mm {
-        padding: 5mm
-    }
-
-    .sheet.padding-7mm {
-        padding: 7mm
-    }
-
-    .sheet.padding-10mm {
-        padding: 10mm
-    }
-
-    .sheet.padding-15mm {
-        padding: 15mm
-    }
-
-    .sheet.padding-20mm {
-        padding: 20mm
-    }
-
-    .sheet.padding-25mm {
-        padding: 25mm
-    }
-
-    ul {
-        list-style-type: square;
-        margin-left: 10px;
-        padding: 0;
-    }
+    /*KHUSUS A6*/
+   @page{size:A6}body.A6 .sheet{width:105mm;height:148mm margin-top:0px}body.A6.landscape .sheet{width:147mm;height:104mm}body.A6{width:105mm}.row-m-t{margin-top:10px;margin-left:10px}.row-m-t-1{margin-top:5px;margin-left:10px}.row{line-height:1.5}.row:after,.row:before{display:table;content:" "}.row:after{clear:both}.outer{margin:auto;position:relative}.inner{height:150px;width:125px;border:1px solid #000;position:absolute;right:0}.sheet.padding-3mm{padding:0 3mm 3mm}.sheet.padding-5mm{padding:0 5mm 5mm}.sheet.padding-7mm{padding:7mm}.sheet.padding-10mm{padding:0 10mm 10mm}.sheet.padding-15mm{padding:15mm}.sheet.padding-20mm{padding:20mm}.sheet.padding-25mm{padding:25mm}ul{list-style-type:square;margin-left:10px;padding:0}
     </style>
     <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
     <script type="text/javascript">
@@ -122,18 +40,18 @@
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 
-<body class="A6">
+<body class="A6" >
     <!-- Each sheet element should have the class "sheet" -->
     <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
     <section>
         <div class="text-center">
             <div class="btn-group" style="">
-                <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']." / ".base64_encode("pdf ");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
+                <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf ");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
                 <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
             </div>
         </div>
     </section>
-    <section class="sheet padding-3mm" style="padding-top: 0px;">
+    <section class="sheet padding-3mm" style="padding-top: 0px;margin-top: 0px;">
         <!-- Write HTML just like a web page -->
         <article>
             <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmbgel($data['gelid'])?>
@@ -227,28 +145,26 @@
             </div>
             <div class="row" style="margin-top: 0px;">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
-                    <p>Panitia PMB</p>
+                   
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
-                    <p>Jombang,
+                    Jombang,
                         <?php echo tanggalindo($data['tgl_reg_pmb'])?>
-                        <br> Calon Mahasiswa</p>
+                         <p>Panitia PMB</p>
                 </div>
             </div>
             <div class="row" style="margin-top:0mm;">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
-                    <p>
-                        <?php $user = $this->ion_auth->user()->row(); 
-            if (!empty($user)):
-                $userid=$user->id;
-                $username=$user->username; //untuk field $User
-                $first=$user->first_name; //untuk field $User
-                echo $first;
-            endif;?>
-                    </p>
+                   
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
-                    <?php echo $data['nm_cmhs'] ?>
+                                <?php $user = $this->ion_auth->user()->row(); 
+                    if (!empty($user)):
+                        $userid=$user->id;
+                        $username=$user->username; //untuk field $User
+                        $first=$user->first_name; //untuk field $User
+                        echo $first;
+                    endif;?>
                 </div>
             </div>
             <?php else: ?>
