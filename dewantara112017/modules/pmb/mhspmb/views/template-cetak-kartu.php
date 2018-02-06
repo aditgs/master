@@ -54,12 +54,12 @@
     <section class="sheet padding-3mm" style="padding-top: 0px;margin-top: 0px;">
         <!-- Write HTML just like a web page -->
         <article>
-            <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmbgel($data['gelid'])?>
+            <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmbgel($data['gelid']);?>
             <header style="display:block;">
                 <div style="clear: left;">
                     <p style="float: left;margin-right: 10px;margin-bottom: 10px;display: block;float: left"><img src="<?= assets_url('images/logo.png') ?>" height="75px" width="75px" border="1px"></p>
                     <h1 class="text-left" align="left" style="font-weight: 700;margin-bottom: 0px">KARTU PESERTA</h1>
-                    <h3 class="text-left" align="left" style="font-size:18px;text-transform: uppercase;font-weight: 700">SELEKSI PMB <?php echo $detail['keterangan'] ?></h3>
+                    <h3 class="text-left" align="left" style="font-size:18px;text-transform: uppercase;font-weight: 700">SELEKSI PMB <?php echo isset($detail['keterangan'])?$default['keterangan']:''; ?></h3>
                     <h4 class="text-left" align="left" style="margin-left: 10px;display: block">STIE PGRI DEWANTARA JOMBANG TAHUN AKADEMIK 2018/2019</h4>
                 </div>
             </header>
@@ -114,7 +114,7 @@
                             </strong>
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo tanggalindo($detail['date_seleksi_start'],true); ?>
+                    <?php echo isset($detail['date_seleksi_start'])?tanggalindo($detail['date_seleksi_start'],true):''; ?>
                 </div>
             </div>
             <div class="row">
@@ -134,7 +134,7 @@
                     </strong>
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <?php echo tanggalindo($detail['date_pengumuman']); ?>
+                    <?php echo isset($detail['date_pengumuman'])?tanggalindo($detail['date_pengumuman']):''; ?>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <p><i>Dapat dilihat melalui website:
