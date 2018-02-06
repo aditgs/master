@@ -272,6 +272,11 @@ public function fileupload()
     {
         $config['upload_path'] = $this->_dir_path();
         $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['max_size'] = '1024';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
+        $config['file_name'] = date('YmdHis');
+        // $filename;
         // $config['allowed_types']='rar|RAR|Rar|zip|Zip|ZIP|docx|DOCX|DOC|Doc|doc|PDF|pdf|Pdf|ODT|odt|Odt';
 
         $this->load->library('upload', $config);
@@ -297,11 +302,13 @@ public function fileupload()
                 'filename'=>$file['file_name'],
                 'url'=>$info['url'],
                 'type'=>$file['file_type'],
+                'user_id'=>userid(),
+                'timestamp'=>NOW(),
                 );
             $this->db->insert('files',$data);
             // print_r($file);
 
-            echo json_encode(array('files' => array($info)));
+            echo json_encode(array('data'=>$data,'file'=>$info, 'files' => array($info)));
         }
     }
 public function resize_image($file_path, $width, $height) {
