@@ -69,7 +69,7 @@ $(function() {
                 reloadFiles();
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert('서버에 문제가 생겼습니다.\n잠시후에 다시 시도해 주세요.');
+                alert('Masalah pada server.\nSilakan Coba lagi beberapa menit berikutnya.');
             }
         });
         
