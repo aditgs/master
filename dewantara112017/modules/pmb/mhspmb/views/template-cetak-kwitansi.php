@@ -86,7 +86,7 @@
                         <td colspan="2">Terbilang</td>
                         <td>:</td>
                         <td>
-                            <?php echo terbilang($gel['kodetarifdaftar'])." RUPIAH" ?>
+                            <?php echo (isset($gel['kodetarifdaftar'])||!empty($gel['kodetarifdaftar']))?terbilang($gel['kodetarifdaftar'])." RUPIAH":''; ?>
                         </td>
                     </tr>
                     <tr>
@@ -112,8 +112,7 @@
                         <td></td>
                         <td colspan="3" style="font-size: 16px; font-weight: bold;">Rp.
                             <?php 
-                                            
-                                            echo rp($gel['kodetarifdaftar']) ?>
+                                echo (isset($gel['kodetarifdaftar'])||!empty($gel['kodetarifdaftar']))?rp($gel['kodetarifdaftar']):''; ?>
                             <br>
                             <br>
                         </td>
