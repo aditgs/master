@@ -141,7 +141,6 @@ class mhspmb extends MX_Controller {
                 <ul class='dropdown-menu' style='position:relative;z-index:10000 !important'>
                 <li><a href=".base_url('mhspmb/cetakkwitansi/$2')." target='_blank'><i class='fa fa-money'></i>&nbsp; Kwitansi</a></li>
                 <li><a href=".base_url('mhspmb/cetakkartu/$2')." target='_blank'><i class='fa fa-book'></i>&nbsp; Kartu</a></li>
-                <li><a href=".base_url('mhspmb/cetakkartu2/$2')." target='_blank'><i class='fa fa-book'></i>&nbsp; Kartu</a></li>
                 <li><a href=".base_url('mhspmb/cetakformulir/$2')." target='_blank'><i class='fa fa-file'></i>&nbsp; Formulir</a></li>
                 
                 </div>" , 'id,base64_encode(id)');
