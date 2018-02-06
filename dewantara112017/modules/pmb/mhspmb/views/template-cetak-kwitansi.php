@@ -34,7 +34,7 @@
     <section>
         <div class="text-center">
                 <div class="btn-group" style="">
-                    <a class="print no-print btn btn-lg btn-primary" href="<?php echo base_url('mhspmb/cetakkwitansi/'.base64_encode('pdf')) ?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
+                    <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
                     <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
                 </div>
             </div>
