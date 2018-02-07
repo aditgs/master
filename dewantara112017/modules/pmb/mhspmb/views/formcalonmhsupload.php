@@ -309,6 +309,37 @@
             </table>
         </div>
     </div>
+    <div id="body">
+            <p>Pilih file untuk di resize</p>
+            <?php
+            if (isset($success) && strlen($success)) {
+                echo '<div class="success">';
+                echo '<p>' . $success . '</p>';
+                echo '</div>';
+            }
+            if (isset($errors) && strlen($errors)) {
+                echo '<div class="error">';
+                echo '<p>' . $errors . '</p>';
+                echo '</div>';
+            }
+            if (validation_errors()) {
+                    echo validation_errors('<div class="error">', '</div>');
+                }
+                if (isset($resize_img)) {
+                    echo img($resize_img);
+                }
+                ?>
+                <?php
+                $attributes = array('name' => 'image_upload_form', 'id' => 'image_upload_form');
+                echo form_open_multipart($this->uri->uri_string(), $attributes);
+                ?>
+                <p><input name="image_name" id="image_name" readonly="readonly" type="file" onchange="" /></p>
+                <p><input name="image_upload" value="Upload Image" type="submit" /></p>
+                <?php
+                echo form_close();
+                ?>
+            
+        </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
