@@ -1,4 +1,9 @@
-<div id="form_input" class="">
+<div id="form_input" class="" style="margin-top: 20px">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1 class="text-center" style="font-weight: 700">Form Pendaftaran Mahasiswa</h1>
+        <hr>
+        
+    </div>
     <?php echo form_open(base_url().'mhspmb/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -9,7 +14,7 @@
         <div class="form-group">
             <?php echo form_label('No Pendaftaran : ','noreg_pmb',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('noreg_pmb',set_value('noreg_pmb', isset($default['noreg_pmb']) ? $default['noreg_pmb'] : ''),'id="noreg_pmb" class="form-control" placeholder="AUTO" readonly '); ?>
+                <?php echo form_input('noreg_pmb',set_value('noreg_pmb', isset($default['noreg_pmb']) ? $default['noreg_pmb'] : ''),'id="noreg_pmb" class="form-control text-center" placeholder="AUTO" readonly '); ?>
             </div>
         </div>
         <div class="form-group">
@@ -67,7 +72,7 @@
             </div>
         </div>
        
-        <div class="row gutter5">
+        <div class="row gutter5"  style="padding:0px 10px 0px 10px">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
                     <?php echo form_label('Tempat Lahir : ','tmp_cmhs',array('class'=>'control-label')); ?>
@@ -161,7 +166,7 @@
                 <?php echo form_input('email_cmhs',set_value('email_cmhs', isset($default['email_cmhs']) ? $default['email_cmhs'] : ''),'id="email_cmhs" class="form-control" placeholder="Masukkan Email"'); ?>
             </div>
         </div>
-        <div class="row gutter5">
+        <div class="row gutter5"  style="padding:0px 10px 0px 10px">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
                     <?php echo form_label('No HP : ','hp_cmhs',array('class'=>'control-label')); ?>
@@ -217,7 +222,7 @@
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
        
         
-        <div class="row gutter5">
+        <div class="row gutter5"  style="padding:0px 10px 0px 10px">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group tanggal">
                     <?php echo form_label('Tanggal Ijazah : ','tgl_ijazah_pend',array('class'=>'control-label')); ?>
@@ -263,8 +268,7 @@
         'Baru' => 'Baru',
         'Online' => 'Online',
         'Tolak' => 'Tolak',);?>
-        <div class="row gutter5">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+       
                 
                 <div class="form-group">
                     <div class="controls input-group">
@@ -274,12 +278,7 @@
                             <option value="Pindah">Pindah</option>
                         </select>
                     </div>
-                </div>
-            </div>
-           
-            
-        </div>
-     
+                </div>     
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
