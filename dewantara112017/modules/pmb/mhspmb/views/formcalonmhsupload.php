@@ -333,7 +333,7 @@
                 $attributes = array('name' => 'image_upload_form', 'id' => 'image_upload_form');
                 echo form_open_multipart($this->uri->uri_string(), $attributes);
                 ?>
-                <p><input name="image_name" id="image_name" readonly="readonly" type="file" onchange="" /></p>
+                <p><input name="image_name" id="image_name" readonly="readonly" type="file" data-url="<?php echo base_url('mhspmb/unggahfoto')?>" multiple="multiple" onchange="changeimage()" /></p>
                 <p><input name="image_upload" value="Upload Image" type="submit" /></p>
                 <?php
                 echo form_close();
@@ -349,3 +349,41 @@
     </div>
     <?php echo form_close();?>
 </div>
+
+<script type="text/javascript">
+    $('body').on('change','#image_name',function(){
+        image=$(this).val();
+        // e.preventDefault();
+        $.post($(this).data('url'),{image_name:image},function(data,status){
+            if(status=='success'){
+                handleUpload(data);
+            }
+        }); 
+    });
+    function changeimage(){
+        var url=baseurl+'unggahfoto';
+        image=$('#image_name').val();
+        // e.preventDefault();
+        $.post(url,{image:image},function(data,status){
+            if(status=='success'){
+                alert('oke');
+                // handleUpload(data);
+            }
+        }); 
+    }
+    function handleUpload(data) {
+        dx = JSON.parse(data);
+        if (dx.st == 1) {
+            // alert("Sukses"+dx.msg);
+            $('#modal-notif').modal('toggle');
+            $('#modal-notif .modal-body').html(dx.msg);
+
+        } else {
+            $('#modal-alert').modal('toggle');
+            $('#modal-alert .modal-body').html(dx.msg);
+            // alert(dx.msg);
+
+        }
+
+    }
+</script>
