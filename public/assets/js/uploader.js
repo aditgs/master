@@ -26,30 +26,12 @@ function reloadFiles() {
     });
 };
 
-function handleUpload(data) {
-    dx = JSON.parse(data);
-    if (dx.st == 1) {
-        // alert("Sukses"+dx.msg);
-        $('#modal-notif').modal('toggle');
-        $('#modal-notif .modal-body').html(dx.msg);
 
-    } else {
-        $('#modal-alert').modal('toggle');
-        $('#modal-alert .modal-body').html(dx.msg);
-        // alert(dx.msg);
-
-    }
-
-}
 
 $(function() {
     // $('#FILEUPLOAD').css('width', '542px');
-    // $('#fileupload').bind('fileuploadsubmit', function (e, data) {
-
-    //     alert(data.result);
-    // });
     
-    $('.form-group.uploader input[type=file]').fileupload({
+    $('#FILEUPLOAD input[type=file]').fileupload({
         dataType: 'json',
         start: function(e, data) {
             $('#FILEUPLOAD .fileupload-progress').toggleClass('in');
@@ -60,9 +42,6 @@ $(function() {
                 .find('.bar').css('width', '0%');
         },
         done: function(e, data) {
-              var r = data.result;
-              // x=JSON.parse(r);
-                // alert(x);
             reloadFiles();
         },
         progress: function(e, data) {
