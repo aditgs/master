@@ -333,7 +333,9 @@
                 $attributes = array('name' => 'image_upload_form', 'id' => 'image_upload_form');
                 echo form_open_multipart($this->uri->uri_string(), $attributes);
                 ?>
-                <p><input name="image_name" id="image_name" readonly="readonly" type="file" onchange="" /></p>
+                <img id="blah" alt="your image" width="150" height="150" />
+
+                <p><input name="image_name" id="image_name" readonly="readonly" type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" /></p>
                 <p><input name="image_upload" value="Upload Image" type="submit" /></p>
                 <?php
                 echo form_close();
