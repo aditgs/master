@@ -44,6 +44,11 @@ class mhspmb extends MX_Controller {
         $this->template->set_title('Kelola Calon Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
         // $this->template->add_js('modules/mhspmb.js');  
+        $this->template->add_js('var filesurl="'.domain().'uploads/files/";','embed'); 
+        $this->template->add_js('jquery.ui.widget.js');
+        $this->template->add_js('jquery.fileupload.js');
+        $this->template->add_js('uploader.js');
+
         $this->template->load_view('siakad_mhs_pmb_view',array(
             'view'=>'',
             'title'=>'Kelola Data Calon Mahasiswa',
@@ -52,6 +57,12 @@ class mhspmb extends MX_Controller {
             'opt_gel'=>$this->pmbdb->getdropgel(),
             'breadcrumb'=>array(
             'Siakad_mhs_pmb'),
+            'uppath'=>UPPATH,
+            'homepath'=>HOMEPATH,
+            'syspath'=>SYSDIR,
+            'basepath'=>BASEPATH,
+            'fcpath'=>FCPATH,
+            'updir'=>UPDIR
         ));
     }
     public function data() {
@@ -286,7 +297,7 @@ public function fileupload()
             log_message('error', $this->upload->display_errors('', ''));
             $error = array('error' => $this->upload->display_errors());
             
-            echo json_encode(array($error));
+            echo json_encode(array('st'=>0,'msg'=>$error));
         } else {
             $file = $this->upload->data();
             // echo var_dump($file);
@@ -308,7 +319,7 @@ public function fileupload()
             $this->db->insert('files',$data);
             // print_r($file);
 
-            echo json_encode(array('data'=>$data,'file'=>$info, 'files' => array($info)));
+            echo json_encode(array('st'=>'1','msg'=>'File berhasil diupload','data'=>$data,'file'=>$info, 'files' => array($info)));
         }
     }
 public function resize_image($file_path, $width, $height) {
