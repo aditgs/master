@@ -238,7 +238,9 @@
         <div class="form-group">
             <?php echo form_label('img_pasfoto : ','img_pasfoto',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('img_pasfoto',set_value('img_pasfoto', isset($default['img_pasfoto']) ? $default['img_pasfoto'] : ''),'id="img_pasfoto" class="form-control" placeholder="Masukkan img_pasfoto"'); ?>
+                 <img id="blah" alt="your image" width="150" height="150" />
+                <p><input name="img_pasfoto" id="img_pasfoto" readonly="readonly" type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" /></p>
+            
             </div>
         </div>
           <?php $opt_status_pmb = array('Terima',
@@ -310,6 +312,7 @@
             </table>
         </div>
     </div>
+
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
@@ -319,6 +322,7 @@
     </div>
     <?php echo form_close();?>
 </div>
+
 
 <script type="text/javascript">
     $('body').on('change','#image_name',function(){
@@ -357,3 +361,4 @@
 
     }
 </script>
+

@@ -26,7 +26,7 @@ function reloadFiles() {
     });
 };
 
-function handleUpload(data) {
+/*function handleUpload(data) {
     dx = JSON.parse(data);
     if (dx.st == 1) {
         // alert("Sukses"+dx.msg);
@@ -36,7 +36,7 @@ function handleUpload(data) {
 
     }
 
-}
+}*/
 
 $(function() {
     // $('#FILEUPLOAD').css('width', '542px');
