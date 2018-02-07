@@ -164,7 +164,6 @@ class mhspmb extends MX_Controller {
                 <button class='btn btn-primary btn-xs dropdown-toggle' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='fa fa-print'></i> Cetak <span class='caret'></span></button>'
                 <ul class='dropdown-menu' style='position:relative;z-index:10000 !important'>
                 <li><a href=".base_url('mhspmb/cetakkwitansi/$2')." target='_blank'><i class='fa fa-money'></i>&nbsp; Kwitansi</a></li>
-                <li><a href=".base_url('mhspmb/cetakkwitansi2/$2')." target='_blank'><i class='fa fa-money'></i>&nbsp; Kwitansi</a></li>
                 <li><a href=".base_url('mhspmb/cetakkartu/$2')." target='_blank'><i class='fa fa-book'></i>&nbsp; Kartu</a></li>
                 <li><a href=".base_url('mhspmb/cetakformulir/$2')." target='_blank'><i class='fa fa-file'></i>&nbsp; Formulir</a></li>
                 
