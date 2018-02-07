@@ -26,7 +26,17 @@ function reloadFiles() {
     });
 };
 
+function handleUpload(data) {
+    dx = JSON.parse(data);
+    if (dx.st == 1) {
+        // alert("Sukses"+dx.msg);
+        $('#modal-notif').modal('toggle');
+        $('#modal-notif .modal-body').html(dx.msg);
 
+
+    }
+
+}
 
 $(function() {
     // $('#FILEUPLOAD').css('width', '542px');
