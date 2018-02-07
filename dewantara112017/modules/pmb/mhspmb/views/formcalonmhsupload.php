@@ -284,7 +284,8 @@
                 <span class="btn btn-md btn-success fileinput-button">
                             <i class="fa fa-plus icon-white"></i>
                             <span>Upload Foto</span>
-                <input type="file" name="image" data-url="<?php echo base_url() ?>mhspmb/fileupload" multiple="multiple" />
+                <img id="blah" alt="your image" width="150" height="150" />
+                <input type="file" name="image" data-url="<?php echo base_url() ?>mhspmb/fileupload" multiple="multiple" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" />
                 </span>
                 
                 <div class="fileupload-progress fade">
