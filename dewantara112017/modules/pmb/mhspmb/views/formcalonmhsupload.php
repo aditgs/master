@@ -238,7 +238,9 @@
         <div class="form-group">
             <?php echo form_label('img_pasfoto : ','img_pasfoto',array('class'=>'control-label')); ?>
             <div class="controls">
-                <?php echo form_input('img_pasfoto',set_value('img_pasfoto', isset($default['img_pasfoto']) ? $default['img_pasfoto'] : ''),'id="img_pasfoto" class="form-control" placeholder="Masukkan img_pasfoto"'); ?>
+                 <img id="blah" alt="your image" width="150" height="150" />
+                <p><input name="img_pasfoto" id="img_pasfoto" readonly="readonly" type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" /></p>
+            
             </div>
         </div>
           <?php $opt_status_pmb = array('Terima',
@@ -309,38 +311,10 @@
             </table>
         </div>
     </div>
-    <div id="body">
-            <p>Pilih file untuk di resize</p>
-            <?php
-            if (isset($success) && strlen($success)) {
-                echo '<div class="success">';
-                echo '<p>' . $success . '</p>';
-                echo '</div>';
-            }
-            if (isset($errors) && strlen($errors)) {
-                echo '<div class="error">';
-                echo '<p>' . $errors . '</p>';
-                echo '</div>';
-            }
-            if (validation_errors()) {
-                    echo validation_errors('<div class="error">', '</div>');
-                }
-                if (isset($resize_img)) {
-                    echo img($resize_img);
-                }
-                ?>
-                <?php
-                $attributes = array('name' => 'image_upload_form', 'id' => 'image_upload_form');
-                echo form_open_multipart($this->uri->uri_string(), $attributes);
-                ?>
-                <img id="blah" alt="your image" width="150" height="150" />
-                <p><input name="image_name" id="image_name" readonly="readonly" type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" /></p>
-                <p><input name="image_upload" value="Upload Image" type="submit" /></p>
-                <?php
-                echo form_close();
-                ?>
-            
-        </div>
+   
+          
+               
+               
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
@@ -350,41 +324,3 @@
     </div>
     <?php echo form_close();?>
 </div>
-
-<script type="text/javascript">
-    $('body').on('change','#image_name',function(){
-        image=$(this).val();
-        // e.preventDefault();
-        $.post($(this).data('url'),{image_name:image},function(data,status){
-            if(status=='success'){
-                handleUpload(data);
-            }
-        }); 
-    });
-    function changeimage(){
-        var url=baseurl+'unggahfoto';
-        image=$('#image_name').val();
-        // e.preventDefault();
-        $.post(url,{image:image},function(data,status){
-            if(status=='success'){
-                alert('oke');
-                // handleUpload(data);
-            }
-        }); 
-    }
-    function handleUpload(data) {
-        dx = JSON.parse(data);
-        if (dx.st == 1) {
-            // alert("Sukses"+dx.msg);
-            $('#modal-notif').modal('toggle');
-            $('#modal-notif .modal-body').html(dx.msg);
-
-        } else {
-            $('#modal-alert').modal('toggle');
-            $('#modal-alert .modal-body').html(dx.msg);
-            // alert(dx.msg);
-
-        }
-
-    }
-</script>

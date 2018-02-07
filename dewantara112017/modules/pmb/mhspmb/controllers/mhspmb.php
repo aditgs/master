@@ -1,12 +1,6 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 class mhspmb extends MX_Controller {
-    //variabel penampung error
-    private $error;
-
-    //Variabel penampung sukses
-    private $success;
-
     function __construct() {
         parent::__construct();
           
@@ -45,15 +39,7 @@ class mhspmb extends MX_Controller {
         $this->template->add_js('datepicker.js'); //tanggal
     }
 
-    private function handle_error($err)
-    {
-        $this->error .= $err . "rn";
-    }
-
-    private function handle_succes($succ)
-    {
-        $this->error .= $succ . "rn";
-    }
+ 
 
     public function index() {
         $this->template->set_title('Kelola Calon Mahasiswa');
@@ -371,9 +357,9 @@ class mhspmb extends MX_Controller {
         
         echo json_encode(array('files' => $files));
     }
-    public function save()
+    public function saveimage()
     {
-        $this->fileupload();
+        echo $this->fileupload();
     }
 public function fileupload()
     {
@@ -389,11 +375,11 @@ public function fileupload()
         $this->load->library('upload', $config);
         
         // file_logo
-        if (!$this->upload->do_upload('image')) {
+        if (!$this->upload->do_upload('img_pasfoto')) {
             log_message('error', $this->upload->display_errors('', ''));
             $error = array('error' => $this->upload->display_errors());
             
-            echo json_encode(array('st'=>0,'msg'=>$error));
+            return json_encode(array('st'=>0,'msg'=>$error));
         } else {
             $file = $this->upload->data();
             // echo var_dump($file);
@@ -415,7 +401,7 @@ public function fileupload()
             $this->db->insert('files',$data);
             // print_r($file);
 
-            echo json_encode(array('st'=>'1','msg'=>'File berhasil diupload','data'=>$data,'file'=>$info, 'files' => array($info)));
+           return json_encode(array('st'=>'1','msg'=>'File berhasil diupload','data'=>$data,'file'=>$info, 'files' => array($info)));
         }
     }
 public function resize_image($file_path, $width, $height) {
@@ -569,6 +555,7 @@ function __formvalidation(){
           }else{
             //$this->pmbdb->save();
             $this->pmbdb->saveas();
+            $this->unggahfoto();
           }
 
         }else{
@@ -578,6 +565,7 @@ function __formvalidation(){
               }else{
                 //$this->pmbdb->save();
                 $this->pmbdb->saveas();
+                $this->unggahfoto();
               }
           }
         }
