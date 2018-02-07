@@ -255,6 +255,7 @@
                         </select>
                     </div>
                 </div>
+        <div id="FILEUPLOAD">
         <div class="form-group uploader">
                 <span class="btn btn-md btn-success fileinput-button">
                             <i class="fa fa-plus icon-white"></i>
@@ -273,7 +274,7 @@
                     </div>
                 </div>
             </div>
-        
+        </div>
       
          
     </div>
