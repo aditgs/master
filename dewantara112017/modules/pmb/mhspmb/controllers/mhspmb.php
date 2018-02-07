@@ -272,9 +272,9 @@ public function fileupload()
     {
         $config['upload_path'] = $this->_dir_path();
         $config['allowed_types'] = 'gif|jpg|jpeg|png';
-        $config['max_size'] = '1024';
-        $config['max_width']  = '1024';
-        $config['max_height']  = '768';
+        // $config['max_size'] = '1024';
+        // $config['max_width']  = '1024';
+        // $config['max_height']  = '768';
         $config['file_name'] = date('YmdHis');
         // $filename;
         // $config['allowed_types']='rar|RAR|Rar|zip|Zip|ZIP|docx|DOCX|DOC|Doc|doc|PDF|pdf|Pdf|ODT|odt|Odt';
