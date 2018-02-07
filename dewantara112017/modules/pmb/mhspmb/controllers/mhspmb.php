@@ -122,7 +122,7 @@ class mhspmb extends MX_Controller {
 
     function unggahfoto()
     {
-        if ($this->input->post("image_upload")) {
+        // if ($this->input->post("image_upload")) {
             $upload_path = $this->_dir_path();
             $config['upload_path'] = $upload_path;
             $config['allowed_types'] = 'jpg|png|gif|jpeg';
@@ -132,10 +132,10 @@ class mhspmb extends MX_Controller {
             $config['cerate_thumb'] = TRUE;
             $image_data = array();
             $is_file_error = FALSE;
-            if (!$_FILES) {
+           /* if (!$_FILES) {
                 $is_file_error = TRUE;
                 $this->handle_error('Pilih file gambar.');
-            }
+            }*/
             if (!$is_file_error) {
                 $this->load->library('upload', $config);
                 if (!$this->upload->do_upload('image_name')) {
@@ -146,13 +146,15 @@ class mhspmb extends MX_Controller {
                     $config['image_library'] = 'gd2';
                     $config['source_image'] = $image_data['full_path'];
                     $config['maintain_ratio'] = TRUE;
-                    $config['cerate_thumb'] = TRUE;
+                    $config['create_thumb'] = TRUE;
                     $config['width'] = 113;
                     $config['height'] = 151;
                     $this->load->library('image_lib', $config);
                     if (!$this->image_lib->resize()) {
                         $this->handle_error($this->image_lib->display_errors());
                     }
+
+                    echo "oke disni";
                 }
             }
 
@@ -163,16 +165,17 @@ class mhspmb extends MX_Controller {
                         unlink($file);
                     }
                 }
+                    echo json_encode(array('st'=>0,'msg'=>$this->error));
             } else {
                 $data['resize_img'] = $upload_path . $image_data['file_name'];
                 $this->handle_succes('Gambar berhasil di upload <strong>' . $upload_path . '</strong> dan di resize');
+                    echo json_encode(array('st'=>1,'msg'=>$this->success));
             }
-        }
+        // }
 
-        $data['errors'] = $this->error;
-        $data['success'] = $this->success;
-
-        $this->load->view('formcalonmhsupload', $data);
+        // $data['errors'] = $this->error;
+        // $data['success'] = $this->success;
+        // $this->load->view('formcalonmhsupload', $data);
     }
 
     function getnewfaktur(){
