@@ -66,9 +66,15 @@ class mhspmb extends MX_Controller {
              $this->template->add_js('jquery.ui.widget.js');
         $this->template->add_js('jquery.fileupload.js');
         $this->template->add_js('uploader.js');  
+        $default=array(
+            'memo'=>'website',
+            'status_cmhs'=>'Baru',
+            'gelid'=>3,
+        );
         $this->template->load_view('siakad_mhs_pmb_view',array(
             'view'=>'',
             'title'=>'Kelola Data Calon Mahasiswa',
+            'default'=>$default,
             'subtitle'=>'Pengelolaan Calon Mahasiswa',
             'opt_kelas'=>$this->pmbdb->getdropkelas(),
             'opt_gel'=>$this->pmbdb->getdropgel(),
