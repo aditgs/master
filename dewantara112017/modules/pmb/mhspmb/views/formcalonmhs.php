@@ -255,9 +255,8 @@
         </div>
         <div class="form-group">
             <?php echo form_label('img_pasfoto : ','img_pasfoto',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('img_pasfoto',set_value('img_pasfoto', isset($default['img_pasfoto']) ? $default['img_pasfoto'] : ''),'id="img_pasfoto" class="form-control" placeholder="Masukkan img_pasfoto"'); ?>
-            </div>
+            <img id="blah" alt="your image" width="150" height="150" />
+                <p><input name="img_pasfoto" id="img_pasfoto" readonly="readonly" type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" /></p>
         </div>
         <?php $opt_status_pmb = array('Terima',
         'Baru' => 'Baru',
