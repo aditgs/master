@@ -296,7 +296,7 @@
             </div>
 
             <div class="row" style="margin-top: 50px; margin-left:100px">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="margin-top: 21px">
                     <p>Panitia PMB</p>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
