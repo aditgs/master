@@ -173,10 +173,10 @@
 
             <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    Tempat Lahir
+                    Tempat Tanggal Lahir
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    : <?php echo $data['tmp_cmhs'] ?>
+                    : <?php echo $data['tmp_cmhs'].", ".$data['tgl_cmhs'] ?>
                 </div>
             </div>
 

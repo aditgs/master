@@ -45,11 +45,6 @@ class mhspmb extends MX_Controller {
         $this->template->set_title('Kelola Calon Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
         // $this->template->add_js('modules/mhspmb.js');  
-        $this->template->add_js('var filesurl="'.domain().'uploads/files/";','embed'); 
-        $this->template->add_js('jquery.ui.widget.js');
-        $this->template->add_js('jquery.fileupload.js');
-        $this->template->add_js('uploader.js');
-
         $this->template->load_view('siakad_mhs_pmb_view',array(
             'view'=>'',
             'title'=>'Kelola Data Calon Mahasiswa',
@@ -58,12 +53,6 @@ class mhspmb extends MX_Controller {
             'opt_gel'=>$this->pmbdb->getdropgel(),
             'breadcrumb'=>array(
             'Siakad_mhs_pmb'),
-            'uppath'=>UPPATH,
-            'homepath'=>HOMEPATH,
-            'syspath'=>SYSDIR,
-            'basepath'=>BASEPATH,
-            'fcpath'=>FCPATH,
-            'updir'=>UPDIR
         ));
 
         
@@ -260,26 +249,6 @@ class mhspmb extends MX_Controller {
             }
         }
     }
-    function cetakkwitansi2($id,$pdf=true){
-        if(empty($id)||!isset($id)){
-            $id=$this->input->post('id');
-        }
-        $id=base64_decode($id);
-        $pdf=base64_decode($pdf);
-
-        if($id!=null){
-            $data=$this->pmbdb->get_one($id);
-            $this->template->set_layout('cetak');
-           
-            $html=$this->load->view('template-cetak-kwitansi-oke',array('data'=>$data,'baseurl'=>base_url()),TRUE);
-            if(!empty($pdf)||$pdf!=null){
-                $this->load->helper(array('dompdf', 'file'));
-                kwitansipmb($html, 'INV#'.$id."-".date('d-m-Y-Hms'));
-            }else{          
-                echo ($html);
-            }
-        }
-    }
     function cetakkartu($id,$pdf=true){
 
         $id=base64_decode($id);
@@ -365,9 +334,9 @@ public function fileupload()
     {
         $config['upload_path'] = $this->_dir_path();
         $config['allowed_types'] = 'gif|jpg|jpeg|png';
-        $config['max_size'] = '1024';
-        $config['max_width']  = '1024';
-        $config['max_height']  = '768';
+        // $config['max_size'] = '1024';
+        // $config['max_width']  = '1024';
+        // $config['max_height']  = '768';
         $config['file_name'] = date('YmdHis');
         // $filename;
         // $config['allowed_types']='rar|RAR|Rar|zip|Zip|ZIP|docx|DOCX|DOC|Doc|doc|PDF|pdf|Pdf|ODT|odt|Odt';
@@ -380,6 +349,7 @@ public function fileupload()
             $error = array('error' => $this->upload->display_errors());
             
             return json_encode(array('st'=>0,'msg'=>$error));
+
         } else {
             $file = $this->upload->data();
             // echo var_dump($file);
@@ -401,7 +371,9 @@ public function fileupload()
             $this->db->insert('files',$data);
             // print_r($file);
 
+
            return json_encode(array('st'=>'1','msg'=>'File berhasil diupload','data'=>$data,'file'=>$info, 'files' => array($info)));
+
         }
     }
 public function resize_image($file_path, $width, $height) {
@@ -555,7 +527,7 @@ function __formvalidation(){
           }else{
             //$this->pmbdb->save();
             $this->pmbdb->saveas();
-            $this->unggahfoto();
+            // $this->unggahfoto();
           }
 
         }else{
@@ -565,7 +537,7 @@ function __formvalidation(){
               }else{
                 //$this->pmbdb->save();
                 $this->pmbdb->saveas();
-                $this->unggahfoto();
+                // $this->unggahfoto();
               }
           }
         }

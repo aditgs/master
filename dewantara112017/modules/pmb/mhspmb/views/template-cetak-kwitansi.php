@@ -3,17 +3,18 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Cetak Formulir</title>
+    <title>Cetak Kwitansi</title>
     <link href="<?php echo assets_url() ?>css/bootstrap.min.css" rel="stylesheet">
     <!-- Normalize or reset CSS with your favorite library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
     <!-- Load paper.css for happy printing -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
-    <link href="<?php echo assets_url() ?>css/style.css" rel="stylesheet">
     <!-- Set page size here: A5, A4 or A3 -->
     <!-- Set also "landscape" if you need -->
     <style>
+
      @page{size:A5}hr.style-eight{overflow:visible;padding:0;border:none;border-top:medium double #333;color:#333;text-align:center;margin-top:10px}.row{line-height:1.5}.row:after,.row:before{display:table;content:" "}.row:after{clear:both}.outer{margin:auto;position:relative}.sheet.padding-5mm{padding:5mm}.sheet.padding-7mm{padding:7mm}.sheet.padding-10mm{padding:10mm}.sheet.padding-15mm{padding:15mm}.sheet.padding-20mm{padding:20mm}.sheet.padding-25mm{padding:25mm}
+
     </style>
     <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
     <script type="text/javascript">
@@ -28,9 +29,8 @@
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 
+
 <body class="A5 landscape">
-    <!-- Each sheet element should have the class "sheet" -->
-    <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
     <section>
         <div class="text-center">
             <div class="btn-group" style="">
@@ -39,6 +39,7 @@
             </div>
         </div>
     </section>
+
     <section class="sheet padding-10mm" style="padding-top: 0px;">
         <!-- Write HTML just like a web page -->
         <article>
@@ -53,15 +54,16 @@
             </header>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h2 style="margin-top:0px;padding:10px;border: medium double #333;font-weight: 700" align="center">K W I T A N S I</h2>
+                    <h2 style="margin-top:0px;padding:8px;border: medium double #333;font-weight: 700" align="center">K W I T A N S I</h2>
                 </div>
             </div>
+            <div style="margin-left: 5px;">
             <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <h4>No. Kwitansi</h4>
+                    <h4 style="height: 2mm">No. Kwitansi</h4>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <h4>: <?php 
+                    <h4 style="height: 2mm">: <?php 
                                 $date=date("ymd");
                                 $no="0000".$data['id'];
                                 $right=substr($no,-4);
@@ -71,18 +73,26 @@
             </div>
             <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <h4>No Pendaftaran</h4>
+                    <h4 style="height: 2mm">No Pendaftaran</h4>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <h4>: <?php echo $data['noreg_pmb'] ?></h4>
+                    <h4 style="height: 2mm">: <?php echo $data['noreg_pmb'] ?></h4>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <h4 style="height: 2mm">Terima Dari</h4>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    <h4 style="height: 2mm">: <?php echo $data['nm_cmhs'] ?></h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <h4>Untuk Pembayaran</h4>
+                    <h4 style="height: 2mm">Untuk Pembayaran</h4>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <h4>: Pendaftaran PMB <?php echo (isset($detail)||!empty($detail))?$detail['keterangan']:'' ?></h4>
+                    <h4 style="height: 2mm">: Pendaftaran PMB <?php echo (isset($detail)||!empty($detail))?$detail['keterangan']:'' ?></h4>
                 </div>
             </div>
             <div class="row">
@@ -93,12 +103,13 @@
                     <h4>: <?php echo (!empty($detail['kodetarifdaftar'])||$detail['kodetarifdaftar']!=null)?terbilang($detail['kodetarifdaftar'])." RUPIAH":''; ?></h4>
                 </div>
             </div>
+            </div>
             <div class="row">
                 <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
                     &nbsp;
                 </div>
                 <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
-                    <h2 style="background-color:#dddddd;font-style:italic;margin-top:0px;padding:10px;border: medium double #333;font-weight: 700" align="right"><?php echo (!empty($detail['kodetarifdaftar'])||$detail['kodetarifdaftar']!=null)?'Rp.'.rp($detail['kodetarifdaftar']):''; ?></h2>
+                    <h2 style="background-color:#dddddd;font-style:italic;margin-top:0px;padding:5px;border: medium double #333;font-weight: 700" align="right"><?php echo (!empty($detail['kodetarifdaftar'])||$detail['kodetarifdaftar']!=null)?'Rp.'.rp($detail['kodetarifdaftar']):''; ?></h2>
                 </div>
             </div>
             <div class="row" style="text-align:center">
@@ -111,15 +122,17 @@
                         <br> Calon Mahasiswa</p>
                 </div>
             </div>
-            <div class="row" style="margin-top: 80px;text-align:center">
+            <div class="row" style="margin-top: 50px;text-align:center">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <p>
                         <?php $user = $this->ion_auth->user()->row(); 
+
             if (!empty($user)):
                 $userid=$user->id;
                 $username=$user->username; //untuk field $User
                 $first=$user->first_name; //untuk field $User
                 echo $first;
+
             endif;?>
                     </p>
                 </div>
@@ -127,6 +140,7 @@
                     <?php echo $data['nm_cmhs'] ?>
                 </div>
             </div>
+
             <?php else: ?>
             <h2>Data tidak ditemukan</h2>
             <?php endif; ?>
@@ -145,6 +159,7 @@
         thead {
             font-weight: 700;
         }
+
         .inner {
             height: 40mm;
             width: 30mm;
@@ -155,9 +170,10 @@
         h1 {
             font-weight: 700;
         }
-        h1 {
-            font-weight: 700;
+        h4 {
+            height: 20mm;
         }
+
     }
     </style>
 </body>

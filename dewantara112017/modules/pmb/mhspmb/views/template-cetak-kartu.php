@@ -51,7 +51,7 @@
             </div>
         </div>
     </section>
-    <section class="sheet padding-3mm" style="padding-top: 0px;margin-top: 0px;">
+    <section class="sheet padding-5mm" style="padding-top: 0px;margin-top: 0px;">
         <!-- Write HTML just like a web page -->
         <article>
             <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmbgel($data['gelid']);?>
