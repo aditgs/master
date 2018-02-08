@@ -15,33 +15,33 @@ class mhspmb extends MX_Controller {
         
         $this->template->add_js('datatables.js');
         $this->template->add_js('muria.js');
-        $this->template->add_js('crud.0.1.js');
+        $this->template->add_js('crud.0.2.ajaxupload.js');
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
- /*       $this->template->add_js('accounting.min.js');
+        $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
         $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
-        */
+        
         /*ONLINE CDN*/
-        $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
+       /* $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
         $this->template->add_js('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js','cdn');
         $this->template->add_js('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js','cdn');
         $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css','cdn');
         $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css','cdn');
         $this->template->add_js('https://cdn.jsdelivr.net/jquery.maskmoney/3.0.2/jquery.maskMoney.min.js','cdn');
-        $this->template->add_js('https://cdn.jsdelivr.net/accounting.js/0.3.2/accounting.min.js','cdn');
+        $this->template->add_js('https://cdn.jsdelivr.net/accounting.js/0.3.2/accounting.min.js','cdn');*/
         
         $this->template->add_js('datepicker.js'); //tanggal
     }
 
  
 
-    public function index() {
+    public function indexx() {
         $this->template->set_title('Kelola Calon Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
         // $this->template->add_js('modules/mhspmb.js');  
@@ -53,6 +53,32 @@ class mhspmb extends MX_Controller {
             'opt_gel'=>$this->pmbdb->getdropgel(),
             'breadcrumb'=>array(
             'Siakad_mhs_pmb'),
+        ));
+
+        
+    
+    } 
+    public function index() {
+        $this->template->set_title('Kelola Calon Mahasiswa');
+        $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
+            $this->template->add_js('var filesurl="'.domain().'uploads/files/";','embed');  
+        // $this->template->add_js('modules/mhspmb.js');
+             $this->template->add_js('jquery.ui.widget.js');
+        $this->template->add_js('jquery.fileupload.js');
+        $this->template->add_js('uploader.js');  
+        $this->template->load_view('siakad_mhs_pmb_view',array(
+            'view'=>'',
+            'title'=>'Kelola Data Calon Mahasiswa',
+            'subtitle'=>'Pengelolaan Calon Mahasiswa',
+            'opt_kelas'=>$this->pmbdb->getdropkelas(),
+            'opt_gel'=>$this->pmbdb->getdropgel(),
+            'breadcrumb'=>array(
+            'Siakad_mhs_pmb'),
+                'uppath'=>UPPATH,
+            'homepath'=>HOMEPATH,
+            'syspath'=>SYSDIR,
+            'basepath'=>BASEPATH,
+            'fcpath'=>FCPATH,
         ));
 
         
@@ -77,7 +103,7 @@ class mhspmb extends MX_Controller {
         $this->template->add_js('var filesurl="'.domain().'uploads/files/";','embed');  
         $this->template->add_js('jquery.ui.widget.js');
         $this->template->add_js('jquery.fileupload.js');
-        $this->template->add_js('uploader.js');
+        // $this->template->add_js('uploader.js');
         $this->template->load_view('siakad_mhs_pmb_view',array(
             'view'=>'formcalonmhsupload',
             'title'=>'Kelola Data Calon Mahasiswa',
@@ -113,8 +139,9 @@ class mhspmb extends MX_Controller {
             }*/
             if (!$is_file_error) {
                 $this->load->library('upload', $config);
-                if (!$this->upload->do_upload('image_name')) {
-                    $this->handle_error($this->upload->display_errors());
+                if (!$this->upload->do_upload('img_pasfoto')) {
+                    // $this->handle_error($this->upload->display_errors());
+                    $this->upload->display_errors();
                     $is_file_error = TRUE;
                 } else {
                     $image_data = $this->upload->data();
@@ -126,7 +153,8 @@ class mhspmb extends MX_Controller {
                     $config['height'] = 151;
                     $this->load->library('image_lib', $config);
                     if (!$this->image_lib->resize()) {
-                        $this->handle_error($this->image_lib->display_errors());
+                        // $this->handle_error($this->image_lib->display_errors());
+                        $this->image_lib->display_errors();
                     }
 
                     echo "oke disni";
@@ -140,11 +168,11 @@ class mhspmb extends MX_Controller {
                         unlink($file);
                     }
                 }
-                    echo json_encode(array('st'=>0,'msg'=>$this->error));
+                   return json_encode(array('st'=>0,'msg'=>$this->error));
             } else {
                 $data['resize_img'] = $upload_path . $image_data['file_name'];
                 $this->handle_succes('Gambar berhasil di upload <strong>' . $upload_path . '</strong> dan di resize');
-                    echo json_encode(array('st'=>1,'msg'=>$this->success));
+                    return json_encode(array('st'=>1,'msg'=>$this->success));
             }
         // }
 
@@ -344,11 +372,11 @@ public function fileupload()
         $this->load->library('upload', $config);
         
         // file_logo
-        if (!$this->upload->do_upload('img_pasfoto')) {
+        if (!$this->upload->do_upload('images')) {
             log_message('error', $this->upload->display_errors('', ''));
             $error = array('error' => $this->upload->display_errors());
             
-            return json_encode(array('st'=>0,'msg'=>$error));
+            echo json_encode(array('st'=>0,'msg'=>$error));
 
         } else {
             $file = $this->upload->data();
@@ -369,10 +397,12 @@ public function fileupload()
                 'timestamp'=>NOW(),
                 );
             $this->db->insert('files',$data);
+            $idimages=$this->db->insert_id();
             // print_r($file);
-
-
-           return json_encode(array('st'=>'1','msg'=>'File berhasil diupload','data'=>$data,'file'=>$info, 'files' => array($info)));
+            echo json_encode(array('st'=>1,'msg'=>'Pasfoto berhasil diupload','filename'=>$file['file_name'],'id'=>$idimages));
+             // echo json_encode(array('files' => array($info)));
+           // echo json_encode(array('st'=>'1','msg'=>'File berhasil diupload','data'=>$data,'file'=>$info, 'files' => array($info)));
+           // echo json_encode(array('st'=>'1','msg'=>'File berhasil diupload','imgurl'=>$info['url'],'filename'=>$file['file_name']));
 
         }
     }
@@ -464,7 +494,7 @@ public function resize_image($file_path, $width, $height) {
         $this->load->view('siakad_mhs_pmb_data');
     }
 
-    function getone($id=null){
+    function getonex($id=null){
         if($id!==null){
             $data=$this->pmbdb->get_one($id);
             $jml=count($data);
@@ -491,6 +521,11 @@ public function resize_image($file_path, $width, $height) {
       
         }
       
+    }
+    function getone($id){
+        $data=$this->pmbdb->get_one($id);
+        $html=$this->load->view('view-detail-mhs',array('data'=>$data),true);
+        $this->output->set_output($html);
     }
 
 function __formvalidation(){
@@ -527,7 +562,7 @@ function __formvalidation(){
           }else{
             //$this->pmbdb->save();
             $this->pmbdb->saveas();
-            // $this->unggahfoto();
+            // echo $this->unggahfoto();
           }
 
         }else{
@@ -537,7 +572,7 @@ function __formvalidation(){
               }else{
                 //$this->pmbdb->save();
                 $this->pmbdb->saveas();
-                // $this->unggahfoto();
+                // echo $this->unggahfoto();
               }
           }
         }
