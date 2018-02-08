@@ -159,6 +159,7 @@ class Pmb_gelombang_model extends CI_Model {
             'date_her_end' => $this->input->post('date_her_end', TRUE),
            
             'date_pengumuman' => $this->input->post('date_pengumuman', TRUE),
+            'isactive' => '1',
            
             'userid' => userid(),
            
@@ -198,6 +199,7 @@ class Pmb_gelombang_model extends CI_Model {
             'date_her_end' => $this->input->post('date_her_end', TRUE),
            
             'date_pengumuman' => $this->input->post('date_pengumuman', TRUE),
+            'isactive' => '1',
            
             'userid' => userid(),
            
@@ -264,6 +266,7 @@ class Pmb_gelombang_model extends CI_Model {
        'date_her_end' => $this->input->post('date_her_end', TRUE),
        
        'date_pengumuman' => $this->input->post('date_pengumuman', TRUE),
+       'isactive' => $this->input->post('isactive', TRUE),
        
        'userid' => userid(),
        

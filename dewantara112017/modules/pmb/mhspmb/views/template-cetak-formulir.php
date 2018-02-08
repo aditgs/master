@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
     <!-- Load paper.css for happy printing -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <link href="<?php echo assets_url() ?>css/style.css" rel="stylesheet">
     <!-- Set page size here: A5, A4 or A3 -->
     <!-- Set also "landscape" if you need -->
     <style>
@@ -16,34 +17,52 @@
         size: A4 
     }
 
-    hr.style-eight {
-    overflow: visible;
-    padding: 0;
-    border: none;
-    border-top: medium double #333;
-    color: #333;
-    text-align: center;
-    margin-top: 10px;
-}
-    .row-m-t{
+        hr.style-eight {
+        overflow: visible;
+        padding: 0;
+        border: none;
+        border-top: medium double #333;
+        color: #333;
+        text-align: center;
         margin-top: 10px;
-        margin-left: 10px;
     }
-    .row-m-t-1{
-        margin-top: 5px;
-        margin-left: 10px;
+        .row-m-t{
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .row-m-t-1{
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+        .row{
+    line-height: 1.5;
+}
+.row:after,
+.row:before {
+    display: table;
+    content: " "
+}
+.row:after {
+    clear: both
+}
+        .outer {
+        /*background-color:red;*/
+        margin: auto;
+        position:relative
     }
-    .outer {
-    /*background-color:red;*/
-    margin: auto;
-    position:relative
-}
-    .inner {
-    height: 150px;
-    width:125px;
-    border:1px solid black;
-    position:absolute; right:0
-}
+        .inner {
+        height: 150px;
+        width:125px;
+        border:1px solid black;
+        position:absolute; right:0
+    }
+        /** Padding area **/
+    .sheet.padding-5mm { padding: 5mm }
+    .sheet.padding-7mm { padding: 7mm }
+    .sheet.padding-10mm { padding: 10mm }
+    .sheet.padding-15mm { padding: 15mm }
+    .sheet.padding-20mm { padding: 20mm }
+    .sheet.padding-25mm { padding: 25mm }
     </style>
     <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
     <script type="text/javascript">
@@ -63,46 +82,31 @@
     <section class="no-print">
         <div class="text-center">
                 <div class="btn-group" style="">
-                    <a class="print no-print btn btn-lg btn-primary" href="<?php echo base_url('mhspmb/cetakformulir/'.base64_encode('pdf')) ?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
+                    <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
                     <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
                 </div>
             </div>
     </section>
-    <section class="sheet padding-10mm">
+    <section class="sheet padding-5mm"  style="padding-top: 0px;">
         <!-- Write HTML just like a web page -->
         <article>
             <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmbgel($data['gelid'])?>
-            <header>
+            <header style="display:block;">
                 <div style="clear: left;">
                     <p style="float: left;"><img src="<?= assets_url('images/logo.png') ?>" height="125px" width="125px" border="1px"></p>
-                    <h1 align="center">STIE PGRI DEWANTARA JOMBANG</h1>
-                    <h5 align="center">Jl. Prof. Moh. Yamin No.77 Telp.(0321)865180, Fax.(0321)853807 Jombang, Jawa Timur</h5>
-                    <h5 align="center"> Website : www.stiedewantara.ac.id </h5>
-                    <h5 align="center"> e-mail : info@stiedewantara.ac.id</h5>
+                    <h1 class="text-center">STIE PGRI DEWANTARA JOMBANG</h1>
+                    <h4 align="center" style="font-weight: 700">Jl. Prof. Moh. Yamin No.77 Telp.(0321) 865180, Fax.(0321) 853807 Jombang, Jawa Timur</h4>
+                    <h4 align="center"> Website : www.stiedewantara.ac.id </h4>
+                    <h4 align="center"> e-mail : info@stiedewantara.ac.id</h4>
                 </div>
             </header>
-            <!-- <table class="col-xs-12"> -->
-                <!-- <thead> -->
-                    <!-- <tr> -->
-                        <!-- <td class="margin-right:50px"><img alt="image" style="width:125px;" src="<?= assets_url('images/logo.png') ?>" /></td> -->
-                        <!-- <td colspan="4"> -->
-                            <!-- <h1>STIE PGRI DEWANTARA JOMBANG</h1> Jl. Prof. Moh. Yamin No.77 Telp.(0321)865180, Fax.(0321)853807 Jombang, Jawa Timur -->
-                            <!-- <br> Website : www.stiedewantara.ac.id -->
-                            <!-- <br> e-mail : info@stiedewantara.ac.id</td> -->
-                    <!-- </tr> -->
-                <!-- </thead> -->
 
-            <!-- </table> -->
-            <br>
             <hr class="style-eight">
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <p align="center" style="font-size: 18px">FORMULIR PENDAFTARAN MAHASISWA BARU <br>
-                        Tahun Akademik 2018/2019
-                    </p>
-                    <br>
-                    
+                    <h3  style="font-weight: 700" align="center">FORMULIR PENDAFTARAN MAHASISWA BARU</h3>
+                        <h4 align="center">Tahun Akademik 2018/2019</h4>                    
                 </div>
             </div>
 
@@ -116,7 +120,7 @@
                     : <?php echo $data['noreg_pmb'] ?>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 inner">
-                    <p align="center">Pas Foto</p>
+                    <p align="center" style="padding-top: 15mm">Pas Foto</p>
                 </div>
             </div>
 
@@ -158,16 +162,21 @@
                     Pilihan Kelas
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    : <?php echo $data['id_siakad_kelas'] ?>
+                    : <?php 
+                    $kelas=$this->pmbdb->getpmbkelas($data['id_siakad_kelas']);
+
+                    // echo $data['id_siakad_kelas'] 
+                    echo isset($kelas['inisial_kelas'])?"(".$kelas['inisial_kelas'].") ".$kelas['nm_kelas']:'';
+                    ?>
                 </div>
             </div>
 
             <div class="row row-m-t-1">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    Tempat Lahir
+                    Tempat Tanggal Lahir
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    : <?php echo $data['tmp_cmhs'] ?>
+                    : <?php echo $data['tmp_cmhs'].", ".$data['tgl_cmhs'] ?>
                 </div>
             </div>
 
@@ -282,7 +291,7 @@
                     Tanggal Lulus
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    : <?php echo $data['tgl_ijazah_pend'] ?>
+                    : <?php echo tanggalindo($data['tgl_ijazah_pend']) ?>
                 </div>
             </div>
 
@@ -300,7 +309,7 @@
                     <p>Panitia PMB</p>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <p>Jombang, <?php echo thedate($data['tgl_reg_pmb'])?><br>
+                    <p>Jombang, <?php echo tanggalindo($data['tgl_reg_pmb'],true)?><br>
                     Calon Mahasiswa</p>
                 </div>
             </div>
@@ -338,6 +347,14 @@
         thead {
             font-weight: 700;
         }
+         .inner {
+            height: 40mm;
+            width:30mm;
+            border:1px solid black;
+            position:absolute; right:0
+        }
+        h1{font-weight: 700;}
+        h1{font-weight: 700;}
     }
     </style>
 </body>

@@ -1,7 +1,6 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 class mhspmb extends MX_Controller {
-
     function __construct() {
         parent::__construct();
           
@@ -16,31 +15,33 @@ class mhspmb extends MX_Controller {
         
         $this->template->add_js('datatables.js');
         $this->template->add_js('muria.js');
-        $this->template->add_js('crud.0.1.js');
+        $this->template->add_js('crud.0.2.ajaxupload.js');
         $this->template->set_layout('dashboard');
 
         /*UNTUK KEPERLUAN FORM*/
- /*       $this->template->add_js('accounting.min.js');
+        $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
         $this->template->add_css('plugins/datapicker/datepicker3.css');
         $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
         $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
-        */
+        
         /*ONLINE CDN*/
-        $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
+       /* $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css','cdn');
         $this->template->add_js('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js','cdn');
         $this->template->add_js('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js','cdn');
         $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css','cdn');
         $this->template->add_css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css','cdn');
         $this->template->add_js('https://cdn.jsdelivr.net/jquery.maskmoney/3.0.2/jquery.maskMoney.min.js','cdn');
-        $this->template->add_js('https://cdn.jsdelivr.net/accounting.js/0.3.2/accounting.min.js','cdn');
+        $this->template->add_js('https://cdn.jsdelivr.net/accounting.js/0.3.2/accounting.min.js','cdn');*/
         
         $this->template->add_js('datepicker.js'); //tanggal
     }
 
-    public function index() {
+ 
+
+    public function indexx() {
         $this->template->set_title('Kelola Calon Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
         // $this->template->add_js('modules/mhspmb.js');  
@@ -53,6 +54,35 @@ class mhspmb extends MX_Controller {
             'breadcrumb'=>array(
             'Siakad_mhs_pmb'),
         ));
+
+        
+    
+    } 
+    public function index() {
+        $this->template->set_title('Kelola Calon Mahasiswa');
+        $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
+            $this->template->add_js('var filesurl="'.domain().'uploads/files/";','embed');  
+        // $this->template->add_js('modules/mhspmb.js');
+             $this->template->add_js('jquery.ui.widget.js');
+        $this->template->add_js('jquery.fileupload.js');
+        $this->template->add_js('uploader.js');  
+        $this->template->load_view('siakad_mhs_pmb_view',array(
+            'view'=>'',
+            'title'=>'Kelola Data Calon Mahasiswa',
+            'subtitle'=>'Pengelolaan Calon Mahasiswa',
+            'opt_kelas'=>$this->pmbdb->getdropkelas(),
+            'opt_gel'=>$this->pmbdb->getdropgel(),
+            'breadcrumb'=>array(
+            'Siakad_mhs_pmb'),
+                'uppath'=>UPPATH,
+            'homepath'=>HOMEPATH,
+            'syspath'=>SYSDIR,
+            'basepath'=>BASEPATH,
+            'fcpath'=>FCPATH,
+        ));
+
+        
+    
     }
     public function data() {
         $this->template->set_title('Kelola Calon Mahasiswa');
@@ -65,17 +95,90 @@ class mhspmb extends MX_Controller {
             'Siakad_mhs_pmb'),
         ));
     }
-     public function baru() {
+    public function baru() {
         $this->template->set_title('Kelola Calon Mahasiswa');
         $this->template->add_js('var baseurl="'.base_url().'mhspmb/";','embed');  
+        // $this->template->add_js('modules/mhspmb.js');  
+        // $this->template->add_js('var baseurl="'.base_url().'uploader/";','embed');  
+        $this->template->add_js('var filesurl="'.domain().'uploads/files/";','embed');  
+        $this->template->add_js('jquery.ui.widget.js');
+        $this->template->add_js('jquery.fileupload.js');
+        // $this->template->add_js('uploader.js');
         $this->template->load_view('siakad_mhs_pmb_view',array(
-            'view'=>'',
+            'view'=>'formcalonmhsupload',
             'title'=>'Kelola Data Calon Mahasiswa',
             'subtitle'=>'Pengelolaan Calon Mahasiswa',
+            'opt_kelas'=>$this->pmbdb->getdropkelas(),
+            'opt_gel'=>$this->pmbdb->getdropgel(),
             'breadcrumb'=>array(
             'Siakad_mhs_pmb'),
+            'uppath'=>UPPATH,
+            'homepath'=>HOMEPATH,
+            'syspath'=>SYSDIR,
+            'basepath'=>BASEPATH,
+            'fcpath'=>FCPATH,
+            'updir'=>UPDIR
         ));
-        
+    }
+
+    function unggahfoto()
+    {
+        // if ($this->input->post("image_upload")) {
+            $upload_path = $this->_dir_path();
+            $config['upload_path'] = $upload_path;
+            $config['allowed_types'] = 'jpg|png|gif|jpeg';
+            $config['max_size'] = '0';
+            $config['max_filename'] = '255';
+            $config['encrypt_name'] = FALSE;
+            $config['cerate_thumb'] = TRUE;
+            $image_data = array();
+            $is_file_error = FALSE;
+           /* if (!$_FILES) {
+                $is_file_error = TRUE;
+                $this->handle_error('Pilih file gambar.');
+            }*/
+            if (!$is_file_error) {
+                $this->load->library('upload', $config);
+                if (!$this->upload->do_upload('img_pasfoto')) {
+                    // $this->handle_error($this->upload->display_errors());
+                    $this->upload->display_errors();
+                    $is_file_error = TRUE;
+                } else {
+                    $image_data = $this->upload->data();
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = $image_data['full_path'];
+                    $config['maintain_ratio'] = TRUE;
+                    $config['create_thumb'] = TRUE;
+                    $config['width'] = 113;
+                    $config['height'] = 151;
+                    $this->load->library('image_lib', $config);
+                    if (!$this->image_lib->resize()) {
+                        // $this->handle_error($this->image_lib->display_errors());
+                        $this->image_lib->display_errors();
+                    }
+
+                    echo "oke disni";
+                }
+            }
+
+            if ($is_file_error) {
+                if ($image_data) {
+                    $file = $upload_path . $image_data['file_name'];
+                    if (file_exists($file)) {
+                        unlink($file);
+                    }
+                }
+                   return json_encode(array('st'=>0,'msg'=>$this->error));
+            } else {
+                $data['resize_img'] = $upload_path . $image_data['file_name'];
+                $this->handle_succes('Gambar berhasil di upload <strong>' . $upload_path . '</strong> dan di resize');
+                    return json_encode(array('st'=>1,'msg'=>$this->success));
+            }
+        // }
+
+        // $data['errors'] = $this->error;
+        // $data['success'] = $this->success;
+        // $this->load->view('formcalonmhsupload', $data);
     }
 
     function getnewfaktur(){
@@ -168,7 +271,7 @@ class mhspmb extends MX_Controller {
             $html=$this->load->view('template-cetak-kwitansi',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                kwitansipmb($html, 'INV#'.$id."-".date('d-m-Y-Hms'),TRUE);
+                kwitansipmb($html, 'INV#'.$id."-".date('d-m-Y-Hms'));
             }else{          
                 echo ($html);
             }
@@ -184,6 +287,24 @@ class mhspmb extends MX_Controller {
             $this->template->set_layout('cetak');
            
             $html=$this->load->view('template-cetak-kartu',array('data'=>$data,'baseurl'=>base_url()),TRUE);
+            if(!empty($pdf)||$pdf!=null){
+                $this->load->helper(array('dompdf', 'file'));
+                kartupmb($html, 'ID#'.$id.date('d-m-Y-Hms'),TRUE);
+            }else{          
+                echo ($html);
+            }
+        }
+    } 
+    function cetakkartu2($id,$pdf=true){
+
+        $id=base64_decode($id);
+        $pdf=base64_decode($pdf);
+
+        if($id!=null){
+            $data=$this->pmbdb->get_one($id);
+            $this->template->set_layout('cetak');
+           
+            $html=$this->load->view('template-cetak-kartu-backup2',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
                 kartupmb($html, 'ID#'.$id.date('d-m-Y-Hms'),TRUE);
@@ -210,6 +331,135 @@ class mhspmb extends MX_Controller {
             }
         }
     }
+    /*UPLOAD*/
+    public function filebrowse()
+    {
+        $files = array();
+        
+        $this->load->helper('file');
+        $filenames = get_filenames($this->_dir_path());
+        if ($filenames) {
+            sort($filenames);
+            foreach ($filenames as $filename) {
+                $url = $this->_file_url($filename);
+                $files[] = array(
+                    'name' => $filename, 
+                    'size' =>filesize($this->_file_path($filename)),
+                    'url' => $this->_file_url($filename),
+                    // 'thumbnail_url' => $this->_file_url("thumbnail-".$file['file_name']),
+                    'delete' => $this->_delete_url()
+                );
+            }
+        }
+        
+        echo json_encode(array('files' => $files));
+    }
+    public function saveimage()
+    {
+        echo $this->fileupload();
+    }
+public function fileupload()
+    {
+        $config['upload_path'] = $this->_dir_path();
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        // $config['max_size'] = '1024';
+        // $config['max_width']  = '1024';
+        // $config['max_height']  = '768';
+        $config['file_name'] = date('YmdHis');
+        // $filename;
+        // $config['allowed_types']='rar|RAR|Rar|zip|Zip|ZIP|docx|DOCX|DOC|Doc|doc|PDF|pdf|Pdf|ODT|odt|Odt';
+
+        $this->load->library('upload', $config);
+        
+        // file_logo
+        if (!$this->upload->do_upload('images')) {
+            log_message('error', $this->upload->display_errors('', ''));
+            $error = array('error' => $this->upload->display_errors());
+            
+            echo json_encode(array('st'=>0,'msg'=>$error));
+
+        } else {
+            $file = $this->upload->data();
+            // echo var_dump($file);
+            $info['name'] = $file['file_name'];
+            $info['size'] = $file['file_size'];
+            $info['type'] = $file['file_type'];
+            $info['url'] = $this->_file_url($file['file_name']);
+            $info['thumbnail_url'] = $this->_file_url("thumbnail-".$file['file_name']);
+            $info['delete_url'] = $this->_delete_url();
+            $info['delete_type'] = 'DELETE';
+           
+            $data=array(
+                'filename'=>$file['file_name'],
+                'url'=>$info['url'],
+                'type'=>$file['file_type'],
+                'user_id'=>userid(),
+                'timestamp'=>NOW(),
+                );
+            $this->db->insert('files',$data);
+            $idimages=$this->db->insert_id();
+            // print_r($file);
+            echo json_encode(array('st'=>1,'msg'=>'Pasfoto berhasil diupload','filename'=>$file['file_name'],'id'=>$idimages));
+             // echo json_encode(array('files' => array($info)));
+           // echo json_encode(array('st'=>'1','msg'=>'File berhasil diupload','data'=>$data,'file'=>$info, 'files' => array($info)));
+           // echo json_encode(array('st'=>'1','msg'=>'File berhasil diupload','imgurl'=>$info['url'],'filename'=>$file['file_name']));
+
+        }
+    }
+public function resize_image($file_path, $width, $height) {
+
+        $this->load->library('image_lib');
+
+        $img_cfg['image_library'] = 'gd2';
+        $img_cfg['source_image'] = $file_path;
+        $img_cfg['maintain_ratio'] = TRUE;
+        $config['create_thumb'] = TRUE;
+        $img_cfg['new_image'] = $file_path;
+        $img_cfg['width'] = $width;
+        $img_cfg['quality'] = 100;
+        $img_cfg['height'] = $height;
+
+        $this->image_lib->initialize($img_cfg);
+        $this->image_lib->resize();
+
+    }
+    public function filedelete()
+    {
+        $file = $this->input->post('file');
+        
+        $this->load->helper('security');
+        $file = sanitize_filename($file);
+        
+        $dir_path = $this->_dir_path();
+        $this->filesdb->deletefile($file);
+        @unlink("{$dir_path}{$file}");
+        
+        echo json_encode(array('result' => 'success','source'=>$dir_path.$file));
+    }
+    private function _dir_path()
+    {
+        // return HOMEPATH."/files/ckeditor/";
+        // return APPPATH."files/ckeditor/";
+        // print_r(UPDIR."files/images");
+        return UPDIR."files/images/";
+    }
+    
+    private function _file_path($filename)
+    {
+        $dir_path = $this->_dir_path();
+        return "{$dir_path}{$filename}";
+    }
+    
+    private function _file_url($filename)
+    {
+        return files_url()."/images/{$filename}";
+    }
+    
+    private function _delete_url()
+    {
+        return base_url()."uploader/filedelete";
+    }
+    /*END OF UPLOAD*/
 
     function enkrip(){
         return md5($this->session->userdata('lihat').":".$this->getuser()."+".date('H:m'));
@@ -244,7 +494,7 @@ class mhspmb extends MX_Controller {
         $this->load->view('siakad_mhs_pmb_data');
     }
 
-    function getone($id=null){
+    function getonex($id=null){
         if($id!==null){
             $data=$this->pmbdb->get_one($id);
             $jml=count($data);
@@ -272,12 +522,18 @@ class mhspmb extends MX_Controller {
         }
       
     }
+    function getone($id){
+        $data=$this->pmbdb->get_one($id);
+        $html=$this->load->view('view-detail-mhs',array('data'=>$data),true);
+        $this->output->set_output($html);
+    }
 
 function __formvalidation(){
         $this->form_validation->set_rules('kode_prodi', 'Kode Prodi', 'required|trim|xss_clean');
         $this->form_validation->set_rules('nm_cmhs','Nama Calon Mahasiswa','required|trim|xss_clean');
         $this->form_validation->set_rules('kelamin_cmhs','Jenis Kelamin Calon Mahasiswa','required|trim|xss_clean'); 
         $this->form_validation->set_rules('agama_cmhs','Agama Calon Mahasiswa','required|trim|xss_clean');
+        $this->form_validation->set_rules('gelid','Gelombang PMB','required|trim|xss_clean');
         $this->form_validation->set_rules('tgl_ijazah_pend','Tanggal Ijazah','required|trim|xss_clean');
         $this->form_validation->set_rules('status_cmhs','Status Pendaftaran Calon Mahasiswa','required|trim|xss_clean');
 
@@ -306,6 +562,7 @@ function __formvalidation(){
           }else{
             //$this->pmbdb->save();
             $this->pmbdb->saveas();
+            // echo $this->unggahfoto();
           }
 
         }else{
@@ -315,6 +572,7 @@ function __formvalidation(){
               }else{
                 //$this->pmbdb->save();
                 $this->pmbdb->saveas();
+                // echo $this->unggahfoto();
               }
           }
         }
