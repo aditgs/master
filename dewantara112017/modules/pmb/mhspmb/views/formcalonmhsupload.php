@@ -262,7 +262,8 @@
                 <span class="btn btn-md btn-success fileinput-button">
                             <i class="fa fa-plus icon-white"></i>
                             <span>Upload Foto</span>
-                <input type="file" name="image" data-url="<?php echo base_url() ?>mhspmb/fileupload" multiple="multiple" />
+                            <img id="blah" alt="your image" width="150" height="150" />
+                <input type="file" name="image" data-url="<?php echo base_url() ?>mhspmb/fileupload" multiple="multiple" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" />
                 </span>
                 
                 <div class="fileupload-progress fade">
@@ -277,16 +278,16 @@
                 </div>
             </div>
         </div>
-      
-         
     </div>
+    
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div id="FILEUPLOAD" class="controls">
             <div class="uploader">
                 <span class="btn btn-md btn-success fileinput-button">
                             <i class="fa fa-plus icon-white"></i>
                             <span>Upload Foto</span>
-                <input type="file" name="image" data-url="<?php echo base_url() ?>mhspmb/fileupload" multiple="multiple" />
+                <img id="blah" alt="your image" width="150" height="150" />
+                <input type="file" name="image" data-url="<?php echo base_url() ?>mhspmb/fileupload" multiple="multiple" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" />
                 </span>
                 
                 <div class="fileupload-progress fade">
@@ -311,10 +312,7 @@
             </table>
         </div>
     </div>
-   
-          
-               
-               
+
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
@@ -324,3 +322,43 @@
     </div>
     <?php echo form_close();?>
 </div>
+
+
+<script type="text/javascript">
+    $('body').on('change','#image_name',function(){
+        image=$(this).val();
+        // e.preventDefault();
+        $.post($(this).data('url'),{image_name:image},function(data,status){
+            if(status=='success'){
+                handleUpload(data);
+            }
+        }); 
+    });
+    function changeimage(){
+        var url=baseurl+'unggahfoto';
+        image=$('#image_name').val();
+        // e.preventDefault();
+        $.post(url,{image:image},function(data,status){
+            if(status=='success'){
+                alert('oke');
+                // handleUpload(data);
+            }
+        }); 
+    }
+    function handleUpload(data) {
+        dx = JSON.parse(data);
+        if (dx.st == 1) {
+            // alert("Sukses"+dx.msg);
+            $('#modal-notif').modal('toggle');
+            $('#modal-notif .modal-body').html(dx.msg);
+
+        } else {
+            $('#modal-alert').modal('toggle');
+            $('#modal-alert .modal-body').html(dx.msg);
+            // alert(dx.msg);
+
+        }
+
+    }
+</script>
+

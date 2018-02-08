@@ -3,17 +3,18 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Cetak Formulir</title>
+    <title>A5 landscape</title>
     <link href="<?php echo assets_url() ?>css/bootstrap.min.css" rel="stylesheet">
     <!-- Normalize or reset CSS with your favorite library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
     <!-- Load paper.css for happy printing -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
-    <link href="<?php echo assets_url() ?>css/style.css" rel="stylesheet">
     <!-- Set page size here: A5, A4 or A3 -->
     <!-- Set also "landscape" if you need -->
     <style>
+
      @page{size:A5}hr.style-eight{overflow:visible;padding:0;border:none;border-top:medium double #333;color:#333;text-align:center;margin-top:10px}.row{line-height:1.5}.row:after,.row:before{display:table;content:" "}.row:after{clear:both}.outer{margin:auto;position:relative}.sheet.padding-5mm{padding:5mm}.sheet.padding-7mm{padding:7mm}.sheet.padding-10mm{padding:10mm}.sheet.padding-15mm{padding:15mm}.sheet.padding-20mm{padding:20mm}.sheet.padding-25mm{padding:25mm}
+
     </style>
     <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
     <script type="text/javascript">
@@ -28,9 +29,8 @@
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 
+
 <body class="A5 landscape">
-    <!-- Each sheet element should have the class "sheet" -->
-    <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
     <section>
         <div class="text-center">
             <div class="btn-group" style="">
@@ -39,6 +39,7 @@
             </div>
         </div>
     </section>
+
     <section class="sheet padding-10mm" style="padding-top: 0px;">
         <!-- Write HTML just like a web page -->
         <article>
@@ -115,11 +116,13 @@
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <p>
                         <?php $user = $this->ion_auth->user()->row(); 
+
             if (!empty($user)):
                 $userid=$user->id;
                 $username=$user->username; //untuk field $User
                 $first=$user->first_name; //untuk field $User
                 echo $first;
+
             endif;?>
                     </p>
                 </div>
@@ -127,6 +130,7 @@
                     <?php echo $data['nm_cmhs'] ?>
                 </div>
             </div>
+
             <?php else: ?>
             <h2>Data tidak ditemukan</h2>
             <?php endif; ?>
@@ -145,6 +149,7 @@
         thead {
             font-weight: 700;
         }
+
         .inner {
             height: 40mm;
             width: 30mm;
@@ -158,6 +163,7 @@
         h1 {
             font-weight: 700;
         }
+
     }
     </style>
 </body>
