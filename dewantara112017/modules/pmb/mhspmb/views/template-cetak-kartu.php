@@ -52,7 +52,7 @@
 <!-- Set also "landscape" if you need -->
 
 <body class="A6">
-    <section>
+    <section class="no-print">
         <div class="text-center">
                 <div class="btn-group" style="">
                     <a class="print no-print btn btn-lg btn-primary" href="<?php echo base_url('mhspmb/cetakkartu/'.base64_encode('pdf')) ?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>

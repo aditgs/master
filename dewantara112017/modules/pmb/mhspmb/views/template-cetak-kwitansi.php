@@ -31,7 +31,7 @@
 
 
 <body class="A5 landscape">
-    <section>
+    <section class="no-print">
         <div class="text-center">
                 <div class="btn-group" style="">
                     <a class="print no-print btn btn-lg btn-primary" href="<?php echo base_url('mhspmb/cetakkwitansi/'.base64_encode('pdf')) ?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
