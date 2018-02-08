@@ -310,7 +310,7 @@
                 </div>
             </div>
 
-            <div class="row" style="margin-top: 50px; margin-left:100px">
+            <div class="row text-center" style="margin-top: 21px;">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <p>Panitia PMB</p>
                 </div>
@@ -319,7 +319,7 @@
                     Calon Mahasiswa</p>
                 </div>
             </div>
-            <div class="row" style="margin-top: 80px; margin-left: 100px">
+            <div class="row text-center" style="margin-top: 21px;">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <p><?php $user = $this->ion_auth->user()->row(); 
             if (!empty($user)):
