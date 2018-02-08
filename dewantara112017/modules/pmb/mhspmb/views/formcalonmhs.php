@@ -1,5 +1,5 @@
 <div id="form_input" class="">
-    <?php echo form_open(base_url().'mhspmb/submit',array('id'=>'addform','role'=>'form','class'=>'form')); ?>
+    <?php echo form_open(base_url().'mhspmb/submit',array('id'=>'addform','role'=>'form','class'=>'form','enctype'=>"multipart/form-data")); ?>
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
@@ -37,6 +37,7 @@
                 <?php echo form_dropdown('kode_prodi',$opt_prodi,$kode_prodi,'id="kode_prodi" class="form-control select2 " style="width:100%" placeholder="Prodi" required="true"'); ?>
             </div>
         </div>
+        
         <div class="form-group">
                     <label class="control-label">
                        Kelas
@@ -187,9 +188,22 @@
             </div>
         </div>
         <div class="form-group">
-            <?php echo form_label('Rekomendasi/Memo: ','memo',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('memo',set_value('memo', isset($default['memo']) ? $default['memo'] : ''),'id="memo" class="form-control" placeholder="Rekomendasi/Memo"'); ?>
+
+            <?php echo form_label('Info PMB Dari: ','memo',array('class'=>'control-label')); ?>
+            <?php $opt_memo = array(
+                'website'=>'Website',
+                'sosial media'=>'Media Sosial',
+                'alumni'=>'Alumni',
+                'keluarga'=>'Keluarga',
+                'teman'=>'Teman',
+                'marketing'=>'Marketing',
+                'media massa'=>'Media Massa',
+                'media online'=>'Media Online',
+                );?>
+           
+            <div class="controls input-group" style="width: 100%">
+                <?php $memo = isset($default['memo'])? $default['memo'] : '0';  ?>
+                <?php echo form_dropdown('memo',$opt_memo,$memo,'id="memo" class="form-control select2 " style="width:100%" placeholder="Prodi" required="true"'); ?>
             </div>
         </div>
     </div>
@@ -241,28 +255,27 @@
                 </div>
             </div>
         </div>
-        <div class="form-group tanggal">
-            <?php echo form_label('Tanggal Tansfer : ','tgl_transfer',array('class'=>'control-label')); ?>
-            <div class="input-daterange input-group controls" id="datepicker">
-                <?php if (!empty($default['tgl_transfer'])): ?>
-                <input id="tgl_transfer" value="<?php echo $default['tgl_transfer']; ?>" type="text" onchange="" class="input-md form-control" name="tgl_transfer" />
-                <?php else: ?>
-                <input id="tgl_transfer" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgl_transfer" />
-                <?php endif; ?>
-                <span class="input-group-btn">
-                    <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <?php echo form_label('img_pasfoto : ','img_pasfoto',array('class'=>'control-label')); ?>
-            <img id="blah" alt="your image" width="150" height="150" />
-                <p><input name="img_pasfoto" id="img_pasfoto" readonly="readonly" type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" /></p>
-        </div>
+       
+       
         <?php $opt_status_pmb = array('Terima',
         'Baru' => 'Baru',
         'Online' => 'Online',
         'Tolak' => 'Tolak',);?>
         <div class="row gutter5">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> 
+                <div class="form-group tanggal">
+                    <?php echo form_label('Tanggal Tansfer : ','tgl_transfer',array('class'=>'control-label')); ?>
+                    <div class="input-daterange input-group controls" id="datepicker">
+                        <?php if (!empty($default['tgl_transfer'])): ?>
+                        <input id="tgl_transfer" value="<?php echo $default['tgl_transfer']; ?>" type="text" onchange="" class="input-md form-control" name="tgl_transfer" />
+                        <?php else: ?>
+                        <input id="tgl_transfer" value="<?php echo date('Y-m-d') ?>" type="text" onchange="" class=" form-control" name="tgl_transfer" />
+                        <?php endif; ?>
+                        <span class="input-group-btn">
+                            <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
+                    </div>
+                </div>
+            </div>  
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 
                 <div class="form-group">
@@ -274,11 +287,40 @@
                         </select>
                     </div>
                 </div>
+                <input class="form-control" value="" name="img_pasfoto" id="img_pasfoto" type="text">
+                <input class="form-control" value="" name="img_id" id="img_id" type="text">
             </div>
            
             
+      
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            
+        
+        <div id="FILEUPLOAD">
+        <div class="form-group uploader">
+                <span class="btn btn-md btn-success fileinput-button">
+                            <i class="fa fa-plus icon-white"></i>
+                            <span>Upload Foto</span>
+                            <img id="blah" alt="your image" width="150" height="150" />
+                <input type="file" id="images" name="images" data-url="<?php echo base_url() ?>mhspmb/fileupload" multiple="multiple" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" />
+                </span>
+                
+                <div class="fileupload-progress fade">
+                    <div class="progress active">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                            70%
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
-     
+        <div class="files">
+            
+            <div class="table"></div>
+        </div>
+     </div>
+     </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">

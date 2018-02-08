@@ -1,5 +1,4 @@
-function reloadFiles() {
-    // alert(filesurl);
+/*function reloadFiles() {
     $.ajax({
         url: baseurl+'filebrowse/',
         dataType: 'json',
@@ -9,34 +8,25 @@ function reloadFiles() {
             for (var i = 0, len = data.files.length; i < len; i++) {
                 var file = data.files[i];
                 html.push('<tr>\
-                        <td class="preview"><img class="img-reponsive img-thumbnail" src="' +filesurl+file.url + '" /><br><span class="label label-info label-xs">' + file.name + '</span><span class="label label-success">' + (file.size / 1024 / 1024).toFixed(2) + 'MB</span></td>\
-                        <td class="name">\
+                        <td class="preview"><img class="img-responsive" src="' +file.url + '" /></td>\
+                        <td class="name"><span class="pull-left label label-info label-xs">' + file.name + '</span>\
                            <div class="btn-group pull-right"><a class="insert btn btn-success btn-xs" href="#" data-url="' +file.url+ '">Tambah ke Editor</a>\
                             <a class="delete btn btn-danger btn-xs" href="#" data-url="' + file.delete + '" data-file="' + file.name + '">Hapus</a></div>\
                         </td>\
+                        <td class="size">' + (file.size / 1024 / 1024).toFixed(2) + 'MB</td>\
                         <td class="action">\
                         </td>\
                     </tr>');
             };
-            $('#FILEUPLOAD .files .table').html(html.join());
+            $('.table').html(html.join());
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert('Masalah pada server.\nSilakan Coba lagi beberapa menit berikutnya.');
         }
     });
 };
+*/
 
-/*function handleUpload(data) {
-    dx = JSON.parse(data);
-    if (dx.st == 1) {
-        // alert("Sukses"+dx.msg);
-        $('#modal-notif').modal('toggle');
-        $('#modal-notif .modal-body').html(dx.msg);
-
-
-    }
-
-}*/
 
 $(function() {
     // $('#FILEUPLOAD').css('width', '542px');
@@ -52,7 +42,17 @@ $(function() {
                 .find('.bar').css('width', '0%');
         },
         done: function(e, data) {
-            reloadFiles();
+            dx=data.result;
+            if(dx.st==1){
+                // alert(dx.filename);
+                $('body input#img_pasfoto').prop('value',dx.filename);
+                $('body input#img_id').prop('value',dx.id);
+            }
+            // var dx=JSON.parse(data);
+            // alert(JSON.parse(data));
+            // alert(dx);
+            // reloadFiles();
+            // alert(data);
         },
         progress: function(e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
@@ -76,15 +76,14 @@ $(function() {
             data: {'file': file},
             success: function(data) {
                 el.parent().parent().remove();
-                reloadFiles();
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert('Masalah pada server.\nSilakan Coba lagi beberapa menit berikutnya.');
+                alert('서버에 문제가 생겼습니다.\n잠시후에 다시 시도해 주세요.');
             }
         });
         
         return false;
     });
     
-    reloadFiles();
+    // reloadFiles();
 });
