@@ -527,7 +527,7 @@ function __formvalidation(){
           }else{
             //$this->pmbdb->save();
             $this->pmbdb->saveas();
-            $this->unggahfoto();
+            // $this->unggahfoto();
           }
 
         }else{
@@ -537,7 +537,7 @@ function __formvalidation(){
               }else{
                 //$this->pmbdb->save();
                 $this->pmbdb->saveas();
-                $this->unggahfoto();
+                // $this->unggahfoto();
               }
           }
         }
