@@ -310,9 +310,10 @@
                 </div>
             </div>
 
+
             <div class="row text-center" style="margin-top: 21px;">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <p>Panitia PMB</p>
+     <p>Panitia PMB</p>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <p>Jombang, <?php echo tanggalindo($data['tgl_reg_pmb'],true)?><br>
