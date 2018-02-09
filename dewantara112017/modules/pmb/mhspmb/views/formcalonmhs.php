@@ -1,11 +1,12 @@
 <div id="form_input" class="">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1 class="text-center" style="font-weight: 700">Form Pendaftaran Mahasiswa</h1>
+        <hr>
+    </div>
     <?php echo form_open(base_url().'mhspmb/submit',array('id'=>'addform','role'=>'form','class'=>'form','enctype'=>"multipart/form-data")); ?>
-
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-
         <h2>Identitas Pendaftar</h2>
         <input type="hidden" value='' id="id" name="id">
-        
         <div class="form-group">
             <?php echo form_label('No Pendaftaran : ','noreg_pmb',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -20,41 +21,36 @@
                 <?php $gelid = isset($default['gelid'])? $default['gelid'] : '0';  ?>
                 <?php echo form_dropdown('gelid',$opt_gel,$gelid,'id="gelid" class="form-control select2 " style="width:100%" placeholder="Gelombang"'); ?>
             </div>
-        <?php else: ?>
+            <?php else: ?>
             <div class="alert alert-warning">
-                
                 <strong><i class="fa fa-warning"></i> Perhatian</strong> Tidak ada Gelombang PMB Aktif
             </div>
-        <?php endif; ?>
+            <?php endif; ?>
         </div>
         <div class="form-group">
-
             <?php echo form_label('Kode Prodi : ','kode_prodi',array('class'=>'control-label')); ?>
             <?php $opt_prodi = array('61201'=>'S-1 Manajemen','62201'=>'S-1 Akuntansi',);?>
-           
             <div class="controls input-group" style="width: 100%">
                 <?php $kode_prodi = isset($default['kode_prodi'])? $default['kode_prodi'] : '0';  ?>
                 <?php echo form_dropdown('kode_prodi',$opt_prodi,$kode_prodi,'id="kode_prodi" class="form-control select2 " style="width:100%" placeholder="Prodi" required="true"'); ?>
             </div>
         </div>
-        
         <div class="form-group">
-                    <label class="control-label">
-                       Kelas
-                    </label>
-                    <?php if(!empty($opt_kelas)): ?>
- 
-                    <div class="controls input-group" style="width: 100%">
-                        <?php $kelas = isset($default['id_siakad_kelas'])? $default['id_siakad_kelas'] : '0';  ?>
-                        <?php echo form_dropdown('id_siakad_kelas',$opt_kelas,$kelas,'id="id_siakad_kelas" class="form-control select2 " style="width:100%" placeholder="Agama"'); ?>
-                    </div>
-                    <?php else: ?>
-                        <div class="alert alert-warning">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <strong>Perhatian</strong> Data Gelombang PMB aktif tidak ditemukan
-                        </div>
-                    <?php endif; ?>
-                </div>
+            <label class="control-label">
+                Kelas
+            </label>
+            <?php if(!empty($opt_kelas)): ?>
+            <div class="controls input-group" style="width: 100%">
+                <?php $kelas = isset($default['id_siakad_kelas'])? $default['id_siakad_kelas'] : '0';  ?>
+                <?php echo form_dropdown('id_siakad_kelas',$opt_kelas,$kelas,'id="id_siakad_kelas" class="form-control select2 " style="width:100%" placeholder="Agama"'); ?>
+            </div>
+            <?php else: ?>
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>Perhatian</strong> Data Gelombang PMB aktif tidak ditemukan
+            </div>
+            <?php endif; ?>
+        </div>
         <div class="form-group">
             <?php echo form_label('Nama Lengkap : ','nm_cmhs',array('class'=>'control-label')); ?>
             <div class="controls">
@@ -67,8 +63,7 @@
                 <?php echo form_input('nik_cmhs',set_value('kodepos_cmhs', isset($default['nik_cmhs']) ? $default['nik_cmhs'] : ''),'id="nik_cmhs" class="form-control" placeholder="Masukkan NIK"'); ?>
             </div>
         </div>
-       
-        <div class="row gutter5">
+        <div class="row gutter5" style="padding:0px 10px 0px 10px">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
                     <?php echo form_label('Tempat Lahir : ','tmp_cmhs',array('class'=>'control-label')); ?>
@@ -92,8 +87,58 @@
                 </div>
             </div>
         </div>
-          <div class="row gutter5" style="padding:0px 10px">
-
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <h2>Detail Informasi Pendaftar</h2>
+        <div class="form-group">
+            <?php echo form_label('Alamat : ','almt_cmhs',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_textarea('almt_cmhs',set_value('almt_cmhs', isset($default['almt_cmhs']) ? $default['almt_cmhs'] : ''),'id="almt_cmhs" class="form-control" placeholder="Masukkan Alamat" style="height:96px"'); ?>
+            </div>
+        </div>
+        <div class="row gutter5" style="padding:10px 10px 0px 10px">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <div class="form-group">
+                    <?php echo form_label('Kota : ','kota_cmhs',array('class'=>'control-label')); ?>
+                    <div class="controls">
+                        <?php echo form_input('kota_cmhs',set_value('kota_cmhs', isset($default['kota_cmhs']) ? $default['kota_cmhs'] : ''),'id="kota_cmhs" class="form-control" placeholder="Masukkan Kota"'); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="form-group">
+                    <?php echo form_label('Kodepos : ','kodepos_cmhs',array('class'=>'control-label')); ?>
+                    <div class="controls">
+                        <?php echo form_input('kodepos_cmhs',set_value('kodepos_cmhs', isset($default['kodepos_cmhs']) ? $default['kodepos_cmhs'] : ''),'id="kodepos_cmhs" class="form-control" placeholder="Masukkan Kodepos"'); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo form_label('Email : ','email_cmhs',array('class'=>'control-label')); ?>
+            <div class="controls">
+                <?php echo form_input('email_cmhs',set_value('email_cmhs', isset($default['email_cmhs']) ? $default['email_cmhs'] : ''),'id="email_cmhs" class="form-control" placeholder="Masukkan Email"'); ?>
+            </div>
+        </div>
+        <div class="row gutter5" style="padding:0px 10px 0px 10px">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <?php echo form_label('No HP : ','hp_cmhs',array('class'=>'control-label')); ?>
+                    <div class="controls">
+                        <?php echo form_input('hp_cmhs',set_value('hp_cmhs', isset($default['hp_cmhs']) ? $default['hp_cmhs'] : ''),'id="hp_cmhs" class="form-control" placeholder="Masukkan No HP"'); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <?php echo form_label('Telp : ','telp_cmhs',array('class'=>'control-label')); ?>
+                    <div class="controls">
+                        <?php echo form_input('telp_cmhs',set_value('telp_cmhs', isset($default['telp_cmhs']) ? $default['telp_cmhs'] : ''),'id="telp_cmhs" class="form-control" placeholder="Masukkan Telp"'); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gutter5" style="padding:0px 10px">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <?php $opt_agama_cmhs = array('Islam' => 'Islam',
             'Protestan'=>'Protestan',
@@ -123,87 +168,33 @@
                 </div>
             </div>
         </div>
-        
-      
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <h2>Detail Informasi Pendaftar</h2>
-
-        
-   
-       
-        <div class="form-group">
-            <?php echo form_label('Alamat : ','almt_cmhs',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_textarea('almt_cmhs',set_value('almt_cmhs', isset($default['almt_cmhs']) ? $default['almt_cmhs'] : ''),'id="almt_cmhs" class="form-control" placeholder="Masukkan Alamat" style="height:96px"'); ?>
-            </div>
-        </div>
-        <div class="row gutter5" style="padding:10px 10px 0px 10px">
-            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <div class="form-group">
-                    <?php echo form_label('Kota : ','kota_cmhs',array('class'=>'control-label')); ?>
-                    <div class="controls">
-                        <?php echo form_input('kota_cmhs',set_value('kota_cmhs', isset($default['kota_cmhs']) ? $default['kota_cmhs'] : ''),'id="kota_cmhs" class="form-control" placeholder="Masukkan Kota"'); ?>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="form-group">
-                    <?php echo form_label('Kodepos : ','kodepos_cmhs',array('class'=>'control-label')); ?>
-                    <div class="controls">
-                        <?php echo form_input('kodepos_cmhs',set_value('kodepos_cmhs', isset($default['kodepos_cmhs']) ? $default['kodepos_cmhs'] : ''),'id="kodepos_cmhs" class="form-control" placeholder="Masukkan Kodepos"'); ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group" >
-            <?php echo form_label('Email : ','email_cmhs',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('email_cmhs',set_value('email_cmhs', isset($default['email_cmhs']) ? $default['email_cmhs'] : ''),'id="email_cmhs" class="form-control" placeholder="Masukkan Email"'); ?>
-            </div>
-        </div>
-        <div class="row gutter5">
+        <div class="row gutter5" style="padding:0px 10px">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
-                    <?php echo form_label('No HP : ','hp_cmhs',array('class'=>'control-label')); ?>
+                    <?php echo form_label('Nama Ibu Kandung: ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
                     <div class="controls">
-                        <?php echo form_input('hp_cmhs',set_value('hp_cmhs', isset($default['hp_cmhs']) ? $default['hp_cmhs'] : ''),'id="hp_cmhs" class="form-control" placeholder="Masukkan No HP"'); ?>
+                        <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
                     </div>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group">
-                    <?php echo form_label('Telp : ','telp_cmhs',array('class'=>'control-label')); ?>
-                    <div class="controls">
-                        <?php echo form_input('telp_cmhs',set_value('telp_cmhs', isset($default['telp_cmhs']) ? $default['telp_cmhs'] : ''),'id="telp_cmhs" class="form-control" placeholder="Masukkan Telp"'); ?>
+                    <?php echo form_label('Info PMB Dari: ','memo',array('class'=>'control-label')); ?>
+                    <?php $opt_memo = array(
+                        'website'=>'Website',
+                        'sosial media'=>'Media Sosial',
+                        'alumni'=>'Alumni',
+                        'keluarga'=>'Keluarga',
+                        'teman'=>'Teman',
+                        'marketing'=>'Marketing',
+                        'media massa'=>'Media Massa',
+                        'media online'=>'Media Online',
+                        );?>
+                    <div class="controls input-group" style="width: 100%">
+                        <?php $memo = isset($default['memo'])? $default['memo'] : '0';  ?>
+                        <?php echo form_dropdown('memo',$opt_memo,$memo,'id="memo" class="form-control select2 " style="width:100%" placeholder="Prodi" required="true"'); ?>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <?php echo form_label('Nama Ibu : ','nm_ibu_cmhs',array('class'=>'control-label')); ?>
-            <div class="controls">
-                <?php echo form_input('nm_ibu_cmhs',set_value('nm_ibu_cmhs', isset($default['nm_ibu_cmhs']) ? $default['nm_ibu_cmhs'] : ''),'id="nm_ibu_cmhs" class="form-control" placeholder="Masukkan Nama Ibu"'); ?>
-            </div>
-        </div>
-        <div class="form-group">
-
-            <?php echo form_label('Info PMB Dari: ','memo',array('class'=>'control-label')); ?>
-            <?php $opt_memo = array(
-                'website'=>'Website',
-                'sosial media'=>'Media Sosial',
-                'alumni'=>'Alumni',
-                'keluarga'=>'Keluarga',
-                'teman'=>'Teman',
-                'marketing'=>'Marketing',
-                'media massa'=>'Media Massa',
-                'media online'=>'Media Online',
-                );?>
-           
-            <div class="controls input-group" style="width: 100%">
-                <?php $memo = isset($default['memo'])? $default['memo'] : '0';  ?>
-                <?php echo form_dropdown('memo',$opt_memo,$memo,'id="memo" class="form-control select2 " style="width:100%" placeholder="Prodi" required="true"'); ?>
             </div>
         </div>
     </div>
@@ -215,7 +206,7 @@
                 <?php echo form_input('asal_pend',set_value('asal_pend', isset($default['asal_pend']) ? $default['asal_pend'] : ''),'id="asal_pend" class="form-control" placeholder="Masukkan Asal Pendidikan"'); ?>
             </div>
         </div>
-         <div class="form-group">
+        <div class="form-group">
             <?php echo form_label('Jurusan Pendidikan : ','jurusan_pend',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_input('jurusan_pend',set_value('jurusan_pend', isset($default['jurusan_pend']) ? $default['jurusan_pend'] : ''),'id="jurusan_pend" class="form-control" placeholder="Masukkan Jurusan Pendidikan"'); ?>
@@ -229,9 +220,7 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-       
-        
-        <div class="row gutter5">
+        <div class="row gutter5" style="padding:0px 10px 0px 10px">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group tanggal">
                     <?php echo form_label('Tanggal Ijazah : ','tgl_ijazah_pend',array('class'=>'control-label')); ?>
@@ -255,14 +244,12 @@
                 </div>
             </div>
         </div>
-       
-       
         <?php $opt_status_pmb = array('Terima',
         'Baru' => 'Baru',
         'Online' => 'Online',
         'Tolak' => 'Tolak',);?>
-        <div class="row gutter5">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> 
+        <div class="row gutter5" style="padding:0px 10px 0px 10px">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div class="form-group tanggal">
                     <?php echo form_label('Tanggal Tansfer : ','tgl_transfer',array('class'=>'control-label')); ?>
                     <div class="input-daterange input-group controls" id="datepicker">
@@ -275,60 +262,50 @@
                             <a href="#" class="btn btn-default" type="button"><i class="fa fa-calendar"></i></a></span>
                     </div>
                 </div>
-            </div>  
+            </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                
                 <div class="form-group">
                     <div class="controls input-group">
-                        <?php echo form_label('Status Calon Mahasiswa : ','status_cmhs',array('class'=>'control-label')); ?>
+                        <?php echo form_label('Status: ','status_cmhs',array('class'=>'control-label')); ?>
                         <select name="status_cmhs" id="status_cmhs" class="input-md form-control" style="width: 100%" required>
                             <option value="Baru">Baru</option>
                             <option value="Pindah">Pindah</option>
                         </select>
                     </div>
                 </div>
-                <input class="form-control" value="" name="img_pasfoto" id="img_pasfoto" type="text">
-                <input class="form-control" value="" name="img_id" id="img_id" type="text">
+                <input class="form-control hidden" value="" readonly name="img_pasfoto" id="img_pasfoto" type="text">
+                <input class="form-control hidden" value="" readonly name="img_id" id="img_id" type="text">
             </div>
-           
-            
-      
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            
-        
-        <div id="FILEUPLOAD">
-        <div class="form-group uploader">
-                <span class="btn btn-md btn-success fileinput-button">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="FILEUPLOAD">
+                    <div class="form-group uploader">
+                        <span class="btn btn-md btn-success fileinput-button">
                             <i class="fa fa-plus icon-white"></i>
-                            <span>Upload Foto</span>
-                            <img id="blah" alt="your image" width="150" height="150" />
-                <input type="file" id="images" name="images" data-url="<?php echo base_url() ?>mhspmb/fileupload" multiple="multiple" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" />
-                </span>
-                
-                <div class="fileupload-progress fade">
-                    <div class="progress active">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                            70%
+                            <span>Upload Pas Foto</span><br>
+                        <img id="blah" alt="your image" width="150" height="150" />
+                        <input class="form-control" type="file" id="images" name="images" data-url="<?php echo base_url() ?>mhspmb/fileupload" multiple="multiple" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" />
+                        </span>
+                        <div class="fileupload-progress fade">
+                            <div class="progress active">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                    70%
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
+                </div>
+                <div class="files">
+                    <div class="table"></div>
                 </div>
             </div>
         </div>
-        <div class="files">
-            
-            <div class="table"></div>
-        </div>
-     </div>
-     </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button id="save" type="submit" class="btn btn-lg btn-success">
             <icon class="fa fa-floppy-o"></icon> Simpan</button>
         <button id="save_edit" type="submit" class="btn btn-lg btn-primary" style="display:none;">
-            <icon class="fa fa-refresh"></icon> Perbaiki</button>
+            <icon class="fa fa-refresh"></icon> Koreksi</button>
         <a href="#" id="cancel_edit" class="btn btn-lg btn-danger batal" style=""><i class="glyphicon glyphicon-remove"></i> Batal</a>
     </div>
     <?php echo form_close();?>
 </div>
-

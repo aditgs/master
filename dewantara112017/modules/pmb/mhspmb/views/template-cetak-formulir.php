@@ -119,8 +119,14 @@
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="margin-left: 5px">
                     : <?php echo $data['noreg_pmb'] ?>
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 inner">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 inner" style="padding:0px;">
+                        <?php if(!empty($data['img_pasfoto'])): ?>
+                        <img src="<?php echo domain()."uploads/files/images/".$data['img_pasfoto'] ?>" width="123px" height="150px" alt="<?php echo $data['img_pasfoto'] ?>">
+                    <?php else: ?>
+                    
                     <p align="center" style="padding-top: 15mm">Pas Foto</p>
+                    <p align="center" style="">3cm x 4cm</p>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -304,16 +310,17 @@
                 </div>
             </div>
 
-            <div class="row" style="margin-top: 50px; margin-left:100px">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="margin-top: 21px">
-                    <p>Panitia PMB</p>
+
+            <div class="row text-center" style="margin-top: 21px;">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+     <p>Panitia PMB</p>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <p>Jombang, <?php echo tanggalindo($data['tgl_reg_pmb'],true)?><br>
                     Calon Mahasiswa</p>
                 </div>
             </div>
-            <div class="row" style="margin-top: 80px; margin-left: 100px">
+            <div class="row text-center" style="margin-top: 21px;">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <p><?php $user = $this->ion_auth->user()->row(); 
             if (!empty($user)):

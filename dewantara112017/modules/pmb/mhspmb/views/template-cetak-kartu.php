@@ -41,7 +41,9 @@
 <!-- Set also "landscape" if you need -->
 
 
-<body class="A6">
+<body class="A6" >
+    <!-- Each sheet element should have the class "sheet" -->
+    <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
     <section class="no-print">
 
         <div class="text-center">
@@ -76,9 +78,13 @@
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="">
                     <?php echo $data['noreg_pmb'] ?>
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 inner" style="margin-right: 13px;">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 inner" style="padding:0px;margin-right: 13px;">
+                    <?php if(!empty($data['img_pasfoto'])): ?>
+                        <img src="<?php echo domain()."uploads/files/images/".$data['img_pasfoto'] ?>" width="123px" height="150px" alt="<?php echo $data['img_pasfoto'] ?>">
+                    <?php else: ?>
                     <p align="center" style="padding-top: 12mm">Pas Foto</p>
                     <p align="center" style="">3cm x 4cm</p>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="row">
