@@ -4,13 +4,20 @@
 <head>
     <meta charset="utf-8">
     <title>Cetak Kwitansi</title>
-    <link href="<?php echo assets_url() ?>css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo assets_url() ?>css/bootstrap.min.css" media="" rel="stylesheet">
     <!-- Normalize or reset CSS with your favorite library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> -->
     <!-- Load paper.css for happy printing -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css"> -->
     <!-- Set page size here: A5, A4 or A3 -->
     <!-- Set also "landscape" if you need -->
+    <style type="text/css">
+        /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}/*# sourceMappingURL=normalize.min.css.map */
+    </style>
+    <style type="text/css">
+        @page{margin:0}body{margin:0}.sheet{margin:0;overflow:hidden;position:relative;box-sizing:border-box;page-break-after:always}body.A3 .sheet{width:297mm;height:419mm}body.A3.landscape .sheet{width:420mm;height:296mm}body.A4 .sheet{width:210mm;height:296mm}body.A4.landscape .sheet{width:297mm;height:209mm}body.A5 .sheet{width:148mm;height:209mm}body.A5.landscape .sheet{width:210mm;height:147mm}.sheet.padding-10mm{padding:10mm}.sheet.padding-15mm{padding:15mm}.sheet.padding-20mm{padding:20mm}.sheet.padding-25mm{padding:25mm}@media screen{body{background:#e0e0e0}.sheet{background:white;box-shadow:0 .5mm 2mm rgba(0,0,0,.3);margin:5mm;margin-top:0}}@media print{body.A3.landscape{width:420mm}body.A3,body.A4.landscape{width:297mm}body.A4,body.A5.landscape{width:210mm}body.A5{width:148mm}}
+
+    </style>
     <style>
 
      @page{size:A5}hr.style-eight{overflow:visible;padding:0;border:none;border-top:medium double #333;color:#333;text-align:center;margin-top:10px}.row{line-height:1.5}.row:after,.row:before{display:table;content:" "}.row:after{clear:both}.outer{margin:auto;position:relative}.sheet.padding-5mm{padding:5mm}.sheet.padding-7mm{padding:7mm}.sheet.padding-10mm{padding:10mm}.sheet.padding-15mm{padding:15mm}.sheet.padding-20mm{padding:20mm}.sheet.padding-25mm{padding:25mm}
@@ -34,7 +41,7 @@
     <section class="no-print">
         <div class="text-center">
             <div class="btn-group" style="">
-                <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']." / ".base64_encode("pdf ");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
+                <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf");?>"><i class="fa fa-download"></i> Download PDF</a>
                 <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
             </div>
         </div>
@@ -175,6 +182,32 @@
         }
 
     }
+    </style>
+    <style type="text/css">
+    /*https://blog.donnierayjones.com/2014/10/fix-bootstrap3-printing/*/
+        @media print {
+    .make-grid(sm);
+
+    .visible-xs {
+        .responsive-invisibility();
+    }
+
+    .hidden-xs {
+        .responsive-visibility();
+    }
+
+    .hidden-xs.hidden-print {
+        .responsive-invisibility();
+    }
+
+    .hidden-sm {
+        .responsive-invisibility();
+    }
+
+    .visible-sm {
+        .responsive-visibility();
+    }
+}
     </style>
 </body>
 
