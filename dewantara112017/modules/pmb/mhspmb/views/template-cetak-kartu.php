@@ -70,6 +70,14 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <h4 style="font-weight: 700" align="left" class="text-left">DATA PESERTA</h4>
                 </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 inner" style="padding:0px;margin-right: 25px;margin-top: 5px">
+                    <?php if(!empty($data['img_pasfoto'])): ?>
+                        <img src="<?php echo domain()."uploads/files/images/".$data['img_pasfoto'] ?>" width="123px" height="150px" alt="<?php echo $data['img_pasfoto'] ?>">
+                    <?php else: ?>
+                    <p align="center" style="padding-top: 12mm">Pas Foto</p>
+                    <p align="center" style="">3cm x 4cm</p>
+                    <?php endif; ?>
+                </div>
             </div>
             <div class="row" style="">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -78,14 +86,7 @@
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="">
                     <?php echo $data['noreg_pmb'] ?>
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 inner" style="padding:0px;margin-right: 13px;">
-                    <?php if(!empty($data['img_pasfoto'])): ?>
-                        <img src="<?php echo domain()."uploads/files/images/".$data['img_pasfoto'] ?>" width="123px" height="150px" alt="<?php echo $data['img_pasfoto'] ?>">
-                    <?php else: ?>
-                    <p align="center" style="padding-top: 12mm">Pas Foto</p>
-                    <p align="center" style="">3cm x 4cm</p>
-                    <?php endif; ?>
-                </div>
+                
             </div>
             <div class="row">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -153,7 +154,7 @@
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
                    
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center" style="margin-top: -25px">
                     Jombang,
                         <?php echo tanggalindo($data['tgl_reg_pmb'])?>
                          <p>Panitia PMB</p>
@@ -163,7 +164,7 @@
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
                    
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center" style="margin-top: 25px">
                                 <?php $user = $this->ion_auth->user()->row(); 
                     if (!empty($user)):
                         $userid=$user->id;
