@@ -157,14 +157,14 @@
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center" style="margin-top: -25px">
                     Jombang,
                         <?php echo tanggalindo($data['tgl_reg_pmb'])?>
-                         <p>Panitia PMB</p>
+                         <p style="margin-left: -85px">Panitia PMB</p>
                 </div>
             </div>
             <div class="row" style="margin-top:0mm;">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
                    
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center" style="margin-top: 25px">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="margin-top: 25px">
                                 <?php $user = $this->ion_auth->user()->row(); 
                     if (!empty($user)):
                         $userid=$user->id;
