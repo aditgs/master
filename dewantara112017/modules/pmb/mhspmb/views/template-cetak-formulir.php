@@ -18,13 +18,17 @@
     }
 
         hr.style-eight {
+            display: block;
+            float:left;width: 100%;
+            position: static;
         overflow: visible;
         padding: 0;
         border: none;
         border-top: medium double #333;
         color: #333;
         text-align: center;
-        margin-top: 10px;
+        margin-top: 0px;
+        margin-bottom: 0px;
     }
         .row-m-t{
             margin-top: 10px;
@@ -77,31 +81,28 @@
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 <body class="A4">
-    <!-- Each sheet element should have the class "sheet" -->
-    <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
-    <section class="no-print">
-        <div class="text-center">
-                <div class="btn-group" style="">
-                    <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf");?>"><i class="fa fa-downlooad=o"></i> Download PDF</a>
-                    <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
-                </div>
-            </div>
-    </section>
+    <div class="text-center no-print">
+        <div class="btn-group" style="">
+        <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf");?>"><i class="fa fa-download"></i> Download PDF</a>
+        <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
+        </div>
+    </div>
     <section class="sheet padding-5mm"  style="padding-top: 0px;">
+        
         <!-- Write HTML just like a web page -->
         <article>
             <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmbgel($data['gelid'])?>
             <header style="display:block;">
                 <div style="clear: left;">
-                    <p style="float: left;"><img src="<?= assets_url('images/logo.png') ?>" height="125px" width="125px" border="1px"></p>
+                    <p style="float: left;margin-right: 20px"><img src="<?= assets_url('images/logo.png') ?>" height="110px" width="110px"></p>
                     <h1 class="text-center">STIE PGRI DEWANTARA JOMBANG</h1>
                     <h4 align="center" style="font-weight: 700">Jl. Prof. Moh. Yamin No.77 Telp.(0321) 865180, Fax.(0321) 853807 Jombang, Jawa Timur</h4>
-                    <h4 align="center"> Website : www.stiedewantara.ac.id </h4>
-                    <h4 align="center"> e-mail : info@stiedewantara.ac.id</h4>
+                    <h4 align="left" class="pull-left"> Website : www.stiedewantara.ac.id </h4>
+                    <h4 align="right" class="pull-right"> e-mail : info@stiedewantara.ac.id</h4>
                 </div>
             </header>
 
-            <hr class="style-eight">
+            <hr class="style-eight">    
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
