@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div class="row" style="text-align:center">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="margin-top: 20px">
                     <p>Panitia PMB</p>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
