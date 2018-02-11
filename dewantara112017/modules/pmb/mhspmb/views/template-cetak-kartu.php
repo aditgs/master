@@ -67,10 +67,10 @@
             </header>
             <hr class="" style="margin:0px;border:1px solid #333333">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 col-sm-12">
                     <h4 style="font-weight: 700" align="left" class="text-left">DATA PESERTA</h4>
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 inner" style="padding:0px;margin-right: 25px;margin-top: 5px">
+                <div class="col-xs-4 col-sm-4  inner" style="padding:0px;margin-right: 25px;margin-top: 5px">
                     <?php if(!empty($data['img_pasfoto'])): ?>
                         <img src="<?php echo domain()."uploads/files/images/".$data['img_pasfoto'] ?>" width="123px" height="150px" alt="<?php echo $data['img_pasfoto'] ?>">
                     <?php else: ?>
@@ -80,29 +80,29 @@
                 </div>
             </div>
             <div class="row" style="">
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <div class="col-xs-2 col-sm-2 ">
                     <strong>No. </strong>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="">
+                <div class="col-xs-6 col-sm-6 " style="">
                     <?php echo $data['noreg_pmb'] ?>
                 </div>
                 
             </div>
             <div class="row">
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <div class="col-xs-2 col-sm-2 ">
                     Nama:
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="word-wrap: break-word;">
+                <div class="col-xs-6 col-sm-6 " style="word-wrap: break-word;">
                     <?php echo $data['nm_cmhs'] ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 col-sm-12">
                     <h4 style="font-weight: 700" align="left" class="text-left">MATERI</h4>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <div class="col-xs-9 col-sm-9 ">
                     <ul class="">
                         <li class="">Tes Kemampuan Akademik (TKA)</li>
                         <li class="">Interview</li>
@@ -110,40 +110,40 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 col-sm-12">
                     <h4 style="font-weight: 700" align="left" class="text-left">JADWAL UJIAN</h4>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="col-xs-4 col-sm-4 ">
                     <strong>
                             Hari/Tanggal:
                             </strong>
                 </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <div class="col-xs-8 col-sm-8 ">
                     <?php echo isset($detail['date_seleksi_start'])?tanggalindo($detail['date_seleksi_start'],true):''; ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="col-xs-4 col-sm-4 ">
                     <strong>
                             Waktu:
                             </strong>
                 </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <div class="col-xs-8 col-sm-8 ">
                     Jam 08.00 WIB s/d Selesai
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="col-xs-4 col-sm-4 ">
                     <strong>
                     Pengumuman:
                     </strong>
                 </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <div class="col-xs-8 col-sm-8 ">
                     <?php echo isset($detail['date_pengumuman'])?tanggalindo($detail['date_pengumuman']):''; ?>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-12 col-sm-12">
                     <p><i>Dapat dilihat melalui website:
                     <strong>www.stiedewantara.ac.id</strong></i></p>
                
@@ -151,20 +151,20 @@
                 </div>
             </div>
             <div class="row" style="margin-top: 0px;">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
+                <div class="col-xs-6 col-sm-6  text-center" align="center">
                    
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center" style="margin-top: -25px">
+                <div class="col-xs-6 col-sm-6  text-center" align="center" style="margin-top: -25px">
                     Jombang,
                         <?php echo tanggalindo($data['tgl_reg_pmb'])?>
                          <p style="margin-left: -85px">Panitia PMB</p>
                 </div>
             </div>
             <div class="row" style="margin-top:0mm;">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" align="center">
+                <div class="col-xs-6 col-sm-6  text-center" align="center">
                    
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="margin-top: 25px">
+                <div class="col-xs-6 col-sm-6 " style="margin-top: 25px">
                                 <?php $user = $this->ion_auth->user()->row(); 
                     if (!empty($user)):
                         $userid=$user->id;
