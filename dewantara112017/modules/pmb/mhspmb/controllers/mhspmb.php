@@ -267,6 +267,8 @@ class mhspmb extends MX_Controller {
         if(empty($id)||!isset($id)){
             $id=$this->input->post('id');
         }
+        $url=base_url('mhspmb/cetakkwitansi/'.$id);
+        // print_r($url);
         $id=base64_decode($id);
         $pdf=base64_decode($pdf);
 
@@ -275,9 +277,10 @@ class mhspmb extends MX_Controller {
             $this->template->set_layout('cetak');
            
             $html=$this->load->view('template-cetak-kwitansi',array('data'=>$data,'baseurl'=>base_url()),TRUE);
+            $pdfcontent=$this->load->view('template-cetak-kwitansi-blank',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                buildpdf($html, 'INV#'.$id."-".date('d-m-Y-Hms'),'A5','landscape',true);
+                buildpdf($pdfcontent, 'INV#'.$id."-".date('dmY-Hms'),'A5','landscape',true);
             }else{          
                 echo ($html);
             }
@@ -292,33 +295,17 @@ class mhspmb extends MX_Controller {
             $data=$this->pmbdb->get_one($id);
             $this->template->set_layout('cetak');
            
+            $pdfcontent=$this->load->view('template-cetak-kartu-blank',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             $html=$this->load->view('template-cetak-kartu',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                buildpdf($html, 'ID#'.$id.date('d-m-Y-Hms'),'A6','portrait',TRUE);
+                buildpdf($pdfcontent, 'ID#'.$id.date('d-m-Y-Hms'),'A6','portrait',TRUE);
             }else{          
                 echo ($html);
             }
         }
     } 
-    function cetakkartu2($id,$pdf=true){
-
-        $id=base64_decode($id);
-        $pdf=base64_decode($pdf);
-
-        if($id!=null){
-            $data=$this->pmbdb->get_one($id);
-            $this->template->set_layout('cetak');
-           
-            $html=$this->load->view('template-cetak-kartu-backup2',array('data'=>$data,'baseurl'=>base_url()),TRUE);
-            if(!empty($pdf)||$pdf!=null){
-                $this->load->helper(array('dompdf', 'file'));
-                kartupmb($html, 'ID#'.$id.date('d-m-Y-Hms'),TRUE);
-            }else{          
-                echo ($html);
-            }
-        }
-    }
+   
     function cetakformulir($id,$pdf=true){
 
         $id=base64_decode($id);
@@ -329,9 +316,10 @@ class mhspmb extends MX_Controller {
             $this->template->set_layout('cetak');
            
             $html=$this->load->view('template-cetak-formulir',array('data'=>$data,'baseurl'=>base_url()),TRUE);
+            $pdfcontent=$this->load->view('template-cetak-formulir-blank',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                buildpdf($html, date('d-m-Y-Hms'),'A4','portrait',TRUE);
+                buildpdf($pdfcontent, date('d-m-Y-Hms'),'A4','portrait',TRUE);
             }else{          
                 echo ($html);
             }
