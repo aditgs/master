@@ -44,11 +44,11 @@
 <body class="A5 landscape" >
     <!-- Each sheet element should have the class "sheet" -->
     <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
-    <section class="no-print hidden-print">
+    <section class="no-print">
         <div class="text-center">
             <div class="btn-group" style="">
-                <a class="print no-print hidden-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf");?>"><i class="fa fa-download"></i> Download PDF</a>
-                <button class="print no-print hidden-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
+                <a class="print no-print btn btn-lg btn-primary" href="<?= $_SERVER['REQUEST_URI']."/".base64_encode("pdf");?>"><i class="fa fa-download"></i> Download PDF</a>
+                <button class="print no-print btn btn-lg btn-danger"><i class="fa fa-print"></i> Cetak </button>
             </div>
         </div>
     </section>

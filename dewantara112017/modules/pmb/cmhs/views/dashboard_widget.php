@@ -5,7 +5,7 @@
 </div>
 
 <div class="col-lg-3 col-sm-12">
-    <a class="" data="#" href="<?php echo domain() ?>pmb/cmhs/" data-remote-target="#ajax-remote">
+    <a class="" data="#" href="<?php echo domain() ?>admin/" data-remote-target="#ajax-remote">
     <div class="widget style1 yellow-bg">
     <div class="row">
         <div class="col-xs-4">
@@ -21,7 +21,7 @@
 </div>
 
 <div class="col-lg-3">
-    <a class="" href="<?php echo domain() ?>pmb/cmhs/" >
+    <a class="" href="<?php echo domain() ?>admin/" >
     <div class="widget style1 red-bg">
     <div class="row">
         <div class="col-xs-4">
@@ -37,7 +37,7 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>pmb/cmhs/" >
+    <a class="" href="<?php echo domain() ?>admin/" >
     <div class="widget style1 navy-bg">
     <div class="row">
         <div class="col-xs-4">
@@ -53,7 +53,7 @@
 </div>
 
 <div class="col-lg-6">
-    <a class="" href="<?php echo domain() ?>pmb/cmhs/" >
+    <a class="" href="<?php echo domain() ?>admin/" >
     <div class="widget style1 lazur-bg">
     <div class="row">
         <div class="col-xs-4">
