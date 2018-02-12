@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Cetak Kartu Ujian</title>
-    
+
      <script type="text/javascript" src="<?php echo assets_url('js/jquery-1.11.3.min.js') ?>"></script>
     <script type="text/javascript">
     $(document).ready(function() {
@@ -31,7 +31,7 @@
             <?php if(isset($data)||!empty($data)):$detail=$this->pmbdb->getpmbgel($data['gelid']);?>
             <header style="display:block;">
                 <div style="clear: left;">
-                    <p style="float: left;margin-right: 10px;margin-bottom: 10px;display: block;float: left"><img src="<?= assets_url('images/logo.png') ?>" height="75px" width="75px" border="1px"></p>
+                    <p style="float: left;margin-right: 10px;margin-bottom: 10px;display: block;float: left"><img src="<?= assets_url('images/logo.png') ?>" height="75px" width="75px"></p>
                     <h1 class="text-left" align="left" style="font-weight: 700;margin-bottom: 0px">KARTU PESERTA</h1>
                     <h3 class="text-left" align="left" style="text-transform: uppercase;font-weight: 700">SELEKSI PMB <?php echo isset($detail['keterangan'])?$detail['keterangan']:''; ?></h3>
                     <h4 class="text-left" align="left" style="">STIE PGRI DEWANTARA JOMBANG TAHUN AKADEMIK 2018/2019</h4>
