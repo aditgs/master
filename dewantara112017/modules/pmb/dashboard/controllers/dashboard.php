@@ -22,10 +22,7 @@ class Dashboard extends MX_Controller {
 
             redirect('../auth/login', 'refresh');
 
-        else:
-            if(!$this->ion_auth->in_group(10)){//administrasi keu/akad/pmb
-                        redirect(domain('site/'), 'refresh');
-                    }
+        // else:
 
             // redirect($this->session->userdata('lihat'),'refresh');
 
