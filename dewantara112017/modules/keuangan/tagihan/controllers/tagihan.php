@@ -629,7 +629,7 @@ class Tagihan extends MX_Controller {
                 $this->load->helper(array('dompdf', 'file'));
                 $inv=$data['kode'];
                 // savepdf($html1, 'laporan-pembelian-'.date('d-m-Y-H-m-s'));
-                buildpdf($html, $inv."-".date('d-m-Y-Hms'),TRUE);
+                cetaktagihan($html, $inv."-".date('d-m-Y-Hms'),TRUE);
             }else{          
                 echo ($html);
             }

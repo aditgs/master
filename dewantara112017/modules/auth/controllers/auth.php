@@ -51,7 +51,9 @@ class Auth extends MX_Controller {
             $this->template->load_view('wrapper',$this->data);
         }
     }
-
+    public function cekusergroup(){
+      
+    }
     //log the user in
     function login()
     {
