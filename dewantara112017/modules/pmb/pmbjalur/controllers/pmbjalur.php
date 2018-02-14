@@ -9,6 +9,7 @@ class pmbjalur extends MX_Controller {
         $this->load->model('pmb_jalur_model','pmb_jalurdb',TRUE);
         $this->session->set_userdata('lihat','pmb_jalur');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('pmb');
             redirect('auth/login', 'refresh');
         endif;
 

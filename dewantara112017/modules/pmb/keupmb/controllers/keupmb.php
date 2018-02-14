@@ -9,6 +9,7 @@ class Keupmb extends MX_Controller {
         $this->load->model('siakad_keu_pendaftaran_model','keupmbdb',TRUE);
         $this->session->set_userdata('lihat','siakad_keu_pendaftaran');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('pmb');
             redirect('auth/login', 'refresh');
         endif;
 

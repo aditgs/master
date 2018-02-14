@@ -9,6 +9,7 @@ class pmb extends MX_Controller {
         $this->load->model('pmb_model','pmbdb',TRUE);
         $this->session->set_userdata('lihat','pmb');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('pmb');
             redirect('auth/login', 'refresh');
         endif;
 
