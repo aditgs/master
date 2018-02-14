@@ -11,6 +11,7 @@ class Tagihan extends MX_Controller {
         $this->load->model('mhsmaster/mhsmaster_model','mhsdb',TRUE);
         $this->session->set_userdata('lihat','tagihanmhs');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('siku');
             redirect('auth/login', 'refresh');
         endif;
 
@@ -57,7 +58,7 @@ class Tagihan extends MX_Controller {
             var assetsurl="'.assets_url().'/";
              
             ','embed');  
-        $this->template->add_js('modules/tagihan.0.2.js');
+        $this->template->add_js('modules/tagihan.0.3.js');
         $this->template->add_css('forms.css');
            $tahun=array(
             '0'=>'-- Pilih Tahun --',
@@ -125,7 +126,7 @@ class Tagihan extends MX_Controller {
              
          
             ','embed');  
-         $this->template->add_js('modules/tagihan.0.2.js');
+         $this->template->add_js('modules/tagihan.0.3.js');
         $this->template->add_js(" 
             $('input.input-toggle').change(function(){
                 id=$(this).prop('id');
@@ -447,6 +448,22 @@ class Tagihan extends MX_Controller {
         $this->output->set_output($html);
         // return $html;
     }
+    function formbayar($inv=null,$trf=null){
+        $inv=base64_decode($inv);
+        $trf=base64_decode($trf);
+        // $tagihan=$this->tagihdb->get_one($inv);
+        $tagihan=$this->tagihdb->getdetailtagihanmhs($inv,$trf);
+        // print_r($tagihan);
+
+        $tagihan['kodetarifcicilan']=$this->tagihdb->genkodecicilan($inv,$trf);
+        $html=$this->load->view('formbayarcicilan',array('default'=>$tagihan),true);
+        $this->output->set_output($html);
+        // return $html;
+    }
+    function genkodecicilan($inv,$trf){
+        $data=$this->tagihdb->getlastcicilan($inv,$trf);
+
+    }
     function formvalpass($id){
         // $id=base64_decode($this->input->post('id'));
         // $password=base64_decode($this->input->post('password'));
@@ -543,8 +560,30 @@ class Tagihan extends MX_Controller {
                         foreach ($items as $key => $value) {
                             # code...
                             $dt=$this->tagihdb->gettarifbyid($value);
-                            
-                            $dx[]="<li class='list-group-item '><div class='pull-left text-right'>".$i." | </div><strong>(".$dt['kodetarif'].")</strong> ".(trim(bacatarif($dt['kodetarif'])))."<span class='pull-right text-right'> ".rp($dt['tarif'])."</span></li>";
+                            $kodej=substr($dt['kodetarif'],4,2);
+                            // print_r($data);
+                            $ciciln=$this->tagihdb->gettarifcicilan($kodej);
+                            $kdciciln=!empty($ciciln)?$ciciln['KodeJ']:'';
+                            // print_r($kdciciln);
+                            if($islunas==TRUE||$islunas==true):
+                                if($kdciciln==$kodej):
+                                // if((!empty($kdciciln)&&!empty($kodej))):
+                                    // print_r('cicilan');
+                                    $dx[]="<li class='list-group-item '><div class='pull-left text-right'>".$i." |  </div>"
+                                    .(trim(bacatarif($dt['kodetarif'])))
+                                    ."<strong> (".$dt['kodetarif'].")</strong>
+                                    <div class='btn-group'>
+                                   <a data-toggle='modal' href='#modal-bayar' data-load-remote='".base_url('tagihan/formbayar/'.base64_encode($data['kode']).'/'.base64_encode($dt['kodetarif']))."' data-remote-target='#modal-bayar .modal-body' data-inv='".$data[
+                                    'kode']."' data-trf='".$dt['kodetarif']."' data-idmhs='".$data['mhs']."' class='btncicil btn btn-success btn-xs'><i class='fa fa-check'></i> Cicilan</a>
+                                    <a class='lunas btn btn-xs btn-primary'>Lunas</a>
+                                    </div> <span class='pull-right text-right'> ".rp($dt['tarif'])."</span></li>";
+                                    // endif;
+                                else:
+                                    $dx[]="<li class='list-group-item '><div class='pull-left text-right'>".$i." | </div>".(trim(bacatarif($dt['kodetarif'])))."<strong> (".$dt['kodetarif'].")</strong> <span class='pull-right text-right'> ".rp($dt['tarif'])."</span></li>";
+                                endif;     
+                            else:
+                                    $dx[]="<li class='list-group-item '><div class='pull-left text-right'>".$i." | </div>".(trim(bacatarif($dt['kodetarif'])))."<strong> (".$dt['kodetarif'].")</strong> <span class='pull-right text-right'> ".rp($dt['tarif'])."</span></li>";
+                            endif;
                             $i++;
                         }
 
@@ -553,7 +592,7 @@ class Tagihan extends MX_Controller {
                      $total=$this->getotmultitem($id);
                         if($isprint==FALSE){
 
-                        echo "<ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right no-print'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
+                        echo "<h4>Tarif</h4><ul class='list-group gutter5'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right no-print'><h3>Total Tagihan: Rp".rp($total['total'])."</h3></li></ul>";
                         }else{
                         echo "<ul class='list-group no-gutter'>".implode("", $dx)."<li style='border-top:1px solid #333333' class='list-group-item  active  text-right pull-right no-print'></li></ul>";
 
