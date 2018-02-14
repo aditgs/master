@@ -9,6 +9,7 @@ class jadwal_absen extends MX_Controller {
         $this->load->model('siakad_jadwal_absen_model','siakad_jadwal_absendb',TRUE);
         $this->session->set_userdata('lihat','jadwal_absen');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('sika');
             redirect('auth/login', 'refresh');
         endif;
 

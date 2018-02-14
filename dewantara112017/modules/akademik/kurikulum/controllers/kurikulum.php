@@ -9,6 +9,7 @@ class kurikulum extends MX_Controller {
         $this->load->model('siakad_kurikulum_model','siakad_kurikulumdb',TRUE);
         $this->session->set_userdata('lihat','kurikulum');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('sika');
             redirect('auth/login', 'refresh');
         endif;
 
