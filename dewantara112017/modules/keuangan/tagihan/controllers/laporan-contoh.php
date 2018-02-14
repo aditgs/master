@@ -7,6 +7,7 @@ class Laporan extends MX_Controller {
 	function __construct(){
 		parent::__construct();
 		if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('siku');
             redirect('auth/login', 'refresh');
         endif;
         $this->load->model('customer_model','csdb',TRUE);        

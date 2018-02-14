@@ -9,6 +9,7 @@ class tagihan_detail extends MX_Controller {
         $this->load->model('tagihan_detail_model','tagihan_detaildb',TRUE);
         $this->session->set_userdata('lihat','tagihan_detail');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('siku');
             redirect('auth/login', 'refresh');
         endif;
 
