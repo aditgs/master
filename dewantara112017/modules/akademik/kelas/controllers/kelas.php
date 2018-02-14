@@ -9,6 +9,7 @@ class kelas extends MX_Controller {
         $this->load->model('siakad_kelas_model','siakad_kelasdb',TRUE);
         $this->session->set_userdata('lihat','kelas');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('sika');
             redirect('auth/login', 'refresh');
         endif;
 

@@ -9,6 +9,7 @@ class jenis extends MX_Controller {
         $this->load->model('jenis_model','jenisdb',TRUE);
         $this->session->set_userdata('lihat','jenis');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('siku');
             redirect('auth/login', 'refresh');
         endif;
 

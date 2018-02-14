@@ -9,6 +9,7 @@ class jadwal_ujian extends MX_Controller {
         $this->load->model('siakad_jadwal_ujian_model','siakad_jadwal_ujiandb',TRUE);
         $this->session->set_userdata('lihat','jadwal_ujian');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('sika');
             redirect('auth/login', 'refresh');
         endif;
 

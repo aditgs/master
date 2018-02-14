@@ -9,6 +9,7 @@ class kelompokmhs extends MX_Controller {
         $this->load->model('kelompokmhs_model','keldb',TRUE);
         $this->session->set_userdata('lihat','kelompokmhs');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('siku');
             redirect('auth/login', 'refresh');
         endif;
 

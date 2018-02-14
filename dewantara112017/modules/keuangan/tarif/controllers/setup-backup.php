@@ -10,6 +10,7 @@ class Setup extends MX_Controller {
 		$this->load->model('tarif/setup_model','setdb',TRUE);
 		$this->load->model('jenis/jenis_model','jenisdb',TRUE);
 		if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('siku');
 			redirect('auth/login', 'refresh');
 		endif;
 		

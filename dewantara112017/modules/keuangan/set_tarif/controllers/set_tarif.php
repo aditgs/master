@@ -8,7 +8,8 @@ class Set_tarif extends MX_Controller {
         //Load IgnitedDatatables Library
         $this->load->model('setup_tarif_model','setup_tarifdb',TRUE);
         $this->session->set_userdata('lihat','setup_tarif');
-        if ( !$this->ion_auth->logged_in()): 
+        if ( !$this->ion_auth->logged_in()):
+        echo pesan_login('siku'); 
             redirect('auth/login', 'refresh');
         endif;
 

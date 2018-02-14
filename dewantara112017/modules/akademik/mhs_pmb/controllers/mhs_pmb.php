@@ -9,6 +9,7 @@ class mhs_pmb extends MX_Controller {
         $this->load->model('siakad_mhs_pmb_model','siakad_mhs_pmbdb',TRUE);
         $this->session->set_userdata('lihat','mhs_pmb');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('sika');
             redirect('auth/login', 'refresh');
         endif;
 
