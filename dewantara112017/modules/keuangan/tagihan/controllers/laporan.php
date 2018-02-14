@@ -12,6 +12,7 @@ class Laporan extends MX_Controller {
         $this->load->model('tarif/tarif_model','tarifdb',TRUE);
         $this->load->model('mhsmaster/mhsmaster_model','mhsdb',TRUE);
 		if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('siku');
             redirect('auth/login', 'refresh');
         endif;
 	}
