@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        	 <div class="form-group">
+            <div class="form-group">
                 <?php echo form_label('Tipe Tagihan: ','tagihan',array('class'=>'control-label')); ?>
                 <div class="input-group">
                     <div class="controls">
@@ -56,70 +56,59 @@
                 </div>
             </div>
         </div>
-        
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        	 <div class="form-group sp-dropdown">
-	            <?php echo form_label('Program Studi: ','prodi',array('class'=>'control-label')); ?>
-	        
-	                <div class="controls">
-	                    <?php //print_r($opt_supplier) ?>
-	                    <?php $prodi = isset($default['prodi'])? $default['prodi'] : '0';  ?>
-	                    <?php echo form_dropdown('prodi',$opt_prodi,$prodi,'id="prodi" class="form-control select2" style="width:100%" placeholder="Program Studi"'); ?>
-	                </div>
-	        
-	        </div>
+            <div class="form-group sp-dropdown">
+                <?php echo form_label('Program Studi: ','prodi',array('class'=>'control-label')); ?>
+                <div class="controls">
+                    <?php //print_r($opt_supplier) ?>
+                    <?php $prodi = isset($default['prodi'])? $default['prodi'] : '0';  ?>
+                    <?php echo form_dropdown('prodi',$opt_prodi,$prodi,'id="prodi" class="form-control select2" style="width:100%" placeholder="Program Studi"'); ?>
+                </div>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-           
-	        <div class="form-group">
-	            <label class="control-label">
-	                Nama Mahasiswa
-	            </label>
-	            <div class="controls input-group">
-	                <?php $mhs = isset($default['mhs'])? $default['mhs'] : '0';  ?>
-	                <?php echo form_dropdown('mhs',$opt_mhs,$mhs,'id="mhs" class="form-control select2 input-md" style="width:100%" placeholder="Mahasiswa"'); ?>
-	              
-	            </div>
-	        </div>
-	    </div>
-	    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-	    	
-	        <div class="form-group">
-	            <label class="control-label">
-	                Tahun Akademik
-	            </label>
-	            <div class="controls input-group">
-	                <?php $tahun = isset($default['tahun'])? $default['tahun'] : '0';  ?>
-	                <?php echo form_dropdown('tahun',$opt_tahun,$tahun,'id="tahun" class="form-control select2 input-md" style="width:100%" placeholder="Mahasiswa"'); ?>
-	              
-	            </div>
-	        </div>
-	    </div>
-	    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-	    	
-	           <div class="form-group sp-dropdown">
-	            <?php echo form_label('Kelompok Kelas: ','kelompok',array('class'=>'control-label')); ?>
-	        
-	                <div class="controls">
-	                    <?php //print_r($opt_supplier) ?>
-	                    <?php $kelompok = isset($default['kelompok'])? $default['kelompok'] : '0';  ?>
-	                    <?php echo form_dropdown('kelompok',$opt_kelompok,$kelompok,'id="kelompok" class="form-control select2" style="width:100%" placeholder="Kelompok"'); ?>
-	                </div>
-	        
-	        </div>   
-	    </div>
-	    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-	    	
-	        <div class="form-group">
-	            <div class="controls input-group">
-	            <?php echo form_label('Semester : ','semester',array('class'=>'control-label')); ?>
-	                <select name="semester" id="kdsmster" class="input-lg form-control select2" style="width:100%">
-	                    <option value="1">Ganjil</option>
-	                    <option value="2">Genap</option>
-	                </select>
-	            </div>
-	        </div>
-	    </div>
+            <div class="form-group">
+                <label class="control-label">
+                    Nama Mahasiswa
+                </label>
+                <div class="controls input-group">
+                    <?php $mhs = isset($default['mhs'])? $default['mhs'] : '0';  ?>
+                    <?php echo form_dropdown('mhs',$opt_mhs,$mhs,'id="mhs" class="form-control select2 input-md" style="width:100%" placeholder="Mahasiswa"'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label class="control-label">
+                    Tahun Akademik
+                </label>
+                <div class="controls input-group">
+                    <?php $tahun = isset($default['tahun'])? $default['tahun'] : '0';  ?>
+                    <?php echo form_dropdown('tahun',$opt_tahun,$tahun,'id="tahun" class="form-control select2 input-md" style="width:100%" placeholder="Mahasiswa"'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="form-group sp-dropdown">
+                <?php echo form_label('Kelompok Kelas: ','kelompok',array('class'=>'control-label')); ?>
+                <div class="controls">
+                    <?php //print_r($opt_supplier) ?>
+                    <?php $kelompok = isset($default['kelompok'])? $default['kelompok'] : '0';  ?>
+                    <?php echo form_dropdown('kelompok',$opt_kelompok,$kelompok,'id="kelompok" class="form-control select2" style="width:100%" placeholder="Kelompok"'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="form-group">
+                <div class="controls input-group">
+                    <?php echo form_label('Semester : ','semester',array('class'=>'control-label')); ?>
+                    <select name="semester" id="kdsmster" class="input-lg form-control select2" style="width:100%">
+                        <option value="1">Ganjil</option>
+                        <option value="2">Genap</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <label for=""> </label>
             <br>
