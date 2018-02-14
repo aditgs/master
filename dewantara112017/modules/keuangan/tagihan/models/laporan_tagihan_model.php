@@ -86,6 +86,38 @@ class Laporan_tagihan_model extends CI_Model {
         return $this->__result($result);
     }
     function getrekappermhs() {
+        $this->db->select('*')->from('010-view-totaltagih-permhs a')->join('mhsmaster b','a.mhs=b.id');
+        // sql view 010-view-totaltagih-permhs
+      if(!empty($data['tahun'])||$data['tahun']!=='0'):
+            $this->db->where('th_akad',$data['tahun']);
+        endif;
+        if(!empty($data['semester'])||$data['semester']!=='0'):
+            $this->db->where('kdsmster',$data['semester']);
+        endif;
+        if(!empty($data['mhs'])||$data['mhs']!=='0'):
+            $this->db->where('mhs',$data['mhs']);
+        endif;
+        if(!empty($data['prodi'])||$data['prodi']!=='0'):
+            // $this->db->where('prodi',!empty($data['prodi'])?$data['prodi']:'61');
+            $this->db->where('prodi',$data['prodi']);
+        endif;
+        if(!empty($data['kelompok'])||$data['kelompok']!=='0'):
+            // $this->db->where('kelompok',!empty($data['kelompok'])?$data['kelompok']:'61');
+            $this->db->where('kel',$data['kelompok']);
+        endif;
+        if(!empty($data['start'])||$data['start']!==''):
+            $this->db->where('a.tanggal >=',!empty($data['start'])?$data['start']:date('Y-m-d'));
+        endif;
+        if(!empty($data['end'])||$data['end']!==''):
+            $this->db->where('a.tanggal <=',!empty($data['end'])?$data['end']:date('Y-m-d'));
+        endif; 
+        // $sql="select * from tagihanmhs";
+        // $result = $this->db->query($sql);
+        $result = $this->db->get();
+
+        return $this->__result($result);
+    } 
+    function getrekappermhsx() {
 		// sql view 010-view-totaltagih-permhs
 		$sql="select `a`.`mhs` AS `mhs`,`b`.`nim` AS `nimmhs`,left(`b`.`nim`,4) AS `kodemhs`,`b`.`nama` AS `nmmhs`,sum(`a`.`total`) AS `totalmhs` from (`tagihanmhs` `a` left join `mhsmaster` `b` on((`a`.`mhs` = `b`.`id`))) group by `a`.`mhs`";
 		// $sql="select * from tagihanmhs";

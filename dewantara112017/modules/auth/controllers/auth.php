@@ -125,6 +125,10 @@ class Auth extends MX_Controller {
             } else {
                 //if the login was un-successful
                 //redirect them back to the login page
+                echo json_encode(array('st'=>0,'msg'=>'<div class="alert alert-warning">
+            
+            <strong><i class="fa fa-warning"></i> Perhatian!</strong>Anda perlu login...
+        </div>'));
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
                 redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
             }

@@ -30,5 +30,6 @@
 <?php $this->load->view('modal-alert') ?>
 <?php $this->load->view('modal-validation') ?>
 <?php $this->load->view('modal-password') ?>
+<?php $this->load->view('modal-bayar') ?>
 
 

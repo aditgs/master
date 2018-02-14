@@ -11,6 +11,7 @@ class Laporan extends MX_Controller {
 		$this->load->model('laporan_pmb_model','lapordb',TRUE);
         // $this->load->model('mhsmaster/mhsmaster_model','mhsdb',TRUE);
 		if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('pmb');
             redirect('auth/login', 'refresh');
         endif;
 	}

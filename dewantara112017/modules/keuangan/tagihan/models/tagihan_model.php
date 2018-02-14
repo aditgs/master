@@ -34,6 +34,36 @@ class Tagihan_model extends CI_Model {
             return array();
         }
     }
+    function gettarifcicilan($kode) {
+
+        $this->db->select('id,KodeJ,Jenis,cicilan')->from('002-view-jenis-cicilan')->where('KodeJ',$kode);
+        $result = $this->db->get();
+        if ($result->num_rows()==1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }
+    function gettarifpmb($kode) {
+
+        $this->db->select('id,KodeJ,Jenis,pmb')->from('002-view-jenis-pmb')->where('KodeJ',$kode);
+        $result = $this->db->get();
+        if ($result->num_rows()==1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }
+    function gettarifdaftarulang($kode) {
+
+        $this->db->select('id,KodeJ,Jenis,hereg')->from('002-view-jenis-daftarulang')->where('KodeJ',$kode);
+        $result = $this->db->get();
+        if ($result->num_rows()==1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    }
     function getmultipaket($id){
         $this->db->select('id,multipaket')->from('001-view-tagihanmhs')->where('id',$id);
         $result=$this->db->get();
@@ -90,7 +120,18 @@ class Tagihan_model extends CI_Model {
             return $result->row_array();
         }else{
             return array();
-        }
+        }   
+    } 
+    function getdetailtagihanmhs($kodetagihan,$kodetarif){
+        $this->db->select('idtagihan as id,iddetail,kodetagihan,nim,mhs,kodetarif,tarif,tagbayar,taghutang,tagdetailbayar,tagdetailhutang')->from('009-view-tagihandetail');
+        $this->db->where('kodetagihan',$kodetagihan);
+        $this->db->where('kodetarif',$kodetarif);
+        $result=$this->db->get();
+        if($result->num_rows()==1){
+            return $result->row_array();
+        }else{
+            return array();
+        }   
     } 
     function getpaket($id){
         $this->db->select('id_siakad_keu_paket as id, kode_akademik as kode,nm_paket as nama,')->from('siakad_keu_paket')->where('id_siakad_keu_paket',$id);
@@ -158,6 +199,22 @@ class Tagihan_model extends CI_Model {
             return array();
         }
     } 
+    // untuk generasi faktur cicilan
+    function getlastcicilan($inv,$trf){
+
+        $this->db->select('kodetarifcicilan,nim'); //faktur
+        $this->db->where('kodetagihan',$inv);
+        $this->db->where('kodetarif',$trf);
+        $this->db->order_by('id','DESC');
+        $this->db->limit(1);
+
+        $result=$this->db->get('tagihan_cicilan');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    } 
     function gettotaldetail($faktur){
         $this->db->select('faktur,sum(jumlah) as total'); //field perlu disesuaikan dengan tabel
         $this->db->from('tagihanmhs');
@@ -192,6 +249,21 @@ class Tagihan_model extends CI_Model {
             // return array('sql'=>$this->db->last_query());
             return array();
         }
+    }
+    function genkodecicilan($inv,$trf){
+        $last=$this->getlastcicilan($inv,$trf);
+        $tagihanmhs=$this->getdetailtagihanmhs($inv,$trf);
+        $nim=$tagihanmhs['nim'];
+        if(!empty($last)):
+            $tx=$last['kodetarifcicilan'];
+            $right=substr($last['kodetarifcicilan'],-2);
+            $no=intval($right)+1;
+            $new=substr("00".$no,-2);
+            $kode=$trf.".".$nim.".".$new;
+        else:
+            $kode=$trf.".".$nim."."."01";//diganti sesuai faktur/kode transaksi
+        endif;
+        return ($kode);
     }
     function genfaktur(){
         $last=$this->get_last();
