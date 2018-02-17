@@ -17,22 +17,8 @@ class Testemail extends MX_Controller {
     function sendMail() {
         $ci = get_instance();
         $ci->load->library('email');
-        // $config['protocol'] = "smtp";
-        // $config['smtp_host'] = "ssl://smtp.gmail.com";
-        // $config['smtp_port'] = "465";
-        // $config['smtp_user'] = "opickgm@gmail.com";
-        // $config['smtp_pass'] = "latansa876";   
         $config['protocol'] = "smtp";
-
-        /*$config['smtp_host'] = "ssl://smtp.gmail.com";
-        $config['smtp_port'] = "465";
-        $config['smtp_user'] = "roniwahyu@gmail.com";
-        $config['smtp_pass'] = "qwe987asd654";  
-        */
-        $config['smtp_host'] = "ssl://mail.jurnalstiedewantara.com";
-        $config['smtp_port'] = "465";
-        $config['smtp_user'] = "sika@jurnalstiedewantara.com";
-        $config['smtp_pass'] = "@n3363aaz";
+        /*Setup SMTP*/
         $config['charset'] = "utf-8";
         $config['mailtype'] = "html";
         $config['newline'] = "\r\n";
