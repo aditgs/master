@@ -296,17 +296,17 @@ class Tagihan extends MX_Controller {
     } 
    
 
-    public function getdatatables(){
+    public function getdatatables($type=false){
         // if($this->isadmin()==1):
             $this->datatables->select("id,kode,tanggal,mhs,nimmhs,nmmhs,isvalidasi,tglvalidasi,islunas,kodemhs")
-                            ->from('001-view-tagihanmhs');
+                            ->from('001-view-tagihanmhs')->order('id','desc');
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
             $this->datatables->edit_column('tglvalidasi','<div class="label label-primary">$2</div> ($1)',"thedate(tglvalidasi),isvalidasi");
            
             $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-mhs='$3'data-load-remote='".base_url('tagihan/gettabeltarif/$1/$4')."' data-remote-target='#modal-id .modal-body' data-kodemhs='$4' class='bymhs btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs,kodemhs");
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
+                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihan/getone/$2/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a>
                 <a data-toggle='modal' href='#modal-validation' data-load-remote='".base_url('tagihan/formval/$2/')."' data-remote-target='#modal-validation .modal-body' class='btn btn-success btn-xs'><i class='fa fa-check'></i> </a>" 
                 ."<a class='edit btn btn-xs btn-warning' data-toggle='modal' href='#modal-form' title='Edit' id='$1'><i class='fa fa-pencil'></i></a>"
                 .'<button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-eye"></i> Aksi <span class="caret"></span></button>'
@@ -319,13 +319,7 @@ class Tagihan extends MX_Controller {
 </div>' , 'id,base64_encode(id),base64_encode("pdf")');
             $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,kodemhs,islunas,isvalidasi');
 
-        /*else:
-            $this->datatables->select('id,kode,tanggal,tgltempo,mhs,kodebank,idpaket,status,dateopen,dateclosed,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
-                            ->from('tagihanmhs');
-            $this->datatables->add_column('edit',"<div class='btn-group'>
-                <a data-toggle='modal' href='#modal-id' data-load-remote='".base_url('tagihanmhs/getone/$1/')."' data-remote-target='#modal-id .modal-body' class='btn btn-info btn-xs'><i class='fa fa-info-circle'></i> </a></div>" , 'id');
-            $this->datatables->unset_column('id');
-        endif;*/
+      
         echo $this->datatables->generate();
     }
     public function gettagihan($mhs=null){
@@ -676,7 +670,8 @@ class Tagihan extends MX_Controller {
             }
         }
     }
-    function getone($id=null){
+    function getone($id){
+        $id=base64_decode($id);
         if($id!==null){
             $data=$this->tagihdb->get_one($id);
             // print_r($data);
