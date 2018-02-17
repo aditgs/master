@@ -236,7 +236,7 @@ $config['identity_cookie_name'] = 'identity';
 
  */
 
-$config['use_ci_email'] = TRUE; // Send Email using the builtin CI email class, if false it will return the code and the identity
+$config['use_ci_email'] = FALSE; // Send Email using the builtin CI email class, if false it will return the code and the identity
 
 $config['email_config'] = array(
 
