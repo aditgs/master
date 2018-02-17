@@ -1,11 +1,12 @@
-<table id="datatables" class="table table-bordered table-condensed table-striped" style="width:100%">
+<p>Tagihan (T <i class='fa fa-arrow-right'></i> V): T = Tagihan, V = Validasi </p>
+<table id="datatables" class="tabletagihanmhs table table-bordered table-condensed table-striped" style="width:100%">
         <thead class="">
             <tr>
                 <th style="width:5%" class="text-center">No</th>
             
                 <th style="width:30%" class="text-center">Mahasiswa/NIM</th>
+                <th style="width:10%" class="text-center">Tagihan (T <i class='fa fa-arrow-right'></i> V)</th>
                 <th style="width:10%" class="text-center">Total</th>
-                <th style="width:10%" class="text-center">Tervalidasi</th>
                 <th style="width:10%" class="text-center">Selisih</th>
             
             </tr>
@@ -15,10 +16,10 @@
             <?php foreach ($data as $key => $value): ?>
                 <tr>
                     <th class="text-center"><?= $i ?></th>
-                    <th class="text-left"><?= "(".$value['nimmhs'].") ".$value['nmmhs'] ?></th>
+                    <th class="text-left"><?= "(".$value['nim'].") ".$value['namamhs'] ?></th>
+                    <th class="text-center"><?= "<span class='label label-success'>".($value['jtag'])."</span> <i class='fa fa-arrow-right'></i> <span class='label label-primary'>".($value['jval'])."</span> | <span class='label label-danger'>".$value['jnoval']."</span>" ?></th>
                     <th class="text-right"><?= rp($value['totalmhs']) ?></th>
-                    <th class="text-right"><?= rp($value['totalmhs']) ?></th>
-                    <th class="text-right"><?= rp($value['totalmhs']) ?></th>
+                    <th class="text-right"><?= rp($value['tdethutangdb']) ?></th>
                     
                 </tr>
                 <?php if(!empty($isdetail)||$isdetail!=false||$isdetail!=null): ?>
@@ -35,3 +36,6 @@
         </tbody>
     <?php endif; ?>
     </table>
+<script type="text/javascript">
+    $('.tabletagihanmhs').DataTable({});
+</script>
