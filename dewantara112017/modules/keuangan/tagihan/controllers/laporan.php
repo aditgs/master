@@ -135,7 +135,8 @@ class Laporan extends MX_Controller {
                 'data'=>$data,
 
             ),TRUE);
-            buildpdflaporan($html2,'laporan-tagihan-'.date('d-m-Y-Hms'),TRUE);
+            // buildpdflaporan($html2,'laporan-tagihan-'.date('d-m-Y-Hms'),TRUE);
+            buildpdf($html2,'laporan-tagihan-'.date('d-m-Y-Hms'),TRUE);
             
      
         }else{
