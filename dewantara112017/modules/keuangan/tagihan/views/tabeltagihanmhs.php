@@ -37,5 +37,8 @@
     <?php endif; ?>
     </table>
 <script type="text/javascript">
-    $('.tabletagihanmhs').DataTable({});
+    $(document).ready(function(){
+
+        $('.tabletagihanmhs').DataTable({});
+    });
 </script>
