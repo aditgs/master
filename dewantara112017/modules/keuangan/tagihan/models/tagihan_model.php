@@ -132,6 +132,17 @@ class Tagihan_model extends CI_Model {
         }else{
             return array();
         }   
+    }  
+    function gettagihanmhs($kodetagihan){
+        $this->db->select('idtagihan as id,iddetail,kodetagihan,nim,mhs,kodetarif,tarif,total,tagbayar,taghutang,tagdetailbayar,tagdetailhutang,iscicilan,ispmb')->from('009-view-tagihandetail');
+        $this->db->where('kodetagihan',$kodetagihan);
+        // $this->db->where('kodetarif',$kodetarif);
+        $result=$this->db->get();
+        if($result->num_rows()>0){
+            return $result->result_array();
+        }else{
+            return array();
+        }   
     } 
     function getpaket($id){
         $this->db->select('id_siakad_keu_paket as id, kode_akademik as kode,nm_paket as nama,')->from('siakad_keu_paket')->where('id_siakad_keu_paket',$id);
