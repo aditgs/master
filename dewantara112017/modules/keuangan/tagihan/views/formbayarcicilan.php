@@ -27,7 +27,7 @@
                
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group hidden">
             <?php echo form_label('NIM  : ','nim',array('class'=>'control-label')); ?>
             <div class="controls">
                 <?php echo form_hidden('nim',set_value('nim', isset($default['nim']) ? $default['nim'] : ''),'id="nim" class="hidden form-control text-center" readonly placeholder="AUTO"'); ?>
