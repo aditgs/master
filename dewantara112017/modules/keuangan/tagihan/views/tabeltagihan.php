@@ -1,3 +1,4 @@
+<?php //print_r($data) ?>
 <table id="datatables" class="tabeltagihan table table-bordered table-condensed table-striped" style="width:100%">
         <thead class="">
             <tr>
@@ -16,7 +17,7 @@
                     <th class="text-center"><?= $i ?></th>
                     <th class="text-center"><?= $value['kodetagihan'] ?></th>
                     <th class="text-center"><?= thedate($value['tanggal']) ?></th>
-                    <th class="text-left"><?= "(".$value['nim'].") ".$value['nama'] ?></th>
+                    <th class="text-left"><?= "(".$value['nim'].") ".$value['namamhs'] ?></th>
                     <th class="text-right"><?= rp($value['total']) ?></th>
                     <th class="text-center"><?= isset($value['tglvalidasi'])?'<label class="label label-primary">Valid: '.thedate($value['tglvalidasi']).'</label>':''; ?></th>
                     
