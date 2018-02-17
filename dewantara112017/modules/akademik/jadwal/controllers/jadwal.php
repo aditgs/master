@@ -9,6 +9,7 @@ class jadwal extends MX_Controller {
         $this->load->model('siakad_jadwal_model','siakad_jadwaldb',TRUE);
         $this->session->set_userdata('lihat','siakad_jadwal');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('sika');
             redirect('auth/login', 'refresh');
         endif;
 

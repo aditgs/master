@@ -20,7 +20,8 @@ class Site extends MX_Controller{
         
         // if(isset($this->session->userdata('modules')))
 
-        if ( !$this->ion_auth->logged_in()): 
+        if ( !$this->ion_auth->logged_in()):
+        echo pesan_login('siku'); 
             redirect('../auth/login', 'refresh');
         endif;
 

@@ -19,6 +19,7 @@ class Dashboard extends MX_Controller {
         $this->lang->load('auth');
 
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('pmb');
 
             redirect('../auth/login', 'refresh');
 
