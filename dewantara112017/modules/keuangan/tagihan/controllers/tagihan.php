@@ -298,10 +298,11 @@ class Tagihan extends MX_Controller {
 
     public function getdatatables(){
         // if($this->isadmin()==1):
-            $this->datatables->select("id,kode,tanggal,tglvalidasi,mhs,nimmhs,nmmhs,islunas,isvalidasi,kodemhs")
+            $this->datatables->select("id,kode,tanggal,mhs,nimmhs,nmmhs,isvalidasi,tglvalidasi,islunas,kodemhs")
                             ->from('001-view-tagihanmhs');
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
+            $this->datatables->edit_column('tglvalidasi','<div class="label label-primary">$2</div> ($1)',"thedate(tglvalidasi),isvalidasi");
            
             $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-mhs='$3'data-load-remote='".base_url('tagihan/gettabeltarif/$1/$4')."' data-remote-target='#modal-id .modal-body' data-kodemhs='$4' class='bymhs btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs,kodemhs");
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
@@ -316,7 +317,7 @@ class Tagihan extends MX_Controller {
                 ."<li> <a data-toggle='tooltip' data-placement='top' title='Hapus' class='delete ' id='$1'><i class='fa fa-remove'></i> Hapus</a></li>"
                 .'</ul>
 </div>' , 'id,base64_encode(id),base64_encode("pdf")');
-            $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,isvalidasi,kodemhs');
+            $this->datatables->unset_column('id,tgltempo,nimmhs,nmmhs,kodemhs,islunas,isvalidasi');
 
         /*else:
             $this->datatables->select('id,kode,tanggal,tgltempo,mhs,kodebank,idpaket,status,dateopen,dateclosed,refbank,isbayar,tglbayar,isvalidasi,tglvalidasi,isactive,islocked,isdeleted,datedeleted,userid,datetime,')
