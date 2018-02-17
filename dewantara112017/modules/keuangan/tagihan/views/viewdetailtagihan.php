@@ -14,7 +14,7 @@ if(isset($data)){ $detail=$this->tagihdb->gettagihan($data['id']); //print_r($de
 		</tr>
 		<tr>
 			<th>Nama/NIM</th>
-			<td><?php echo $detail['nmmhs']." (".$detail['nimmhs'].")<br>".(new tagihan)->bacatarif($detail['nimmhs']) ?></td>
+			<td><?php echo $detail['nmmhs']." (".$detail['nimmhs'].")<br>".(new tagihan)->bacaprodi($detail['nimmhs']) ?></td>
 		</tr>
 		<tr>
 			<th >Total Tagihan</th>

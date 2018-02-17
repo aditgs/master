@@ -633,12 +633,13 @@ class Tagihan extends MX_Controller {
     function bacatarif($kode){
         return bacatarif($kode);
     }
-    function bacatarifx($kode){
+    function bacaprodi($kode){
         
         $angkatan=substr($kode,0,2);
         $prodi=substr($kode,2,2);
      
         $bcprodi=$this->tarifdb->bacaprodi($prodi);
+        // print_r($bcprodi);
         return ("Angkatan 20".$angkatan.", ".$bcprodi['Prodi']." ");
 
     }
