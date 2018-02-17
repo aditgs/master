@@ -60,10 +60,10 @@ if ( ! function_exists('pesan_login')){
     function pesan_login($modul=null){
         if(!empty($modul)||$modul!=null){
 
-        return '<div class="alert alert-warning"><strong><i class="fa fa-warning"></i> Perhatian! </strong>Anda perlu login..., tekan tombol F5 untuk refresh atau klik <a href="'.domain().$modul.'/auth/login" class="btn btn-xs btn-warning">disini</a></div>';
+        return '<div class="alert alert-warning"><strong><i class="fa fa-warning"></i> Perhatian! </strong>Sesi login Anda telah habis, tekan tombol F5 untuk refresh atau klik <a href="'.domain().$modul.'/auth/login" class="btn btn-xs btn-warning">disini</a></div>';
         }else{
 
-        return '<div class="alert alert-warning"><strong><i class="fa fa-warning"></i> Perhatian! </strong>Anda perlu login..., tekan tombol F5 untuk refresh atau klik <a href="'.domain().'/auth/login" class="btn btn-xs btn-warning">disini</a></div>';
+        return '<div class="alert alert-warning"><strong><i class="fa fa-warning"></i> Perhatian! </strong>Sesi login Anda telah habis,tekan tombol F5 untuk refresh atau klik <a href="'.domain().'/auth/login" class="btn btn-xs btn-warning">disini</a></div>';
         }
     }
 }
