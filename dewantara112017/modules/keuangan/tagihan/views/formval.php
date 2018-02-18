@@ -56,7 +56,7 @@
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
           <div class="form-group bayar text-right">
                 <label>Bayar:</label>
-                <div class="bayar"><input value="<?php echo !empty($default['bayar'])?($default['bayar']):0; ?>" type="text" name="bayar" id="bayar" class="text-right input-lg form-control" style="font-size:24px"></div>
+                <div class="bayar"><input value="<?php echo !empty($default['bayar'])?($default['bayar']):0; ?>" type="text" readonly name="bayar" id="bayar" class="text-right input-lg form-control" style="font-size:24px"></div>
                 
             </div>
     </div>

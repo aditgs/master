@@ -21,10 +21,10 @@
             <tr>
                 <th style="width:10%" class="">Kode</th>
                 <th style="width:10%" class="">Tanggal</th>
-                <th style="width:50%" class="">Mahasiswa/NIM</th>
+                <th style="width:40%" class="">Mahasiswa/NIM</th>
                 
-                <th style="width:15%" class="">Validasi</th>
-                <th style="width:15%" class="">Aksi</th>
+                <th style="width:20%" class="text-center">Validasi</th>
+                <th style="width:20%" class="">Aksi</th>
             </tr>
         </thead>
         <tbody class="table-bordered">
