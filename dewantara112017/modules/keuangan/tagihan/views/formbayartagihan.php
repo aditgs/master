@@ -24,50 +24,61 @@
           
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <table class="table table-striped table-bordered table-condensed">
+        <table class="table table-condensed">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Tarif</th>
-                    <th>Tagihan</th>
-                    <th>Bayar</th>
-                    <th>Cicilan</th>
+                    <th class="text-right">Tagihan</th>
+                    <th class="text-right">Bayar</th>
+                    <th class="text-right">Cicilan</th>
                 </tr>
             </thead>
         <tbody>
             
             
         <?php //(new tagihan)->getmultitem($default[0]['id'],true); 
-        if(isset($default)):$i=1;foreach ($default as $key => $value):?>
+        if(isset($default)):$i=1;$totarif=0;foreach ($default as $key => $value):?>
+        <?php if($value['iscicilan']==1): ?>
+                <tr class="alert alert-danger">
+        <?php else: ?>
                 <tr>
+        <?php endif; ?>
                     <td><?= $i; ?></td>
                     <td><?= (new tagihan)->bacatarif($value['kodetarif'])?></td>
-                    <td>
-                        <input type="text" readonly class="hidden form-control" name="kodetarif[]" value="<?= $value['kodetarif']?>" id="kodetarif"><?= $value['tarif']?>
+                    <td class="text-right">
+                        <input type="text" readonly class="hidden form-control" name="kodetarif[]" value="<?= $value['kodetarif']?>" id="kodetarif"><?= rp($value['tarif'])?>
                     
                     </td>
                         <?php if($value['iscicilan']==1): ?>
                     <td class="alert alert-danger">
-                            <input type="text" name="bayar[]" class="form-control text-right" value="<?= $value['tarif']?>" id="bayar">
+                            <input type="text" name="bayar[]" class="form-control text-right" value="<?= floatval($value['tarif'])?>" id="bayar">
                     </td>
                         <?php else: ?>
                     <td>
                             <div class="text-right"><?= $value['tarif'] ?></div>
-                                <input type="text" class="hidden form-control" readonly name="bayar[]" value="<?= $value['tarif']?>" id="bayar">
+                                <input type="text" class="hidden form-control" readonly name="bayar[]" value="<?= floatval($value['tarif'])?>" id="bayar">
                     </td>
                     <?php endif; ?>
 
                     <td><?= ($value['iscicilan']==1)?'Ya':'Tidak';?></td>
                     
                 </tr>
-            <?php $i++;endforeach;?>
+            <?php 
+            $totarif=$totarif+$value['tarif'];
+            $i++;endforeach;?>
         <?php else: ?>
         <tr><td colspan="4">Data tidak ditemukan</td></tr>    
         <?php endif; ?>
         
         
         </tbody>
-
+        <tfoot>
+            <tr>
+                <td colspan="2"></td>
+                <td class="text-right"><?= rp($totarif) ?></td>
+            </tr>
+        </tfoot>
         </table>
     </div>
  
