@@ -302,7 +302,7 @@ class Tagihan extends MX_Controller {
                             ->from('001-view-tagihanmhs')->order('id','desc');
                             // $this->datatables->join('mhsmaster as b','a.mhs=b.id','left');
             $this->datatables->edit_column('tanggal','$1',"thedate(tanggal)");
-            $this->datatables->edit_column('tglvalidasi','<div class="badge badge-primary">$2 ($1)</div>',"thedate(tglvalidasi),isvalidasi");
+            $this->datatables->edit_column('tglvalidasi','<div class="text-center"><span class="badge badge-primary">$2 ($1)</span></div>',"thedate(tglvalidasi),isvalidasi");
            
             $this->datatables->edit_column('mhs',"<a data-toggle='modal' href='#modal-id' data-mhs='$3'data-load-remote='".base_url('tagihan/gettabeltarif/$1/$4')."' data-remote-target='#modal-id .modal-body' data-kodemhs='$4' class='bymhs btn btn-info btn-xs'><i class='fa fa-info-circle'></i> ".'$2 ($1) </a>',"nimmhs,nmmhs,mhs,kodemhs");
             $this->datatables->add_column('edit',"<div class='btn-group' style=''>
