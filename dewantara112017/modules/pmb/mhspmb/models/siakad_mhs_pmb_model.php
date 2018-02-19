@@ -49,6 +49,19 @@ class Siakad_mhs_pmb_model extends CI_Model {
             return array();
         }
     } 
+     function getgelombangaktif(){
+         $this->db->select('id,keterangan'); //faktur
+         $this->db->where('isactive','1'); //faktur
+         $this->db->order_by('id','DESC');
+         $this->db->limit(1);
+         $result=$this->db->get('pmb_gelombang');
+         if ($result->num_rows() == 1) {
+             return $result->row_array();
+         } else {
+             return array();
+         }
+ 
+    } 
     function gettotaldetail($faktur){
         $this->db->select('faktur,sum(jumlah) as total'); //field perlu disesuaikan dengan tabel
         $this->db->from('siakad_mhs_pmb');

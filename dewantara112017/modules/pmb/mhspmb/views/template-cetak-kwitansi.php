@@ -108,7 +108,7 @@
                     <h4 style="height: 2mm">Pembayaran</h4>
                 </div>
                 <div class="col-xs-9 col-sm-9">
-                    <h4 style="height: 2mm">: Pendaftaran PMB <?php echo (isset($detail)||!empty($detail))?$detail['keterangan']:'' ?></h4>
+                    <h4 style="height: 2mm">: Pendaftaran PMB <?php echo isset($detail['keterangan'])?$detail['keterangan']:'' ?></h4>
                 </div>
             </div>
             <div class="row">
@@ -116,7 +116,7 @@
                     <h4>Terbilang</h4>
                 </div>
                 <div class="col-xs-9 col-sm-9">
-                    <h4>: <?php echo (!empty($detail['kodetarifdaftar'])||$detail['kodetarifdaftar']!=null)?terbilang($detail['kodetarifdaftar'])." RUPIAH":''; ?></h4>
+                    <h4>: <?php echo isset($detail['kodetarifdaftar'])?terbilang($detail['kodetarifdaftar'])." RUPIAH":' - '; ?></h4>
                 </div>
             </div>
             </div>
@@ -125,7 +125,7 @@
                     &nbsp;
                 </div>
                 <div class="col-xs-5 col-sm-5 text-right">
-                    <h2 style="background-color:#dddddd;font-style:italic;margin-top:0px;padding:5px 20px;border: medium double #333;font-weight: 700" align="right"><?php echo (!empty($detail['kodetarifdaftar'])||$detail['kodetarifdaftar']!=null)?'Rp.'.rp($detail['kodetarifdaftar']):''; ?></h2>
+                    <h2 style="background-color:#dddddd;font-style:italic;margin-top:0px;padding:5px 20px;border: medium double #333;font-weight: 700" align="right"><?php echo (isset($detail['kodetarifdaftar']))?'Rp.'.rp($detail['kodetarifdaftar']):'0'; ?></h2>
                 </div>
             </div>
             <div class="row" style="text-align:center">
