@@ -66,7 +66,10 @@ class mhspmb extends MX_Controller {
         // $this->template->add_js('modules/mhspmb.js');
              $this->template->add_js('jquery.ui.widget.js');
         $this->template->add_js('jquery.fileupload.js');
-        $this->template->add_js('uploader.js');  
+        $this->template->add_js('uploader.js'); 
+        $this->pmbdb->getgelombangaktif();
+
+        
         $default=array(
             'memo'=>'website',
             'status_cmhs'=>'Baru',
