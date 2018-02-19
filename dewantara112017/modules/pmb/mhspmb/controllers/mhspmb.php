@@ -278,7 +278,7 @@ class mhspmb extends MX_Controller {
             $html=$this->load->view('template-cetak-kwitansi',array('data'=>$data,'baseurl'=>base_url()),TRUE);
             if(!empty($pdf)||$pdf!=null){
                 $this->load->helper(array('dompdf', 'file'));
-                buildpdf($html, 'INV#'.$id."-".date('d-m-Y-Hms'),'A5','landscape',true);
+                buildkwi($html, 'INV#'.$id."-".date('d-m-Y-Hms'),'A5','landscape',TRUE);
             }else{          
                 echo ($html);
             }
