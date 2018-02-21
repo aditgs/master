@@ -35,6 +35,12 @@
         </p>
 
         <p>
+            <?php echo lang('create_user_username_label', 'username');?>
+            <br />
+            <?php echo bs_form_input($username);?>
+        </p>
+
+        <p>
             <?php echo lang('create_user_phone_label', 'phone');?> <br />
             <?php echo bs_form_input($phone);?>
         </p>
