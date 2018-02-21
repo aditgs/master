@@ -53,6 +53,16 @@ class Tagihan_model extends CI_Model {
         } else {
             return array();
         }
+    } 
+    function gettarifdetailbykode($kode) {
+
+        $this->db->select('*')->from('006-view-tarifdetail')->where('kodetarif',$kode);
+        $result = $this->db->get();
+        if ($result->num_rows()==1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
     }
     function gettarifdaftarulang($kode) {
 
@@ -219,6 +229,37 @@ class Tagihan_model extends CI_Model {
         $this->db->order_by('id','DESC');
         $this->db->limit(1);
 
+        $result=$this->db->get('tagihan_cicilan');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    } 
+    function gettotalcicilan($inv,$trf){
+
+        $this->db->select('kodetarifcicilan,nim,tarif,sum(bayar) as totalbayar,sisahutang'); //faktur
+        $this->db->where('kodetagihan',$inv);
+        $this->db->where('kodetarif',$trf);
+        $this->db->order_by('kodetagihan');
+        $this->db->order_by('kodetarif');
+        // $this->db->limit(1);
+
+        $result=$this->db->get('tagihan_cicilan');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    } 
+    function gettotalcicilanbymhs($nim){
+
+        $this->db->select('kodetarifcicilan,nim,sum(bayar) as totalbayar,sum(sisahutang) as totalhutang'); //faktur
+        // $this->db->where('kodetagihan',$inv);
+         // $this->db->where('kodetarif',$trf);
+        $this->db->order_by('nim','ASC');
+        $this->db->order_by('kodetagihan','ASC');
+      
         $result=$this->db->get('tagihan_cicilan');
         if ($result->num_rows() == 1) {
             return $result->row_array();

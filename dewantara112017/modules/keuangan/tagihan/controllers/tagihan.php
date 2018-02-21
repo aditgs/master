@@ -816,6 +816,25 @@ class Tagihan extends MX_Controller {
             return TRUE;
         }
         // return $status;
+    } 
+    function __payval(){
+        $this->form_validation->set_rules('id', 'ID', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('kodetarif[]', 'Kode Tarif', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('kode', 'Kode Tagihan', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('total', 'Total Tagihan', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('bayar[]', 'Pembayaran', 'required|trim|xss_clean');
+     
+
+        if ($this->form_validation->run() == FALSE)
+            {
+                // $this->session->set_flashdata(validation_errors());             
+                return json_encode(array('st'=>0, 'msg' => validation_errors()));
+                // return FALSE;
+            }
+        else{
+            return TRUE;
+        }
+        // return $status;
     }
     function __validationtagihan(){
         // $this->form_validation->set_rules('tanggal', 'Tanggal', 'required|trim|xss_clean');
@@ -934,7 +953,115 @@ class Tagihan extends MX_Controller {
         else:
             echo $this->__formvalidation();
         endif;
-    }public function submit(){
+    }
+    function __cekcicilan($inv,$trf){
+        $cicilan=$this->tagihdb->gettotalcicilan($inv,$trf);
+        $cicilanakhir=!empty($cicilan['totalbayar'])?$cicilan['totalbayar']:0;
+        // print_r($cicilan);
+        if(!empty($cicilan)){
+
+            return $cicilanakhir;
+        }else{
+            return floatval(0);
+        }
+    }
+    function vervalpay(){
+        $kodetarif=$this->input->post('kodetarif');
+        $bayar=$this->input->post('bayar');
+        $kodeinv=$this->input->post('kode');
+        $iscicilan='0';
+        $i=1;
+ 
+        foreach ($kodetarif as $k => $v) {
+                # code...
+                $kodej=substr($v,4,2);
+                $tarif=$this->tagihdb->gettarifdetailbykode($v);
+                // print_r($this->__cekcicilan($kodeinv,$v));
+                $cicilanakhir=$this->__cekcicilan($kodeinv,$v);
+                // $cicilan=$this->tagihdb->gettarifcicilan($kodej);
+                if(!empty($tarif)&&$tarif['iscicilan']==1){
+                    // print_r($cicilan['cicilan']);
+                    $iscicilan='1';
+                    $bayarin=$bayar[$k];
+                    if($bayarin<$tarif['tarif']){
+                        if($cicilanakhir<=0):
+                            $hutangin=$tarif['tarif']-$bayarin;
+                        else:
+                            if($cicilanakhir<$tarif['tarif']):
+                               if(($bayarin+$cicilanakhir)<$tarif['tarif']):
+                                    $hutangin=0;
+                               else:
+                               endif; 
+                                // $hutangin=$tarif['tarif']-($bayarin+$cicilanakhir);
+                            else:
+                                $hutangin=0;
+                            endif;
+                        endif;
+                    }else{
+                        $hutangin=0;
+                    }
+                    // $tarifcicilan=$tarif['tarif'];
+                }else{
+                    $iscicilan='0';
+                        $hutangin=0;
+                    // $tarifcicilan='0';
+                    $bayarin=$tarif['tarif'];
+                }
+                if($hutangin>0){
+                    $tagihmhs=$this->tagihdb->getdetailtagihanmhs($kodeinv,$v);
+                    // print_r($tagihmhs);
+                    $kodecicilan=$this->tagihdb->genkodecicilan($kodeinv,$v);
+                    // print_r($kodecicilan);
+                    $datacicilan=array(
+                        'nim'=>$tagihmhs['nim'],
+                        'kodetarifcicilan'=>$kodecicilan,
+                        'kodetagihan'=>$tagihmhs['kodetagihan'],
+                        'kodetarif'=>$tagihmhs['kodetarif'],
+                        'tarif'=>$tagihmhs['tarif'],
+                        'kodetarif'=>$tagihmhs['kodetarif'],
+                        'bayar'=>$bayarin,
+                        'sisahutang'=>$hutangin,
+                        'iscicilan'=>1,
+                        'isactive'=>1,
+                        'userid'=>userid(),
+                        'datetime'=>NOW(),
+                    );
+                    $this->db->insert('tagihan_cicilan',$datacicilan);
+                }else{
+                    $kodecicilan='';
+                    // $datacicilan[]=array();
+                }
+                $detail[]=array(
+                    // 'kodetarif'=>$v,
+                    'bayar'=>floatval($bayarin),
+                    // 'kodetagihan'=>$kodeinv,
+                    // 'iscicilan'=>$iscicilan,
+                    // 'tarif'=>floatval($tarif['tarif']),
+                    'kodetarifcicilan'=>$kodecicilan,
+                    'sisahutang'=>$hutangin,
+
+                );
+                // echo $this->db->affected_rows();
+                $this->db->update('tagihan_detail',$detail[$k],array('kodetarif'=>$v,'kodetagihan'=>$kodeinv));
+                // $jmlcicilan=count($datacicilan);
+                // echo $this->db->affected_rows();
+            }
+        echo "<pre>";
+            // print_r($detail);
+            print_r($datacicilan);
+            echo "</pre>";
+    }
+    function submitpay(){
+        if($this->__payval()===TRUE):
+            
+           
+            $this->vervalpay();
+           
+        else:
+            $this->__payval();
+        endif;
+    }
+    public function submit(){
         // print_r($this->__formvalidation());
         if($this->__formvalidation()===TRUE):
             $item=$this->input->post('tarif', TRUE);
