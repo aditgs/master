@@ -55,7 +55,7 @@ class Pmb extends MX_Controller {
     //log the user in
     function login()
     {
-        $this->data['title'] = "Login";
+        $this->data['title'] = "Register";
         $this->template->set_layout('home');
         //validate form input
         $this->form_validation->set_rules('identity', 'Identity', 'required');
@@ -78,22 +78,44 @@ class Pmb extends MX_Controller {
                 //
                 $module=$this->session->userdata('modules');
 
-                if($module=='inv'){
-                    redirect('inv','refresh'); 
-                    if(!empty($lihat)){
-                        redirect('inv/'.$lihat,'refresh');
-                    }
-                }else{
-                    if($this->ion_auth->in_group(1,2,3)){
-                        redirect('/', 'refresh');
+                // if($module=='inv'){
+                //     redirect('inv','refresh'); 
+                //     if(!empty($lihat)){
+                //         redirect('inv/'.$lihat,'refresh');
+                //     }
+                // }else{
+                    // basic pencabangan
+                    /*if($this->ion_auth->in_group(1,2,3)){
                     // redirect('/'.$lihat, 'refresh');
                     redirect(base_url('admin/bagian'), 'refresh');
                     }elseif($this->ion_auth->in_group(5)){
                         redirect(base_url('frontend'), 'refresh');
                     }else{
                         redirect('/', 'refresh');
+                    }*/
+                // }
+                if($this->ion_auth->in_group(1,2)){ //administrator/pimpinan
+                        redirect('/', 'refresh');
+                    
+                    // }elseif($this->ion_auth->in_group(6)){//administrasi keu/akad/pmb
+                        // redirect(base_url('sika/'), 'refresh');
+                    }elseif($this->ion_auth->in_group(11)){//administrasi keu/akad/pmb
+                        redirect(base_url('siku/'), 'refresh');
+                    }elseif($this->ion_auth->in_group(10)){//administrasi keu/akad/pmb
+                        redirect(base_url('pmb/'), 'refresh');
+                    }elseif($this->ion_auth->in_group(7)){//mahasiswa/calon/pendaftar
+                        redirect(base_url('sika/mhs'), 'refresh');
+                    }elseif($this->ion_auth->in_group(8)){//mahasiswa/calon/pendaftar
+                        redirect(base_url('pmb/cmhs'), 'refresh');
+                    }elseif($this->ion_auth->in_group(9)){//mahasiswa/calon/pendaftar
+                        redirect(base_url('pmb/pendaftar'), 'refresh');
+                    }elseif($this->ion_auth->in_group(3)){//mahasiswa/calon/pendaftar
+                        redirect(base_url('report/'), 'refresh');
+
+                    }else{
+                        redirect('/', 'refresh');
                     }
-                }
+
                 
                 
                                 
@@ -101,6 +123,10 @@ class Pmb extends MX_Controller {
             } else {
                 //if the login was un-successful
                 //redirect them back to the login page
+                echo json_encode(array('st'=>0,'msg'=>'<div class="alert alert-warning">
+            
+            <strong><i class="fa fa-warning"></i> Perhatian!</strong>Anda perlu login...
+        </div>'));
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
                 redirect('auth/pmb/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
             }
@@ -121,7 +147,7 @@ class Pmb extends MX_Controller {
                 'type' => 'password',
             );
 
-            // $this->data['view']='auth/pmb/index';
+            // $this->data['view']='auth/index';
             // $this->data['title']='Authentication';
             $this->_render_page('auth/pmb/login', $this->data);
             // $this->template->load_view('wrapper',$this->data);
