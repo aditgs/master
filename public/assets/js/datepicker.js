@@ -1,5 +1,5 @@
 $('.input-daterange,.tglvalidasi').datepicker({
-    format: "yyyy-mm-dd",
+    format: "dd/mm/yyyy",
     todayBtn: "linked",
     language: "id",
     multidate: false,
@@ -14,23 +14,14 @@ $('#tgl_kedaluarsa').datepicker({
     startDate:"+10d",
     
 });
-$('.input-daterange-id').datepicker({
- 
-    format: "dd-mm-yyyy",
- 
-    todayBtn: "linked",
- 
-    language: "id",
- 
-    multidate: false,
- 
-    calendarWeeks: true,
- 
-    autoclose: true,
- 
-    todayHighlight: true,
- 
-    orientation: "top"
- 
-});
+$('.input-tanggal').datepicker({
+     format: "dd-mm-yyyy",
+     todayBtn: "linked",
+     language: "id",
+     multidate: false,
+     calendarWeeks: true,
+     autoclose: true,
+     todayHighlight: true,
+     orientation: "top auto"
+ });
  
