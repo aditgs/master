@@ -556,7 +556,7 @@ class Pmb extends MX_Controller {
                 'phone'      => $this->input->post('phone'),
             );
         }
-        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $username, $additional_data))
+        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
         {
             $_SESSION['auth_message'] = 'Akun telah berhasil dibuat, Silahkan cek email anda';
             //check to see if we are creating the user
