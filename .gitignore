@@ -6,6 +6,8 @@
 dewantara112017/config/config.php
 dewantara112017/config/assets.php
 dewantara112017/config/database.php
+dewantara112017/config/ion_auth.php
+dewantara112017/modules/auth/views/pmb/email/activate.tpl.php
 dewantara112017/helpers/MY_url_helper.php
 dewantara112017/logs/*
 config/

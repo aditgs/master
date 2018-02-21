@@ -530,17 +530,13 @@ class Pmb extends MX_Controller {
     {
         $this->data['title'] = "Register_user";
 
-    /*    if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-        {
-            redirect('auth/pmb', 'refresh');
-        }
-*/
         $tables = $this->config->item('tables','ion_auth');
 
         //validate form input
         $this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required|xss_clean');
         $this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required|xss_clean');
         $this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
+        $this->form_validation->set_rules('username', $this->lang->line('create_user_validation_username_label'), 'required|is_unique['.$tables['users'].'.username]');
         $this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required|xss_clean');
       
         $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
@@ -550,6 +546,7 @@ class Pmb extends MX_Controller {
         {
             $username = strtolower($this->input->post('first_name')) . ' ' . strtolower($this->input->post('last_name'));
             $email    = strtolower($this->input->post('email'));
+            $username = $this->input->post('username');
             $password = $this->input->post('password');
 
             $additional_data = array(
@@ -561,6 +558,7 @@ class Pmb extends MX_Controller {
         }
         if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
         {
+            // $_SESSION['auth_message'] = 'Akun telah berhasil dibuat, Silahkan cek email anda';
             //check to see if we are creating the user
             //redirect them back to the admin page
             $this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -589,6 +587,12 @@ class Pmb extends MX_Controller {
                 'id'    => 'email',
                 'type'  => 'text',
                 'value' => $this->form_validation->set_value('email'),
+            );
+            $this->data['username'] = array(
+                'name'  => 'username',
+                'id'    => 'username',
+                'type'  => 'text',
+                'value' => $this->form_validation->set_value('username'),
             );
             $this->data['company'] = array(
                 'name'  => 'company',
