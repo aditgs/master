@@ -1,7 +1,15 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+
+
+if(!function_exists('tglid')){ 
+function tglid($date){
+    // $date = '25/05/2010 menjadi 25-05-2010';
+    $date = str_replace('/', '-', $date);
+    return date('Y-m-d', strtotime($date));
+}
+};
 if(!function_exists('tanggalindo')){ 
-function tanggalindo($tanggal, $cetak_hari = false) 
-{ 
+function tanggalindo($tanggal, $cetak_hari = false) { 
     $hari = array ( 1 =>    'Senin', 
                 'Selasa', 
                 'Rabu', 
