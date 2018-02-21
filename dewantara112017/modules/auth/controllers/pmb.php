@@ -558,7 +558,7 @@ class Pmb extends MX_Controller {
         }
         if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
         {
-            $_SESSION['auth_message'] = 'Akun telah berhasil dibuat, Silahkan cek email anda';
+            // $_SESSION['auth_message'] = 'Akun telah berhasil dibuat, Silahkan cek email anda';
             //check to see if we are creating the user
             //redirect them back to the admin page
             $this->session->set_flashdata('message', $this->ion_auth->messages());
