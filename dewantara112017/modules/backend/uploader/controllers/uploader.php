@@ -10,6 +10,16 @@ class Uploader extends MX_Controller {
         // $this->load->library('Ion_auth/Ion_auth');
         $this->load->helper(array('url'));
         $this->load->model('files/files_model','filesdb',TRUE);
+        if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('admin');
+            redirect('auth/login', 'refresh');
+        else:
+            if(!$this->ion_auth->in_group(array(1,2))){
+            // redirect('../site', 'refresh');
+            redirect('../auth/logout', 'refresh');
+
+            }
+        endif;
     }
     
 
