@@ -17,15 +17,15 @@ class Dashboard extends MX_Controller {
 	   
 
         $this->lang->load('auth');
+if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('admin');
+            redirect('auth/login', 'refresh');
+        else:
+            if(!$this->ion_auth->in_group(array(1,2))){
+            // redirect('../site', 'refresh');
+            redirect('../auth/logout', 'refresh');
 
-        if ( !$this->ion_auth->logged_in()): 
-
-            redirect('../auth/login', 'refresh');
-
-        // else:
-
-            // redirect($this->session->userdata('lihat'),'refresh');
-
+            }
         endif;
 
       
