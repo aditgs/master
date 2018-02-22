@@ -1,7 +1,9 @@
 $('.input-daterange,.tglvalidasi').datepicker({
     format: "dd/mm/yyyy",
+    // startDate: new Date(),
+    startDate: "01/01/1980",
     todayBtn: "linked",
-    language: "id",
+    language: "en",
     multidate: false,
     calendarWeeks: true,
     autoclose: true,
@@ -17,7 +19,7 @@ $('#tgl_kedaluarsa').datepicker({
 $('.input-tanggal').datepicker({
      format: "dd-mm-yyyy",
      todayBtn: "linked",
-     language: "id",
+     language: "en",
      multidate: false,
      calendarWeeks: true,
      autoclose: true,
