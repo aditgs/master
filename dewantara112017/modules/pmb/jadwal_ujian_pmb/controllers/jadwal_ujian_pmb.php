@@ -9,7 +9,14 @@ class jadwal_ujian_pmb extends MX_Controller {
         $this->load->model('siakad_jadwal_ujian_pmb_model','siakad_jadwal_ujian_pmbdb',TRUE);
         $this->session->set_userdata('lihat','jadwal_ujian_pmb');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('pmb');
             redirect('auth/login', 'refresh');
+        else:
+            if(!$this->ion_auth->in_group(array(10,1,2))){
+            // redirect('../site', 'refresh');
+            redirect('../auth/pmb/logout', 'refresh');
+
+            }
         endif;
 
            
