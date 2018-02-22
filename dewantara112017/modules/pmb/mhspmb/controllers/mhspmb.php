@@ -8,8 +8,14 @@ class mhspmb extends MX_Controller {
         $this->load->model('siakad_mhs_pmb_model','pmbdb',TRUE);
         $this->session->set_userdata('lihat','siakad_mhs_pmb');
         if ( !$this->ion_auth->logged_in()): 
-            echo pesan_login('pmb');
             redirect('auth/login', 'refresh');
+            echo pesan_login('pmb');
+        else:
+            if(!$this->ion_auth->in_group(array(10,1,2))){
+            redirect('../site', 'refresh');
+            // redirect('../auth/pmb/logout', 'refresh');
+
+            }
         endif;
 
            
