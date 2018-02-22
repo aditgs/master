@@ -12,7 +12,14 @@ class files extends MX_Controller {
         $this->load->helper(array('form','url'));
         $this->session->set_userdata('lihat','files');
         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('admin');
             redirect('auth/login', 'refresh');
+        else:
+            if(!$this->ion_auth->in_group(array(1,2))){
+            // redirect('../site', 'refresh');
+            redirect('../auth/logout', 'refresh');
+
+            }
         endif;
     }
 
