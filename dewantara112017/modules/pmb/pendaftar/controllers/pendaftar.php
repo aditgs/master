@@ -20,13 +20,13 @@ class Pendaftar extends MX_Controller {
 
         if ( !$this->ion_auth->logged_in()): 
             echo pesan_login('pmb');
+            redirect('auth/login', 'refresh');
+        else:
+            if(!$this->ion_auth->in_group(array(9,1,2))){
+            // redirect('../site', 'refresh');
+            redirect('../auth/pmb/logout', 'refresh');
 
-            redirect('../auth/login', 'refresh');
-
-        // else:
-
-            // redirect($this->session->userdata('lihat'),'refresh');
-
+            }
         endif;
 
 

@@ -8,9 +8,15 @@ class pmb extends MX_Controller {
         //Load IgnitedDatatables Library
         $this->load->model('pmb_model','pmbdb',TRUE);
         $this->session->set_userdata('lihat','pmb');
-        if ( !$this->ion_auth->logged_in()): 
+         if ( !$this->ion_auth->logged_in()): 
             echo pesan_login('pmb');
             redirect('auth/login', 'refresh');
+        else:
+            if(!$this->ion_auth->in_group(array(10,1,2))){
+            // redirect('../site', 'refresh');
+            redirect('../auth/pmb/logout', 'refresh');
+
+            }
         endif;
 
            

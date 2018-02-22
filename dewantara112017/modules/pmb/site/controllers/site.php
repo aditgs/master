@@ -20,8 +20,15 @@ class Site extends MX_Controller{
         
         // if(isset($this->session->userdata('modules')))
 
-        if ( !$this->ion_auth->logged_in()): 
-            redirect('../auth/pmb/login', 'refresh');
+         if ( !$this->ion_auth->logged_in()): 
+            echo pesan_login('pmb');
+            redirect('auth/login', 'refresh');
+        else:
+            if(!$this->ion_auth->in_group(array(10,1,2))){
+            // redirect('../site', 'refresh');
+            redirect('../auth/pmb/logout', 'refresh');
+
+            }
         endif;
 
 	}

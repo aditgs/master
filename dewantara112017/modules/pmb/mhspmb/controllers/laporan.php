@@ -10,9 +10,15 @@ class Laporan extends MX_Controller {
         $this->load->model('siakad_mhs_pmb_model','pmbdb',TRUE);
 		$this->load->model('laporan_pmb_model','lapordb',TRUE);
         // $this->load->model('mhsmaster/mhsmaster_model','mhsdb',TRUE);
-		if ( !$this->ion_auth->logged_in()): 
+		 if ( !$this->ion_auth->logged_in()): 
             echo pesan_login('pmb');
             redirect('auth/login', 'refresh');
+        else:
+            if(!$this->ion_auth->in_group(array(10,1,2))){
+            // redirect('../site', 'refresh');
+            redirect('../auth/pmb/logout', 'refresh');
+
+            }
         endif;
 	}
 	public function index()

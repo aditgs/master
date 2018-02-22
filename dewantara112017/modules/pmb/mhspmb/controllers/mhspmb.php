@@ -12,9 +12,8 @@ class mhspmb extends MX_Controller {
             echo pesan_login('pmb');
         else:
             if(!$this->ion_auth->in_group(array(10,1,2))){
-            redirect('../site', 'refresh');
-            // redirect('../auth/pmb/logout', 'refresh');
-
+            // redirect('../site', 'refresh');
+            redirect('../auth/pmb/logout', 'refresh');
             }
         endif;
 

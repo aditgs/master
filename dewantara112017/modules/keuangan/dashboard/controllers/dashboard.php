@@ -20,13 +20,12 @@ class Dashboard extends MX_Controller {
 
         if ( !$this->ion_auth->logged_in()): 
             echo pesan_login('siku');
-
-            redirect('../auth/login', 'refresh');
-
-        // else:
-
-            // redirect($this->session->userdata('lihat'),'refresh');
-
+            redirect('auth/login', 'refresh');
+        else:
+            if(!$this->ion_auth->in_group(array(1,2,3,11))){
+            // redirect('../site', 'refresh');
+            redirect('../auth/logout', 'refresh');
+            }
         endif;
 
       
