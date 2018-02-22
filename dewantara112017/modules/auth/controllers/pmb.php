@@ -55,7 +55,7 @@ class Pmb extends MX_Controller {
     //log the user in
     function login()
     {
-        $this->data['title'] = "Register";
+        $this->data['title'] = "Login";
         $this->template->set_layout('home');
         //validate form input
         $this->form_validation->set_rules('identity', 'Identity', 'required');
