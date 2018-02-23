@@ -38,7 +38,7 @@
             <?php echo bs_form_input($email);?>
         </p>
         <p>
-            <?php echo lang('create_user_username_label', 'username');?>
+            <?php echo lang('create_user_identity_label', 'username');?>
             <br />
         <?php echo bs_form_input($username);?>
         </p>
