@@ -22,8 +22,11 @@ class mhspmb extends MX_Controller {
         /*UNTUK KEPERLUAN FORM*/
         $this->template->add_js('accounting.min.js');
         $this->template->add_js('jquery.maskMoney.min.js');   
-        $this->template->add_css('plugins/datapicker/datepicker3.css');
-        $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
+        // $this->template->add_css('plugins/datapicker/datepicker3.css');
+        // $this->template->add_js('plugins/datapicker/bootstrap-datepicker.js');
+        $this->template->add_css('plugins/datepicker-bootstrap/bootstrap-datepicker3.min.css');
+        $this->template->add_js('plugins/datepicker-bootstrap/bootstrap-datepicker.min.js');
+        $this->template->add_js('plugins/datepicker-bootstrap/locales/bootstrap-datepicker.id.min.js');
         $this->template->add_js('plugins/select2/select2.min.js');
         $this->template->add_css('plugins/select2/select2.min.css');
         $this->template->add_css('plugins/select2/select2-bootstrap.min.css');
@@ -37,7 +40,8 @@ class mhspmb extends MX_Controller {
         $this->template->add_js('https://cdn.jsdelivr.net/jquery.maskmoney/3.0.2/jquery.maskMoney.min.js','cdn');
         $this->template->add_js('https://cdn.jsdelivr.net/accounting.js/0.3.2/accounting.min.js','cdn');*/
         
-        $this->template->add_js('datepicker.js'); //tanggal
+        // $this->template->add_js('datepicker.js'); //tanggal
+        $this->template->add_js('datepicker.0.1.js');
     }
 
  
