@@ -69,7 +69,7 @@
                             Tempat Tanggal Lahir
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                            : <?php echo $data['tmp_cmhs'].", ".$data['tgl_cmhs'] ?>
+                            : <?php echo $data['tmp_cmhs'].", ". thedate($data['tgl_cmhs']) ?>
                         </div>
                     </div>
 
