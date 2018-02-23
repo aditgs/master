@@ -251,6 +251,29 @@ class Tagihan_model extends CI_Model {
         } else {
             return array();
         }
+    }
+    function getdetailbayar($inv,$trf){
+
+        $this->db->select('kodetarifcicilan,nim,tarif,bayar,sisahutang'); //faktur
+        $this->db->where('kodetagihan',$inv);
+        $this->db->where('kodetarif',$trf);
+        $result=$this->db->get('tagihan_detail');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
+    } 
+    function gettotalbayar($inv){
+
+        $this->db->select('nim,kodetagihan,sum(tarif) as tottagihan,sum(bayar) as totbayar,sum(sisahutang) as tothutang'); //faktur
+        $this->db->where('kodetagihan',$inv);
+        $result=$this->db->get('tagihan_detail');
+        if ($result->num_rows() == 1) {
+            return $result->row_array();
+        } else {
+            return array();
+        }
     } 
     function gettotalcicilanbymhs($nim){
 
