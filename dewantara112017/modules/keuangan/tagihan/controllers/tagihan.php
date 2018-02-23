@@ -959,13 +959,22 @@ class Tagihan extends MX_Controller {
             echo $this->__formvalidation();
         endif;
     }
-    function __cekcicilan($inv,$trf){
+    function cekcicilan($inv,$trf){
         $cicilan=$this->tagihdb->gettotalcicilan($inv,$trf);
         $cicilanakhir=!empty($cicilan['totalbayar'])?$cicilan['totalbayar']:0;
         // print_r($cicilan);
         if(!empty($cicilan)){
 
             return $cicilanakhir;
+        }else{
+            return floatval(0);
+        }
+    }
+    function cekdetailbayar($inv,$trf){
+        $cekbayar=$this->tagihdb->getdetailbayar($inv,$trf);
+        $bayar=!empty($cekbayar['bayar'])?$cekbayar['bayar']:0;
+        if(!empty($cekbayar)){
+            return $bayar;
         }else{
             return floatval(0);
         }
@@ -979,44 +988,71 @@ class Tagihan extends MX_Controller {
  
         foreach ($kodetarif as $k => $v) {
                 # code...
+                // print_r($this->cekcicilan($kodeinv,$v));
+                // $cicilan=$this->tagihdb->gettarifcicilan($kodej);
                 $kodej=substr($v,4,2);
                 $tarif=$this->tagihdb->gettarifdetailbykode($v);
-                // print_r($this->__cekcicilan($kodeinv,$v));
-                $cicilanakhir=$this->__cekcicilan($kodeinv,$v);
-                // $cicilan=$this->tagihdb->gettarifcicilan($kodej);
+                $cicilanakhir=floatval($this->cekcicilan($kodeinv,$v));
+                //jika tarif tidak nol dan benar2 cicilan
                 if(!empty($tarif)&&$tarif['iscicilan']==1){
                     // print_r($cicilan['cicilan']);
                     $iscicilan='1';
                     $bayarin=$bayar[$k];
-                    if($bayarin<$tarif['tarif']){
-                        if($cicilanakhir<=0):
-                            $hutangin=$tarif['tarif']-$bayarin;
-                        else:
-                            if($cicilanakhir<$tarif['tarif']):
-                               if(($bayarin+$cicilanakhir)<$tarif['tarif']):
-                                    $hutangin=0;
-                               else:
-                               endif; 
-                                // $hutangin=$tarif['tarif']-($bayarin+$cicilanakhir);
-                            else:
+                    $tarife=$tarif['tarif'];
+                    $bayarcicilan=$bayarin+$cicilanakhir;
+                    if(!empty($tarife)||$tarife>0): //nek setingan tarife gak nol
+                        if($cicilanakhir<=0){       //nek cicilane nol
+                            $kudubayar=$bayarin;
+                            if($bayarin>$tarife){
+                                $sisabayar=$bayarin-$tarife;
                                 $hutangin=0;
-                            endif;
-                        endif;
-                    }else{
-                        $hutangin=0;
-                    }
-                    // $tarifcicilan=$tarif['tarif'];
+                            }else{
+                                $hutangin=$tarife-$bayarin;
+                                $sisabayar=0;
+
+                            }
+                        }elseif($cicilanakhir<$tarife){     //nek cicilan kurang 
+                            $sisabayar=0;
+                            //nek bayar saiki + cicilan terakhir sik kurang teko tarif
+                            //kudu bayar yo bener sing saiki, utange tarif-(bayarsaiki+cicil)
+                            if(($bayarcicilan)<$tarife){    
+                                $kudubayar=$bayarin;
+                                $hutangin=$tarife-($bayarcicilan);
+                            }elseif($bayarcicilan==$tarife){
+                                //nek bayar saiki + cicilan podo persis kro tarif
+                                // berarti kudu bayar bener bayar sing saiki, utange dadi nol
+                                $kudubayar=$bayarin;
+                                $hutangin=0;
+                            }else{
+                                // nek bayar saiki + cicilan akhir malah luwh akeh kro tarif
+                                // kudu sisabayar=bayarcicilan-tarife
+                                // bayar digawe podo kro tarif,hutangin nol, 
+                                $sisabayar=$bayarcicilan-$tarif['tarif'];
+                                $hutangin=0;
+                                $kudubayar=0;
+                            }
+                        }elseif($cicilanakhir=$tarife){     //nekcicilan podo
+                            $sisabayar=0;
+                            $hutangin=0;
+                            $kudubayar=0;
+
+                        }else{
+                            $sisabayar=$cicilanakhir-$tarife;
+                            $hutangin=0;
+                        }
+                    else:
+                        // tarif nol;
+                    endif;
                 }else{
                     $iscicilan='0';
-                        $hutangin=0;
+                    $hutangin=0;
+                    $sisabayar=0;
                     // $tarifcicilan='0';
                     $bayarin=$tarif['tarif'];
                 }
                 if($hutangin>0){
                     $tagihmhs=$this->tagihdb->getdetailtagihanmhs($kodeinv,$v);
-                    // print_r($tagihmhs);
                     $kodecicilan=$this->tagihdb->genkodecicilan($kodeinv,$v);
-                    // print_r($kodecicilan);
                     $datacicilan=array(
                         'nim'=>$tagihmhs['nim'],
                         'kodetarifcicilan'=>$kodecicilan,
@@ -1034,27 +1070,33 @@ class Tagihan extends MX_Controller {
                     $this->db->insert('tagihan_cicilan',$datacicilan);
                 }else{
                     $kodecicilan='';
-                    // $datacicilan[]=array();
+                    $datacicilan=array();
                 }
                 $detail[]=array(
                     // 'kodetarif'=>$v,
                     'bayar'=>floatval($bayarin),
                     // 'kodetagihan'=>$kodeinv,
-                    // 'iscicilan'=>$iscicilan,
+                    'iscicilan'=>$iscicilan,
                     // 'tarif'=>floatval($tarif['tarif']),
                     'kodetarifcicilan'=>$kodecicilan,
                     'sisahutang'=>$hutangin,
+                    'sisabayar'=>$sisabayar,
 
                 );
                 // echo $this->db->affected_rows();
                 $this->db->update('tagihan_detail',$detail[$k],array('kodetarif'=>$v,'kodetagihan'=>$kodeinv));
                 // $jmlcicilan=count($datacicilan);
                 // echo $this->db->affected_rows();
-            }
-        echo "<pre>";
-            // print_r($detail);
+                $datatagihan=array();
+            echo "<pre>";
+            // print_r($cicilanakhir);
+            // print_r($kudubayar);
+            // print_r($sisabayar);
+            // print_r($sisahutang);
+            print_r($detail);
             print_r($datacicilan);
             echo "</pre>";
+            }
     }
     function submitpay(){
         if($this->__payval()===TRUE):
