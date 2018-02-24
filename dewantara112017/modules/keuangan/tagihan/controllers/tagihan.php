@@ -447,9 +447,9 @@ class Tagihan extends MX_Controller {
     function formbayar($inv){
         $inv=base64_decode($inv);
         // print_r($inv);
-        $tagihan=$this->tagihdb->gettagihanmhs($inv);
-        // print_r($tagihan);
-        $html=$this->load->view('formbayartagihan',array('default'=>$tagihan),true);
+        $default=$this->tagihdb->gettagihanmhs($inv);
+        // print_r($default);
+        $html=$this->load->view('formbayartagihan',array('default'=>$default),true);
         $this->output->set_output($html);
 
     }
@@ -464,6 +464,16 @@ class Tagihan extends MX_Controller {
         $html=$this->load->view('formbayarcicilan',array('default'=>$tagihan),true);
         $this->output->set_output($html);
         // return $html;
+    }
+    function getinfocicilan(){
+        // $kode=base64_encode($this->input->post('kode'));
+        $kode=$this->input->post('kode');
+        $data=$this->tagihdb->getinfocicilan($kode);
+        // print_r($data);
+        $html=$this->load->view('tabelcicilan',array('data'=>$data),true);
+        $this->output->set_output($html);
+
+
     }
     function genkodecicilan($inv,$trf){
         $data=$this->tagihdb->getlastcicilan($inv,$trf);
@@ -974,13 +984,16 @@ class Tagihan extends MX_Controller {
             return floatval(0);
         }
     }
+    function iscicilan(){
+
+    }
     function vervalpay(){
         $kodetarif=$this->input->post('kodetarif');
         $bayar=$this->input->post('bayar');
         $kodeinv=$this->input->post('kode');
         $iscicilan='0';
         $i=1;
- 
+        // print_r($kodetarif);
         foreach ($kodetarif as $k => $v) {
                 # code...
                 // print_r($this->cekcicilan($kodeinv,$v));
@@ -989,6 +1002,9 @@ class Tagihan extends MX_Controller {
                 $tarif=$this->tagihdb->gettarifdetailbykode($v);
                 $cicilanakhir=floatval($this->cekcicilan($kodeinv,$v));
                 //jika tarif tidak nol dan benar2 cicilan
+              /*  echo "<pre>";
+                print_r($tarif);
+                echo "</pre>";*/
                 if(!empty($tarif)&&$tarif['iscicilan']==1){
                     // print_r($cicilan['cicilan']);
                     $iscicilan='1';
@@ -1045,6 +1061,12 @@ class Tagihan extends MX_Controller {
                     // $tarifcicilan='0';
                     $bayarin=$tarif['tarif'];
                 }
+                $islocked=1;
+                $terbayar=$this->tagihdb->getdetailbayar($kodeinv,$v);
+                $tbyarlunas=$terbayar['bayar'];
+                        $tbyarhutang=$terbayar['sisahutang'];
+                      
+            
                 if($hutangin>0){
                     $tagihmhs=$this->tagihdb->getdetailtagihanmhs($kodeinv,$v);
                     $kodecicilan=$this->tagihdb->genkodecicilan($kodeinv,$v);
@@ -1059,6 +1081,8 @@ class Tagihan extends MX_Controller {
                         'sisahutang'=>$hutangin,
                         'iscicilan'=>1,
                         'isactive'=>1,
+                        'islocked'=>1,
+                        'isbayar'=>1,
                         'userid'=>userid(),
                         'datetime'=>NOW(),
                     );
@@ -1072,6 +1096,7 @@ class Tagihan extends MX_Controller {
                     'bayar'=>floatval($bayarin),
                     // 'kodetagihan'=>$kodeinv,
                     'iscicilan'=>$iscicilan,
+                    'islocked'=>$islocked,
                     // 'tarif'=>floatval($tarif['tarif']),
                     'kodetarifcicilan'=>$kodecicilan,
                     'sisahutang'=>$hutangin,
@@ -1083,14 +1108,15 @@ class Tagihan extends MX_Controller {
                 // $jmlcicilan=count($datacicilan);
                 // echo $this->db->affected_rows();
                 $datatagihan=array();
-            echo "<pre>";
+            // echo "<pre>";
             // print_r($cicilanakhir);
             // print_r($kudubayar);
             // print_r($sisabayar);
             // print_r($sisahutang);
-            print_r($detail);
-            print_r($datacicilan);
-            echo "</pre>";
+            // print_r($detail);
+            // print_r($datacicilan);
+            // print_r($bayarin);
+            // echo "</pre>";
             }
     }
     function submitpay(){
@@ -1098,7 +1124,7 @@ class Tagihan extends MX_Controller {
             
            
             $this->vervalpay();
-           
+            echo json_encode(array('st'=>1,'msg'=>'Sukses'));
         else:
             $this->__payval();
         endif;
