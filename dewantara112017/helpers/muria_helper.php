@@ -8,6 +8,13 @@ function tglid($date){
     return date('Y-m-d', strtotime($date));
 }
 };
+if(!function_exists('tglen')){ 
+function tglen($date){
+    // $date = '25/05/2010 menjadi 25-05-2010';
+    $date = str_replace('-', '/', $date);
+    return date('Y/m/d', strtotime($date));
+}
+};
 if(!function_exists('tanggalindo')){ 
 function tanggalindo($tanggal, $cetak_hari = false) { 
     $hari = array ( 1 =>    'Senin', 
@@ -577,9 +584,10 @@ if ( ! function_exists('genfaktur'))
                 } 
                 $left=substr($last,$num,4); 
                 $right=substr($last,-4); 
-                $nopt=number_format($right);  
- 
-                $newpo=strval($nopt+1); 
+                $nopt=floatval($right);  
+                // print_r($nopt);
+                $newpo=floatval($nopt+1); 
+                // print_r($newpo);
                 $newpo2=substr(strval("0000$newpo"),-4); 
  
                 $tahun=substr($left,0,2); 
