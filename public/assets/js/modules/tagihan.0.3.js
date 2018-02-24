@@ -87,6 +87,11 @@ $(document).ready(function() {
         e.preventDefault();
         save(0);
     });  
+    $("body").on("click",'#savepay', function(e) {
+        e.preventDefault();
+        alert('halo');
+        savepay();
+    });  
     $("body ").on('click','#passform #saveval', function(e) {
         e.preventDefault();
         cekpass(0);
@@ -202,6 +207,23 @@ function save(id) {
     $(this).ready(function() {
         $.ajax({
             url: baseurl + "submit",
+            data: data,
+            async: false,
+            type: "POST",
+
+            success: function(data, status) {
+                handleSubmit(data);
+            }
+        });
+    });
+}
+function savepay() {
+    var data = $('body form#valform').serializeArray();
+    data.push({ name: 'ajax', value: 1 });
+
+    $(this).ready(function() {
+        $.ajax({
+            url: baseurl + "submitpay",
             data: data,
             async: false,
             type: "POST",

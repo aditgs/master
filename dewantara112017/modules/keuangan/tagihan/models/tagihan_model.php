@@ -221,6 +221,15 @@ class Tagihan_model extends CI_Model {
         }
     } 
     // untuk generasi faktur cicilan
+    function getinfocicilan($kode){
+        $this->db->select('*')->from('tagihan_cicilan')->like('kodetarifcicilan',$kode,'before');
+        $result=$this->db->get();
+        if ($result->num_rows()>0) {
+            return $result->result_array();
+        } else {
+            return array();
+        }
+    }
     function getlastcicilan($inv,$trf){
 
         $this->db->select('kodetarifcicilan,nim'); //faktur
