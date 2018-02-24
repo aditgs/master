@@ -89,7 +89,7 @@ $(document).ready(function() {
     });  
     $("body").on("click",'#savepay', function(e) {
         e.preventDefault();
-        alert('halo');
+        // alert('halo');
         savepay();
     });  
     $("body ").on('click','#passform #saveval', function(e) {

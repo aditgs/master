@@ -503,10 +503,22 @@ public function resize_image($file_path, $width, $height) {
         $this->load->view('siakad_mhs_pmb_form_inside');
            
     }
-
+    
+    
+    function tglen($date){
+         // print_r($date);
+$discount_start_date = '03/27/2012 18:47';    
+$start_date = date('Y/m-d H:i:s', strtotime($discount_start_date));
+return $start_date;
+    }
     public function get($id=null){
         if($id!==null){
-            echo json_encode($this->pmbdb->get_one($id));
+            $data=$this->pmbdb->get_one($id);
+            print_r($data);
+            $dt['tgl_transfer']=$this->tglen($data['tgl_transfer']);
+            $dt['tgl_cmhs']=$this->tglen($data['tgl_cmhs']);
+            $dt['tgl_ijazah_pend']=$this->tglen($data['tgl_ijazah_pend']);
+            echo json_encode($dt);
         }
     }
     function tables(){
@@ -543,6 +555,11 @@ public function resize_image($file_path, $width, $height) {
     }
     function getone($id){
         $data=$this->pmbdb->get_one($id);
+
+        $data['tgl_cmhs']=tglen($data['tgl_cmhs']);
+        $data['tgl_ijazah_pend']=tglen($data['tgl_ijazah_pend']);
+        $data['tgl_transfer']=tglen($data['tgl_transfer']);
+        
         $html=$this->load->view('view-detail-mhs',array('data'=>$data),true);
         $this->output->set_output($html);
     }
