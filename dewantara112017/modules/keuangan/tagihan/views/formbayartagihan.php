@@ -145,9 +145,7 @@
         }); 
         
     })
-    function handleCicilan(){
-
-    }
+  
     function getInfoCicilan(){
         // $('#modal-notif').modal('toggle');
         var kd=$(this).data('cicilan');
