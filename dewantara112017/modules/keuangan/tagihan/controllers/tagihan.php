@@ -188,6 +188,11 @@ class Tagihan extends MX_Controller {
         $id=$this->input->post('id');
         $this->tagihdb->updatestatus($id,$status);
     }
+    function genkode(){
+        $gen=$this->tagihdb->genfaktur();
+        print_r($gen);
+
+    }
     function getnewfaktur(){
         // echo base64_encode($this->genfaktur());
         echo $this->__getnewfaktur();
@@ -198,13 +203,13 @@ class Tagihan extends MX_Controller {
         $null=$this->tagihdb->ceknomornull();
         // print_r($null);
         if($null!=null||!empty($null)){
-            $faktur=$null['faktur']; //nama field perlu menyesuaikan tabel
+            $faktur=$null['kode']; //nama field perlu menyesuaikan tabel
             $id=$null['id'];
             $this->__updatestatproses($faktur);
         }else{
 
             $faktur=$this->tagihdb->genfaktur();
-            $data['Faktur']=$faktur; //nama field perlu menyesuaikan tabel
+            $data['kode']=$faktur; //nama field perlu menyesuaikan tabel
             $data['userid']=userid();
             $data['datetime']=date('Y-m-d H:m:s');
             $data['islocked']=1;
@@ -212,8 +217,8 @@ class Tagihan extends MX_Controller {
         }
        
         $session=array('new'=>false,'edit'=>true);
-        $nopo=array('faktur'=>$faktur,'idx'=>$id);
-        $default['faktur']=$faktur;
+        $nopo=array('kode'=>$faktur,'idx'=>$id);
+        $default['kode']=$faktur;
     
         return (json_encode($nopo));
         // return base64_encode(json_encode($nopo));
