@@ -153,6 +153,22 @@ function handleSubmit(data) {
     }
 
 }
+function handleSubmitPay(data) {
+    dx = JSON.parse(data);
+    if (dx.st == 1) {
+        // alert("Sukses"+dx.msg);
+        $('#modal-notif').modal('toggle');
+        $('#modal-id').modal('toggle');
+
+    } else {
+        $('#modal-alert').modal('toggle');
+        $('#modal-alert .modal-body').html(dx.msg);
+        $('#modal-id').modal('toggle');
+        // alert(dx.msg);
+
+    }
+
+}
 function toggleCicilan(data){
     // alert(inv);
     // alert(trf);
@@ -212,7 +228,7 @@ function save(id) {
             type: "POST",
 
             success: function(data, status) {
-                handleSubmit(data);
+                handleSubmitPay(data);
             }
         });
     });
