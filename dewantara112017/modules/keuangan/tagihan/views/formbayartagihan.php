@@ -143,11 +143,7 @@
             // e.preventDefault();
             getInfoCicilan();
         }); 
-         $("body").on("click",'#savepay', function(e) {
-            e.preventDefault();
-            // alert('halo');
-            savepay();
-        }); 
+        
     })
     function handleCicilan(){
 
