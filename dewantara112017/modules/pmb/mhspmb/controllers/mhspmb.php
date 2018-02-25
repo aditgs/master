@@ -655,6 +655,24 @@ function __formvalidation(){
             }
         }
     } 
+
+    public function database_backup(){
+        // Load the DB utility class
+        // $this->load->library('MY_DB_mysqli_utility');
+        $this->load->dbutil();
+        $db_format=array('format'=>'zip','filename'=>'db_backup.sql');
+        // Backup your entire database and assign it to a variable
+        $backup = $this->dbutil->backup($db_format);
+
+        // Load the file helper and write the file to your server
+        $this->load->helper('file');
+        write_file('/db_backup.zip', $backup);
+
+        // Load the download helper and send the file to your desktop
+        $this->load->helper('download');
+        force_download('db_backup.zip', $backup);
+
+    }
     
 
     
